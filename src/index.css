@@ -1,0 +1,182 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@variant dark (&:where(.dark, .dark *));
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: #0091EA;
+  color: #ffffff;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #fcfcfd;
+  color: #0f172a;
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+body.dark {
+  background-color: #030712;
+  color: #f8fafc;
+}
+
+/* Accessible focus styling */
+:focus-visible {
+  outline: 2px solid #0091EA;
+  outline-offset: 2px;
+}
+
+/* Custom Light Blue Animation Keyframes & Utility Classes */
+@keyframes blueGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(0, 145, 234, 0.25), 0 0 30px rgba(0, 145, 234, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(0, 145, 234, 0.5), 0 0 50px rgba(56, 189, 248, 0.3);
+  }
+}
+
+@keyframes lightBluePulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+}
+
+@keyframes floatSky {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes blueShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-blue-glow {
+  animation: blueGlow 3s infinite ease-in-out;
+}
+
+.animate-light-blue-pulse {
+  animation: lightBluePulse 2.5s infinite ease-in-out;
+}
+
+.animate-float-sky {
+  animation: floatSky 4s infinite ease-in-out;
+}
+
+.animate-shimmer-sky {
+  background: linear-gradient(90deg, rgba(0, 145, 234, 0.05) 0%, rgba(56, 189, 248, 0.25) 50%, rgba(0, 145, 234, 0.05) 100%);
+  background-size: 200% 100%;
+  animation: blueShimmer 3s infinite linear;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.glass-sky-card {
+  background: rgba(240, 249, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(186, 230, 253, 0.6);
+}
+
+body.dark .glass-sky-card {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(14, 165, 233, 0.3);
+}
+
+.bg-gradient-sky-glow {
+  background: linear-gradient(135deg, #0091EA 0%, #0284c7 50%, #0369a1 100%);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+body.dark ::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+body.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0091EA;
+}
+.scrollbar-hide::-webkit-scrollbar { display: none; } .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Enhanced touch targets and active state scaling feedback for mobile buttons */
+@media (max-width: 1024px) {
+  button, 
+  [role="button"],
+  select,
+  .mobile-touch-target {
+    min-height: 44px;
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s ease, opacity 0.15s ease;
+  }
+  
+  /* Do not force min-height on small inline toggle icons or tiny buttons */
+  button.inline-btn,
+  button.tiny-btn,
+  button[class*="p-1"],
+  button[class*="p-1.5"] {
+    min-height: unset;
+  }
+
+  /* Interactive tactile scaling feedback on touch */
+  button:active,
+  [role="button"]:active,
+  a.btn:active,
+  .mobile-touch-target:active {
+    transform: scale(0.97) !important;
+  }
+}
+

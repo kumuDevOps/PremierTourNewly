@@ -1,0 +1,6 @@
+{
+  "name": "Premier Tour Book",
+  "description": "A modern travel booking application for tours, hotels, flights, and car rentals.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
