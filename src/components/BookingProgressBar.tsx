@@ -140,7 +140,7 @@ export default function BookingProgressBar({
         {/* Animated active progress track line with light blue glow */}
         <motion.div
           initial={{ width: 0 }}
-          animate={{ width: `calc(${progressPercent}% - 0.5rem)` }}
+          animate={{ width: `${progressPercent}%` }}
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="absolute top-4 left-6 h-1.5 bg-gradient-to-r from-[#0091EA] via-sky-400 to-cyan-400 rounded-full z-0 shadow-md shadow-sky-500/40"
         ></motion.div>
