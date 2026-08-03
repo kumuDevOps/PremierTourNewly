@@ -22,7 +22,8 @@ import {
   Plus,
   Minus,
   User,
-  BedDouble
+  BedDouble,
+  Plane
 } from 'lucide-react';
 import { TravelPackage, Tour } from '../types.ts';
 import DatePicker from './DatePicker.tsx';
@@ -43,6 +44,8 @@ interface HomeViewProps {
   currentUser?: any;
   userProfile?: any;
 }
+
+import { HOTEL_PACKAGES, FLIGHT_PACKAGES } from '../data';
 
 export default function HomeView({ 
   setCurrentPage, 
@@ -121,6 +124,7 @@ export default function HomeView({
   // Dynamic tours
   const [tours, setTours] = useState<Tour[]>([]);
   const [hotels, setHotels] = useState<any[]>([]);
+  const [flights, setFlights] = useState<any[]>([]);
   const [currentHotelIndex, setCurrentHotelIndex] = useState(0);
   const [loadingPackages, setLoadingPackages] = useState(true);
   const [errorPackages, setErrorPackages] = useState('');
@@ -140,16 +144,50 @@ export default function HomeView({
             (tour.category && tour.category.toLowerCase().includes(query))
           );
       } else if (activeTab === 'hotels') {
-          suggestions = hotels.filter(hotel => 
-            (hotel.name && hotel.name.toLowerCase().includes(query)) || 
-            (hotel.location && hotel.location.toLowerCase().includes(query))
-          );
+          suggestions = HOTEL_PACKAGES.filter(pkg => 
+            pkg.title.toLowerCase().includes(query) || 
+            pkg.desc.toLowerCase().includes(query)
+          ).map(pkg => ({
+            id: pkg.title,
+            name: pkg.title,
+            location: 'Hotel Package',
+            imageUrl: pkg.img,
+            isPackage: true
+          }));
+      } else if (activeTab === 'flights') {
+          suggestions = flights.filter(flight => 
+            flight.airline.toLowerCase().includes(query) ||
+            flight.fromCity.toLowerCase().includes(query) ||
+            flight.toCity.toLowerCase().includes(query)
+          ).map(flight => ({
+            id: flight.id,
+            name: flight.airline,
+            location: `${flight.fromCity} - ${flight.toCity}`,
+            imageUrl: 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=100',
+            isPackage: false
+          }));
       }
       setFilteredSuggestions(suggestions);
+    } else if (activeTab === 'hotels') {
+        setFilteredSuggestions(HOTEL_PACKAGES.map(pkg => ({
+            id: pkg.title,
+            name: pkg.title,
+            location: 'Hotel Package',
+            imageUrl: pkg.img,
+            isPackage: true
+        })));
+    } else if (activeTab === 'flights') {
+        setFilteredSuggestions(flights.map(flight => ({
+            id: flight.id,
+            name: flight.airline,
+            location: `${flight.fromCity} - ${flight.toCity}`,
+            imageUrl: 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=100',
+            isPackage: false
+        })));
     } else {
-      setFilteredSuggestions([]);
+        setFilteredSuggestions([]);
     }
-  }, [searchGoingTo, tours, hotels, activeTab]);
+  }, [searchGoingTo, tours, hotels, flights, activeTab]);
 
   // Booking modal for tours
   const [selectedPackage, setSelectedPackage] = useState<Tour | null>(null);
@@ -186,9 +224,10 @@ export default function HomeView({
     setLoadingPackages(true);
     setErrorPackages('');
     try {
-      const [resTours, resHotels] = await Promise.all([
+      const [resTours, resHotels, resFlights] = await Promise.all([
         fetch('/api/tours'),
-        fetch('/api/hotels')
+        fetch('/api/hotels'),
+        fetch('/api/flights')
       ]);
 
       if (resTours.ok) {
@@ -201,6 +240,11 @@ export default function HomeView({
       if (resHotels.ok) {
         const dataHotels = await resHotels.json();
         setHotels(dataHotels);
+      }
+      
+      if (resFlights.ok) {
+        const dataFlights = await resFlights.json();
+        setFlights(dataFlights);
       }
     } catch (err) {
       console.error(err);
@@ -391,10 +435,10 @@ export default function HomeView({
             {activeTab === 'hotels' && (
               <div className="space-y-6">
                 {/* Hotels Search Fields */}
-                <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 xl:grid-cols-12 gap-4 items-stretch">
+                <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 items-stretch">
                   
                   {/* Field 1: Going To with Popular Destinations */}
-                  <div className="xl:col-span-4 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-left justify-center relative cursor-pointer shadow-sm">
+                  <div className="lg:col-span-4 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-left justify-center relative cursor-pointer shadow-sm">
                     <label className="text-[10px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-wider block">{translate('Going to')}</label>
                     <div className="relative flex items-center gap-2 mt-1">
                       <MapPin className="w-4 h-4 text-[#0091EA] shrink-0" />
@@ -417,17 +461,11 @@ export default function HomeView({
                         <div className="absolute top-[105%] ltr:left-0 rtl:right-0 w-[calc(100vw-2rem)] sm:w-full sm:min-w-[280px] max-w-sm bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border-2 border-sky-200/80 dark:border-sky-800/80 z-50 p-5 animate-fade-in text-left">
                           <p className="text-xs font-black text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-4 px-1">{translate('Available Hotels')}</p>
                           <div className="space-y-1">
-                            {[
-                              { city: 'Dubai', country: 'United Arab Emirates' },
-                              { city: 'Maldives', country: '' },
-                              { city: 'Bangkok', country: 'Thailand' },
-                              { city: 'Mauritius', country: '' },
-                              { city: 'London', country: 'United Kingdom' }
-                            ].map((dest, idx) => (
+                            {hotels.map((hotel, idx) => (
                               <div
-                                key={idx}
+                                key={hotel.id || idx}
                                 onClick={() => {
-                                  setSearchGoingTo(dest.country ? `${translate(dest.city)}, ${translate(dest.country)}` : translate(dest.city));
+                                  setSearchGoingTo(hotel.name);
                                   setDestinationDropdownOpen(false);
                                 }}
                                 className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-sky-50 dark:hover:bg-slate-700 transition-colors cursor-pointer group"
@@ -436,8 +474,8 @@ export default function HomeView({
                                   <MapPin className="w-4 h-4" />
                                 </div>
                                 <div>
-                                  <p className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#0091EA] transition-colors">{translate(dest.city)}</p>
-                                  {dest.country && <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">{translate(dest.country)}</p>}
+                                  <p className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#0091EA] transition-colors">{hotel.name}</p>
+                                  {hotel.location && <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">{hotel.location}</p>}
                                 </div>
                               </div>
                             ))}
@@ -448,7 +486,7 @@ export default function HomeView({
                   </div>
 
                   {/* Field 2: Check-in - Check-out Dates */}
-                  <div className="xl:col-span-4 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-3.5 flex flex-col text-left justify-center shadow-sm">
+                  <div className="lg:col-span-4 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-3.5 flex flex-col text-left justify-center shadow-sm">
                     <DateRangePicker
                       startDate={hotelCheckIn}
                       endDate={hotelCheckOut}
@@ -463,7 +501,7 @@ export default function HomeView({
                   </div>
 
                   {/* Field 3: Guests selector */}
-                  <div className="xl:col-span-2 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-left justify-center relative cursor-pointer shadow-sm">
+                  <div className="lg:col-span-2 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-left justify-center relative cursor-pointer shadow-sm">
                     <label className="text-[10px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-wider block">{translate('Guests')}</label>
                     <button
                       type="button"
@@ -579,7 +617,7 @@ export default function HomeView({
                   </div>
 
                   {/* Field 4: Search Button */}
-                  <div className="xl:col-span-2 flex items-center">
+                  <div className="lg:col-span-2 flex items-center">
                     <button
                       type="submit"
                       className="w-full h-14 bg-gradient-to-r from-[#0091EA] via-sky-500 to-cyan-400 text-white rounded-2xl font-black flex items-center justify-center gap-2 shadow-lg shadow-sky-500/25 transition-all hover:scale-[1.02] active:scale-[0.98] animate-light-blue-pulse cursor-pointer uppercase tracking-wider text-xs"
@@ -596,10 +634,10 @@ export default function HomeView({
             {activeTab === 'cars' && (
               <div className="space-y-6">
                 {/* Rent a Car Search Fields */}
-                <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 xl:grid-cols-12 gap-4 items-stretch">
+                <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 items-stretch">
                   
                   {/* Field 1: Pick-up Location */}
-                  <div className="xl:col-span-3 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-left justify-center relative cursor-pointer shadow-sm">
+                  <div className="lg:col-span-3 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-left justify-center relative cursor-pointer shadow-sm">
                     <label className="text-[10px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-wider block">{translate('Pick-up Location')}</label>
                     <div className="relative flex items-center gap-2 mt-1">
                       <MapPin className="w-4 h-4 text-[#0091EA] shrink-0" />
@@ -615,7 +653,7 @@ export default function HomeView({
                   </div>
 
                   {/* Field 2: Drop-off Location */}
-                  <div className="xl:col-span-3 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-left justify-center relative cursor-pointer shadow-sm">
+                  <div className="lg:col-span-3 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-left justify-center relative cursor-pointer shadow-sm">
                     <label className="text-[10px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-wider block">{translate('Drop-off Location')}</label>
                     <div className="relative flex items-center gap-2 mt-1">
                       <MapPin className="w-4 h-4 text-[#0091EA] shrink-0" />
@@ -630,7 +668,7 @@ export default function HomeView({
                   </div>
 
                   {/* Field 3: Rental Dates & Times */}
-                  <div className="xl:col-span-4 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-3.5 flex flex-col text-left justify-center shadow-sm">
+                  <div className="lg:col-span-4 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-3.5 flex flex-col text-left justify-center shadow-sm">
                     <DateRangePicker
                       startDate={carPickupDate}
                       endDate={carDropoffDate}
@@ -667,7 +705,7 @@ export default function HomeView({
                   </div>
 
                   {/* Field 4: Car Class / Category */}
-                  <div className="xl:col-span-2 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-left justify-center relative cursor-pointer shadow-sm">
+                  <div className="lg:col-span-2 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-left justify-center relative cursor-pointer shadow-sm">
                     <label className="text-[10px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-wider block">Car Class</label>
                     <button
                       type="button"
@@ -745,7 +783,7 @@ export default function HomeView({
                       className="w-full bg-transparent border-none outline-none focus:ring-0 text-xs md:text-sm font-bold text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
                     />
                   </div>
-                  {activeTab === 'flight-hotel' && searchDropdownOpen && filteredSuggestions.length > 0 && (
+                  {(activeTab === 'flight-hotel' || activeTab === 'flights') && searchDropdownOpen && filteredSuggestions.length > 0 && (
                     <>
                       <div className="fixed inset-0 z-30" onClick={() => setSearchDropdownOpen(false)} />
                       <div className="absolute top-[105%] ltr:left-0 rtl:right-0 w-[calc(100vw-2rem)] sm:w-full sm:min-w-[280px] max-w-sm bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-700 z-50 p-2 max-h-[300px] overflow-y-auto animate-fade-in text-left">
@@ -753,21 +791,27 @@ export default function HomeView({
                           <div 
                             key={`suggest-${activeTab}-${item.id}-${idx}`}
                             onClick={() => {
-                              setSearchGoingTo(activeTab === 'flight-hotel' ? item.title : item.name);
+                              setSearchGoingTo((activeTab === 'flight-hotel') ? item.title : item.name);
                               setSearchDropdownOpen(false);
                             }}
                             className="flex items-center gap-3 p-2 hover:bg-slate-50 dark:hover:bg-slate-700/50 rounded-xl cursor-pointer transition-colors"
                           >
-                            <img 
-                              src={item.imageUrl || 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=100'} 
-                              alt="" 
-                              className="w-12 h-12 rounded-lg object-cover bg-slate-100" 
-                              referrerPolicy="no-referrer"
-                              onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=100'; }}
-                            />
+                            {activeTab === 'flights' ? (
+                              <div className="w-12 h-12 bg-gradient-to-tr from-[#0091EA] via-sky-500 to-cyan-400 text-white rounded-lg flex items-center justify-center shrink-0">
+                                <Plane className="w-6 h-6" />
+                              </div>
+                            ) : (
+                              <img 
+                                src={item.imageUrl || 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=100'} 
+                                alt="" 
+                                className="w-12 h-12 rounded-lg object-cover bg-slate-100" 
+                                referrerPolicy="no-referrer"
+                                onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=100'; }}
+                              />
+                            )}
                             <div>
-                              <p className="text-sm font-bold text-slate-800 dark:text-slate-200 line-clamp-1">{translate(activeTab === 'flight-hotel' ? item.title : item.name)}</p>
-                              <p className="text-[10px] font-extrabold text-[#0091EA] uppercase mt-0.5">{translate(activeTab === 'flight-hotel' ? item.category : item.location)}</p>
+                              <p className="text-sm font-bold text-slate-800 dark:text-slate-200 line-clamp-1">{translate((activeTab === 'flight-hotel') ? item.title : item.name)}</p>
+                              <p className="text-[10px] font-extrabold text-[#0091EA] uppercase mt-0.5">{translate((activeTab === 'flight-hotel') ? item.category : item.location)}</p>
                             </div>
                           </div>
                         ))}
@@ -1073,7 +1117,8 @@ export default function HomeView({
                 {tours.slice(0, visibleToursCount).map((tour) => (
                   <div 
                     key={tour.id} 
-                    className="group relative bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 p-3 overflow-hidden shadow-xl shadow-sky-500/10 hover:shadow-2xl hover:shadow-sky-500/20 hover:border-[#0091EA] transition-all duration-300 animate-blue-glow flex flex-col h-[420px]"
+                    onClick={() => setCurrentPage('tour', { id: tour.id.toString() })}
+                    className="group relative bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 p-3 overflow-hidden shadow-xl shadow-sky-500/10 hover:shadow-2xl hover:shadow-sky-500/20 hover:border-[#0091EA] transition-all duration-300 animate-blue-glow flex flex-col h-[420px] cursor-pointer"
                   >
                     <div className="relative w-full h-[200px] rounded-[24px] overflow-hidden mb-4">
                       <img 

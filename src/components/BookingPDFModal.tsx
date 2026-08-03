@@ -82,6 +82,8 @@ export interface BookingVoucherData {
   // Financials
   pricePerUnit?: number;
   totalPrice: number;
+  hotelPrice?: number;
+  carPrice?: number;
   status: string;
   paymentMethod?: string;
   createdAt?: string;
@@ -475,9 +477,28 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
 
     // 6. PAYMENT SUMMARY & FARE BREAKDOWN TABLE
     const tableY = 187;
+    
+    // Amounts
+    const baseAmount = formatPrice(bookingData.totalPrice * 0.88);
+    const taxAmount = formatPrice(bookingData.totalPrice * 0.12);
+    const hotelAmount = bookingData.hotelPrice ? formatPrice(bookingData.hotelPrice) : null;
+    const carAmount = bookingData.carPrice ? formatPrice(bookingData.carPrice) : null;
+    const totalAmount = formatPrice(bookingData.totalPrice);
+
+    let currentY = tableY + 15;
+    
+    // Calculate content height
+    let contentHeight = 15; // Starting offset
+    contentHeight += 6; // Base rate
+    if (hotelAmount) contentHeight += 6;
+    if (carAmount) contentHeight += 6;
+    contentHeight += 6; // Taxes
+    contentHeight += 10; // Total
+    const tableHeight = contentHeight + 10;
+
     pdf.setDrawColor(203, 213, 225);
     pdf.setLineWidth(0.4);
-    pdf.roundedRect(margin, tableY, contentWidth, 36, 2.5, 2.5, 'S');
+    pdf.roundedRect(margin, tableY, contentWidth, tableHeight, 2.5, 2.5, 'S');
 
     // Header Bar
     pdf.setFillColor(241, 245, 249);
@@ -490,44 +511,62 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
     pdf.setTextColor(0, 145, 234);
     pdf.text('Paid via Stripe / Card', pageWidth - margin - 5, tableY + 5.5, { align: 'right' });
 
-    // Amounts
-    const baseAmount = formatPrice(bookingData.totalPrice * 0.88);
-    const taxAmount = formatPrice(bookingData.totalPrice * 0.12);
-    const totalAmount = formatPrice(bookingData.totalPrice);
-
     pdf.setTextColor(71, 85, 105);
     pdf.setFont('helvetica', 'normal');
     pdf.setFontSize(8);
-    pdf.text(`Base Rate / Fare (${bookingData.guestsCount || 1} Traveler / Unit)`, margin + 5, tableY + 15);
+    pdf.text(`Base Rate / Fare (${bookingData.guestsCount || 1} Traveler / Unit)`, margin + 5, currentY);
     pdf.setTextColor(15, 23, 42);
     pdf.setFont('helvetica', 'bold');
-    pdf.text(baseAmount, pageWidth - margin - 5, tableY + 15, { align: 'right' });
+    pdf.text(baseAmount, pageWidth - margin - 5, currentY, { align: 'right' });
+    currentY += 6;
+
+    if (hotelAmount) {
+      pdf.setTextColor(71, 85, 105);
+      pdf.setFont('helvetica', 'normal');
+      pdf.text('Hotel Accommodation Add-on', margin + 5, currentY);
+      pdf.setTextColor(15, 23, 42);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text(hotelAmount, pageWidth - margin - 5, currentY, { align: 'right' });
+      currentY += 6;
+    }
+
+    if (carAmount) {
+      pdf.setTextColor(71, 85, 105);
+      pdf.setFont('helvetica', 'normal');
+      pdf.text('Private Vehicle Rental Add-on', margin + 5, currentY);
+      pdf.setTextColor(15, 23, 42);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text(carAmount, pageWidth - margin - 5, currentY, { align: 'right' });
+      currentY += 6;
+    }
 
     pdf.setTextColor(71, 85, 105);
     pdf.setFont('helvetica', 'normal');
-    pdf.text('Taxes, Tourism Levies & Service Fees', margin + 5, tableY + 21);
+    pdf.text('Taxes, Tourism Levies & Service Fees', margin + 5, currentY);
     pdf.setTextColor(15, 23, 42);
     pdf.setFont('helvetica', 'bold');
-    pdf.text(taxAmount, pageWidth - margin - 5, tableY + 21, { align: 'right' });
-
+    pdf.text(taxAmount, pageWidth - margin - 5, currentY, { align: 'right' });
+    
+    currentY += 4;
     // Separator
     pdf.setDrawColor(226, 232, 240);
-    pdf.line(margin + 5, tableY + 25, pageWidth - margin - 5, tableY + 25);
-
+    pdf.line(margin + 5, currentY, pageWidth - margin - 5, currentY);
+    
+    currentY += 6.5;
     // Total
     pdf.setTextColor(15, 23, 42);
     pdf.setFont('helvetica', 'bold');
     pdf.setFontSize(9.5);
-    pdf.text('Total Amount Charged', margin + 5, tableY + 31.5);
+    pdf.text('Total Amount Charged', margin + 5, currentY);
 
     pdf.setTextColor(0, 145, 234);
     pdf.setFontSize(11.5);
     pdf.setFont('helvetica', 'bold');
-    pdf.text(totalAmount, pageWidth - margin - 5, tableY + 31.5, { align: 'right' });
+    pdf.text(totalAmount, pageWidth - margin - 5, currentY, { align: 'right' });
 
 
     // 7. TRAVELER INSTRUCTIONS & BARCODE
-    const footerY = 227;
+    const footerY = tableY + tableHeight + 5;
     pdf.setDrawColor(226, 232, 240);
     pdf.line(margin, footerY, pageWidth - margin, footerY);
 

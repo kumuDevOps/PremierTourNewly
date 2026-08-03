@@ -908,7 +908,8 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
                     return (
                       <div 
                         key={car.id} 
-                        className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 overflow-hidden shadow-xl shadow-sky-500/10 hover:shadow-2xl hover:shadow-sky-500/20 hover:border-[#0091EA] transition-all duration-300 group flex flex-col ltr:text-left rtl:text-right h-full relative animate-blue-glow"
+                        onClick={() => handleStartBooking(car)}
+                        className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 overflow-hidden shadow-xl shadow-sky-500/10 hover:shadow-2xl hover:shadow-sky-500/20 hover:border-[#0091EA] transition-all duration-300 group flex flex-col ltr:text-left rtl:text-right h-full relative animate-blue-glow cursor-pointer"
                       >
                         {/* Photo background */}
                         <div className="relative h-[210px] overflow-hidden bg-gray-100 dark:bg-slate-800">

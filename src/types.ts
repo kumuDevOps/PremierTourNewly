@@ -111,4 +111,5 @@ export interface ItineraryDay {
   day: number;
   title: string;
   desc: string;
+  shortDesc?: string;
 }

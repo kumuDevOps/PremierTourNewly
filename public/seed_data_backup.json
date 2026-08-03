@@ -8,16 +8,16 @@
       "email": "kumudevops@gmail.com",
       "phone": "779452625",
       "password_hash": "$2b$10$MDxftH6ABny4O5JnNpUpwOOvYrA3R/GinxQ8FSGtQWk5qMY.enVLu",
-      "role": "customer",
+      "role": "car_manager",
       "status": "active",
       "email_verified": true,
-      "profile_image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+      "profile_image": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&auto=format&fit=crop&q=80",
       "created_at": "2026-07-31T09:13:44.651Z",
-      "updated_at": "2026-07-31T10:50:52.642Z",
+      "updated_at": "2026-08-03T04:57:48.988Z",
       "login_attempts": 0,
       "verification_token": "7a9819db-9246-4751-a1ef-762b63409a72",
       "verification_token_expires": "2026-08-01T09:13:44.651Z",
-      "last_login": "2026-07-31T10:50:52.642Z"
+      "last_login": "2026-08-03T04:57:48.988Z"
     },
     {
       "id": "0d822bbb-91c7-4393-90b9-4bc8e699590f",
@@ -51,9 +51,9 @@
       "email_verified": true,
       "profile_image": "https://ui-avatars.com/api/?name=Admin%20Control&background=0091EA&color=ffffff",
       "created_at": "2026-07-31T10:56:00.883Z",
-      "updated_at": "2026-07-31T10:56:00.892Z",
+      "updated_at": "2026-08-03T07:27:20.497Z",
       "login_attempts": 0,
-      "last_login": "2026-07-31T10:56:00.892Z"
+      "last_login": "2026-08-03T07:27:20.497Z"
     }
   ],
   "profiles": [
@@ -100,7 +100,7 @@
       "fullName": "Kumu Dev",
       "email": "kumudevops@gmail.com",
       "phone": "779452625",
-      "role": "customer",
+      "role": "car_manager",
       "id": 4,
       "createdAt": "2026-07-31T09:13:44.675Z"
     },
@@ -124,6 +124,105 @@
     }
   ],
   "loginLogs": [
+    {
+      "id": "81735a5b-fb58-46b3-bd28-6cef0149a8fe",
+      "user_id": "ef9ed0c6-7b51-4002-a756-52855299dae9",
+      "email": "admin@gmail.com",
+      "ip_address": "127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "timestamp": "2026-08-03T07:27:20.519Z",
+      "status": "success"
+    },
+    {
+      "id": "f5e492f7-4ea4-4370-94ed-3a2856a55575",
+      "user_id": "ef9ed0c6-7b51-4002-a756-52855299dae9",
+      "email": "admin@gmail.com",
+      "ip_address": "127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "timestamp": "2026-08-03T06:30:12.861Z",
+      "status": "success"
+    },
+    {
+      "id": "b89115d2-abc5-4bda-9cbe-e066d996100b",
+      "user_id": "4a9d33b8-93d4-4568-ad57-a3bf39475797",
+      "email": "kumudevops@gmail.com",
+      "ip_address": "127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "timestamp": "2026-08-03T04:57:49.003Z",
+      "status": "success"
+    },
+    {
+      "id": "94847a85-1aaf-49c7-9332-dd6397bcf004",
+      "user_id": "4a9d33b8-93d4-4568-ad57-a3bf39475797",
+      "email": "kumudevops@gmail.com",
+      "ip_address": "127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "timestamp": "2026-08-03T04:57:32.207Z",
+      "status": "success"
+    },
+    {
+      "id": "79f37ac8-5cf6-48b0-8934-fd3792bc5a61",
+      "user_id": "ef9ed0c6-7b51-4002-a756-52855299dae9",
+      "email": "admin@gmail.com",
+      "ip_address": "127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "timestamp": "2026-08-03T04:40:38.336Z",
+      "status": "success"
+    },
+    {
+      "id": "f5bb825f-7791-4a82-9bbf-02794c96419a",
+      "user_id": "4a9d33b8-93d4-4568-ad57-a3bf39475797",
+      "email": "kumudevops@gmail.com",
+      "ip_address": "127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "timestamp": "2026-08-03T04:39:23.873Z",
+      "status": "success"
+    },
+    {
+      "id": "23833fc1-61d1-477b-8b4f-b5f7edf3d25f",
+      "user_id": "ef9ed0c6-7b51-4002-a756-52855299dae9",
+      "email": "admin@gmail.com",
+      "ip_address": "127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "timestamp": "2026-08-03T04:38:53.846Z",
+      "status": "success"
+    },
+    {
+      "id": "82949eee-d667-47be-81a1-d32487ce5ba9",
+      "user_id": "4a9d33b8-93d4-4568-ad57-a3bf39475797",
+      "email": "kumudevops@gmail.com",
+      "ip_address": "127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "timestamp": "2026-08-03T04:17:40.689Z",
+      "status": "success"
+    },
+    {
+      "id": "0d3e8e35-e80d-4e7e-b524-99cbd32de17e",
+      "user_id": "4a9d33b8-93d4-4568-ad57-a3bf39475797",
+      "email": "kumudevops@gmail.com",
+      "ip_address": "127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "timestamp": "2026-08-03T04:16:36.268Z",
+      "status": "failed"
+    },
+    {
+      "id": "fa61cdcc-8192-4fb8-ba45-fffbf4137056",
+      "user_id": "4a9d33b8-93d4-4568-ad57-a3bf39475797",
+      "email": "kumudevops@gmail.com",
+      "ip_address": "127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "timestamp": "2026-08-03T04:16:28.239Z",
+      "status": "failed"
+    },
+    {
+      "id": "3ebbed62-860e-403e-86ca-66f332c758eb",
+      "user_id": "4a9d33b8-93d4-4568-ad57-a3bf39475797",
+      "email": "kumudevops@gmail.com",
+      "ip_address": "127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "timestamp": "2026-08-03T04:16:19.498Z",
+      "status": "failed"
+    },
     {
       "id": "87718df7-41c8-486e-ab7b-ccf08883df70",
       "user_id": "ef9ed0c6-7b51-4002-a756-52855299dae9",
@@ -219,139 +318,29 @@
     }
   ],
   "wishlist": [],
-  "packages": [],
-  "tours": [
+  "packages": [
     {
       "id": 1,
-      "title": "Sigiriya & Dambulla Heritage Tour",
-      "description": "Explore the ancient rock fortress and cave temples.",
-      "imageUrl": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200",
-      "duration": "1 Day",
-      "price": 120,
-      "category": "Heritage Tours",
-      "maxGuests": 15,
-      "status": "Active",
-      "itinerary": "[{\"day\":1,\"title\":\"Departure\",\"description\":\"Leave Colombo at 6:00 AM.\"},{\"day\":1,\"title\":\"Sigiriya Rock\",\"description\":\"Climb the ancient rock fortress.\"},{\"day\":1,\"title\":\"Dambulla Cave Temple\",\"description\":\"Visit the magnificent cave temple complex.\"}]",
-      "createdAt": "2024-01-01T00:00:00Z"
+      "title": "Sri Lanka Grand Luxury Escape",
+      "category": "Luxury",
+      "duration": "10 Days / 9 Nights",
+      "price": 2450,
+      "imageUrl": "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?w=800&q=80",
+      "description": "Experience the ultimate luxury journey across Sri Lanka from private helicopter tours to 5-star beachfront resorts.",
+      "createdAt": "2026-08-03T06:30:24.943Z"
     },
     {
       "id": 2,
-      "title": "The Classic Sri Lankan Tour",
-      "description": "Discover the true essence of Sri Lanka in this 14-day comprehensive journey. Locations: Colombo, Sigiriya, Kandy, Nuwara Eliya, Yala, Galle",
-      "imageUrl": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200",
-      "duration": "14 Days",
-      "price": 1450,
-      "category": "Round Tours",
-      "maxGuests": 10,
-      "status": "Active",
-      "itinerary": "[{\"day\":1,\"title\":\"Arrival in Colombo\",\"description\":\"Airport pickup and transfer to Colombo hotel. City tour in the evening.\"},{\"day\":2,\"title\":\"Colombo to Sigiriya\",\"description\":\"Drive to the Cultural Triangle. En route visit Pinnawala Elephant Orphanage.\"},{\"day\":3,\"title\":\"Sigiriya & Polonnaruwa\",\"description\":\"Morning climb of Sigiriya Rock Fortress. Afternoon visit to ancient Polonnaruwa.\"},{\"day\":4,\"title\":\"Sigiriya to Kandy\",\"description\":\"Visit Dambulla Cave Temple and a Spice Garden en route to Kandy.\"},{\"day\":5,\"title\":\"Kandy City Tour\",\"description\":\"Visit the Temple of the Sacred Tooth Relic, Peradeniya Botanical Gardens, and enjoy a cultural dance show.\"},{\"day\":6,\"title\":\"Kandy to Nuwara Eliya\",\"description\":\"Scenic drive to Nuwara Eliya through tea plantations. Visit a tea factory.\"},{\"day\":7,\"title\":\"Horton Plains & Train Ride\",\"description\":\"Early morning trek at Horton Plains. Afternoon scenic train ride from Nanu Oya to Ella.\"},{\"day\":8,\"title\":\"Ella Sightseeing\",\"description\":\"Visit Nine Arch Bridge, Little Adam's Peak, and Ravana Falls.\"},{\"day\":9,\"title\":\"Ella to Yala\",\"description\":\"Drive to Yala. Afternoon jeep safari in Yala National Park.\"},{\"day\":10,\"title\":\"Yala to Mirissa\",\"description\":\"Transfer to the southern coast. Relax on Mirissa beach.\"},{\"day\":11,\"title\":\"Whale Watching\",\"description\":\"Early morning whale watching tour. Afternoon at leisure.\"},{\"day\":12,\"title\":\"Mirissa to Galle\",\"description\":\"Visit the historic Galle Fort, a UNESCO World Heritage site.\"},{\"day\":13,\"title\":\"Galle to Negombo\",\"description\":\"Transfer to Negombo for your final night. Farewell dinner.\"},{\"day\":14,\"title\":\"Departure\",\"description\":\"Transfer to Colombo airport for your departure flight.\"}]",
-      "createdAt": "2026-07-23T10:07:31.389Z"
-    },
-    {
-      "id": 3,
-      "title": "Sri Lanka Wildlife Safari",
-      "description": "An adventurous journey through the best national parks. Locations: Wilpattu, Minneriya, Yala, Udawalawe",
-      "imageUrl": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200",
-      "duration": "8 Days",
-      "price": 950,
-      "category": "Wildlife Tours",
-      "maxGuests": 6,
-      "status": "Active",
-      "itinerary": "[{\"day\":1,\"title\":\"Arrival & Wilpattu\",\"description\":\"Transfer to Wilpattu National Park.\"},{\"day\":2,\"title\":\"Wilpattu Safari\",\"description\":\"Full day jeep safari in Wilpattu looking for leopards.\"},{\"day\":3,\"title\":\"Wilpattu to Minneriya\",\"description\":\"Drive to Minneriya. Afternoon elephant gathering safari.\"},{\"day\":4,\"title\":\"Minneriya to Yala\",\"description\":\"Transfer to Yala National Park.\"},{\"day\":5,\"title\":\"Yala Safari\",\"description\":\"Morning and afternoon safaris in Yala.\"},{\"day\":6,\"title\":\"Yala to Udawalawe\",\"description\":\"Transfer to Udawalawe. Afternoon safari.\"},{\"day\":7,\"title\":\"Udawalawe to Colombo\",\"description\":\"Visit Elephant Transit Home, then drive to Colombo.\"},{\"day\":8,\"title\":\"Departure\",\"description\":\"Airport transfer.\"}]",
-      "createdAt": "2026-07-23T10:07:31.389Z"
-    },
-    {
-      "id": 4,
-      "title": "Romantic Honeymoon Escapade",
-      "description": "A perfect romantic getaway featuring luxury and privacy. Locations: Kandy, Nuwara Eliya, Bentota",
-      "imageUrl": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200",
-      "duration": "10 Days",
-      "price": 1800,
-      "category": "Honeymoon",
-      "maxGuests": 2,
-      "status": "Active",
-      "itinerary": "[{\"day\":1,\"title\":\"Arrival\",\"description\":\"Welcome to Sri Lanka. Transfer to luxury boutique hotel in Kandy.\"},{\"day\":2,\"title\":\"Kandy Romance\",\"description\":\"Private city tour and sunset walk around Kandy Lake.\"},{\"day\":3,\"title\":\"Scenic Train\",\"description\":\"First-class train journey to the misty hills of Nuwara Eliya.\"},{\"day\":4,\"title\":\"Tea Country\",\"description\":\"Private tea tasting and romantic dinner in the hills.\"},{\"day\":5,\"title\":\"To the Beach\",\"description\":\"Transfer to a luxury beach resort in Bentota.\"},{\"day\":6,\"title\":\"Beach Relaxation\",\"description\":\"Couples spa treatment and candlelit dinner on the beach.\"},{\"day\":7,\"title\":\"Water Sports\",\"description\":\"Enjoy a river safari or water sports on the Madu River.\"},{\"day\":8,\"title\":\"Galle Fort Excursion\",\"description\":\"Day trip to historic Galle Fort.\"},{\"day\":9,\"title\":\"Leisure\",\"description\":\"Last full day to relax by the Indian Ocean.\"},{\"day\":10,\"title\":\"Departure\",\"description\":\"Private transfer to the airport.\"}]",
-      "createdAt": "2026-07-23T10:07:31.389Z"
-    },
-    {
-      "id": 5,
-      "title": "Cultural Heritage Explorer",
-      "description": "Dive deep into the ancient history of Sri Lanka. Locations: Anuradhapura, Polonnaruwa, Sigiriya, Kandy",
-      "imageUrl": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200",
-      "duration": "7 Days",
-      "price": 850,
-      "category": "Heritage Tours",
-      "maxGuests": 12,
-      "status": "Active",
-      "itinerary": "[{\"day\":1,\"title\":\"Arrival & Negombo\",\"description\":\"Rest and acclimatize in Negombo.\"},{\"day\":2,\"title\":\"Anuradhapura\",\"description\":\"Explore the first ancient capital and its massive stupas.\"},{\"day\":3,\"title\":\"Polonnaruwa\",\"description\":\"Visit the second ancient capital and Gal Vihara.\"},{\"day\":4,\"title\":\"Sigiriya\",\"description\":\"Climb the Lion Rock fortress.\"},{\"day\":5,\"title\":\"Dambulla & Kandy\",\"description\":\"Cave temples and arrival in the cultural capital.\"},{\"day\":6,\"title\":\"Kandy\",\"description\":\"Temple of the Tooth and cultural show.\"},{\"day\":7,\"title\":\"Departure\",\"description\":\"Return to Colombo/Airport.\"}]",
-      "createdAt": "2026-07-23T10:07:31.389Z"
-    },
-    {
-      "id": 6,
-      "title": "East Coast Beach Paradise",
-      "description": "Discover the pristine, untouched beaches of the East. Locations: Trincomalee, Pasikudah, Arugam Bay",
-      "imageUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
-      "duration": "12 Days",
-      "price": 1200,
-      "category": "Beach Holidays",
-      "maxGuests": 8,
-      "status": "Active",
-      "itinerary": "[{\"day\":1,\"title\":\"Arrival\",\"description\":\"Transfer to Habarana for an overnight stay.\"},{\"day\":2,\"title\":\"To Trincomalee\",\"description\":\"Drive to the beautiful east coast.\"},{\"day\":3,\"title\":\"Pigeon Island\",\"description\":\"Snorkeling tour at Pigeon Island National Park.\"},{\"day\":4,\"title\":\"Trincomalee\",\"description\":\"Visit Koneswaram Temple and relax on Nilaveli beach.\"},{\"day\":5,\"title\":\"Pasikudah\",\"description\":\"Transfer to Pasikudah known for its shallow, calm waters.\"},{\"day\":6,\"title\":\"Pasikudah Leisure\",\"description\":\"Full day beach relaxation.\"},{\"day\":7,\"title\":\"Arugam Bay\",\"description\":\"Transfer to the surfing capital of Arugam Bay.\"},{\"day\":8,\"title\":\"Surfing & Safari\",\"description\":\"Morning surfing, afternoon safari at Kumana National Park.\"},{\"day\":9,\"title\":\"Arugam Bay Leisure\",\"description\":\"Enjoy the laid-back surfer vibe.\"},{\"day\":10,\"title\":\"Drive South\",\"description\":\"Scenic drive along the southern coast to Tangalle.\"},{\"day\":11,\"title\":\"Galle to Colombo\",\"description\":\"Visit Galle Fort and return to Colombo.\"},{\"day\":12,\"title\":\"Departure\",\"description\":\"Airport transfer.\"}]",
-      "createdAt": "2026-07-23T10:07:31.389Z"
-    },
-    {
-      "id": 7,
-      "title": "Sri Lanka Tea Trail & Hiking",
-      "description": "A journey through the emerald tea estates and mountain peaks. Locations: Kandy, Nuwara Eliya, Hatton, Adam's Peak",
-      "imageUrl": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200",
-      "duration": "9 Days",
-      "price": 1100,
-      "category": "Adventure",
-      "maxGuests": 6,
-      "status": "Active",
-      "itinerary": "[{\"day\":1,\"title\":\"Arrival\",\"description\":\"Transfer to Kandy.\"},{\"day\":2,\"title\":\"Knuckles Mountain Range\",\"description\":\"Full day hike in the Knuckles range.\"},{\"day\":3,\"title\":\"Kandy to Hatton\",\"description\":\"Scenic train ride to the heart of tea country.\"},{\"day\":4,\"title\":\"Adam's Peak\",\"description\":\"Midnight climb to reach the summit for sunrise (seasonal).\"},{\"day\":5,\"title\":\"Rest in Nuwara Eliya\",\"description\":\"Recover and relax in the cool climate.\"},{\"day\":6,\"title\":\"Horton Plains\",\"description\":\"Trek to World's End.\"},{\"day\":7,\"title\":\"Ella\",\"description\":\"Hike Little Adam's Peak and Ella Rock.\"},{\"day\":8,\"title\":\"Return to Colombo\",\"description\":\"Long scenic drive back to the capital.\"},{\"day\":9,\"title\":\"Departure\",\"description\":\"Airport transfer.\"}]",
-      "createdAt": "2026-07-23T10:07:31.389Z"
-    },
-    {
-      "id": 8,
-      "title": "Luxury Wellness Retreat",
-      "description": "Rejuvenate your mind and body with Ayurveda and Yoga. Locations: Weligama, Koggala",
-      "imageUrl": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
-      "duration": "7 Days",
-      "price": 2200,
-      "category": "Wellness",
-      "maxGuests": 4,
-      "status": "Active",
-      "itinerary": "[{\"day\":1,\"title\":\"Arrival\",\"description\":\"Helicopter or luxury vehicle transfer to wellness resort.\"},{\"day\":2,\"title\":\"Ayurveda Consultation\",\"description\":\"Meeting with the doctor and first treatments.\"},{\"day\":3,\"title\":\"Yoga & Meditation\",\"description\":\"Daily sessions overlooking the ocean.\"},{\"day\":4,\"title\":\"Detox\",\"description\":\"Specialized dietary plan and spa therapies.\"},{\"day\":5,\"title\":\"Mindfulness Walk\",\"description\":\"Guided nature walk and continued treatments.\"},{\"day\":6,\"title\":\"Rejuvenation\",\"description\":\"Final intensive therapies.\"},{\"day\":7,\"title\":\"Departure\",\"description\":\"Refreshed and ready to head home.\"}]",
-      "createdAt": "2026-07-23T10:07:31.389Z"
-    },
-    {
-      "id": 9,
-      "title": "Elite Sanctuary Ayurveda & Yoga",
-      "description": "Unwind and detox in a premium, world-renowned coastal wellness sanctuary. Locations: Weligama, Galle, Mirissa",
-      "imageUrl": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80",
-      "duration": "5 Days",
-      "price": 1500,
-      "category": "Wellness",
-      "maxGuests": 4,
-      "status": "Active",
-      "itinerary": "[{\"day\":1,\"title\":\"Arrival & Weligama\",\"description\":\"Helicopter transfer to the elite resort. Personalized Ayurveda physician consultation.\"},{\"day\":2,\"title\":\"Sunrise Yoga & Detox\",\"description\":\"Sunrise yoga on private beach followed by herbal body scrub and specialized diet.\"},{\"day\":3,\"title\":\"Sound Bath Healing\",\"description\":\"Chakra balancing and Tibetan sound bowl therapy in a tropical forest pavilion.\"},{\"day\":4,\"title\":\"Galle Fort Exploration\",\"description\":\"Slow mindful tour of the historic Galle Fort, followed by sunset yacht cruise.\"},{\"day\":5,\"title\":\"Depart Refreshed\",\"description\":\"Final rejuvenation bath and premium departure transfer to the airport.\"}]",
-      "createdAt": "2026-07-23T10:07:31.389Z"
-    },
-    {
-      "id": 10,
-      "title": "Misty Hills Meditation & Tea Spa",
-      "description": "Re-center your mind amidst misty green tea fields with private spiritual guides and luxury eco-lodges. Locations: Ella, Hatton, Nuwara Eliya",
-      "imageUrl": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200",
-      "duration": "6 Days",
-      "price": 1650,
-      "category": "Wellness",
-      "maxGuests": 2,
-      "status": "Active",
-      "itinerary": "[{\"day\":1,\"title\":\"Misty Hillside Arrival\",\"description\":\"Arrive at a sectltesuded luxury mountain lodge in Ella. Evening meditation under the stars.\"},{\"day\":2,\"title\":\"Hatton Tea Country Spa\",\"description\":\"Travel to Hatton. Restorative massage with organic green tea oils and hot stone therapy.\"},{\"day\":3,\"title\":\"Mindfulness Forest Walk\",\"description\":\"Guided slow walk through ancient cloud forests. Breathe in pure mountain air.\"},{\"day\":4,\"title\":\"Waterfalls & Yoga\",\"description\":\"Yoga session overlooking Ravana Falls. Evening tea tasting and herbal diet.\"},{\"day\":5,\"title\":\"Nuwara Eliya Golf & Spa\",\"description\":\"Relaxing golf therapy or thermal pools in the historic hill country. Traditional High Tea.\"},{\"day\":6,\"title\":\"Spiritual Departures\",\"description\":\"Depart with a customized mental clarity guide and premium private vehicle.\"}]",
-      "createdAt": "2026-07-23T10:07:31.389Z"
+      "title": "Tropical Wildlife & Beach Safari",
+      "category": "Safari",
+      "duration": "7 Days / 6 Nights",
+      "price": 1680,
+      "imageUrl": "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80",
+      "description": "Discover Yala leopards, blue whales of Mirissa, and pristine coastal sanctuaries.",
+      "createdAt": "2026-08-03T06:30:24.955Z"
     }
   ],
+  "tours": [],
   "flights": [
     {
       "airline": "Qatar Airways (QR 668)",
@@ -416,7 +405,7 @@
       "seats": 9,
       "transmission": "Automatic",
       "pricePerDay": 80,
-      "imageUrl": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "/uploads/1785237026125-643.jpg",
       "status": "Available",
       "id": 1,
       "createdAt": "2026-07-27T04:36:58.258Z"
@@ -427,7 +416,7 @@
       "seats": 7,
       "transmission": "Automatic",
       "pricePerDay": 70,
-      "imageUrl": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "/uploads/1785237019634-8.jpg",
       "status": "Available",
       "id": 2,
       "createdAt": "2026-07-27T04:37:30.960Z"
@@ -438,7 +427,7 @@
       "seats": 20,
       "transmission": "Automatic",
       "pricePerDay": 200,
-      "imageUrl": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "/uploads/1785237012391-221.jpg",
       "status": "Available",
       "id": 3,
       "createdAt": "2026-07-27T04:37:53.100Z"
@@ -449,7 +438,7 @@
       "seats": 30,
       "transmission": "Automatic",
       "pricePerDay": 250,
-      "imageUrl": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "/uploads/1785237006019-334.jpg",
       "status": "Available",
       "id": 4,
       "createdAt": "2026-07-27T04:38:32.326Z"
@@ -460,7 +449,7 @@
       "seats": 5,
       "transmission": "Automatic",
       "pricePerDay": 100,
-      "imageUrl": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "/uploads/1785236996673-37.jpg",
       "status": "Available",
       "id": 5,
       "createdAt": "2026-07-27T04:38:49.750Z"
@@ -471,7 +460,7 @@
       "seats": 4,
       "transmission": "Automatic",
       "pricePerDay": 50,
-      "imageUrl": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "/uploads/1785236990012-31.jpg",
       "status": "Available",
       "id": 6,
       "createdAt": "2026-07-27T04:39:08.259Z"
@@ -589,7 +578,8 @@
         "Luxury Spa",
         "Fitness Center"
       ],
-      "description": "Experience luxury in the heart of Colombo with world-class dining and amenities."
+      "description": "Experience luxury in the heart of Colombo with world-class dining and amenities.",
+      "createdAt": "2026-07-30T08:43:24.444Z"
     },
     {
       "id": "hotel-sl-2",
@@ -605,7 +595,8 @@
         "Nature Views"
       ],
       "description": "An eco-hotel designed by Geoffrey Bawa, blending seamlessly into the lush jungle.",
-      "starRating": 5
+      "starRating": 5,
+      "createdAt": "2026-07-30T08:43:24.444Z"
     },
     {
       "id": "hotel-sl-3",
@@ -620,7 +611,8 @@
         "Luxury Spa",
         "Golf Course"
       ],
-      "description": "A sprawling luxury resort on the southern coast offering endless activities and relaxation."
+      "description": "A sprawling luxury resort on the southern coast offering endless activities and relaxation.",
+      "createdAt": "2026-07-30T08:43:24.444Z"
     },
     {
       "id": "hotel-sl-4",
@@ -636,7 +628,46 @@
         "Swimming Pool",
         "Luxury Spa"
       ],
-      "description": "Breathtaking views of the Indian Ocean with world-class hospitality."
+      "description": "Breathtaking views of the Indian Ocean with world-class hospitality.",
+      "createdAt": "2026-07-30T08:43:24.444Z"
+    },
+    {
+      "name": "Araliya Green Hills",
+      "location": "Nuwara Eliya",
+      "price": 170,
+      "starRating": 5,
+      "description": "Elegant mountain retreat in Sri Lanka's hill country with cool weather and scenic landscapes.",
+      "amenities": [
+        "Free WiFi",
+        "Swimming Pool",
+        "Spa",
+        "Fitness Center",
+        "Restaurant",
+        "Air Conditioning",
+        "Room Service"
+      ],
+      "imageUrl": "/uploads/1785404257321-90.jpg",
+      "id": 5,
+      "createdAt": "2026-07-30T09:37:46.563Z"
+    },
+    {
+      "name": "EKHO Sigiriya",
+      "location": "Dambulla",
+      "price": 150,
+      "starRating": 5,
+      "description": "Boutique luxury hotel with breathtaking views of Sigiriya Rock Fortress and tranquil surroundings.",
+      "amenities": [
+        "Free WiFi",
+        "Swimming Pool",
+        "Spa",
+        "Fitness Center",
+        "Restaurant",
+        "Air Conditioning",
+        "Room Service"
+      ],
+      "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+      "id": 6,
+      "createdAt": "2026-07-30T09:38:25.156Z"
     }
   ],
   "hotelBookings": [],
@@ -716,9 +747,623 @@
       "comment": "ssdjsdhshbdks",
       "createdAt": "2026-07-31T10:55:14.308Z",
       "id": 1785494981007
+    },
+    {
+      "id": "rev-1785731530855-95",
+      "author": "kumudevops@gmail.com",
+      "location": "Colombo, Sri Lanka",
+      "flag": "🇱🇰",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=kumudevops%40gmail.com",
+      "tourName": "Luxury Sri Lanka Grand Tour • 14 Days",
+      "rating": 5,
+      "date": "August 2026",
+      "category": "honeymoon",
+      "title": "sssssssssss",
+      "comment": "sssssssssssssssssss",
+      "photos": [
+        "/uploads/avatar_1785731528715_mwh2g5.jpeg"
+      ],
+      "helpfulCount": 0,
+      "verified": true,
+      "userEmail": "kumudevops@gmail.com",
+      "createdAt": "2026-08-03T04:32:10.873Z"
     }
   ],
   "snapshots": [
+    {
+      "id": "snap_1785731934385",
+      "createdAt": "2026-08-03T08:24:28.017Z",
+      "trigger": "realtime_view_trigger",
+      "counts": {
+        "tours": 10,
+        "hotels": 6,
+        "flights": 5,
+        "packages": 2,
+        "cars": 6,
+        "blogs": 11
+      },
+      "data": {
+        "tours": [
+          {
+            "id": 1,
+            "title": "Sigiriya & Dambulla Heritage Tour",
+            "description": "Explore the ancient rock fortress and cave temples.",
+            "imageUrl": "/uploads/1785236982142-194.jpg",
+            "duration": "1 Day",
+            "price": 120,
+            "category": "Heritage Tours",
+            "maxGuests": 15,
+            "status": "Active",
+            "itinerary": "[{\"day\":1,\"title\":\"Departure\",\"description\":\"Leave Colombo at 6:00 AM.\"},{\"day\":1,\"title\":\"Sigiriya Rock\",\"description\":\"Climb the ancient rock fortress.\"},{\"day\":1,\"title\":\"Dambulla Cave Temple\",\"description\":\"Visit the magnificent cave temple complex.\"}]",
+            "createdAt": "2024-01-01T00:00:00Z",
+            "galleryImages": "[\"https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800\",\"https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800\",\"https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800\",\"https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800\"]"
+          },
+          {
+            "id": 2,
+            "title": "The Classic Sri Lankan Tour",
+            "description": "Discover the true essence of Sri Lanka in this 14-day comprehensive journey. Locations: Colombo, Sigiriya, Kandy, Nuwara Eliya, Yala, Galle",
+            "imageUrl": "/uploads/1785236971595-137.jpg",
+            "duration": "14 Days",
+            "price": 1450,
+            "category": "Round Tours",
+            "maxGuests": 10,
+            "status": "Active",
+            "itinerary": "[{\"day\":1,\"title\":\"Arrival in Colombo\",\"description\":\"Airport pickup and transfer to Colombo hotel. City tour in the evening.\"},{\"day\":2,\"title\":\"Colombo to Sigiriya\",\"description\":\"Drive to the Cultural Triangle. En route visit Pinnawala Elephant Orphanage.\"},{\"day\":3,\"title\":\"Sigiriya & Polonnaruwa\",\"description\":\"Morning climb of Sigiriya Rock Fortress. Afternoon visit to ancient Polonnaruwa.\"},{\"day\":4,\"title\":\"Sigiriya to Kandy\",\"description\":\"Visit Dambulla Cave Temple and a Spice Garden en route to Kandy.\"},{\"day\":5,\"title\":\"Kandy City Tour\",\"description\":\"Visit the Temple of the Sacred Tooth Relic, Peradeniya Botanical Gardens, and enjoy a cultural dance show.\"},{\"day\":6,\"title\":\"Kandy to Nuwara Eliya\",\"description\":\"Scenic drive to Nuwara Eliya through tea plantations. Visit a tea factory.\"},{\"day\":7,\"title\":\"Horton Plains & Train Ride\",\"description\":\"Early morning trek at Horton Plains. Afternoon scenic train ride from Nanu Oya to Ella.\"},{\"day\":8,\"title\":\"Ella Sightseeing\",\"description\":\"Visit Nine Arch Bridge, Little Adam's Peak, and Ravana Falls.\"},{\"day\":9,\"title\":\"Ella to Yala\",\"description\":\"Drive to Yala. Afternoon jeep safari in Yala National Park.\"},{\"day\":10,\"title\":\"Yala to Mirissa\",\"description\":\"Transfer to the southern coast. Relax on Mirissa beach.\"},{\"day\":11,\"title\":\"Whale Watching\",\"description\":\"Early morning whale watching tour. Afternoon at leisure.\"},{\"day\":12,\"title\":\"Mirissa to Galle\",\"description\":\"Visit the historic Galle Fort, a UNESCO World Heritage site.\"},{\"day\":13,\"title\":\"Galle to Negombo\",\"description\":\"Transfer to Negombo for your final night. Farewell dinner.\"},{\"day\":14,\"title\":\"Departure\",\"description\":\"Transfer to Colombo airport for your departure flight.\"}]",
+            "createdAt": "2026-07-23T10:07:31.389Z",
+            "galleryImages": "[\"https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800\",\"https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800\",\"https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800\",\"https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800\"]"
+          },
+          {
+            "id": 3,
+            "title": "Sri Lanka Wildlife Safari",
+            "description": "An adventurous journey through the best national parks. Locations: Wilpattu, Minneriya, Yala, Udawalawe",
+            "imageUrl": "/uploads/1785236960667-317.jpg",
+            "duration": "8 Days",
+            "price": 950,
+            "category": "Wildlife Tours",
+            "maxGuests": 6,
+            "status": "Active",
+            "itinerary": "[{\"day\":1,\"title\":\"Arrival & Wilpattu\",\"description\":\"Transfer to Wilpattu National Park.\"},{\"day\":2,\"title\":\"Wilpattu Safari\",\"description\":\"Full day jeep safari in Wilpattu looking for leopards.\"},{\"day\":3,\"title\":\"Wilpattu to Minneriya\",\"description\":\"Drive to Minneriya. Afternoon elephant gathering safari.\"},{\"day\":4,\"title\":\"Minneriya to Yala\",\"description\":\"Transfer to Yala National Park.\"},{\"day\":5,\"title\":\"Yala Safari\",\"description\":\"Morning and afternoon safaris in Yala.\"},{\"day\":6,\"title\":\"Yala to Udawalawe\",\"description\":\"Transfer to Udawalawe. Afternoon safari.\"},{\"day\":7,\"title\":\"Udawalawe to Colombo\",\"description\":\"Visit Elephant Transit Home, then drive to Colombo.\"},{\"day\":8,\"title\":\"Departure\",\"description\":\"Airport transfer.\"}]",
+            "createdAt": "2026-07-23T10:07:31.389Z",
+            "galleryImages": "[\"https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800\",\"https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800\",\"https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800\",\"https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800\"]"
+          },
+          {
+            "id": 4,
+            "title": "Romantic Honeymoon Escapade",
+            "description": "A perfect romantic getaway featuring luxury and privacy. Locations: Kandy, Nuwara Eliya, Bentota",
+            "imageUrl": "/uploads/1785236951584-607.jpg",
+            "duration": "10 Days",
+            "price": 1800,
+            "category": "Honeymoon",
+            "maxGuests": 2,
+            "status": "Active",
+            "itinerary": "[{\"day\":1,\"title\":\"Arrival\",\"description\":\"Welcome to Sri Lanka. Transfer to luxury boutique hotel in Kandy.\"},{\"day\":2,\"title\":\"Kandy Romance\",\"description\":\"Private city tour and sunset walk around Kandy Lake.\"},{\"day\":3,\"title\":\"Scenic Train\",\"description\":\"First-class train journey to the misty hills of Nuwara Eliya.\"},{\"day\":4,\"title\":\"Tea Country\",\"description\":\"Private tea tasting and romantic dinner in the hills.\"},{\"day\":5,\"title\":\"To the Beach\",\"description\":\"Transfer to a luxury beach resort in Bentota.\"},{\"day\":6,\"title\":\"Beach Relaxation\",\"description\":\"Couples spa treatment and candlelit dinner on the beach.\"},{\"day\":7,\"title\":\"Water Sports\",\"description\":\"Enjoy a river safari or water sports on the Madu River.\"},{\"day\":8,\"title\":\"Galle Fort Excursion\",\"description\":\"Day trip to historic Galle Fort.\"},{\"day\":9,\"title\":\"Leisure\",\"description\":\"Last full day to relax by the Indian Ocean.\"},{\"day\":10,\"title\":\"Departure\",\"description\":\"Private transfer to the airport.\"}]",
+            "createdAt": "2026-07-23T10:07:31.389Z",
+            "galleryImages": "[\"https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800\",\"https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800\",\"https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800\",\"https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800\"]"
+          },
+          {
+            "id": 5,
+            "title": "Cultural Heritage Explorer",
+            "description": "Dive deep into the ancient history of Sri Lanka. Locations: Anuradhapura, Polonnaruwa, Sigiriya, Kandy",
+            "imageUrl": "/uploads/1785236938654-576.jpg",
+            "duration": "7 Days",
+            "price": 850,
+            "category": "Heritage Tours",
+            "maxGuests": 12,
+            "status": "Active",
+            "itinerary": "[{\"day\":1,\"title\":\"Arrival & Negombo\",\"description\":\"Rest and acclimatize in Negombo.\"},{\"day\":2,\"title\":\"Anuradhapura\",\"description\":\"Explore the first ancient capital and its massive stupas.\"},{\"day\":3,\"title\":\"Polonnaruwa\",\"description\":\"Visit the second ancient capital and Gal Vihara.\"},{\"day\":4,\"title\":\"Sigiriya\",\"description\":\"Climb the Lion Rock fortress.\"},{\"day\":5,\"title\":\"Dambulla & Kandy\",\"description\":\"Cave temples and arrival in the cultural capital.\"},{\"day\":6,\"title\":\"Kandy\",\"description\":\"Temple of the Tooth and cultural show.\"},{\"day\":7,\"title\":\"Departure\",\"description\":\"Return to Colombo/Airport.\"}]",
+            "createdAt": "2026-07-23T10:07:31.389Z",
+            "galleryImages": "[\"https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800\",\"https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800\",\"https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800\",\"https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800\"]"
+          },
+          {
+            "id": 6,
+            "title": "East Coast Beach Paradise",
+            "description": "Discover the pristine, untouched beaches of the East. Locations: Trincomalee, Pasikudah, Arugam Bay",
+            "imageUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+            "duration": "12 Days",
+            "price": 1200,
+            "category": "Beach Holidays",
+            "maxGuests": 8,
+            "status": "Active",
+            "itinerary": "[{\"day\":1,\"title\":\"Arrival\",\"description\":\"Transfer to Habarana for an overnight stay.\"},{\"day\":2,\"title\":\"To Trincomalee\",\"description\":\"Drive to the beautiful east coast.\"},{\"day\":3,\"title\":\"Pigeon Island\",\"description\":\"Snorkeling tour at Pigeon Island National Park.\"},{\"day\":4,\"title\":\"Trincomalee\",\"description\":\"Visit Koneswaram Temple and relax on Nilaveli beach.\"},{\"day\":5,\"title\":\"Pasikudah\",\"description\":\"Transfer to Pasikudah known for its shallow, calm waters.\"},{\"day\":6,\"title\":\"Pasikudah Leisure\",\"description\":\"Full day beach relaxation.\"},{\"day\":7,\"title\":\"Arugam Bay\",\"description\":\"Transfer to the surfing capital of Arugam Bay.\"},{\"day\":8,\"title\":\"Surfing & Safari\",\"description\":\"Morning surfing, afternoon safari at Kumana National Park.\"},{\"day\":9,\"title\":\"Arugam Bay Leisure\",\"description\":\"Enjoy the laid-back surfer vibe.\"},{\"day\":10,\"title\":\"Drive South\",\"description\":\"Scenic drive along the southern coast to Tangalle.\"},{\"day\":11,\"title\":\"Galle to Colombo\",\"description\":\"Visit Galle Fort and return to Colombo.\"},{\"day\":12,\"title\":\"Departure\",\"description\":\"Airport transfer.\"}]",
+            "createdAt": "2026-07-23T10:07:31.389Z"
+          },
+          {
+            "id": 7,
+            "title": "Sri Lanka Tea Trail & Hiking",
+            "description": "A journey through the emerald tea estates and mountain peaks. Locations: Kandy, Nuwara Eliya, Hatton, Adam's Peak",
+            "imageUrl": "/uploads/1785236923708-980.jpg",
+            "duration": "9 Days",
+            "price": 1100,
+            "category": "Adventure",
+            "maxGuests": 6,
+            "status": "Active",
+            "itinerary": "[{\"day\":1,\"title\":\"Arrival\",\"description\":\"Transfer to Kandy.\"},{\"day\":2,\"title\":\"Knuckles Mountain Range\",\"description\":\"Full day hike in the Knuckles range.\"},{\"day\":3,\"title\":\"Kandy to Hatton\",\"description\":\"Scenic train ride to the heart of tea country.\"},{\"day\":4,\"title\":\"Adam's Peak\",\"description\":\"Midnight climb to reach the summit for sunrise (seasonal).\"},{\"day\":5,\"title\":\"Rest in Nuwara Eliya\",\"description\":\"Recover and relax in the cool climate.\"},{\"day\":6,\"title\":\"Horton Plains\",\"description\":\"Trek to World's End.\"},{\"day\":7,\"title\":\"Ella\",\"description\":\"Hike Little Adam's Peak and Ella Rock.\"},{\"day\":8,\"title\":\"Return to Colombo\",\"description\":\"Long scenic drive back to the capital.\"},{\"day\":9,\"title\":\"Departure\",\"description\":\"Airport transfer.\"}]",
+            "createdAt": "2026-07-23T10:07:31.389Z",
+            "galleryImages": "[\"https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800\",\"https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800\",\"https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800\",\"https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800\"]"
+          },
+          {
+            "id": 8,
+            "title": "Luxury Wellness Retreat",
+            "description": "Rejuvenate your mind and body with Ayurveda and Yoga. Locations: Weligama, Koggala",
+            "imageUrl": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+            "duration": "7 Days",
+            "price": 2200,
+            "category": "Wellness",
+            "maxGuests": 4,
+            "status": "Active",
+            "itinerary": "[{\"day\":1,\"title\":\"Arrival\",\"description\":\"Helicopter or luxury vehicle transfer to wellness resort.\"},{\"day\":2,\"title\":\"Ayurveda Consultation\",\"description\":\"Meeting with the doctor and first treatments.\"},{\"day\":3,\"title\":\"Yoga & Meditation\",\"description\":\"Daily sessions overlooking the ocean.\"},{\"day\":4,\"title\":\"Detox\",\"description\":\"Specialized dietary plan and spa therapies.\"},{\"day\":5,\"title\":\"Mindfulness Walk\",\"description\":\"Guided nature walk and continued treatments.\"},{\"day\":6,\"title\":\"Rejuvenation\",\"description\":\"Final intensive therapies.\"},{\"day\":7,\"title\":\"Departure\",\"description\":\"Refreshed and ready to head home.\"}]",
+            "createdAt": "2026-07-23T10:07:31.389Z"
+          },
+          {
+            "id": 9,
+            "title": "Elite Sanctuary Ayurveda & Yoga",
+            "description": "Unwind and detox in a premium, world-renowned coastal wellness sanctuary. Locations: Weligama, Galle, Mirissa",
+            "imageUrl": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80",
+            "duration": "5 Days",
+            "price": 1500,
+            "category": "Wellness",
+            "maxGuests": 4,
+            "status": "Active",
+            "itinerary": "[{\"day\":1,\"title\":\"Arrival & Weligama\",\"description\":\"Helicopter transfer to the elite resort. Personalized Ayurveda physician consultation.\"},{\"day\":2,\"title\":\"Sunrise Yoga & Detox\",\"description\":\"Sunrise yoga on private beach followed by herbal body scrub and specialized diet.\"},{\"day\":3,\"title\":\"Sound Bath Healing\",\"description\":\"Chakra balancing and Tibetan sound bowl therapy in a tropical forest pavilion.\"},{\"day\":4,\"title\":\"Galle Fort Exploration\",\"description\":\"Slow mindful tour of the historic Galle Fort, followed by sunset yacht cruise.\"},{\"day\":5,\"title\":\"Depart Refreshed\",\"description\":\"Final rejuvenation bath and premium departure transfer to the airport.\"}]",
+            "createdAt": "2026-07-23T10:07:31.389Z"
+          },
+          {
+            "id": 10,
+            "title": "Misty Hills Meditation & Tea Spa",
+            "description": "Re-center your mind amidst misty green tea fields with private spiritual guides and luxury eco-lodges. Locations: Ella, Hatton, Nuwara Eliya",
+            "imageUrl": "/uploads/1785236895726-119.jpg",
+            "duration": "6 Days",
+            "price": 1650,
+            "category": "Wellness",
+            "maxGuests": 2,
+            "status": "Active",
+            "itinerary": "[{\"day\":1,\"title\":\"Misty Hillside Arrival\",\"description\":\"Arrive at a sectltesuded luxury mountain lodge in Ella. Evening meditation under the stars.\"},{\"day\":2,\"title\":\"Hatton Tea Country Spa\",\"description\":\"Travel to Hatton. Restorative massage with organic green tea oils and hot stone therapy.\"},{\"day\":3,\"title\":\"Mindfulness Forest Walk\",\"description\":\"Guided slow walk through ancient cloud forests. Breathe in pure mountain air.\"},{\"day\":4,\"title\":\"Waterfalls & Yoga\",\"description\":\"Yoga session overlooking Ravana Falls. Evening tea tasting and herbal diet.\"},{\"day\":5,\"title\":\"Nuwara Eliya Golf & Spa\",\"description\":\"Relaxing golf therapy or thermal pools in the historic hill country. Traditional High Tea.\"},{\"day\":6,\"title\":\"Spiritual Departures\",\"description\":\"Depart with a customized mental clarity guide and premium private vehicle.\"}]",
+            "createdAt": "2026-07-23T10:07:31.389Z",
+            "galleryImages": "[\"https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800\",\"https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800\",\"https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800\",\"https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800\"]"
+          }
+        ],
+        "hotels": [
+          {
+            "id": "hotel-sl-1",
+            "name": "Cinnamon Grand Colombo",
+            "location": "Colombo, Sri Lanka",
+            "price": 150,
+            "rating": 5,
+            "imageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=80",
+            "amenities": [
+              "Wi-Fi",
+              "Swimming Pool",
+              "Luxury Spa",
+              "Fitness Center"
+            ],
+            "description": "Experience luxury in the heart of Colombo with world-class dining and amenities.",
+            "createdAt": "2026-07-30T08:43:24.444Z"
+          },
+          {
+            "id": "hotel-sl-2",
+            "name": "Heritance Kandalama",
+            "location": "Dambulla, Sri Lanka",
+            "price": 200,
+            "rating": 5,
+            "imageUrl": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200",
+            "amenities": [
+              "Wi-Fi",
+              "Breakfast Included",
+              "Swimming Pool",
+              "Nature Views"
+            ],
+            "description": "An eco-hotel designed by Geoffrey Bawa, blending seamlessly into the lush jungle.",
+            "starRating": 5,
+            "createdAt": "2026-07-30T08:43:24.444Z"
+          },
+          {
+            "id": "hotel-sl-3",
+            "name": "Shangri-La Hambantota",
+            "location": "Hambantota, Sri Lanka",
+            "price": 250,
+            "rating": 5,
+            "imageUrl": "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80",
+            "amenities": [
+              "Beachfront",
+              "Swimming Pool",
+              "Luxury Spa",
+              "Golf Course"
+            ],
+            "description": "A sprawling luxury resort on the southern coast offering endless activities and relaxation.",
+            "createdAt": "2026-07-30T08:43:24.444Z"
+          },
+          {
+            "id": "hotel-sl-4",
+            "name": "Taj Bentota Resort & Spa",
+            "location": "Bentota, Sri Lanka",
+            "price": 180,
+            "rating": 5,
+            "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+            "amenities": [
+              "Beachfront",
+              "Wi-Fi",
+              "Breakfast Included",
+              "Swimming Pool",
+              "Luxury Spa"
+            ],
+            "description": "Breathtaking views of the Indian Ocean with world-class hospitality.",
+            "createdAt": "2026-07-30T08:43:24.444Z"
+          },
+          {
+            "name": "Araliya Green Hills",
+            "location": "Nuwara Eliya",
+            "price": 170,
+            "starRating": 5,
+            "description": "Elegant mountain retreat in Sri Lanka's hill country with cool weather and scenic landscapes.",
+            "amenities": [
+              "Free WiFi",
+              "Swimming Pool",
+              "Spa",
+              "Fitness Center",
+              "Restaurant",
+              "Air Conditioning",
+              "Room Service"
+            ],
+            "imageUrl": "/uploads/1785404257321-90.jpg",
+            "id": 5,
+            "createdAt": "2026-07-30T09:37:46.563Z"
+          },
+          {
+            "name": "EKHO Sigiriya",
+            "location": "Dambulla",
+            "price": 150,
+            "starRating": 5,
+            "description": "Boutique luxury hotel with breathtaking views of Sigiriya Rock Fortress and tranquil surroundings.",
+            "amenities": [
+              "Free WiFi",
+              "Swimming Pool",
+              "Spa",
+              "Fitness Center",
+              "Restaurant",
+              "Air Conditioning",
+              "Room Service"
+            ],
+            "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+            "id": 6,
+            "createdAt": "2026-07-30T09:38:25.156Z"
+          }
+        ],
+        "flights": [
+          {
+            "airline": "Qatar Airways (QR 668)",
+            "fromCity": "Doha (DOH)",
+            "toCity": "Colombo (CMB), Sri Lanka",
+            "departureTime": "18:50",
+            "arrivalTime": "02:10 (+1)",
+            "price": 560,
+            "stops": 0,
+            "id": 1,
+            "createdAt": "2026-07-27T04:39:52.622Z"
+          },
+          {
+            "airline": "Singapore Airlines (SQ 468)",
+            "fromCity": "Singapore (SIN)",
+            "toCity": "Colombo (CMB), Sri Lanka",
+            "departureTime": "22:20",
+            "arrivalTime": "23:40",
+            "price": 450,
+            "stops": 0,
+            "id": 2,
+            "createdAt": "2026-07-27T04:40:22.952Z"
+          },
+          {
+            "airline": "SriLankan Airlines (UL 605)",
+            "fromCity": "Melbourne (MEL)",
+            "toCity": "Colombo (CMB), Sri Lanka",
+            "departureTime": "16:10",
+            "arrivalTime": "22:25",
+            "price": 900,
+            "stops": 0,
+            "id": 3,
+            "createdAt": "2026-07-27T04:40:55.448Z"
+          },
+          {
+            "airline": "Etihad Airways (EY 266)",
+            "fromCity": "Abu Dhabi (AUH)",
+            "toCity": "Colombo (CMB), Sri Lanka",
+            "departureTime": "21:25",
+            "arrivalTime": "03:20 (+1)",
+            "price": 420,
+            "stops": 0,
+            "id": 4,
+            "createdAt": "2026-07-27T04:41:34.082Z"
+          },
+          {
+            "airline": "Turkish Airlines (TK 730)",
+            "fromCity": "Frankfurt (FRA)",
+            "toCity": "Colombo (CMB), Sri Lanka\t",
+            "departureTime": "14:15",
+            "arrivalTime": "05:45 (+1)",
+            "price": 700,
+            "stops": 0,
+            "id": 5,
+            "createdAt": "2026-07-27T04:42:04.443Z"
+          }
+        ],
+        "packages": [
+          {
+            "id": 1,
+            "title": "Sri Lanka Grand Luxury Escape",
+            "category": "Luxury",
+            "duration": "10 Days / 9 Nights",
+            "price": 2450,
+            "imageUrl": "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?w=800&q=80",
+            "description": "Experience the ultimate luxury journey across Sri Lanka from private helicopter tours to 5-star beachfront resorts.",
+            "createdAt": "2026-08-03T06:30:24.943Z"
+          },
+          {
+            "id": 2,
+            "title": "Tropical Wildlife & Beach Safari",
+            "category": "Safari",
+            "duration": "7 Days / 6 Nights",
+            "price": 1680,
+            "imageUrl": "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80",
+            "description": "Discover Yala leopards, blue whales of Mirissa, and pristine coastal sanctuaries.",
+            "createdAt": "2026-08-03T06:30:24.955Z"
+          }
+        ],
+        "cars": [
+          {
+            "name": "Toyota KDH Super GL High Roof",
+            "category": "Sedan",
+            "seats": 9,
+            "transmission": "Automatic",
+            "pricePerDay": 80,
+            "imageUrl": "/uploads/1785237026125-643.jpg",
+            "status": "Available",
+            "id": 1,
+            "createdAt": "2026-07-27T04:36:58.258Z"
+          },
+          {
+            "name": "Toyota KDH Flat Roof Van",
+            "category": "Sedan",
+            "seats": 7,
+            "transmission": "Automatic",
+            "pricePerDay": 70,
+            "imageUrl": "/uploads/1785237019634-8.jpg",
+            "status": "Available",
+            "id": 2,
+            "createdAt": "2026-07-27T04:37:30.960Z"
+          },
+          {
+            "name": "Toyota Coaster Mini Bus",
+            "category": "Sedan",
+            "seats": 20,
+            "transmission": "Automatic",
+            "pricePerDay": 200,
+            "imageUrl": "/uploads/1785237012391-221.jpg",
+            "status": "Available",
+            "id": 3,
+            "createdAt": "2026-07-27T04:37:53.100Z"
+          },
+          {
+            "name": "Isuzu Luxury Bus",
+            "category": "Sedan",
+            "seats": 30,
+            "transmission": "Automatic",
+            "pricePerDay": 250,
+            "imageUrl": "/uploads/1785237006019-334.jpg",
+            "status": "Available",
+            "id": 4,
+            "createdAt": "2026-07-27T04:38:32.326Z"
+          },
+          {
+            "name": "Toyota Lank Cruiser Prado SUV",
+            "category": "Sedan",
+            "seats": 5,
+            "transmission": "Automatic",
+            "pricePerDay": 100,
+            "imageUrl": "/uploads/1785236996673-37.jpg",
+            "status": "Available",
+            "id": 5,
+            "createdAt": "2026-07-27T04:38:49.750Z"
+          },
+          {
+            "name": "BYD Sealion",
+            "category": "Sedan",
+            "seats": 4,
+            "transmission": "Automatic",
+            "pricePerDay": 50,
+            "imageUrl": "/uploads/1785236990012-31.jpg",
+            "status": "Available",
+            "id": 6,
+            "createdAt": "2026-07-27T04:39:08.259Z"
+          }
+        ],
+        "blogs": [
+          {
+            "id": 2,
+            "title": "Ella – Sri Lanka's Most Beautiful Mountain Escape",
+            "category": "Hill Country",
+            "readTime": "6 min read",
+            "author": "Julian Vance",
+            "date": "Oct 12, 2026",
+            "excerpt": "Mist-shrouded tea estates, the iconic Nine Arch Bridge, and exclusive eco-lodges make Ella the crown jewel of the high country.",
+            "image": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200",
+            "views": 2820,
+            "likes": 338,
+            "shares": 84
+          },
+          {
+            "views": 2642,
+            "likes": 316,
+            "shares": 79,
+            "id": 3,
+            "title": "10 Hidden Beaches You Must Visit in Sri Lanka",
+            "category": "Beaches",
+            "readTime": "7 min read",
+            "author": "Elena Cruz",
+            "date": "Oct 09, 2026",
+            "excerpt": "Escape the popular southern coast and discover secluded golden sands where luxury villas and pristine waters await.",
+            "image": "/uploads/1785401027851-604.jpg"
+          },
+          {
+            "views": 2460,
+            "likes": 295,
+            "shares": 73,
+            "id": 4,
+            "title": "The Scenic Train Journey from Kandy to Ella",
+            "category": "Trains",
+            "readTime": "5 min read",
+            "author": "Marcus Wei",
+            "date": "Oct 07, 2026",
+            "excerpt": "Experience the world's most beautiful train ride. Tips for securing first-class observation tickets and capturing the best photos.",
+            "image": "/uploads/1785401042740-225.jpg"
+          },
+          {
+            "views": 2280,
+            "likes": 273,
+            "shares": 68,
+            "id": 5,
+            "title": "Yala National Park Safari Guide",
+            "category": "Wildlife",
+            "readTime": "10 min read",
+            "author": "David Hunter",
+            "date": "Oct 05, 2026",
+            "excerpt": "Track leopards in their natural habitat while staying in ultra-luxury tented camps that blend wilderness with five-star comfort.",
+            "image": "/uploads/1785401054629-147.jpg"
+          },
+          {
+            "id": 6,
+            "title": "Luxury Hotels in Sri Lanka Worth Every Dollar",
+            "category": "Luxury Escapes",
+            "readTime": "12 min read",
+            "author": "Sophie Laurent",
+            "date": "Sep 28, 2026",
+            "excerpt": "An exclusive curation of Aman resorts, boutique colonial manors, and contemporary wellness retreats across the island.",
+            "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=1200",
+            "views": 2100,
+            "likes": 252,
+            "shares": 63
+          },
+          {
+            "views": 1920,
+            "likes": 230,
+            "shares": 57,
+            "id": 7,
+            "title": "Tea Plantation Experiences in Nuwara Eliya",
+            "category": "Hill Country",
+            "readTime": "6 min read",
+            "author": "James Sterling",
+            "date": "Sep 22, 2026",
+            "excerpt": "Step back in time to \"Little England.\" Experience high tea, private tasting tours, and stays in meticulously restored planter bungalows.",
+            "image": "/uploads/1785401063370-822.jpg"
+          },
+          {
+            "views": 1740,
+            "likes": 208,
+            "shares": 52,
+            "id": 8,
+            "title": "Best Waterfalls in Sri Lanka",
+            "category": "Eco Tourism",
+            "readTime": "8 min read",
+            "author": "Maya Lin",
+            "date": "Sep 18, 2026",
+            "excerpt": "From Bambarakanda to Diyaluma. Discover the island's majestic cascading falls and the best times to visit for swimming.",
+            "image": "/uploads/1785401069550-287.jpg"
+          },
+          {
+            "id": 9,
+            "title": "A Complete Guide to Galle Fort",
+            "category": "Heritage",
+            "readTime": "7 min read",
+            "author": "Arthur Penn",
+            "date": "Sep 15, 2026",
+            "excerpt": "Wander cobbled streets lined with Dutch-colonial buildings, chic boutiques, and world-class seafood restaurants.",
+            "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1200",
+            "views": 1560,
+            "likes": 187,
+            "shares": 46
+          },
+          {
+            "views": 1380,
+            "likes": 165,
+            "shares": 41,
+            "id": 10,
+            "title": "The Best Time to Visit Sri Lanka",
+            "category": "Travel Tips",
+            "readTime": "4 min read",
+            "author": "Elena Cruz",
+            "date": "Sep 12, 2026",
+            "excerpt": "Navigate the island's two monsoon seasons. A month-by-month breakdown to help you plan the perfect tropical getaway.",
+            "image": "/uploads/1785401078950-792.jpg"
+          },
+          {
+            "views": 1200,
+            "likes": 144,
+            "shares": 36,
+            "id": 11,
+            "title": "Top Romantic Honeymoon Destinations",
+            "category": "Luxury Escapes",
+            "readTime": "9 min read",
+            "author": "Sophie Laurent",
+            "date": "Sep 08, 2026",
+            "excerpt": "From secluded private pool villas in Tangalle to misty romantic hideaways in the central highlands.",
+            "image": "/uploads/1785401087435-367.jpg"
+          },
+          {
+            "views": 1020,
+            "likes": 122,
+            "shares": 30,
+            "id": 12,
+            "title": "Luxury Wellness Retreats in Sri Lanka",
+            "category": "Eco Tourism",
+            "readTime": "11 min read",
+            "author": "Isabella Rossi",
+            "date": "Sep 05, 2026",
+            "excerpt": "Rejuvenate your mind, body, and soul with authentic Ayurvedic treatments in the world's most serene natural settings.",
+            "image": "/uploads/1785401095097-190.jpg"
+          }
+        ],
+        "blogCategories": [
+          {
+            "id": "beaches",
+            "name": "Beaches",
+            "image": "/uploads/1785237049484-125.jpg"
+          },
+          {
+            "id": "hill-country",
+            "name": "Hill Country",
+            "image": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200"
+          },
+          {
+            "id": "wildlife",
+            "name": "Wildlife",
+            "image": "/uploads/1785237066750-193.jpg"
+          },
+          {
+            "id": "heritage",
+            "name": "Heritage",
+            "image": "/uploads/1785237089752-892.jpg"
+          },
+          {
+            "id": "food",
+            "name": "Food",
+            "image": "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&q=80&w=800"
+          },
+          {
+            "id": "trains",
+            "name": "Scenic Train Journeys",
+            "image": "/uploads/1785237081526-800.jpg"
+          },
+          {
+            "id": "eco",
+            "name": "Eco Tourism",
+            "image": "/uploads/1785237098058-387.jpg"
+          },
+          {
+            "id": "luxury",
+            "name": "Luxury Escapes",
+            "image": "/uploads/1785237103649-739.jpg"
+          }
+        ]
+      }
+    },
     {
       "id": "snap_1785487860446",
       "createdAt": "2026-07-31T10:56:01.251Z",
@@ -3572,22 +4217,6 @@
   ],
   "blogs": [
     {
-      "views": 3001,
-      "likes": 360,
-      "shares": 90,
-      "id": 1,
-      "title": "Updated Title",
-      "category": "Heritage",
-      "readTime": "5 min",
-      "author": "Admin",
-      "date": "2026-10-15",
-      "excerpt": "Test excerpt",
-      "image": "/uploads/1785488562972-871.jpg"
-    },
-    {
-      "views": 2820,
-      "likes": 338,
-      "shares": 84,
       "id": 2,
       "title": "Ella – Sri Lanka's Most Beautiful Mountain Escape",
       "category": "Hill Country",
@@ -3595,10 +4224,13 @@
       "author": "Julian Vance",
       "date": "Oct 12, 2026",
       "excerpt": "Mist-shrouded tea estates, the iconic Nine Arch Bridge, and exclusive eco-lodges make Ella the crown jewel of the high country.",
-      "image": "/uploads/1785400296319-616.jpg"
+      "image": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200",
+      "views": 2820,
+      "likes": 338,
+      "shares": 84
     },
     {
-      "views": 2640,
+      "views": 2643,
       "likes": 316,
       "shares": 79,
       "id": 3,
@@ -3608,9 +4240,12 @@
       "author": "Elena Cruz",
       "date": "Oct 09, 2026",
       "excerpt": "Escape the popular southern coast and discover secluded golden sands where luxury villas and pristine waters await.",
-      "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&q=80&w=1200"
+      "image": "/uploads/1785401027851-604.jpg"
     },
     {
+      "views": 2460,
+      "likes": 295,
+      "shares": 73,
       "id": 4,
       "title": "The Scenic Train Journey from Kandy to Ella",
       "category": "Trains",
@@ -3618,12 +4253,12 @@
       "author": "Marcus Wei",
       "date": "Oct 07, 2026",
       "excerpt": "Experience the world's most beautiful train ride. Tips for securing first-class observation tickets and capturing the best photos.",
-      "image": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200",
-      "views": 2460,
-      "likes": 295,
-      "shares": 73
+      "image": "/uploads/1785401042740-225.jpg"
     },
     {
+      "views": 2280,
+      "likes": 273,
+      "shares": 68,
       "id": 5,
       "title": "Yala National Park Safari Guide",
       "category": "Wildlife",
@@ -3631,10 +4266,7 @@
       "author": "David Hunter",
       "date": "Oct 05, 2026",
       "excerpt": "Track leopards in their natural habitat while staying in ultra-luxury tented camps that blend wilderness with five-star comfort.",
-      "image": "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&q=80&w=1200",
-      "views": 2280,
-      "likes": 273,
-      "shares": 68
+      "image": "/uploads/1785401054629-147.jpg"
     },
     {
       "id": 6,
@@ -3650,6 +4282,9 @@
       "shares": 63
     },
     {
+      "views": 1920,
+      "likes": 230,
+      "shares": 57,
       "id": 7,
       "title": "Tea Plantation Experiences in Nuwara Eliya",
       "category": "Hill Country",
@@ -3657,12 +4292,12 @@
       "author": "James Sterling",
       "date": "Sep 22, 2026",
       "excerpt": "Step back in time to \"Little England.\" Experience high tea, private tasting tours, and stays in meticulously restored planter bungalows.",
-      "image": "https://images.unsplash.com/photo-1620619767323-b95a89183081?auto=format&fit=crop&q=80&w=1200",
-      "views": 1920,
-      "likes": 230,
-      "shares": 57
+      "image": "/uploads/1785401063370-822.jpg"
     },
     {
+      "views": 1740,
+      "likes": 208,
+      "shares": 52,
       "id": 8,
       "title": "Best Waterfalls in Sri Lanka",
       "category": "Eco Tourism",
@@ -3670,10 +4305,7 @@
       "author": "Maya Lin",
       "date": "Sep 18, 2026",
       "excerpt": "From Bambarakanda to Diyaluma. Discover the island's majestic cascading falls and the best times to visit for swimming.",
-      "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1200",
-      "views": 1740,
-      "likes": 208,
-      "shares": 52
+      "image": "/uploads/1785401069550-287.jpg"
     },
     {
       "id": 9,
@@ -3689,6 +4321,9 @@
       "shares": 46
     },
     {
+      "views": 1380,
+      "likes": 165,
+      "shares": 41,
       "id": 10,
       "title": "The Best Time to Visit Sri Lanka",
       "category": "Travel Tips",
@@ -3696,12 +4331,12 @@
       "author": "Elena Cruz",
       "date": "Sep 12, 2026",
       "excerpt": "Navigate the island's two monsoon seasons. A month-by-month breakdown to help you plan the perfect tropical getaway.",
-      "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&q=80&w=1200",
-      "views": 1380,
-      "likes": 165,
-      "shares": 41
+      "image": "/uploads/1785401078950-792.jpg"
     },
     {
+      "views": 1200,
+      "likes": 144,
+      "shares": 36,
       "id": 11,
       "title": "Top Romantic Honeymoon Destinations",
       "category": "Luxury Escapes",
@@ -3709,12 +4344,12 @@
       "author": "Sophie Laurent",
       "date": "Sep 08, 2026",
       "excerpt": "From secluded private pool villas in Tangalle to misty romantic hideaways in the central highlands.",
-      "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=1200",
-      "views": 1200,
-      "likes": 144,
-      "shares": 36
+      "image": "/uploads/1785401087435-367.jpg"
     },
     {
+      "views": 1020,
+      "likes": 122,
+      "shares": 30,
       "id": 12,
       "title": "Luxury Wellness Retreats in Sri Lanka",
       "category": "Eco Tourism",
@@ -3722,17 +4357,14 @@
       "author": "Isabella Rossi",
       "date": "Sep 05, 2026",
       "excerpt": "Rejuvenate your mind, body, and soul with authentic Ayurvedic treatments in the world's most serene natural settings.",
-      "image": "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&q=80&w=1200",
-      "views": 1020,
-      "likes": 122,
-      "shares": 30
+      "image": "/uploads/1785401095097-190.jpg"
     }
   ],
   "blogCategories": [
     {
       "id": "beaches",
       "name": "Beaches",
-      "image": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200"
+      "image": "/uploads/1785237049484-125.jpg"
     },
     {
       "id": "hill-country",
@@ -3742,12 +4374,12 @@
     {
       "id": "wildlife",
       "name": "Wildlife",
-      "image": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200"
+      "image": "/uploads/1785237066750-193.jpg"
     },
     {
       "id": "heritage",
       "name": "Heritage",
-      "image": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200"
+      "image": "/uploads/1785237089752-892.jpg"
     },
     {
       "id": "food",
@@ -3757,17 +4389,17 @@
     {
       "id": "trains",
       "name": "Scenic Train Journeys",
-      "image": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200"
+      "image": "/uploads/1785237081526-800.jpg"
     },
     {
       "id": "eco",
       "name": "Eco Tourism",
-      "image": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200"
+      "image": "/uploads/1785237098058-387.jpg"
     },
     {
       "id": "luxury",
       "name": "Luxury Escapes",
-      "image": "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200"
+      "image": "/uploads/1785237103649-739.jpg"
     }
   ]
 }

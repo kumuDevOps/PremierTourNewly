@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Tour, ItineraryDay } from '../types.ts';
+import { HOTEL_PACKAGES } from '../data.ts';
 import DatePicker from './DatePicker.tsx';
 import BookingConfirmationModal from './BookingConfirmationModal.tsx';
 import BookingSuccessModal from './BookingSuccessModal.tsx';
@@ -113,6 +114,7 @@ export default function ToursView({
   const [bookingSubmitting, setBookingSubmitting] = useState(false);
   const [bookingSuccess, setBookingSuccess] = useState(false);
   const [visibleCount, setVisibleCount] = useState(6);
+  const [visiblePackageCount, setVisiblePackageCount] = useState(2);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   // Review states
@@ -497,10 +499,10 @@ export default function ToursView({
           </button>
 
           {/* Tour Detail Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
             
             {/* Left Col: Tour Information */}
-            <div className="xl:col-span-8 space-y-10">
+            <div className="lg:col-span-8 space-y-10">
               
               {/* Image Bento Gallery Header */}
               {(() => {
@@ -620,25 +622,15 @@ export default function ToursView({
                   </span>
                 </h3>
                 <div className="space-y-4">
-                  {[
-                    {
-                      title: 'Standard Package',
-                      desc: 'Comfortable 4-star accommodations, daily breakfast, standard group transport, and guided tours.',
-                      img: 'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=400',
-                    },
-                    {
-                      title: 'Premium Package - Honeymooners Offer',
-                      desc: 'Luxury 5-star ocean-view accommodations, all meals included, private luxury chauffeur, and exclusive romantic experiences.',
-                      img: 'https://images.unsplash.com/photo-1542314831-c6a4d14d8373?w=400',
-                    }
-                  ].map((pkg, idx) => (
+                  {HOTEL_PACKAGES.slice(0, visiblePackageCount).map((pkg, idx) => (
                     <motion.div 
                       key={idx} 
                       whileHover={{ scale: 1.01 }}
-                      className="flex flex-col sm:flex-row gap-4 p-5 border-2 border-sky-100 dark:border-sky-900/50 rounded-2xl hover:border-[#0091EA] hover:shadow-lg hover:shadow-sky-500/15 transition-all bg-white/90 dark:bg-slate-800/70 backdrop-blur-md"
+                      onClick={() => onNavigate && onNavigate('hotels')}
+                      className="cursor-pointer flex flex-col sm:flex-row gap-4 p-5 border-2 border-sky-100 dark:border-sky-900/50 rounded-2xl hover:border-[#0091EA] hover:shadow-lg hover:shadow-sky-500/15 transition-all bg-white/90 dark:bg-slate-800/70 backdrop-blur-md"
                     >
                       <div className="w-full sm:w-48 h-32 shrink-0 rounded-xl overflow-hidden relative shadow-sm">
-                        <img src={pkg.img} alt={pkg.title} className="w-full h-full object-cover" />
+                        <img src={pkg.img || 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600&auto=format&fit=crop&q=80'} alt={pkg.title} className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-slate-950/10" />
                       </div>
                       <div className="flex flex-col justify-center">
@@ -646,19 +638,22 @@ export default function ToursView({
                         <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium mb-3">
                           {translate(pkg.desc)}
                         </p>
-                        <button className="text-[#0091EA] dark:text-sky-400 text-xs font-black text-left hover:underline w-fit flex items-center gap-1">
+                        <button onClick={() => onNavigate && onNavigate('hotels')} className="text-[#0091EA] dark:text-sky-400 text-xs font-black text-left hover:underline w-fit flex items-center gap-1">
                           {translate('Show details')} →
                         </button>
                       </div>
                     </motion.div>
                   ))}
+                  {visiblePackageCount < HOTEL_PACKAGES.length && (
                   <motion.button 
                     whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.99 }}
+                    onClick={() => setVisiblePackageCount(HOTEL_PACKAGES.length)}
                     className="w-full py-3.5 mt-2 rounded-2xl border-2 border-sky-300 dark:border-sky-700 bg-sky-50/50 dark:bg-sky-950/30 text-[#0091EA] dark:text-sky-300 font-black text-xs uppercase tracking-wider hover:bg-sky-100/80 dark:hover:bg-sky-900/50 transition-all shadow-sm"
                   >
                     {translate('Show 2 more options')}
                   </motion.button>
+                  )}
                 </div>
               </motion.div>
 
@@ -692,6 +687,7 @@ export default function ToursView({
                           </div>
                           <div className="p-4 bg-white/80 dark:bg-slate-800/60 rounded-2xl border border-sky-100 dark:border-sky-900/40 shadow-xs group-hover:shadow-md group-hover:border-sky-300 transition-all">
                             <h4 className="text-base font-black text-gray-900 dark:text-white group-hover:text-[#0091EA] transition-colors">{translate(day.title)}</h4>
+                            <p className="text-xs text-[#0091EA] font-bold mt-1">{translate(day.shortDesc || 'No summary available')}</p>
                             <p className="text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed font-medium">{translate(day.desc)}</p>
                           </div>
                         </div>
@@ -1377,7 +1373,8 @@ export default function ToursView({
                     return (
                       <div 
                         key={tour.id} 
-                        className="group flex flex-col bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 p-3 shadow-xl shadow-sky-500/10 hover:shadow-2xl hover:shadow-sky-500/20 hover:border-[#0091EA] transition-all duration-300 animate-blue-glow h-full min-h-[440px]"
+                        onClick={() => loadTourDetails(tour.tourId || tour.id)}
+                        className="group flex flex-col bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 p-3 shadow-xl shadow-sky-500/10 hover:shadow-2xl hover:shadow-sky-500/20 hover:border-[#0091EA] transition-all duration-300 animate-blue-glow h-full min-h-[440px] cursor-pointer"
                       >
                         <div className="relative w-full h-[240px] rounded-[24px] overflow-hidden mb-5">
                           <img 

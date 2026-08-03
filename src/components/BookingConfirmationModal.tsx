@@ -159,11 +159,11 @@ export default function BookingConfirmationModal({
 
   // Pricing calculations (8% tax + 2% service fee)
   const selectedHotel = AVAILABLE_ADDON_HOTELS.find(h => h.id === Number(selectedHotelId)) || AVAILABLE_ADDON_HOTELS[0];
-  const hotelAddonCost = (includeHotel && (resolvedType === 'tour' || resolvedType === 'package')) ? (selectedHotel.pricePerNight * hotelNights) : 0;
+  const hotelAddonCost = (includeHotel && (resolvedType === 'tour' || resolvedType === 'package' || resolvedType === 'flight')) ? (selectedHotel.pricePerNight * hotelNights) : 0;
 
   const selectedVehicle = AVAILABLE_ADDON_VEHICLES.find(v => v.id === Number(selectedVehicleId)) || AVAILABLE_ADDON_VEHICLES[0];
   const addonDriverDailyFee = driverOption === 'driver' ? 35 : 0;
-  const vehicleAddonCost = (includeVehicle && (resolvedType === 'tour' || resolvedType === 'package')) ? ((selectedVehicle.pricePerDay + addonDriverDailyFee) * vehicleDays) : 0;
+  const vehicleAddonCost = (includeVehicle && (resolvedType === 'tour' || resolvedType === 'package' || resolvedType === 'flight')) ? ((selectedVehicle.pricePerDay + addonDriverDailyFee) * vehicleDays) : 0;
 
   // Car rental direct booking driver fee (when booking type is 'car')
   const carRentalDays = dates?.days || dates?.nights || 1;
@@ -240,6 +240,8 @@ export default function BookingConfirmationModal({
       pickupLocation: bookingData?.pickupLocation || bookingData?.pickupLoc,
       dropoffLocation: bookingData?.dropoffLocation || bookingData?.dropoffLoc,
       totalPrice: grandTotal,
+      hotelPrice: hotelAddonCost > 0 ? hotelAddonCost : undefined,
+      carPrice: vehicleAddonCost > 0 ? vehicleAddonCost : undefined,
       status: 'CONFIRMED',
       createdAt: new Date().toISOString()
     };
@@ -609,18 +611,13 @@ export default function BookingConfirmationModal({
                     {translate('Rental Service Option')}
                   </span>
                   <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
-                    {translate('Please specify whether you require a professional chauffeur or self-drive vehicle:')}
+                    {translate('Our premium fleet includes a professional chauffeur service for your comfort and safety.')}
                   </p>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  <div className="grid grid-cols-1 gap-2.5">
                     <button
                       type="button"
-                      onClick={() => setDriverOption('driver')}
-                      className={`p-3 rounded-2xl text-xs font-bold border-2 transition-all text-left flex items-start gap-2.5 cursor-pointer ${
-                        driverOption === 'driver'
-                          ? 'border-[#0091EA] bg-[#0091EA]/10 text-[#0091EA] shadow-md'
-                          : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900'
-                      }`}
+                      className="p-3 rounded-2xl text-xs font-bold border-2 border-[#0091EA] bg-[#0091EA]/10 text-[#0091EA] shadow-md text-left flex items-start gap-2.5"
                     >
                       <span className="text-xl">👨‍✈️</span>
                       <div>
@@ -630,35 +627,17 @@ export default function BookingConfirmationModal({
                         </span>
                       </div>
                     </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setDriverOption('self')}
-                      className={`p-3 rounded-2xl text-xs font-bold border-2 transition-all text-left flex items-start gap-2.5 cursor-pointer ${
-                        driverOption === 'self'
-                          ? 'border-[#0091EA] bg-[#0091EA]/10 text-[#0091EA] shadow-md'
-                          : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900'
-                      }`}
-                    >
-                      <span className="text-xl">🚘</span>
-                      <div>
-                        <span className="font-black block">{translate('Self-Drive (Only Car)')}</span>
-                        <span className="text-[10px] opacity-80 font-medium block">
-                          {translate('Drive yourself (Requires valid driver license)')}
-                        </span>
-                      </div>
-                    </button>
                   </div>
                 </div>
               )}
 
               {/* TOUR CUSTOMIZATION ADD-ONS (HOTEL & VEHICLE) */}
-              {(resolvedType === 'tour' || resolvedType === 'package') && (
+              {(resolvedType === 'tour' || resolvedType === 'package' || resolvedType === 'hotel' || resolvedType === 'flight') && (
                 <div className="bg-gradient-to-br from-sky-50/80 to-indigo-50/50 dark:from-slate-800/80 dark:to-slate-900/80 p-4 rounded-2xl border-2 border-sky-200 dark:border-sky-800/80 space-y-4 text-left">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-black text-[#0091EA] uppercase tracking-wider flex items-center gap-1.5">
                       <Sparkles className="w-4 h-4 text-amber-500" />
-                      {translate('Enhance Your Tour Package (Optional Add-ons)')}
+                      {translate('Enhance Your Experience (Optional Add-ons)')}
                     </span>
                     <span className="text-[10px] text-slate-400 font-bold bg-white dark:bg-slate-900 px-2 py-0.5 rounded-full border border-sky-200 dark:border-sky-800">
                       {translate('Customize Experience')}
@@ -666,65 +645,67 @@ export default function BookingConfirmationModal({
                   </div>
 
                   {/* 1. Hotel Option */}
-                  <div className="bg-white dark:bg-slate-900 p-3.5 rounded-xl border border-sky-100 dark:border-sky-800/60 space-y-3">
-                    <label className="flex items-center justify-between cursor-pointer">
-                      <div className="flex items-center gap-2.5">
-                        <input
-                          type="checkbox"
-                          checked={includeHotel}
-                          onChange={(e) => setIncludeHotel(e.target.checked)}
-                          className="w-4 h-4 rounded text-[#0091EA] focus:ring-[#0091EA] cursor-pointer"
-                        />
-                        <div>
-                          <span className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-1.5">
-                            <Building className="w-3.5 h-3.5 text-[#0091EA]" />
-                            {translate('Add Hotel Accommodation')}
-                          </span>
-                          <span className="text-[10px] text-slate-500 dark:text-slate-400 block font-medium">
-                            {translate('Select luxury resort stay for your tour dates')}
-                          </span>
-                        </div>
-                      </div>
-                      {includeHotel && (
-                        <span className="text-xs font-black text-[#0091EA] bg-sky-50 dark:bg-sky-950 px-2.5 py-0.5 rounded-md border border-sky-200 dark:border-sky-800">
-                          +{formatPrice(selectedHotel.pricePerNight * hotelNights)}
-                        </span>
-                      )}
-                    </label>
-
-                    {includeHotel && (
-                      <div className="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-2.5 animate-fade-in">
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                          <div className="sm:col-span-2">
-                            <label className="block text-[9px] font-bold text-slate-400 uppercase mb-1">{translate('Select Hotel / Resort')}</label>
-                            <select
-                              value={selectedHotelId}
-                              onChange={(e) => setSelectedHotelId(Number(e.target.value))}
-                              className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold outline-none focus:border-[#0091EA] text-slate-800 dark:text-slate-200"
-                            >
-                              {AVAILABLE_ADDON_HOTELS.map((h) => (
-                                <option key={h.id} value={h.id}>
-                                  {h.name} ({h.location}) - {formatPrice(h.pricePerNight)}/night
-                                </option>
-                              ))}
-                            </select>
-                          </div>
+                  {(resolvedType === 'tour' || resolvedType === 'package' || resolvedType === 'flight') && (
+                    <div className="bg-white dark:bg-slate-900 p-3.5 rounded-xl border border-sky-100 dark:border-sky-800/60 space-y-3">
+                      <label className="flex items-center justify-between cursor-pointer">
+                        <div className="flex items-center gap-2.5">
+                          <input
+                            type="checkbox"
+                            checked={includeHotel}
+                            onChange={(e) => setIncludeHotel(e.target.checked)}
+                            className="w-4 h-4 rounded text-[#0091EA] focus:ring-[#0091EA] cursor-pointer"
+                          />
                           <div>
-                            <label className="block text-[9px] font-bold text-slate-400 uppercase mb-1">{translate('Duration')}</label>
-                            <select
-                              value={hotelNights}
-                              onChange={(e) => setHotelNights(Number(e.target.value))}
-                              className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold outline-none focus:border-[#0091EA] text-slate-800 dark:text-slate-200"
-                            >
-                              {[1, 2, 3, 4, 5, 7, 10].map((n) => (
-                                <option key={n} value={n}>{n} {n === 1 ? 'Night' : 'Nights'}</option>
-                              ))}
-                            </select>
+                            <span className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-1.5">
+                              <Building className="w-3.5 h-3.5 text-[#0091EA]" />
+                              {translate('Add Hotel Accommodation')}
+                            </span>
+                            <span className="text-[10px] text-slate-500 dark:text-slate-400 block font-medium">
+                              {translate('Select luxury resort stay for your tour dates')}
+                            </span>
                           </div>
                         </div>
-                      </div>
-                    )}
-                  </div>
+                        {includeHotel && (
+                          <span className="text-xs font-black text-[#0091EA] bg-sky-50 dark:bg-sky-950 px-2.5 py-0.5 rounded-md border border-sky-200 dark:border-sky-800">
+                            +{formatPrice(selectedHotel.pricePerNight * hotelNights)}
+                          </span>
+                        )}
+                      </label>
+
+                      {includeHotel && (
+                        <div className="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-2.5 animate-fade-in">
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            <div className="sm:col-span-2">
+                              <label className="block text-[9px] font-bold text-slate-400 uppercase mb-1">{translate('Select Hotel / Resort')}</label>
+                              <select
+                                value={selectedHotelId}
+                                onChange={(e) => setSelectedHotelId(Number(e.target.value))}
+                                className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold outline-none focus:border-[#0091EA] text-slate-800 dark:text-slate-200"
+                              >
+                                {AVAILABLE_ADDON_HOTELS.map((h) => (
+                                  <option key={h.id} value={h.id}>
+                                    {h.name} ({h.location}) - {formatPrice(h.pricePerNight)}/night
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                            <div>
+                              <label className="block text-[9px] font-bold text-slate-400 uppercase mb-1">{translate('Duration')}</label>
+                              <select
+                                value={hotelNights}
+                                onChange={(e) => setHotelNights(Number(e.target.value))}
+                                className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold outline-none focus:border-[#0091EA] text-slate-800 dark:text-slate-200"
+                              >
+                                {[1, 2, 3, 4, 5, 7, 10].map((n) => (
+                                  <option key={n} value={n}>{n} {n === 1 ? 'Night' : 'Nights'}</option>
+                                ))}
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {/* 2. Vehicle Option */}
                   <div className="bg-white dark:bg-slate-900 p-3.5 rounded-xl border border-sky-100 dark:border-sky-800/60 space-y-3">
@@ -742,7 +723,7 @@ export default function BookingConfirmationModal({
                             {translate('Add Private Vehicle Transport')}
                           </span>
                           <span className="text-[10px] text-slate-500 dark:text-slate-400 block font-medium">
-                            {translate('Chauffeured car or self-drive vehicle')}
+                            {translate('Chauffeured car for your travel')}
                           </span>
                         </div>
                       </div>
@@ -781,37 +762,6 @@ export default function BookingConfirmationModal({
                                 <option key={d} value={d}>{d} {d === 1 ? 'Day' : 'Days'}</option>
                               ))}
                             </select>
-                          </div>
-                        </div>
-
-                        {/* Driver vs Self-Drive Option */}
-                        <div>
-                          <label className="block text-[9px] font-bold text-slate-400 uppercase mb-1.5">{translate('Driver Service Choice')}</label>
-                          <div className="grid grid-cols-2 gap-2">
-                            <button
-                              type="button"
-                              onClick={() => setDriverOption('driver')}
-                              className={`p-2 rounded-xl text-xs font-bold border transition-all text-left flex flex-col cursor-pointer ${
-                                driverOption === 'driver'
-                                  ? 'border-[#0091EA] bg-[#0091EA]/10 text-[#0091EA]'
-                                  : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400'
-                              }`}
-                            >
-                              <span>👨‍✈️ {translate('With Driver')}</span>
-                              <span className="text-[9px] opacity-80 font-normal">+{formatPrice(35)}/{translate('day')}</span>
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => setDriverOption('self')}
-                              className={`p-2 rounded-xl text-xs font-bold border transition-all text-left flex flex-col cursor-pointer ${
-                                driverOption === 'self'
-                                  ? 'border-[#0091EA] bg-[#0091EA]/10 text-[#0091EA]'
-                                  : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400'
-                              }`}
-                            >
-                              <span>🚘 {translate('Only Car (Self-Drive)')}</span>
-                              <span className="text-[9px] opacity-80 font-normal">Self-drive</span>
-                            </button>
                           </div>
                         </div>
                       </div>

@@ -82,7 +82,7 @@ export const DEFAULT_TOURS = [
     imageUrl: "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?w=800&q=80",
     description: "Climb the ancient 5th-century Sigiriya Rock Fortress (UNESCO World Heritage) and explore the sacred Dambulla Cave Temple complex featuring over 150 Buddha statues.",
     highlights: "['UNESCO World Heritage', 'Ancient Frescoes', 'Mirror Wall', 'Golden Temple']",
-    itinerary: "['06:00 AM - Hotel Pickup', '09:30 AM - Arrive & Climb Sigiriya', '01:00 PM - Traditional Lunch', '02:30 PM - Dambulla Cave Temple', '06:00 PM - Return']",
+    itinerary: "[{\"day\": 1, \"title\": \"Arrival & Sigiriya Ascent\", \"shortDesc\": \"Arrival and climb the magnificent Sigiriya Rock Fortress.\", \"desc\": \"Arrive at the airport, transfer to Sigiriya, and spend the afternoon climbing the iconic 5th-century Sigiriya Rock Fortress with its stunning frescoes and palace ruins.\"}]",
     included: "['Air-conditioned vehicle', 'English-speaking guide', 'Entrance tickets', 'Traditional lunch']",
     excluded: "['Personal expenses', 'Tips & gratuities']"
   },
@@ -96,7 +96,7 @@ export const DEFAULT_TOURS = [
     imageUrl: "https://images.unsplash.com/photo-1546708973-b339540b5162?w=800&q=80",
     description: "Experience the world-famous blue train ride through lush tea plantations, marvel at Nine Arch Bridge, and hike Little Adam's Peak.",
     highlights: "['Scenic Blue Train', 'Nine Arch Bridge', 'Tea Factory Tour', 'Little Adam\'s Peak']",
-    itinerary: "['Day 1: Kandy to Ella Train Ride', 'Day 2: Hike & Waterfall Exploration']",
+    itinerary: "[{\"day\": 1, \"title\": \"Scenic Train & Tea Fields\", \"shortDesc\": \"Train journey to Ella through scenic tea estates.\", \"desc\": \"Board the famous blue train from Kandy to Ella, winding through lush tea plantations, and check into your mountain view hotel.\"}, {\"day\": 2, \"title\": \"Ella Views & Hike\", \"shortDesc\": \"Hike to Little Adam's Peak and Nine Arch Bridge.\", \"desc\": \"Early morning hike to Little Adam's Peak for sunrise views, visit the spectacular Nine Arch Bridge, and return in the afternoon.\"}]",
     included: "['First-class Train Tickets', '1 Night Hotel Stay', 'Breakfast & Dinner', 'Private Transfers']",
     excluded: "['Lunch', 'Alcoholic beverages']"
   },
@@ -110,7 +110,7 @@ export const DEFAULT_TOURS = [
     imageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80",
     description: "Embark on an exciting 4x4 Jeep Safari in Yala, world-renowned for highest leopard density, wild elephants, sloth bears, and exotic birds.",
     highlights: "['4x4 Safari Jeep', 'Highest Leopard Density', 'Elephant Herds', 'Bird Watching']",
-    itinerary: "['05:00 AM - Morning Safari Game Drive', '11:00 AM - Lunch break at campsite', '02:00 PM - Afternoon Safari Drive']",
+    itinerary: "[{\"day\": 1, \"title\": \"Wildlife Safari Adventure\", \"shortDesc\": \"Full-day safari tracking leopards and elephants.\", \"desc\": \"Start early for a morning game drive in Yala to spot leopards, break for a picnic lunch, and continue with an afternoon drive for more wildlife encounters.\"}]",
     included: "['Park Entrance Permit', 'Private 4x4 Safari Jeep', 'Expert Tracker', 'Picnic Lunch & Water']",
     excluded: "['Camera fees', 'Driver tip']"
   },
@@ -124,7 +124,7 @@ export const DEFAULT_TOURS = [
     imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
     description: "Sail into the Indian Ocean to spot Blue Whales and Dolphins, followed by a sunset walking tour of 16th-century Portuguese Galle Fort.",
     highlights: "['Blue Whale Spotting', 'Galle Fort UNESCO Site', 'Coconut Tree Hill', 'Turtle Hatchery']",
-    itinerary: "['06:00 AM - Catamaran Cruise', '11:30 AM - Seafood Lunch', '02:00 PM - Galle Fort Walking Tour']",
+    itinerary: "[{\"day\": 1, \"title\": \"Whale Spotting & Colonial Fort\", \"shortDesc\": \"Morning whale watching followed by historic Galle Fort tour.\", \"desc\": \"Enjoy a catamaran cruise for whale and dolphin spotting in Mirissa, followed by a scenic seafood lunch and a guided walking tour of the historic Galle Fort.\"}]",
     included: "['Whale Watching Boat Pass', 'Life Jackets & Breakfast on Board', 'Air-conditioned Private Car']",
     excluded: "['Personal shopping']"
   },
@@ -138,7 +138,7 @@ export const DEFAULT_TOURS = [
     imageUrl: "https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200",
     description: "Comprehensive week-long journey through Sri Lanka's ancient royal kingdoms, sacred temples, and UNESCO world heritage sites.",
     highlights: "['Sacred Tooth Relic Temple', 'Polonnaruwa Ruins', 'Sigiriya Lion Rock', 'Kandy Botanical Gardens']",
-    itinerary: "['Day 1-2: Kandy', 'Day 3-4: Sigiriya & Dambulla', 'Day 5-6: Polonnaruwa & Anuradhapura', 'Day 7: Departure']",
+    itinerary: "[{\"day\": 1, \"title\": \"Arrival & Kandy\", \"shortDesc\": \"Transfer to Kandy and visit the Temple of the Tooth.\", \"desc\": \"Arrive in Sri Lanka and transfer to Kandy, visiting the sacred Temple of the Tooth Relic in the evening.\"}, {\"day\": 2, \"title\": \"Kandy Botanical Gardens\", \"shortDesc\": \"Explore the lush Peradeniya Botanical Gardens.\", \"desc\": \"Spend the day exploring the beautiful Peradeniya Royal Botanical Gardens and enjoy a cultural dance performance.\"}, {\"day\": 3, \"title\": \"Sigiriya Rock Fortress\", \"shortDesc\": \"Climb the iconic Sigiriya Rock.\", \"desc\": \"Travel to Sigiriya and climb the 5th-century rock fortress, marveling at the frescoes and ancient water gardens.\"}, {\"day\": 4, \"title\": \"Dambulla Cave Temples\", \"shortDesc\": \"Visit the sacred Dambulla cave complex.\", \"desc\": \"Explore the cave temple complex of Dambulla, featuring ancient murals and hundreds of Buddha statues.\"}, {\"day\": 5, \"title\": \"Polonnaruwa Ruins\", \"shortDesc\": \"Discover the medieval capital of Polonnaruwa.\", \"desc\": \"Visit the extensive archaeological park of Polonnaruwa, the ancient medieval capital of Sri Lanka.\"}, {\"day\": 6, \"title\": \"Anuradhapura Sacred City\", \"shortDesc\": \"Tour the ancient sacred city of Anuradhapura.\", \"desc\": \"Spend the day in Anuradhapura, the first ancient capital and a sacred site containing numerous stupas and ancient bodhi trees.\"}, {\"day\": 7, \"title\": \"Departure\", \"shortDesc\": \"Transfer to airport for departure.\", \"desc\": \"Final breakfast and transfer to the airport for your flight home.\"}]",
     included: "['Luxury Hotel Accommodation', 'Daily Breakfast & Dinner', 'Private Chauffeured Vehicle', 'All Monument Entrance Fees']",
     excluded: "['International flights', 'Lunch']"
   }
@@ -209,8 +209,12 @@ export async function getFlights(fromCity?: string, toCity?: string) {
     const tc = toCity ? toCity.toLowerCase().trim() : '';
     if (fc || tc) {
       return result.filter((f: any) => {
-        const matchFrom = !fc || (f.fromCity && f.fromCity.toLowerCase().includes(fc));
-        const matchTo = !tc || (f.toCity && f.toCity.toLowerCase().includes(tc));
+        const matchFrom = !fc || 
+          (f.fromCity && f.fromCity.toLowerCase().includes(fc)) ||
+          (f.airline && f.airline.toLowerCase().includes(fc));
+        const matchTo = !tc || 
+          (f.toCity && f.toCity.toLowerCase().includes(tc)) ||
+          (f.airline && f.airline.toLowerCase().includes(tc));
         return matchFrom && matchTo;
       });
     }

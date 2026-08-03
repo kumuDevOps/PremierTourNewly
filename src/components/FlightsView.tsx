@@ -278,7 +278,7 @@ export default function FlightsView({
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             
             {/* Left Col: Search filters Form */}
             <div className="space-y-6">
@@ -390,7 +390,7 @@ export default function FlightsView({
             </div>
 
             {/* Right Col: Active lists or Passenger booking form */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="md:col-span-2 space-y-6">
               
              {selectedFlight ? (
                 <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-lg text-left">
@@ -490,7 +490,6 @@ export default function FlightsView({
                     <div className="py-24 text-center bg-white dark:bg-slate-900 rounded-2xl border border-dashed border-gray-200 dark:border-slate-800">
                       <AlertCircle className="w-10 h-10 text-gray-300 mx-auto mb-3" />
                       <p className="text-gray-500 dark:text-slate-400 font-bold">{translate('No Flights Found matching criteria')}</p>
-                      <p className="text-xs text-gray-400 dark:text-slate-500 mt-1">{translate('Try querying general schedules or leaving airport searches open.')}</p>
                     </div>
                   )}
 
@@ -498,64 +497,29 @@ export default function FlightsView({
                     <div className="space-y-4">
                       <div className="text-left">
                         <h4 className="text-sm font-bold text-gray-800 dark:text-white">{translate('Available Flight Schedules')} ({flights.length})</h4>
-                        <p className="text-xs text-gray-400 dark:text-slate-500 mt-0.5">{translate('Real-time fares are calculated based on')} {passengersCount} {translate('pax')}, {translate(cabinClass)} {translate('class')}.</p>
                       </div>
 
                       {flights.map((flight) => (
                         <div 
                           key={flight.id} 
-                          className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 rounded-[28px] border-2 border-sky-200/80 dark:border-sky-800/60 hover:border-[#0091EA] p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 transition-all duration-300 shadow-lg shadow-sky-500/10 hover:shadow-xl hover:shadow-sky-500/20 hover:-translate-y-1 text-left animate-blue-glow group"
+                          onClick={() => setSelectedFlight(flight)}
+                          className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 rounded-[28px] border-2 border-sky-200/80 dark:border-sky-800/60 hover:border-[#0091EA] p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 transition-all duration-300 shadow-lg shadow-sky-500/10 hover:shadow-xl hover:shadow-sky-500/20 hover:-translate-y-1 text-left animate-blue-glow group cursor-pointer"
                         >
-                          {/* Airline info */}
                           <div className="flex items-center gap-3.5">
                             <div className="w-12 h-12 bg-gradient-to-tr from-[#0091EA] via-sky-500 to-cyan-400 text-white rounded-2xl flex items-center justify-center shadow-md shadow-sky-500/30 shrink-0">
                               <Plane className="w-6 h-6" />
                             </div>
                             <div>
                               <h4 className="text-base font-black text-slate-900 dark:text-white group-hover:text-[#0091EA] transition-colors">{flight.airline}</h4>
-                              <p className="text-[10px] text-sky-700 dark:text-sky-300 font-extrabold mt-0.5 uppercase tracking-wider">{translate('SkyTeam Alliance')}</p>
+                              <p className="text-[10px] text-sky-700 dark:text-sky-300 font-extrabold mt-0.5 uppercase tracking-wider">{flight.fromCity} - {flight.toCity}</p>
                             </div>
                           </div>
-
-                          {/* Times & duration */}
-                          <div className="flex-grow max-w-sm flex items-center justify-between gap-4 bg-white/70 dark:bg-slate-950/50 p-3.5 rounded-2xl border border-sky-100 dark:border-sky-900/40">
-                            <div className="text-left">
-                              <p className="text-base font-black text-slate-900 dark:text-white">{flight.departureTime}</p>
-                              <p className="text-[10px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-widest">{flight.fromCity}</p>
-                            </div>
-                            
-                            {/* Visual connector */}
-                            <div className="flex-1 flex flex-col items-center px-4">
-                              <span className="text-[9px] font-black text-[#0091EA] tracking-wider uppercase">
-                                {flight.stops === 0 ? translate('Non-stop') : `${flight.stops} ${translate('Stop')}`}
-                              </span>
-                              <div className="relative w-full h-1 bg-gradient-to-r from-[#0091EA] via-sky-400 to-cyan-400 rounded-full mt-1.5">
-                                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-cyan-400 rounded-full shadow-sm animate-ping" />
-                              </div>
-                            </div>
-
-                            <div className="text-right">
-                              <p className="text-base font-black text-slate-900 dark:text-white">{flight.arrivalTime}</p>
-                              <p className="text-[10px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-widest">{flight.toCity}</p>
-                            </div>
-                          </div>
-
-                          {/* Price & Selection action */}
-                          <div className="flex items-center justify-between md:flex-col md:items-end gap-3 pt-4 md:pt-0 border-t border-sky-100 dark:border-sky-800/40 md:border-t-0">
-                            <div className="text-left md:text-right">
-                              <span className="text-[9px] font-black text-sky-800 dark:text-sky-300 uppercase">{translate('Estimated price')}</span>
-                              <p className="text-lg font-black bg-gradient-to-r from-[#0091EA] via-sky-500 to-cyan-400 bg-clip-text text-transparent mt-0.5">{formatPrice(flight.price * passengersCount)}</p>
-                            </div>
-
-                            <button
-                              onClick={() => setSelectedFlight(flight)}
-                              className="bg-gradient-to-r from-[#0091EA] via-sky-500 to-cyan-500 text-white text-xs font-black uppercase tracking-wider px-5 py-3 rounded-2xl transition-all shadow-lg shadow-sky-500/25 animate-light-blue-pulse flex items-center gap-1 cursor-pointer"
-                            >
+                          <button 
+                            onClick={() => setSelectedFlight(flight)}
+                            className="bg-gradient-to-r from-[#0091EA] via-sky-500 to-cyan-500 text-white text-xs font-black uppercase tracking-wider px-5 py-3 rounded-2xl transition-all shadow-lg shadow-sky-500/25 animate-light-blue-pulse flex items-center gap-1 cursor-pointer">
                               {translate('Select Seat')}
                               <ChevronRight className="w-4 h-4" />
-                            </button>
-                          </div>
-
+                          </button>
                         </div>
                       ))}
                     </div>

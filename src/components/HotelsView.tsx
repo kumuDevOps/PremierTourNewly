@@ -60,32 +60,7 @@ const QUICK_FILTERS = [
   { label: 'Alps', value: 'Alps' }
 ];
 
-const HOTEL_PACKAGES = [
-  {
-    title: 'Standard Package',
-    desc: 'Comfortable 4-star accommodations, daily breakfast, standard group transport, and guided tours.',
-    img: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600&auto=format&fit=crop&q=80',
-    multiplier: 1.0,
-  },
-  {
-    title: 'Premium Package - Honeymooners Offer',
-    desc: 'Luxury 5-star ocean-view accommodations, all meals included, private luxury chauffeur, and exclusive romantic experiences.',
-    img: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&auto=format&fit=crop&q=80',
-    multiplier: 1.4,
-  },
-  {
-    title: 'Deluxe Executive Ocean Suite',
-    desc: 'Overwater or beachfront executive suite with private plunge pool, butler service, complimentary spa voucher, and VIP lounge access.',
-    img: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&auto=format&fit=crop&q=80',
-    multiplier: 1.8,
-  },
-  {
-    title: 'Family Multi-Room Villa Package',
-    desc: 'Spacious 2-bedroom villa with private garden, kids club access, daily family dining credits, and private beach cabana.',
-    img: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&auto=format&fit=crop&q=80',
-    multiplier: 2.2,
-  }
-];
+import { HOTEL_PACKAGES } from '../data';
 
 export default function HotelsView({ 
   currentUser, 
@@ -1410,7 +1385,16 @@ export default function HotelsView({
                 animate="show"
                 className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
               >
-                {hotels.map((hotel) => {
+                { (searchLocation ? HOTEL_PACKAGES.map((pkg, idx) => ({
+                    id: pkg.title,
+                    name: pkg.title,
+                    location: 'Package Special',
+                    price: 0,
+                    starRating: 5,
+                    description: pkg.desc,
+                    amenities: '[]',
+                    imageUrl: pkg.img
+                  })) : hotels).map((hotel) => {
                   let amenitiesList: string[] = [];
                   if (hotel.amenities) {
                     if (Array.isArray(hotel.amenities)) {
@@ -1446,7 +1430,8 @@ export default function HotelsView({
                       key={hotel.id}
                       variants={cardVariants}
                       whileHover={{ y: -6, transition: { duration: 0.25, ease: "easeOut" } }}
-                      className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 overflow-hidden shadow-xl shadow-sky-500/10 hover:shadow-2xl hover:shadow-sky-500/20 hover:border-[#0091EA] transition-all duration-300 group flex flex-col h-full relative animate-blue-glow"
+                      onClick={() => handleSelectHotel(hotel)}
+                      className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 overflow-hidden shadow-xl shadow-sky-500/10 hover:shadow-2xl hover:shadow-sky-500/20 hover:border-[#0091EA] transition-all duration-300 group flex flex-col h-full relative animate-blue-glow cursor-pointer"
                     >
                       {/* Premium Tag for High Ratings */}
                       {(hotel.starRating || 5) >= 5 && (
@@ -1457,7 +1442,7 @@ export default function HotelsView({
                       )}
 
                       {/* Photo Frame */}
-                      <div className="relative h-60 overflow-hidden bg-slate-100 dark:bg-slate-800 select-none cursor-pointer" onClick={() => handleSelectHotel(hotel)}>
+                      <div className="relative h-60 overflow-hidden bg-slate-100 dark:bg-slate-800 select-none">
                         <img 
                           src={hotel.imageUrl || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80'} 
                           alt={translate(hotel.name)}
