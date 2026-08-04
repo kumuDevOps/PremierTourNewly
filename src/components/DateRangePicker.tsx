@@ -23,7 +23,7 @@ export default function DateRangePicker({
   className = '',
   compact = false,
 }: DateRangePickerProps) {
-  const { translate } = useLanguage();
+  const { translate, language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [selectingStep, setSelectingStep] = useState<'start' | 'end'>('start');
   const [hoverDate, setHoverDate] = useState<string | null>(null);
@@ -113,7 +113,7 @@ export default function DateRangePicker({
   const formatDisplayDate = (dateStr: string) => {
     if (!dateStr) return translate('Select date');
     const d = parseDate(dateStr);
-    return d.toLocaleDateString('en-US', {
+    return d.toLocaleDateString(language || 'en-US', {
       month: 'short',
       day: 'numeric',
       year: 'numeric'
@@ -246,8 +246,8 @@ export default function DateRangePicker({
             {/* Separator / Days Badge */}
             <div className="flex flex-col items-center justify-center px-1">
               {daysCount ? (
-                <span className="px-2 py-0.5 bg-[#0091EA]/10 dark:bg-[#0091EA]/20 text-[#0091EA] dark:text-[#38bdf8] text-[10px] font-extrabold rounded-full whitespace-nowrap">
-                  {daysCount} {translate(daysCount === 1 ? 'Night' : 'Nights')}
+                <span className="px-2 py-0.5 bg-[#0091EA]/10 dark:bg-[#0091EA]/20 text-[#0091EA] dark:text-[#38bdf8] text-[10px] font-extrabold rounded-full whitespace-nowrap" dir="auto">
+                  {language === 'ar' ? `${daysCount} ${daysCount === 1 ? 'ليلة' : 'ليالٍ'}` : `${daysCount} ${translate(daysCount === 1 ? 'Night' : 'Nights')}`}
                 </span>
               ) : (
                 <ArrowRight className="w-4 h-4 text-slate-400 dark:text-slate-500 ltr:rotate-0 rtl:rotate-180" />
@@ -255,7 +255,7 @@ export default function DateRangePicker({
             </div>
 
             {/* End Date */}
-            <div className="flex-1 flex flex-col ltr:text-right rtl:text-left border-s border-slate-200 dark:border-slate-700/80 ps-3">
+            <div className="flex-1 flex flex-col text-end border-s border-slate-200 dark:border-slate-700/80 ps-3">
               <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-0.5 block">
                 {translate(endLabel)}
               </span>
@@ -276,8 +276,8 @@ export default function DateRangePicker({
               </span>
             </div>
             {daysCount && (
-              <span className="text-[10px] font-black bg-sky-100 dark:bg-sky-950/80 text-[#0091EA] dark:text-sky-300 px-2 py-0.5 rounded-full shrink-0 border border-sky-200 dark:border-sky-800/50">
-                {daysCount}N
+              <span className="text-[10px] font-black bg-sky-100 dark:bg-sky-950/80 text-[#0091EA] dark:text-sky-300 px-2 py-0.5 rounded-full shrink-0 border border-sky-200 dark:border-sky-800/50" dir="auto">
+                {language === 'ar' ? `${daysCount} ليالٍ` : `${daysCount}${translate('N')}`}
               </span>
             )}
           </div>
@@ -289,7 +289,7 @@ export default function DateRangePicker({
         <>
           <div className="fixed inset-0 z-40 lg:hidden bg-black/20 dark:bg-black/40 backdrop-blur-sm animate-fade-in" onClick={() => setIsOpen(false)} />
           <div 
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 lg:absolute lg:top-[105%] lg:left-1/2 lg:-translate-x-1/2 lg:translate-y-0 z-50 w-[92vw] sm:w-[400px] lg:w-[350px] lg:min-w-[350px] bg-white dark:bg-slate-900 rounded-3xl shadow-2xl shadow-sky-500/20 border-2 border-sky-200 dark:border-sky-800 p-5 animate-fade-in ltr:text-left rtl:text-right"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 lg:absolute lg:top-[105%] lg:left-1/2 lg:-translate-x-1/2 lg:translate-y-0 z-50 w-[92vw] sm:w-[400px] lg:w-[350px] lg:min-w-[350px] bg-white dark:bg-slate-900 rounded-3xl shadow-2xl shadow-sky-500/20 border-2 border-sky-200 dark:border-sky-800 p-5 animate-fade-in text-start"
           >
           {/* Top Status & Presets */}
           <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3 mb-4">

@@ -99,7 +99,7 @@ export default function ContactView() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Col: Contact Info, Office, WhatsApp (5 cols) */}
-          <div className="lg:col-span-5 space-y-6 ltr:text-left rtl:text-right">
+          <div className="lg:col-span-5 space-y-6 text-start">
             
             {/* Quick Contact Info */}
             <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-6 rounded-[28px] border-2 border-sky-200/80 dark:border-sky-800/60 shadow-xl shadow-sky-500/10 space-y-6 animate-blue-glow">
@@ -178,7 +178,7 @@ export default function ContactView() {
               </div>
               <div className="relative h-64 w-full bg-slate-900 rounded-2xl overflow-hidden border-2 border-sky-400/40 shadow-inner group">
                 <iframe
-                  title="Premier Digital Colombo Google Map"
+                  title={translate(`Premier Digital Colombo Google Map`)}
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -204,7 +204,7 @@ export default function ContactView() {
           </div>
 
           {/* Right Col: Contact Form & FAQ Accordion (7 cols) */}
-          <div className="lg:col-span-7 space-y-8 ltr:text-left rtl:text-right">
+          <div className="lg:col-span-7 space-y-8 text-start">
             
             {/* Contact Form */}
             <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-6 md:p-8 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 shadow-xl shadow-sky-500/10 animate-blue-glow">
@@ -238,7 +238,7 @@ export default function ContactView() {
                       <input
                         type="text"
                         required
-                        placeholder="Sarah Smith"
+                        placeholder={translate(`Sarah Smith`)}
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         className="w-full mt-1 px-4 py-2.5 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 focus:ring-2 focus:ring-[#0091EA] focus:outline-none rounded-xl text-xs text-slate-700 dark:text-slate-200"
@@ -273,7 +273,7 @@ export default function ContactView() {
                       <input
                         type="text"
                         required
-                        placeholder={translate("e.g. Booking Reservation Correction")}
+                        placeholder={translate(`e.g. Booking Reservation Correction`)}
                         value={subject}
                         onChange={(e) => setSubject(e.target.value)}
                         className="w-full mt-1 px-4 py-2.5 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 focus:ring-2 focus:ring-[#0091EA] focus:outline-none rounded-xl text-xs text-slate-700 dark:text-slate-200"
@@ -286,7 +286,7 @@ export default function ContactView() {
                     <textarea
                       required
                       rows={5}
-                      placeholder={translate("Please specify dates, passenger details, or custom booking needs...")}
+                      placeholder={translate(`Please specify dates, passenger details, or custom booking needs...`)}
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       className="w-full mt-1 px-4 py-2.5 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-[#0091EA] focus:outline-none rounded-xl text-xs resize-none"
@@ -321,7 +321,7 @@ export default function ContactView() {
                   <div key={idx} className="border-2 border-sky-100 dark:border-sky-900/50 rounded-2xl overflow-hidden bg-white/80 dark:bg-slate-950/40 shadow-xs hover:border-sky-300 dark:hover:border-sky-700 transition-all">
                     <button
                       onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
-                      className="w-full px-5 py-4 flex items-center justify-between ltr:text-left rtl:text-right font-semibold text-xs text-slate-800 dark:text-slate-200 hover:bg-sky-50/50 dark:hover:bg-slate-800/50 transition-colors"
+                      className="w-full px-5 py-4 flex items-center justify-between text-start font-semibold text-xs text-slate-800 dark:text-slate-200 hover:bg-sky-50/50 dark:hover:bg-slate-800/50 transition-colors"
                     >
                       <span className="pr-4 leading-relaxed font-extrabold text-slate-800 dark:text-slate-100">{translate(faq.q)}</span>
                       <ChevronDown className={`w-4 h-4 shrink-0 text-sky-500 transition-transform duration-300 ${activeFaq === idx ? 'rotate-180 text-[#0091EA]' : ''}`} />

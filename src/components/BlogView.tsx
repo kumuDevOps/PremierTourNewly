@@ -52,6 +52,7 @@ interface BlogViewProps {
 }
 
 export default function BlogView({ onNavigate }: BlogViewProps = {}) {
+  const { translate } = useLanguage();
   const { scrollYProgress } = useScroll();
   const [articles, setArticles] = useState<any[]>(ARTICLES);
   const [categories, setCategories] = useState<any[]>(CATEGORIES);
@@ -178,7 +179,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
               src={selectedArticle.image} 
               alt={selectedArticle.title} 
               referrerPolicy="no-referrer"
-              onError={(e) => {
+              onError={(e) => { e.currentTarget.onerror = null;
                 (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200';
               }}
               className="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:scale-105 transition-transform duration-1000" 
@@ -190,7 +191,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                 onClick={() => setSelectedArticle(null)}
                 className="inline-flex items-center gap-2 text-sky-100 hover:text-white bg-slate-950/60 hover:bg-sky-950/80 border border-sky-400/50 px-5 py-2.5 rounded-full backdrop-blur-md shadow-lg shadow-sky-500/20 transition-all font-semibold text-xs tracking-wider uppercase cursor-pointer"
               >
-                <ChevronLeft className="w-4 h-4 text-sky-400" /> Back to Journal
+                <ChevronLeft className="w-4 h-4 text-sky-400" /> {translate(`Back to Journal`)}
               </button>
             </div>
             
@@ -204,7 +205,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
               <div className="flex flex-wrap items-center gap-6 text-xs md:text-sm text-sky-100/90 font-semibold pt-2">
                 <div className="flex items-center gap-2 px-3 py-1 bg-slate-900/60 rounded-full border border-sky-400/30 backdrop-blur-sm"><User className="w-4 h-4 text-sky-400" /> {selectedArticle.author}</div>
                 <div className="flex items-center gap-2 px-3 py-1 bg-slate-900/60 rounded-full border border-sky-400/30 backdrop-blur-sm"><Clock className="w-4 h-4 text-sky-400" /> {selectedArticle.date}</div>
-                <div className="flex items-center gap-2 px-3 py-1 bg-slate-900/60 rounded-full border border-sky-400/30 backdrop-blur-sm"><MapPin className="w-4 h-4 text-sky-400" /> Sri Lanka</div>
+                <div className="flex items-center gap-2 px-3 py-1 bg-slate-900/60 rounded-full border border-sky-400/30 backdrop-blur-sm"><MapPin className="w-4 h-4 text-sky-400" /> {translate(`Sri Lanka`)}</div>
               </div>
             </div>
           </div>
@@ -215,7 +216,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
             <div className="sticky top-28 space-y-8">
               {/* Share & Like card */}
               <div className="p-6 bg-white dark:bg-slate-900 rounded-3xl border-2 border-sky-300/80 dark:border-sky-800/60 shadow-xl shadow-sky-500/10 animate-blue-glow">
-                <h4 className="text-xs font-black text-sky-600 dark:text-sky-400 uppercase tracking-widest mb-4">Share Article</h4>
+                <h4 className="text-xs font-black text-sky-600 dark:text-sky-400 uppercase tracking-widest mb-4">{translate(`Share Article`)}</h4>
                 <div className="flex items-center gap-3">
                   <button className="w-11 h-11 rounded-2xl border border-sky-200 dark:border-sky-800 bg-sky-50 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-[#0091EA] hover:border-[#0091EA] transition-all shadow-sm">
                     <Share2 className="w-4 h-4" />
@@ -223,7 +224,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                   <button 
                     onClick={() => handleLikeArticle(selectedArticle.id)}
                     className="w-11 h-11 rounded-2xl border border-sky-200 dark:border-sky-800 bg-sky-50 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-rose-500 hover:border-rose-300 transition-all cursor-pointer shadow-sm group"
-                    title="Like article"
+                    title={translate(`Like article`)}
                   >
                     <Heart className="w-4 h-4 fill-rose-500/20 text-rose-500 group-hover:scale-110 transition-transform" />
                   </button>
@@ -235,11 +236,11 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
 
               {/* Quick Facts card */}
               <div className="p-6 bg-white dark:bg-slate-900 rounded-3xl border-2 border-sky-300/80 dark:border-sky-800/60 shadow-xl shadow-sky-500/10 animate-blue-glow">
-                <h4 className="text-sm font-black text-slate-900 dark:text-white mb-4 font-sans tracking-tight">Quick Facts</h4>
+                <h4 className="text-sm font-black text-slate-900 dark:text-white mb-4 font-sans tracking-tight">{translate(`Quick Facts`)}</h4>
                 <ul className="space-y-3.5 text-sm text-slate-600 dark:text-slate-300">
                   <li className="flex justify-between border-b border-sky-100 dark:border-slate-800 pb-2.5">
                     <span className="text-slate-500 dark:text-slate-400 font-medium">Best Time:</span> 
-                    <span className="font-bold text-slate-900 dark:text-sky-300">Dec - April</span>
+                    <span className="font-bold text-slate-900 dark:text-sky-300">{translate(`Dec - April`)}</span>
                   </li>
                   <li className="flex justify-between border-b border-sky-100 dark:border-slate-800 pb-2.5">
                     <span className="text-slate-500 dark:text-slate-400 font-medium">Duration:</span> 
@@ -259,23 +260,23 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
               {selectedArticle.excerpt}
             </p>
             <p>
-              Sri Lanka is an island nation that defies expectations. Just when you think you've seen its most beautiful beach, a hidden cove reveals itself. Just when you believe you've tasted its finest curry, a humble roadside eatery redefines your palate. Our journey begins here, where luxury meets wild, untamed beauty.
+              {translate(`Sri Lanka is an island nation that defies expectations. Just when you think you've seen its most beautiful beach, a hidden cove reveals itself. Just when you believe you've tasted its finest curry, a humble roadside eatery redefines your palate. Our journey begins here, where luxury meets wild, untamed beauty.`)}
             </p>
             
             <h3 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mt-12 mb-6 tracking-tight">
-              The Grand Arrival
+              {translate(`The Grand Arrival`)}
             </h3>
             <p>
-              Navigating the terrain requires both patience and an appreciation for the journey itself. Whether you opt for a private helicopter charter or a luxury SUV, the transition from the bustling coastal cities to the serene interior is nothing short of cinematic.
+              {translate(`Navigating the terrain requires both patience and an appreciation for the journey itself. Whether you opt for a private helicopter charter or a luxury SUV, the transition from the bustling coastal cities to the serene interior is nothing short of cinematic.`)}
             </p>
             
             {/* Editor's Tip with Blue Glow */}
             <div className="my-10 p-8 bg-sky-50/90 dark:bg-sky-950/40 rounded-3xl border-2 border-sky-400/60 dark:border-sky-700/60 shadow-xl shadow-sky-500/15 animate-blue-glow relative overflow-hidden">
               <div className="flex items-center gap-2 text-sky-700 dark:text-sky-300 font-black text-xs uppercase tracking-widest mb-2">
-                <Sparkles className="w-4 h-4 text-[#0091EA]" /> Editor's Tip
+                <Sparkles className="w-4 h-4 text-[#0091EA]" /> {translate(`Editor's Tip`)}
               </div>
               <p className="text-base font-medium text-slate-800 dark:text-slate-200">
-                Always pack a lightweight shawl or jacket. The temperature drop in the hill country can be surprisingly brisk, especially in the early mornings.
+                {translate(`Always pack a lightweight shawl or jacket. The temperature drop in the hill country can be surprisingly brisk, especially in the early mornings.`)}
               </p>
             </div>
 
@@ -286,7 +287,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
             {/* Live Interactive Google Map with Blue Glow */}
             <div className="w-full h-80 bg-slate-900 rounded-3xl my-10 border-2 border-sky-400/60 shadow-xl shadow-sky-500/20 animate-blue-glow relative overflow-hidden group">
               <iframe
-                title="Article Destination Live Google Map"
+                title={translate(`Article Destination Live Google Map`)}
                 src={`https://maps.google.com/maps?q=${encodeURIComponent((selectedArticle?.title || 'Sigiriya') + ' Sri Lanka')}&t=&z=12&ie=UTF8&iwloc=&output=embed`}
                 width="100%"
                 height="100%"
@@ -307,7 +308,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                 className="absolute bottom-3 right-3 bg-slate-950/90 hover:bg-[#0091EA] text-white px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider shadow-lg border border-sky-400/40 transition-all flex items-center gap-1.5 cursor-pointer z-10"
               >
                 <MapPin className="w-3 h-3 text-sky-400 group-hover:text-white" />
-                <span>Open in Google Maps</span>
+                <span>{translate(`Open in Google Maps`)}</span>
               </a>
             </div>
           </div>
@@ -358,7 +359,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="inline-block text-[#0091EA] uppercase tracking-[0.3em] text-xs font-bold mb-6"
           >
-            The Luxury Editorial
+            {translate(`The Luxury Editorial`)}
           </motion.span>
           
           <motion.h1 
@@ -368,9 +369,9 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
             className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-sans text-white leading-tight mb-8"
            
           >
-            Discover Sri Lanka <br className="hidden md:block" /> 
-            <span className="italic text-[#0091EA] font-light">Where Every Journey</span> <br className="hidden md:block" />
-            Becomes a Story
+            {translate(`Discover Sri Lanka`)} <br className="hidden md:block" /> 
+            <span className="italic text-[#0091EA] font-light">{translate(`Where Every Journey`)}</span> <br className="hidden md:block" />
+            {translate(`Becomes a Story`)}
           </motion.h1>
 
           <motion.p 
@@ -379,7 +380,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
             transition={{ duration: 1, delay: 0.6 }}
             className="text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto font-light leading-relaxed mb-12"
           >
-            Explore ancient kingdoms, misty mountains, golden beaches, wildlife safaris, tea plantations, luxury resorts, hidden waterfalls, and unforgettable cultural experiences.
+            {translate(`Explore ancient kingdoms, misty mountains, golden beaches, wildlife safaris, tea plantations, luxury resorts, hidden waterfalls, and unforgettable cultural experiences.`)}
           </motion.p>
 
           <motion.div 
@@ -394,10 +395,10 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
               }}
               className="px-8 py-4 bg-[#0091EA] hover:bg-[#007cc7] text-white rounded-full font-medium tracking-wide transition-all duration-300 w-full sm:w-auto shadow-[0_8px_30px_rgb(200,169,106,0.3)]"
             >
-              Read Articles
+              {translate(`Read Articles`)}
             </button>
             <button className="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white rounded-full font-medium tracking-wide transition-all duration-300 w-full sm:w-auto">
-              Plan Your Journey
+              {translate(`Plan Your Journey`)}
             </button>
           </motion.div>
         </div>
@@ -409,11 +410,11 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div>
-              <h2 className="text-4xl lg:text-5xl font-sans text-slate-900 mb-4">Curated Experiences</h2>
-              <p className="text-slate-500 font-light max-w-2xl text-lg">Browse our collection of luxury travel stories by destination and experience type.</p>
+              <h2 className="text-4xl lg:text-5xl font-sans text-slate-900 mb-4">{translate(`Curated Experiences`)}</h2>
+              <p className="text-slate-500 font-light max-w-2xl text-lg">{translate(`Browse our collection of luxury travel stories by destination and experience type.`)}</p>
             </div>
             <button className="text-sm font-semibold text-[#0091EA] flex items-center gap-2 hover:gap-3 transition-all">
-              View All Categories <ArrowRight className="w-4 h-4" />
+              {translate(`View All Categories`)} <ArrowRight className="w-4 h-4" />
             </button>
           </div>
 
@@ -431,7 +432,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                   src={cat.image} 
                   alt={cat.name} 
                   referrerPolicy="no-referrer" 
-                  onError={(e) => {
+                  onError={(e) => { e.currentTarget.onerror = null;
                     (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=800';
                   }}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
@@ -453,7 +454,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
           <div className="lg:w-2/3">
             <h2 className="text-3xl font-black text-slate-900 dark:text-white mb-12 flex items-center gap-4">
               <span className="w-8 h-[2px] bg-[#0091EA]"></span>
-              <span className="bg-gradient-to-r from-slate-900 via-sky-900 to-[#0091EA] dark:from-white dark:via-sky-200 dark:to-cyan-300 bg-clip-text text-transparent">Editor's Choice</span>
+              <span className="bg-gradient-to-r from-slate-900 via-sky-900 to-[#0091EA] dark:from-white dark:via-sky-200 dark:to-cyan-300 bg-clip-text text-transparent">{translate(`Editor's Choice`)}</span>
             </h2>
             {articles.length > 0 && (
               <motion.div 
@@ -468,7 +469,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                   <img 
                     src={articles[0].image} 
                     alt={articles[0].title} 
-                    onError={(e) => {
+                    onError={(e) => { e.currentTarget.onerror = null;
                       (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200';
                     }}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
@@ -497,7 +498,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
           <div className="lg:w-1/3">
             <h2 className="text-3xl font-black text-slate-900 dark:text-white mb-12 flex items-center gap-4">
               <span className="w-8 h-[2px] bg-[#0091EA]"></span>
-              <span className="bg-gradient-to-r from-slate-900 via-sky-900 to-[#0091EA] dark:from-white dark:via-sky-200 dark:to-cyan-300 bg-clip-text text-transparent">Trending Stories</span>
+              <span className="bg-gradient-to-r from-slate-900 via-sky-900 to-[#0091EA] dark:from-white dark:via-sky-200 dark:to-cyan-300 bg-clip-text text-transparent">{translate(`Trending Stories`)}</span>
             </h2>
             <div className="space-y-6">
               {articles.slice(1, 4).map((article, idx) => (
@@ -513,7 +514,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                     <img 
                       src={article.image} 
                       alt={article.title} 
-                      onError={(e) => {
+                      onError={(e) => { e.currentTarget.onerror = null;
                         (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200';
                       }}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
@@ -535,7 +536,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between mb-16">
             <h2 className="text-4xl lg:text-5xl font-black text-slate-900 dark:text-white">
-              <span className="bg-gradient-to-r from-slate-900 via-sky-900 to-[#0091EA] dark:from-white dark:via-sky-200 dark:to-cyan-300 bg-clip-text text-transparent">Latest from the Journal</span>
+              <span className="bg-gradient-to-r from-slate-900 via-sky-900 to-[#0091EA] dark:from-white dark:via-sky-200 dark:to-cyan-300 bg-clip-text text-transparent">{translate(`Latest from the Journal`)}</span>
             </h2>
           </div>
 
@@ -556,7 +557,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                   <img 
                     src={article.image} 
                     alt={article.title}
-                    onError={(e) => {
+                    onError={(e) => { e.currentTarget.onerror = null;
                       (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200';
                     }}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -585,7 +586,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                   </p>
 
                   <div className="mt-auto pt-4 border-t border-sky-200/60 dark:border-sky-800/50 flex items-center justify-between">
-                    <span className="text-xs font-black text-[#0091EA] uppercase tracking-widest">Read Article</span>
+                    <span className="text-xs font-black text-[#0091EA] uppercase tracking-widest">{translate(`Read Article`)}</span>
                     <motion.div 
                       animate={{ x: hoveredArticle === article.id ? 5 : 0 }}
                       className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center group-hover:border-[#0091EA] group-hover:bg-[#0091EA] group-hover:text-white transition-colors"
@@ -604,8 +605,8 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
       <section className="py-24 bg-slate-900 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-center gap-16">
           <div className="lg:w-1/3">
-            <h2 className="text-4xl font-sans text-white mb-6">Explore the Map</h2>
-            <p className="text-slate-400 font-light text-lg mb-8">Interact with our curated map to discover handpicked destinations, luxury stays, and scenic routes.</p>
+            <h2 className="text-4xl font-sans text-white mb-6">{translate(`Explore the Map`)}</h2>
+            <p className="text-slate-400 font-light text-lg mb-8">{translate(`Interact with our curated map to discover handpicked destinations, luxury stays, and scenic routes.`)}</p>
             <div className="flex flex-wrap gap-2">
               {MAP_LOCATIONS.map((loc) => {
                 const isActive = activeExploreLocation === loc;
@@ -649,7 +650,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
               className="absolute bottom-4 right-4 bg-slate-950/90 hover:bg-[#0091EA] text-white px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider shadow-xl border border-sky-400/40 transition-all flex items-center gap-2 cursor-pointer z-10"
             >
               <MapPin className="w-3.5 h-3.5 text-sky-400 group-hover:text-white" />
-              <span>Open in Google Maps</span>
+              <span>{translate(`Open in Google Maps`)}</span>
             </a>
           </div>
         </div>
@@ -659,8 +660,8 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
       <section className="py-24 bg-white dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-sans text-slate-900 dark:text-white mb-4">Through the Lens</h2>
-            <p className="text-slate-500 dark:text-slate-400 font-light max-w-2xl mx-auto text-lg">Cinematic moments captured across the island.</p>
+            <h2 className="text-4xl font-sans text-slate-900 dark:text-white mb-4">{translate(`Through the Lens`)}</h2>
+            <p className="text-slate-500 dark:text-slate-400 font-light max-w-2xl mx-auto text-lg">{translate(`Cinematic moments captured across the island.`)}</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -669,7 +670,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                 src="https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=800" 
                 alt="Gallery" 
                 referrerPolicy="no-referrer" 
-                onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=800'; }}
+                onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.onerror = null; (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=800'; }}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
               />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm"><Camera className="text-white w-8 h-8" /></div>
@@ -679,7 +680,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                 src="https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&q=80&w=800" 
                 alt="Gallery - Sri Lanka Safari" 
                 referrerPolicy="no-referrer" 
-                onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&q=80&w=800'; }}
+                onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.onerror = null; (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&q=80&w=800'; }}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
               />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm"><Camera className="text-white w-8 h-8" /></div>
@@ -689,7 +690,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                 src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=800" 
                 alt="Gallery" 
                 referrerPolicy="no-referrer" 
-                onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=800'; }}
+                onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.onerror = null; (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=800'; }}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
               />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm"><Camera className="text-white w-8 h-8" /></div>
@@ -709,7 +710,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
               viewport={{ once: true }}
               className="inline-block text-[#0091EA] uppercase tracking-[0.3em] text-xs font-bold mb-4"
             >
-              Essential Guides
+              {translate(`Essential Guides`)}
             </motion.span>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
@@ -718,7 +719,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
               transition={{ delay: 0.1 }}
               className="text-4xl md:text-5xl font-sans text-white mb-6"
             >
-              Travel Extras
+              {translate(`Travel Extras`)}
             </motion.h2>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -727,7 +728,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
               transition={{ delay: 0.2 }}
               className="text-white/70 font-light max-w-2xl mx-auto text-lg"
             >
-              Everything you need to take your journey further.
+              {translate(`Everything you need to take your journey further.`)}
             </motion.p>
           </div>
         </div>
@@ -735,7 +736,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
         <div className="relative w-full flex overflow-x-hidden group z-10 pb-12">
           {/* Fading Edges */}
           <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-[#0A2540] to-transparent z-20 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-[#0A2540] to-transparent z-20 pointer-events-none" />
+          <div className="absolute end-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-[#0A2540] to-transparent z-20 pointer-events-none" />
           
           <motion.div 
             className="flex gap-6 px-6"
@@ -796,18 +797,15 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                  className="absolute -left-20 -bottom-20 w-48 h-48 bg-white rounded-full mix-blend-overlay filter blur-2xl"
                />
             </div>
-            
-            <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight relative z-10 text-center md:text-left">
-              Where to next?
+                       <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight relative z-10 text-center md:text-start">
+              {translate('Where to next?')}
             </h2>
           </div>
-
           {/* Right Column */}
           <div className="md:w-1/2 bg-[#333333] p-12 md:p-16 flex flex-col justify-center">
             <p className="text-white font-medium text-base md:text-lg mb-8 leading-relaxed">
-              For exclusive deals, tailored holiday packages, and the best of the Premier Tour Booking portfolio, add your email below.
+              {translate('For exclusive deals, tailored holiday packages, and the best of the Premier Tour Booking portfolio, add your email below.')}
             </p>
-
             {newsletterSuccess ? (
               <motion.div 
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -818,16 +816,16 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="font-extrabold text-white text-base mb-1">You're Subscribed!</h4>
+                  <h4 className="font-extrabold text-white text-base mb-1">{translate(`You're Subscribed!`)}</h4>
                   <p className="text-xs text-emerald-200/90 leading-relaxed">
-                    Thank you for subscribing. Exclusive luxury offers and tailored holiday packages will be delivered to your inbox.
+                    {translate('Thank you for subscribing. Exclusive luxury offers and tailored holiday packages will be delivered to your inbox.')}
                   </p>
                   <button 
                     type="button"
                     onClick={() => setNewsletterSuccess(false)}
                     className="mt-3 text-xs font-bold text-sky-400 hover:text-sky-300 underline cursor-pointer"
                   >
-                    Subscribe another email
+                    {translate('Subscribe another email')}
                   </button>
                 </div>
               </motion.div>
@@ -837,7 +835,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                   type="email" 
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
-                  placeholder="Email address" 
+                  placeholder={translate('Email address')} 
                   className="flex-grow px-4 py-3 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-[#0091EA] transition-all bg-white text-slate-900 placeholder-slate-500 font-medium text-base shadow-inner disabled:opacity-60"
                   required
                   disabled={newsletterSubmitting}
@@ -850,10 +848,10 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                   {newsletterSubmitting ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Signing up...</span>
+                      <span>{translate('Signing up...')}</span>
                     </>
                   ) : (
-                    <span>Sign up</span>
+                    <span>{translate('Sign up')}</span>
                   )}
                 </button>
               </form>
@@ -871,7 +869,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                 onClick={() => setShowPrivacyModal(true)}
                 className="text-[11px] text-white/50 hover:text-sky-300 transition-colors underline cursor-pointer font-medium"
               >
-                Privacy Notice
+                {translate(`Privacy Notice`)}
               </button>
             </div>
           </div>
@@ -899,18 +897,18 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                 <div className="w-10 h-10 rounded-2xl bg-sky-100 dark:bg-sky-950 text-[#0091EA] flex items-center justify-center">
                   <Shield className="w-5 h-5" />
                 </div>
-                <h3 className="text-xl font-black text-slate-900 dark:text-white">Privacy Notice</h3>
+                <h3 className="text-xl font-black text-slate-900 dark:text-white">{translate(`Privacy Notice`)}</h3>
               </div>
 
               <div className="space-y-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
                 <p>
-                  At Premier Tour Booking, we prioritize your privacy and data security. By subscribing to our newsletter, you consent to receive curated travel guides, luxury deals, and exclusive holiday packages.
+                  {translate(`At Premier Tour Booking, we prioritize your privacy and data security. By subscribing to our newsletter, you consent to receive curated travel guides, luxury deals, and exclusive holiday packages.`)}
                 </p>
                 <p>
-                  We store your email address securely and strictly adhere to international privacy regulations. We will never sell or share your information with third parties.
+                  {translate(`We store your email address securely and strictly adhere to international privacy regulations. We will never sell or share your information with third parties.`)}
                 </p>
                 <p className="text-xs text-slate-400">
-                  You can unsubscribe at any time by clicking the unsubscribe link in any email or contacting our support team.
+                  {translate(`You can unsubscribe at any time by clicking the unsubscribe link in any email or contacting our support team.`)}
                 </p>
               </div>
 
@@ -919,7 +917,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                   onClick={() => setShowPrivacyModal(false)}
                   className="flex-1 py-3 bg-[#0091EA] hover:bg-[#007cc7] text-white font-bold rounded-xl text-sm transition-all shadow-md cursor-pointer text-center"
                 >
-                  Understood
+                  {translate(`Understood`)}
                 </button>
                 {onNavigate && (
                   <button 
@@ -929,7 +927,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                     }}
                     className="py-3 px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-bold rounded-xl text-sm transition-all cursor-pointer"
                   >
-                    About Us
+                    {translate(`About Us`)}
                   </button>
                 )}
               </div>

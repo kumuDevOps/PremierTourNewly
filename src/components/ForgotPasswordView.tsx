@@ -113,7 +113,7 @@ export default function ForgotPasswordView({ onNavigate }: ForgotPasswordViewPro
         {/* Banner Header */}
         <div className="bg-gradient-to-r from-[#0A2540] via-[#0091EA] to-sky-600 px-8 py-6 text-white text-center">
           <h2 className="text-xl font-black tracking-tight">{translate('Reset Account Password')}</h2>
-          <p className="text-xs text-sky-200 font-medium mt-1">Regain secure access to your member profile</p>
+          <p className="text-xs text-sky-200 font-medium mt-1">{translate(`Regain secure access to your member profile`)}</p>
         </div>
 
         <div className="p-8">
@@ -130,9 +130,9 @@ export default function ForgotPasswordView({ onNavigate }: ForgotPasswordViewPro
                 <CheckCircle className="w-8 h-8" />
               </div>
               <div className="space-y-2">
-                <h3 className="text-lg font-black text-slate-900 dark:text-white">Password Updated Successfully!</h3>
+                <h3 className="text-lg font-black text-slate-900 dark:text-white">{translate(`Password Updated Successfully!`)}</h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
-                  Your password credentials have been updated securely. You can now sign in with your new password.
+                  {translate(`Your password credentials have been updated securely. You can now sign in with your new password.`)}
                 </p>
               </div>
               <button
@@ -150,13 +150,13 @@ export default function ForgotPasswordView({ onNavigate }: ForgotPasswordViewPro
             /* Step 1: Request Reset Token */
             <div className="space-y-5">
               <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 text-center leading-relaxed">
-                {translate("Enter your registered account email below. We'll generate a secure reset token for your profile.")}
+                {translate(`Enter your registered account email below. We'll generate a secure reset token for your profile.`)}
               </p>
 
-              <form onSubmit={handleRequestToken} className="space-y-5 text-left">
+              <form onSubmit={handleRequestToken} className="space-y-5 text-start">
                 <div>
                   <label htmlFor="forgot-email" className="block text-xs font-black text-slate-800 dark:text-slate-200 mb-1.5 uppercase tracking-wider">
-                    Email Address
+                    {translate(`Email Address`)}
                   </label>
                   <div className="relative">
                     <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -180,10 +180,10 @@ export default function ForgotPasswordView({ onNavigate }: ForgotPasswordViewPro
                   {loading ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
-                      <span>Generating Reset Token...</span>
+                      <span>{translate(`Generating Reset Token...`)}</span>
                     </>
                   ) : (
-                    <span>Generate Reset Token</span>
+                    <span>{translate(`Generate Reset Token`)}</span>
                   )}
                 </button>
               </form>
@@ -205,19 +205,19 @@ export default function ForgotPasswordView({ onNavigate }: ForgotPasswordViewPro
             /* Step 2: Enter Token & New Password */
             <div className="space-y-5">
               <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 text-center leading-relaxed">
-                Enter your reset token and your new password credentials below.
+                {translate(`Enter your reset token and your new password credentials below.`)}
               </p>
 
-              <form onSubmit={handleResetPassword} className="space-y-4 text-left">
+              <form onSubmit={handleResetPassword} className="space-y-4 text-start">
                 <div>
                   <label htmlFor="reset-token-input" className="block text-xs font-black text-slate-800 dark:text-slate-200 mb-1.5 uppercase tracking-wider">
-                    Reset Token
+                    {translate(`Reset Token`)}
                   </label>
                   <input
                     id="reset-token-input"
                     type="text"
                     required
-                    placeholder="Enter reset token"
+                    placeholder={translate(`Enter reset token`)}
                     value={resetToken}
                     onChange={(e) => setResetToken(e.target.value)}
                     className="w-full px-4 py-2.5 border border-slate-300 dark:border-slate-700 rounded-xl text-xs font-mono dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0091EA]"
@@ -226,7 +226,7 @@ export default function ForgotPasswordView({ onNavigate }: ForgotPasswordViewPro
 
                 <div>
                   <label htmlFor="new-password" className="block text-xs font-black text-slate-800 dark:text-slate-200 mb-1.5 uppercase tracking-wider">
-                    New Password
+                    {translate(`New Password`)}
                   </label>
                   <div className="relative">
                     <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -234,7 +234,7 @@ export default function ForgotPasswordView({ onNavigate }: ForgotPasswordViewPro
                       id="new-password"
                       type={showPassword ? 'text' : 'password'}
                       required
-                      placeholder="Min. 8 chars (upper, lower, num, special)"
+                      placeholder={translate(`Min. 8 chars (upper, lower, num, special)`)}
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
                       className="w-full pl-10 pr-11 py-2.5 border border-slate-300 dark:border-slate-700 rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0091EA]"
@@ -251,7 +251,7 @@ export default function ForgotPasswordView({ onNavigate }: ForgotPasswordViewPro
 
                 <div>
                   <label htmlFor="confirm-new-password" className="block text-xs font-black text-slate-800 dark:text-slate-200 mb-1.5 uppercase tracking-wider">
-                    Confirm New Password
+                    {translate(`Confirm New Password`)}
                   </label>
                   <div className="relative">
                     <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -259,7 +259,7 @@ export default function ForgotPasswordView({ onNavigate }: ForgotPasswordViewPro
                       id="confirm-new-password"
                       type={showConfirmPassword ? 'text' : 'password'}
                       required
-                      placeholder="Repeat new password"
+                      placeholder={translate(`Repeat new password`)}
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       className="w-full pl-10 pr-11 py-2.5 border border-slate-300 dark:border-slate-700 rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0091EA]"
@@ -282,10 +282,10 @@ export default function ForgotPasswordView({ onNavigate }: ForgotPasswordViewPro
                   {loading ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
-                      <span>Updating Password...</span>
+                      <span>{translate(`Updating Password...`)}</span>
                     </>
                   ) : (
-                    <span>Confirm Password Reset</span>
+                    <span>{translate(`Confirm Password Reset`)}</span>
                   )}
                 </button>
               </form>

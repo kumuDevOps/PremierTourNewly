@@ -1,3 +1,4 @@
+import { useLanguage } from '../lib/i18n';
 import React, { useState } from 'react';
 import { Mail, MessageCircle, FileText, CheckCircle2, Send, X, ShieldCheck, ExternalLink, Sparkles } from 'lucide-react';
 
@@ -38,7 +39,7 @@ export default function NotificationSimulatorModal({
               <Mail className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-black tracking-tight">Automated Notification & Voucher Dispatch</h3>
+              <h3 className="text-base font-black tracking-tight">{translate(`Automated Notification & Voucher Dispatch`)}</h3>
               <p className="text-xs text-slate-400 font-medium">Ref: #{bookingRef} • Sent to {customerEmail}</p>
             </div>
           </div>
@@ -62,7 +63,7 @@ export default function NotificationSimulatorModal({
               }`}
             >
               <Mail className="w-3.5 h-3.5" />
-              <span>HTML Confirmation Email</span>
+              <span>{translate(`HTML Confirmation Email`)}</span>
             </button>
             <button
               onClick={() => setActiveTab('whatsapp')}
@@ -89,7 +90,7 @@ export default function NotificationSimulatorModal({
         {/* Notification Body */}
         <div className="p-6">
           {activeTab === 'email' ? (
-            <div className="bg-white dark:bg-slate-950 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm text-left">
+            <div className="bg-white dark:bg-slate-950 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm text-start">
               <div className="border-b border-slate-100 dark:border-slate-800 pb-3 flex justify-between text-xs text-slate-500 font-mono">
                 <div>From: <span className="text-slate-900 dark:text-white font-bold">The Luxury Experience &lt;reservations@theluxuryesp.com&gt;</span></div>
                 <div>To: <span className="text-slate-900 dark:text-white font-bold">{customerEmail}</span></div>
@@ -103,7 +104,7 @@ export default function NotificationSimulatorModal({
                   Dear {customerName}, Your Luxury Vehicle Reservation is Locked!
                 </h4>
                 <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
-                  Thank you for booking with The Luxury Experience. Your payment has been processed successfully. Attached to this email is your official PDF Luxury Travel Voucher for reservation <span className="font-bold text-[#0091EA]">#{bookingRef}</span>.
+                  {translate(`Thank you for booking with The Luxury Experience. Your payment has been processed successfully. Attached to this email is your official PDF Luxury Travel Voucher for reservation`)} <span className="font-bold text-[#0091EA]">#{bookingRef}</span>.
                 </p>
 
                 {/* PDF Attachment Box */}
@@ -120,13 +121,13 @@ export default function NotificationSimulatorModal({
                     </div>
                   </div>
                   <span className="px-3 py-1 bg-sky-50 text-[#0091EA] font-bold text-xs rounded-lg border border-sky-100">
-                    Attached
+                    {translate(`Attached`)}
                   </span>
                 </div>
               </div>
             </div>
           ) : (
-            <div className="bg-emerald-950/20 p-5 rounded-2xl border border-emerald-800/40 text-left space-y-3">
+            <div className="bg-emerald-950/20 p-5 rounded-2xl border border-emerald-800/40 text-start space-y-3">
               <div className="flex items-center gap-2 text-xs font-black text-emerald-600 dark:text-emerald-400 uppercase">
                 <MessageCircle className="w-4 h-4" />
                 <span>WhatsApp Business Direct Dispatch ({customerPhone})</span>

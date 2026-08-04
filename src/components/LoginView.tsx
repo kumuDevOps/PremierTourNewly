@@ -93,8 +93,8 @@ export default function LoginView({ onNavigate, onLoginSuccess }: LoginViewProps
       <div className="w-full max-w-[420px] bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
         {/* Banner header */}
         <div className="bg-[#0A2540] px-8 py-6 text-white text-center">
-          <h2 className="text-xl font-extrabold tracking-tight">Premier Tour Booking</h2>
-          <p className="text-xs text-sky-300 font-medium mt-1">Sign in to your member account</p>
+          <h2 className="text-xl font-extrabold tracking-tight">{translate(`Premier Tour Booking`)}</h2>
+          <p className="text-xs text-sky-300 font-medium mt-1">{translate(`Sign in to your member account`)}</p>
         </div>
 
         <div className="p-8">
@@ -114,9 +114,9 @@ export default function LoginView({ onNavigate, onLoginSuccess }: LoginViewProps
 
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email Field */}
-            <div className="text-left">
+            <div className="text-start">
               <label htmlFor="login-email" className="block text-xs font-bold text-[#0A2540] mb-1.5 uppercase tracking-wider">
-                Email Address
+                {translate(`Email Address`)}
               </label>
               <div className="relative">
                 <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400" />
@@ -134,17 +134,17 @@ export default function LoginView({ onNavigate, onLoginSuccess }: LoginViewProps
             </div>
 
             {/* Password Field */}
-            <div className="text-left">
+            <div className="text-start">
               <div className="flex justify-between items-center mb-1.5">
                 <label htmlFor="login-password" className="block text-xs font-bold text-[#0A2540] uppercase tracking-wider">
-                  Password
+                  {translate(`Password`)}
                 </label>
                 <button
                   type="button"
                   onClick={() => onNavigate('forgot-password')}
                   className="text-xs font-bold text-[#0091EA] hover:text-[#007cc7] hover:underline"
                 >
-                  Forgot Password?
+                  {translate(`Forgot Password?`)}
                 </button>
               </div>
               <div className="relative">
@@ -154,7 +154,7 @@ export default function LoginView({ onNavigate, onLoginSuccess }: LoginViewProps
                   type={showPassword ? 'text' : 'password'}
                   required
                   autoComplete="current-password"
-                  placeholder="Enter account password"
+                  placeholder={translate(`Enter account password`)}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full pl-11 pr-11 py-3 border border-slate-250 rounded-xl text-sm font-medium text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0091EA] focus:border-transparent transition-all"
@@ -171,7 +171,7 @@ export default function LoginView({ onNavigate, onLoginSuccess }: LoginViewProps
             </div>
 
             {/* Remember Me Toggle */}
-            <div className="flex items-center text-left">
+            <div className="flex items-center text-start">
               <input
                 id="login-remember-me"
                 type="checkbox"
@@ -180,7 +180,7 @@ export default function LoginView({ onNavigate, onLoginSuccess }: LoginViewProps
                 className="h-4 w-4 rounded border-slate-300 text-[#0091EA] focus:ring-[#0091EA] cursor-pointer"
               />
               <label htmlFor="login-remember-me" className="ml-2.5 text-xs font-semibold text-slate-600 select-none cursor-pointer">
-                Remember my session on this device
+                {translate(`Remember my session on this device`)}
               </label>
             </div>
 
@@ -194,11 +194,11 @@ export default function LoginView({ onNavigate, onLoginSuccess }: LoginViewProps
               {loading ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin" />
-                  <span>Authenticating...</span>
+                  <span>{translate(`Authenticating...`)}</span>
                 </>
               ) : (
                 <>
-                  <span>Sign In to Account</span>
+                  <span>{translate(`Sign In to Account`)}</span>
                   <ArrowRight className="w-4.5 h-4.5" />
                 </>
               )}
@@ -214,7 +214,7 @@ export default function LoginView({ onNavigate, onLoginSuccess }: LoginViewProps
                 onClick={() => onNavigate('signup')}
                 className="font-bold text-[#0091EA] hover:text-[#007cc7] hover:underline cursor-pointer"
               >
-                Sign Up Now
+                {translate(`Sign Up Now`)}
               </button>
             </p>
           </div>

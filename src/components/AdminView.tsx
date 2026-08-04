@@ -1,3 +1,4 @@
+import { useLanguage } from '../lib/i18n';
 import React, { useState, useEffect } from 'react';
 import {
   BarChart3,
@@ -1414,10 +1415,10 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             <Logo size="md" lightText={true} />
           </div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
-            Administrator Gateway
+            {translate(`Administrator Gateway`)}
           </h2>
           <p className="mt-2 text-center text-sm text-slate-400">
-            Secure panel for internal reservation and tour management
+            {translate(`Secure panel for internal reservation and tour management`)}
           </p>
         </div>
 
@@ -1426,7 +1427,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             <form onSubmit={handleLogin} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-slate-300">
-                  Username
+                  {translate(`Username`)}
                 </label>
                 <div className="mt-1.5 relative rounded-md shadow-sm">
                   <input
@@ -1435,14 +1436,14 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     className="block w-full px-4 py-3 bg-slate-750 border border-slate-600 rounded-lg text-white placeholder-slate-450 focus:ring-2 focus:ring-[#0091EA] focus:border-[#0091EA]"
-                    placeholder="Enter admin user"
+                    placeholder={translate(`Enter admin user`)}
                   />
                 </div>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-slate-300">
-                  Security Password
+                  {translate(`Security Password`)}
                 </label>
                 <div className="mt-1.5 relative rounded-md shadow-sm">
                   <input
@@ -1477,7 +1478,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   onClick={onBackToMain}
                   className="w-full flex justify-center py-3 px-4 border border-slate-600 rounded-lg shadow-sm text-sm font-semibold text-slate-300 bg-transparent hover:bg-slate-700 focus:outline-none transition-all"
                 >
-                  Return to Public Website
+                  {translate(`Return to Public Website`)}
                 </button>
               </div>
             </form>
@@ -1485,7 +1486,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
           
           <div className="mt-6 flex items-center justify-center gap-2 text-xs text-slate-500">
             <Lock className="h-3.5 w-3.5" />
-            <span>Strict Administrator Access Only. Port 3000 Secured.</span>
+            <span>{translate(`Strict Administrator Access Only. Port 3000 Secured.`)}</span>
           </div>
         </div>
       </div>
@@ -1548,7 +1549,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
               >
                 <IconComponent className="h-5 w-5 shrink-0" />
                 {sidebarOpen && (
-                  <span className="flex-1 text-left truncate">{item.label}</span>
+                  <span className="flex-1 text-start truncate">{item.label}</span>
                 )}
                 {sidebarOpen && item.sec && (
                   <span className={`px-1.5 py-0.5 text-3xs font-extrabold rounded-md uppercase shrink-0 ${
@@ -1574,7 +1575,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             className="w-full flex items-center gap-3.5 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
           >
             <Globe className="h-5 w-5 shrink-0" />
-            {sidebarOpen && <span className="truncate">Public Site</span>}
+            {sidebarOpen && <span className="truncate">{translate(`Public Site`)}</span>}
           </button>
           
           <button
@@ -1582,7 +1583,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             className="w-full flex items-center gap-3.5 px-4 py-2.5 rounded-lg text-sm font-medium text-rose-400 hover:bg-rose-950/40 hover:text-rose-300 transition-all"
           >
             <LogOut className="h-5 w-5 shrink-0" />
-            {sidebarOpen && <span className="truncate">Sign Out</span>}
+            {sidebarOpen && <span className="truncate">{translate(`Sign Out`)}</span>}
           </button>
         </div>
       </aside>
@@ -1605,7 +1606,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                 type="text"
                 value={globalSearch}
                 onChange={(e) => setGlobalSearch(e.target.value)}
-                placeholder="Global tracking search..."
+                placeholder={translate(`Global tracking search...`)}
                 className="w-full bg-slate-50 border border-slate-200 pl-10 pr-4 py-1.5 rounded-lg text-sm text-slate-800 focus:outline-none focus:ring-1 focus:ring-[#0091EA] focus:border-[#0091EA]"
               />
             </div>
@@ -1639,10 +1640,10 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             {/* Profile */}
             <div className="flex items-center gap-3 pl-2 border-l border-slate-200">
               <div className="h-8.5 w-8.5 rounded-full bg-[#0A2540] text-white font-bold flex items-center justify-center text-sm shadow-inner">
-                AD
+                {translate(`AD`)}
               </div>
-              <div className="text-left hidden md:block">
-                <div className="text-sm font-bold text-[#0A2540]">Administrator</div>
+              <div className="text-start hidden md:block">
+                <div className="text-sm font-bold text-[#0A2540]">{translate(`Administrator`)}</div>
                 <div className="text-2xs text-[#0091EA] font-extrabold uppercase">{ROLE_LABELS[activeAdminRole] || activeAdminRole}</div>
               </div>
             </div>
@@ -1656,8 +1657,8 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             <div className="space-y-8 animate-fade-in">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h1 className="text-2xl font-black text-[#0A2540] tracking-tight">Executive Dashboard</h1>
-                  <p className="text-slate-500 text-sm mt-1">Real-time statistics synchronized from Supabase databases</p>
+                  <h1 className="text-2xl font-black text-[#0A2540] tracking-tight">{translate(`Executive Dashboard`)}</h1>
+                  <p className="text-slate-500 text-sm mt-1">{translate(`Real-time statistics synchronized from Supabase databases`)}</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
@@ -1665,7 +1666,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     className="flex items-center gap-2 px-3.5 py-2 bg-[#0091EA] text-white hover:bg-sky-600 rounded-lg text-sm font-bold shadow-sm cursor-pointer transition-all"
                   >
                     <Mail className="h-4 w-4" />
-                    <span>Dispatch Simulator</span>
+                    <span>{translate(`Dispatch Simulator`)}</span>
                   </button>
                   <button
                     onClick={loadDashboardData}
@@ -1673,7 +1674,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     className="flex items-center gap-2 px-4 py-2 bg-[#0A2540] text-white hover:bg-slate-850 rounded-lg text-sm font-bold shadow-sm cursor-pointer transition-all disabled:opacity-50"
                   >
                     <RefreshCw className={`h-4 w-4 ${statsLoading ? 'animate-spin' : ''}`} />
-                    <span>Sync Metrics</span>
+                    <span>{translate(`Sync Metrics`)}</span>
                   </button>
                 </div>
               </div>
@@ -1755,7 +1756,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       </ResponsiveContainer>
                     ) : (
                       <div className="h-full w-full bg-slate-50 border border-dashed border-slate-250 rounded-lg flex items-center justify-center text-slate-400">
-                        Synthesizing trend chart...
+                        {translate(`Synthesizing trend chart...`)}
                       </div>
                     )}
                   </div>
@@ -1763,7 +1764,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
 
                 {/* Recent Activities Feed */}
                 <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-2xs space-y-4 flex flex-col">
-                  <h2 className="text-base font-extrabold text-[#0A2540]">System Action Feed</h2>
+                  <h2 className="text-base font-extrabold text-[#0A2540]">{translate(`System Action Feed`)}</h2>
                   <div className="flex-1 space-y-4 overflow-y-auto max-h-80 pr-1">
                     {stats?.recentActivity && stats.recentActivity.length > 0 ? (
                       stats.recentActivity.map((act: any, idx: number) => (
@@ -1793,7 +1794,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     ) : (
                       <div className="h-full flex flex-col items-center justify-center text-slate-400 py-12">
                         <Clock className="h-8 w-8 text-slate-300 mb-2 animate-spin" />
-                        <span className="text-sm">Waiting for incoming logs...</span>
+                        <span className="text-sm">{translate(`Waiting for incoming logs...`)}</span>
                       </div>
                     )}
                   </div>
@@ -1807,24 +1808,24 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             <div className="space-y-6 animate-fade-in">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">Active Tour Catalog</h2>
+                  <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">{translate(`Active Tour Catalog`)}</h2>
                   <p className="text-slate-500 text-sm mt-1 flex items-center gap-2">
-                    <span>Add, update, or unpublish public reservation packages</span>
-                    <span className="inline-flex items-center text-emerald-600 font-bold text-xs bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200"><span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-1.5"></span>Auto-Saved to Database</span>
+                    <span>{translate(`Add, update, or unpublish public reservation packages`)}</span>
+                    <span className="inline-flex items-center text-emerald-600 font-bold text-xs bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200"><span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-1.5"></span>{translate(`Auto-Saved to Database`)}</span>
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handleExportBackup}
-                    title="Export database backup JSON file"
+                    title={translate(`Export database backup JSON file`)}
                     className="flex items-center gap-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold transition-all border border-slate-200 shadow-2xs"
                   >
                     <Download className="h-4 w-4 text-slate-500" />
-                    <span>Export Backup</span>
+                    <span>{translate(`Export Backup`)}</span>
                   </button>
-                  <label title="Restore database backup from JSON file" className="flex items-center gap-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold transition-all border border-slate-200 shadow-2xs cursor-pointer">
+                  <label title={translate(`Restore database backup from JSON file`)} className="flex items-center gap-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold transition-all border border-slate-200 shadow-2xs cursor-pointer">
                     <Upload className="h-4 w-4 text-slate-500" />
-                    <span>Restore</span>
+                    <span>{translate(`Restore`)}</span>
                     <input type="file" accept=".json" onChange={handleImportBackup} className="hidden" />
                   </label>
                   {canManageSection('tours') && (
@@ -1833,7 +1834,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       className="flex items-center gap-2 px-4 py-2.5 bg-[#0091EA] text-white hover:bg-sky-500 rounded-lg text-sm font-bold shadow-sm transition-all ml-1"
                     >
                       <Plus className="h-4.5 w-4.5" />
-                      <span>Create Tour</span>
+                      <span>{translate(`Create Tour`)}</span>
                     </button>
                   )}
                 </div>
@@ -1844,7 +1845,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   <Lock className="h-5 w-5 text-amber-600 shrink-0" />
                   <div>
                     <span className="font-bold">Read-Only Mode: </span>
-                    Operating as <span className="font-bold underline">{ROLE_LABELS[activeAdminRole] || activeAdminRole}</span>. You can inspect tours, but creating, editing, or deleting packages requires <span className="font-bold">Tour Manager</span> or <span className="font-bold">Super Admin</span> role.
+                    {translate(`Operating as`)} <span className="font-bold underline">{ROLE_LABELS[activeAdminRole] || activeAdminRole}</span>. You can inspect tours, but creating, editing, or deleting packages requires <span className="font-bold">{translate(`Tour Manager`)}</span> or <span className="font-bold">{translate(`Super Admin`)}</span> role.
                   </div>
                 </div>
               ) : (
@@ -1853,24 +1854,24 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     <CheckCircle className="h-4 w-4 text-emerald-600" />
                     <span>Manager Access Granted: Full management rights for Tour Packages as {ROLE_LABELS[activeAdminRole]}</span>
                   </div>
-                  <span className="text-3xs bg-emerald-600 text-white px-2 py-0.5 rounded-full font-bold uppercase">Tour Manager Active</span>
+                  <span className="text-3xs bg-emerald-600 text-white px-2 py-0.5 rounded-full font-bold uppercase">{translate(`Tour Manager Active`)}</span>
                 </div>
               )}
 
               {/* Table list */}
               <div className="bg-white rounded-xl border border-slate-200 shadow-2xs overflow-hidden">
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse">
+                  <table className="w-full text-start border-collapse">
                     <thead>
                       <tr className="bg-slate-50 border-b border-slate-100 text-2xs font-extrabold text-slate-500 uppercase tracking-wider">
-                        <th className="py-4 px-6">Tour Information</th>
-                        <th className="py-4 px-6">Category</th>
-                        <th className="py-4 px-6">Duration</th>
-                        <th className="py-4 px-6">Gallery Collection</th>
-                        <th className="py-4 px-6">Max Slots</th>
+                        <th className="py-4 px-6">{translate(`Tour Information`)}</th>
+                        <th className="py-4 px-6">{translate(`Category`)}</th>
+                        <th className="py-4 px-6">{translate(`Duration`)}</th>
+                        <th className="py-4 px-6">{translate(`Gallery Collection`)}</th>
+                        <th className="py-4 px-6">{translate(`Max Slots`)}</th>
                         <th className="py-4 px-6">Price (USD)</th>
-                        <th className="py-4 px-6">Status</th>
-                        <th className="py-4 px-6 text-right">Actions</th>
+                        <th className="py-4 px-6">{translate(`Status`)}</th>
+                        <th className="py-4 px-6 text-end">{translate(`Actions`)}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 text-sm text-slate-700">
@@ -1899,7 +1900,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                                     alt=""
                                     className="h-12 w-16 object-cover rounded-lg bg-slate-100 shrink-0"
                                     referrerPolicy="no-referrer"
-                                    onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800'; }}
+                                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.onerror = null; e.currentTarget.src = 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800'; }}
                                   />
                                   <div className="min-w-0">
                                     <span className="font-extrabold text-[#0A2540] block truncate max-w-xs">{tour.title}</span>
@@ -1914,7 +1915,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                                   type="button"
                                   onClick={() => openEditTour(tour)}
                                   className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-sky-50 hover:bg-sky-100 border border-sky-200 text-[#0091EA] rounded-lg text-xs font-bold transition-all cursor-pointer"
-                                  title="Click to manage photo gallery"
+                                  title={translate(`Click to manage photo gallery`)}
                                 >
                                   <ImageIcon className="h-3.5 w-3.5" />
                                   <span>{galleryCount} Photos</span>
@@ -1923,12 +1924,12 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                               <td className="py-4 px-6 text-slate-550 font-semibold">{tour.maxGuests || 10} Persons</td>
                               <td className="py-4 px-6 font-bold text-[#0A2540]">${tour.price}</td>
                               <td className="py-4 px-6">{renderStatusBadge(tour.status)}</td>
-                              <td className="py-4 px-6 text-right">
+                              <td className="py-4 px-6 text-end">
                                 <div className="flex justify-end items-center gap-2">
                                   <button
                                     onClick={() => openEditTour(tour)}
                                     className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-[#0091EA] hover:bg-sky-600 text-white text-xs font-bold transition-all shadow-2xs cursor-pointer"
-                                    title="Upload and Manage Gallery Photos"
+                                    title={translate(`Upload and Manage Gallery Photos`)}
                                   >
                                     <Upload className="h-3.5 w-3.5" />
                                     <span>Upload / Edit Photos</span>
@@ -1936,14 +1937,14 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                                   <button
                                     onClick={() => openEditTour(tour)}
                                     className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-600 transition-all cursor-pointer"
-                                    title="Edit package details"
+                                    title={translate(`Edit package details`)}
                                   >
                                     <Edit2 className="h-4.5 w-4.5" />
                                   </button>
                                   <button
                                     onClick={() => handleDeleteItem('tour', tour.id)}
                                     className="p-1.5 rounded-lg hover:bg-rose-50 text-rose-600 transition-all cursor-pointer"
-                                    title="Delete package"
+                                    title={translate(`Delete package`)}
                                   >
                                     <Trash2 className="h-4.5 w-4.5" />
                                   </button>
@@ -1955,7 +1956,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       ) : (
                         <tr>
                           <td colSpan={8} className="py-12 text-center text-slate-400">
-                            No packages registered. Click Create Tour to register catalog.
+                            {translate(`No packages registered. Click Create Tour to register catalog.`)}
                           </td>
                         </tr>
                       )}
@@ -1971,8 +1972,8 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             <div className="space-y-6 animate-fade-in">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">Rental Fleet Inventory</h2>
-                  <p className="text-slate-500 text-sm mt-1">Add, inspect, and service rental cars</p>
+                  <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">{translate(`Rental Fleet Inventory`)}</h2>
+                  <p className="text-slate-500 text-sm mt-1">{translate(`Add, inspect, and service rental cars`)}</p>
                 </div>
                 {canManageSection('cars') && (
                   <button
@@ -1980,7 +1981,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     className="flex items-center gap-2 px-4 py-2.5 bg-[#0091EA] text-white hover:bg-sky-500 rounded-lg text-sm font-bold shadow-sm transition-all"
                   >
                     <Plus className="h-4.5 w-4.5" />
-                    <span>Register Vehicle</span>
+                    <span>{translate(`Register Vehicle`)}</span>
                   </button>
                 )}
               </div>
@@ -1990,7 +1991,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   <Lock className="h-5 w-5 text-amber-600 shrink-0" />
                   <div>
                     <span className="font-bold">Read-Only Mode: </span>
-                    Operating as <span className="font-bold underline">{ROLE_LABELS[activeAdminRole] || activeAdminRole}</span>. You can inspect rental vehicles, but registered car edits, additions, or deletions require <span className="font-bold">Car Rent Manager</span> or <span className="font-bold">Super Admin</span> role.
+                    {translate(`Operating as`)} <span className="font-bold underline">{ROLE_LABELS[activeAdminRole] || activeAdminRole}</span>. You can inspect rental vehicles, but registered car edits, additions, or deletions require <span className="font-bold">{translate(`Car Rent Manager`)}</span> or <span className="font-bold">{translate(`Super Admin`)}</span> role.
                   </div>
                 </div>
               ) : (
@@ -1999,23 +2000,23 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     <CheckCircle className="h-4 w-4 text-emerald-600" />
                     <span>Manager Access Granted: Full management rights for Vehicle Fleet as {ROLE_LABELS[activeAdminRole]}</span>
                   </div>
-                  <span className="text-3xs bg-emerald-600 text-white px-2 py-0.5 rounded-full font-bold uppercase">Car Manager Active</span>
+                  <span className="text-3xs bg-emerald-600 text-white px-2 py-0.5 rounded-full font-bold uppercase">{translate(`Car Manager Active`)}</span>
                 </div>
               )}
 
               {/* Fleet List */}
               <div className="bg-white rounded-xl border border-slate-200 shadow-2xs overflow-hidden">
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse">
+                  <table className="w-full text-start border-collapse">
                     <thead>
                       <tr className="bg-slate-50 border-b border-slate-100 text-2xs font-extrabold text-slate-500 uppercase tracking-wider">
-                        <th className="py-4 px-6">Vehicle Detail</th>
-                        <th className="py-4 px-6">Category</th>
-                        <th className="py-4 px-6">Capacity</th>
-                        <th className="py-4 px-6">Transmission</th>
+                        <th className="py-4 px-6">{translate(`Vehicle Detail`)}</th>
+                        <th className="py-4 px-6">{translate(`Category`)}</th>
+                        <th className="py-4 px-6">{translate(`Capacity`)}</th>
+                        <th className="py-4 px-6">{translate(`Transmission`)}</th>
                         <th className="py-4 px-6">Rate (Per Day)</th>
-                        <th className="py-4 px-6">Status</th>
-                        <th className="py-4 px-6 text-right">Actions</th>
+                        <th className="py-4 px-6">{translate(`Status`)}</th>
+                        <th className="py-4 px-6 text-end">{translate(`Actions`)}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 text-sm text-slate-700">
@@ -2029,7 +2030,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                                   alt=""
                                   className="h-12 w-16 object-cover rounded-lg bg-slate-100 shrink-0"
                                   referrerPolicy="no-referrer"
-                                  onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80'; }}
+                                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.onerror = null; e.currentTarget.src = 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80'; }}
                                 />
                                 <span className="font-extrabold text-[#0A2540] block truncate max-w-xs">{car.name}</span>
                               </div>
@@ -2039,19 +2040,19 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                             <td className="py-4 px-6 font-medium text-slate-500">{car.transmission}</td>
                             <td className="py-4 px-6 font-bold text-[#0A2540]">${car.pricePerDay}/day</td>
                             <td className="py-4 px-6">{renderStatusBadge(car.status)}</td>
-                            <td className="py-4 px-6 text-right">
+                            <td className="py-4 px-6 text-end">
                               <div className="flex justify-end gap-2">
                                 <button
                                   onClick={() => openEditCar(car)}
                                   className="p-1.5 rounded-lg hover:bg-slate-100 text-[#0091EA] transition-all"
-                                  title="Edit vehicle registry"
+                                  title={translate(`Edit vehicle registry`)}
                                 >
                                   <Edit2 className="h-4.5 w-4.5" />
                                 </button>
                                 <button
                                   onClick={() => handleDeleteItem('car', car.id)}
                                   className="p-1.5 rounded-lg hover:bg-rose-50 text-rose-600 transition-all"
-                                  title="Deregister vehicle"
+                                  title={translate(`Deregister vehicle`)}
                                 >
                                   <Trash2 className="h-4.5 w-4.5" />
                                 </button>
@@ -2062,7 +2063,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       ) : (
                         <tr>
                           <td colSpan={7} className="py-12 text-center text-slate-400">
-                            No vehicles cataloged. Click Register Vehicle to seed your rental fleet.
+                            {translate(`No vehicles cataloged. Click Register Vehicle to seed your rental fleet.`)}
                           </td>
                         </tr>
                       )}
@@ -2085,15 +2086,15 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             <div className="space-y-6 animate-fade-in">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">Audit Booking Logs</h2>
-                  <p className="text-slate-500 text-sm mt-1">Inspect and approve pending client reservation sessions</p>
+                  <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">{translate(`Audit Booking Logs`)}</h2>
+                  <p className="text-slate-500 text-sm mt-1">{translate(`Inspect and approve pending client reservation sessions`)}</p>
                 </div>
                 <button
                   onClick={() => handleExportCSV('bookings')}
                   className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-bold shadow-sm cursor-pointer transition-all"
                 >
                   <Download className="h-4.5 w-4.5" />
-                  <span>Export CSV</span>
+                  <span>{translate(`Export CSV`)}</span>
                 </button>
               </div>
 
@@ -2125,15 +2126,15 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
               {/* Bookings Table List */}
               <div className="bg-white rounded-xl border border-slate-200 shadow-2xs overflow-hidden">
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse">
+                  <table className="w-full text-start border-collapse">
                     <thead>
                       <tr className="bg-slate-50 border-b border-slate-100 text-2xs font-extrabold text-slate-500 uppercase tracking-wider">
-                        <th className="py-4 px-6">Customer Contact</th>
-                        <th className="py-4 px-6">Booked Item</th>
-                        <th className="py-4 px-6">Schedule Date</th>
-                        <th className="py-4 px-6">Recorded At</th>
-                        <th className="py-4 px-6">Status</th>
-                        <th className="py-4 px-6 text-right">Approve Actions</th>
+                        <th className="py-4 px-6">{translate(`Customer Contact`)}</th>
+                        <th className="py-4 px-6">{translate(`Booked Item`)}</th>
+                        <th className="py-4 px-6">{translate(`Schedule Date`)}</th>
+                        <th className="py-4 px-6">{translate(`Recorded At`)}</th>
+                        <th className="py-4 px-6">{translate(`Status`)}</th>
+                        <th className="py-4 px-6 text-end">{translate(`Approve Actions`)}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 text-sm text-slate-700">
@@ -2153,21 +2154,21 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                           <td className="py-4 px-6 text-slate-500 font-mono text-xs">{b.travelDate}</td>
                           <td className="py-4 px-6 text-slate-400 text-2xs">{b.createdAt ? new Date(b.createdAt).toLocaleDateString() : 'N/A'}</td>
                           <td className="py-4 px-6">{renderStatusBadge(b.status)}</td>
-                          <td className="py-4 px-6 text-right">
+                          <td className="py-4 px-6 text-end">
                             <div className="flex justify-end gap-1.5">
                               {b.status === 'Pending' && (
                                 <>
                                   <button
                                     onClick={() => handleUpdateStatus('tour-booking', b.id, 'Confirmed')}
                                     className="p-1 text-emerald-600 hover:bg-emerald-50 rounded"
-                                    title="Confirm reservation"
+                                    title={translate(`Confirm reservation`)}
                                   >
                                     <Check className="h-5 w-5" />
                                   </button>
                                   <button
                                     onClick={() => handleUpdateStatus('tour-booking', b.id, 'Cancelled')}
                                     className="p-1 text-rose-600 hover:bg-rose-50 rounded"
-                                    title="Cancel reservation"
+                                    title={translate(`Cancel reservation`)}
                                   >
                                     <X className="h-5 w-5" />
                                   </button>
@@ -2183,7 +2184,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                           <td className="py-4 px-6">
                             <div>
                               <span className="font-extrabold text-[#0A2540] block">{cb.customerName}</span>
-                              <span className="text-2xs text-slate-400 italic">Self-Drive Guest</span>
+                              <span className="text-2xs text-slate-400 italic">{translate(`Self-Drive Guest`)}</span>
                             </div>
                           </td>
                           <td className="py-4 px-6 font-semibold">{cb.itemName}</td>
@@ -2192,21 +2193,21 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                           </td>
                           <td className="py-4 px-6 text-slate-400 text-2xs">{cb.createdAt ? new Date(cb.createdAt).toLocaleDateString() : 'N/A'}</td>
                           <td className="py-4 px-6">{renderStatusBadge(cb.status)}</td>
-                          <td className="py-4 px-6 text-right">
+                          <td className="py-4 px-6 text-end">
                             <div className="flex justify-end gap-1.5">
                               {cb.status === 'Pending' && (
                                 <>
                                   <button
                                     onClick={() => handleUpdateStatus('car-booking', cb.id, 'Confirmed')}
                                     className="p-1 text-emerald-600 hover:bg-emerald-50 rounded"
-                                    title="Confirm Booking"
+                                    title={translate(`Confirm Booking`)}
                                   >
                                     <Check className="h-5 w-5" />
                                   </button>
                                   <button
                                     onClick={() => handleUpdateStatus('car-booking', cb.id, 'Cancelled')}
                                     className="p-1 text-rose-600 hover:bg-rose-50 rounded"
-                                    title="Cancel Booking"
+                                    title={translate(`Cancel Booking`)}
                                   >
                                     <X className="h-5 w-5" />
                                   </button>
@@ -2227,24 +2228,24 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                             </div>
                           </td>
                           <td className="py-4 px-6 font-semibold">{fb.itemName}</td>
-                          <td className="py-4 px-6 text-slate-500 font-mono text-xs">At Departure</td>
+                          <td className="py-4 px-6 text-slate-500 font-mono text-xs">{translate(`At Departure`)}</td>
                           <td className="py-4 px-6 text-slate-400 text-2xs">{fb.createdAt ? new Date(fb.createdAt).toLocaleDateString() : 'N/A'}</td>
                           <td className="py-4 px-6">{renderStatusBadge(fb.status)}</td>
-                          <td className="py-4 px-6 text-right">
+                          <td className="py-4 px-6 text-end">
                             <div className="flex justify-end gap-1.5">
                               {fb.status === 'Pending' && (
                                 <>
                                   <button
                                     onClick={() => handleUpdateStatus('flight-booking', fb.id, 'Confirmed')}
                                     className="p-1 text-emerald-600 hover:bg-emerald-50 rounded"
-                                    title="Confirm Flight"
+                                    title={translate(`Confirm Flight`)}
                                   >
                                     <Check className="h-5 w-5" />
                                   </button>
                                   <button
                                     onClick={() => handleUpdateStatus('flight-booking', fb.id, 'Cancelled')}
                                     className="p-1 text-rose-600 hover:bg-rose-50 rounded"
-                                    title="Cancel Flight"
+                                    title={translate(`Cancel Flight`)}
                                   >
                                     <X className="h-5 w-5" />
                                   </button>
@@ -2272,13 +2273,13 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                           </td>
                           <td className="py-4 px-6 text-slate-400 text-2xs">{hb.createdAt ? new Date(hb.createdAt).toLocaleDateString() : 'N/A'}</td>
                           <td className="py-4 px-6">{renderStatusBadge(hb.status)}</td>
-                          <td className="py-4 px-6 text-right">
+                          <td className="py-4 px-6 text-end">
                             <div className="flex justify-end gap-1.5">
                               {hb.status?.toLowerCase() === 'confirmed' && (
                                 <button
                                   onClick={() => handleUpdateStatus('hotel-booking', hb.id, 'Cancelled')}
                                   className="p-1 text-rose-600 hover:bg-rose-50 rounded"
-                                  title="Cancel Hotel Stay"
+                                  title={translate(`Cancel Hotel Stay`)}
                                 >
                                   <X className="h-5 w-5" />
                                 </button>
@@ -2294,7 +2295,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                         (bookingsActiveTab === 'hotel' && (!bookingsData.hotelBookings || bookingsData.hotelBookings.length === 0))) && (
                         <tr>
                           <td colSpan={6} className="py-12 text-center text-slate-400">
-                            No reservations recorded under this segment.
+                            {translate(`No reservations recorded under this segment.`)}
                           </td>
                         </tr>
                       )}
@@ -2310,8 +2311,8 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             <div className="space-y-6 animate-fade-in">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">Public Flight Schedules</h2>
-                  <p className="text-slate-500 text-sm mt-1">Configure airline departures and rates</p>
+                  <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">{translate(`Public Flight Schedules`)}</h2>
+                  <p className="text-slate-500 text-sm mt-1">{translate(`Configure airline departures and rates`)}</p>
                 </div>
                 {canManageSection('flights') && (
                   <button
@@ -2319,7 +2320,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     className="flex items-center gap-2 px-4 py-2.5 bg-[#0091EA] text-white hover:bg-sky-500 rounded-lg text-sm font-bold shadow-sm transition-all"
                   >
                     <Plus className="h-4.5 w-4.5" />
-                    <span>Register Flight</span>
+                    <span>{translate(`Register Flight`)}</span>
                   </button>
                 )}
               </div>
@@ -2329,7 +2330,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   <Lock className="h-5 w-5 text-amber-600 shrink-0" />
                   <div>
                     <span className="font-bold">Read-Only Mode: </span>
-                    Operating as <span className="font-bold underline">{ROLE_LABELS[activeAdminRole] || activeAdminRole}</span>. You can inspect flight schedules, but adding, modifying, or deleting flights requires <span className="font-bold">Flight Manager</span> or <span className="font-bold">Super Admin</span> role.
+                    {translate(`Operating as`)} <span className="font-bold underline">{ROLE_LABELS[activeAdminRole] || activeAdminRole}</span>. You can inspect flight schedules, but adding, modifying, or deleting flights requires <span className="font-bold">{translate(`Flight Manager`)}</span> or <span className="font-bold">{translate(`Super Admin`)}</span> role.
                   </div>
                 </div>
               ) : (
@@ -2338,24 +2339,24 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     <CheckCircle className="h-4 w-4 text-emerald-600" />
                     <span>Manager Access Granted: Full management rights for Flight Schedules as {ROLE_LABELS[activeAdminRole]}</span>
                   </div>
-                  <span className="text-3xs bg-emerald-600 text-white px-2 py-0.5 rounded-full font-bold uppercase">Flight Manager Active</span>
+                  <span className="text-3xs bg-emerald-600 text-white px-2 py-0.5 rounded-full font-bold uppercase">{translate(`Flight Manager Active`)}</span>
                 </div>
               )}
 
               {/* Flight List */}
               <div className="bg-white rounded-xl border border-slate-200 shadow-2xs overflow-hidden">
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse">
+                  <table className="w-full text-start border-collapse">
                     <thead>
                       <tr className="bg-slate-50 border-b border-slate-100 text-2xs font-extrabold text-slate-500 uppercase tracking-wider">
-                        <th className="py-4 px-6">Airline</th>
-                        <th className="py-4 px-6">From City</th>
-                        <th className="py-4 px-6">To City</th>
-                        <th className="py-4 px-6">Departure Time</th>
-                        <th className="py-4 px-6">Arrival Time</th>
-                        <th className="py-4 px-6">Stops</th>
+                        <th className="py-4 px-6">{translate(`Airline`)}</th>
+                        <th className="py-4 px-6">{translate(`From City`)}</th>
+                        <th className="py-4 px-6">{translate(`To City`)}</th>
+                        <th className="py-4 px-6">{translate(`Departure Time`)}</th>
+                        <th className="py-4 px-6">{translate(`Arrival Time`)}</th>
+                        <th className="py-4 px-6">{translate(`Stops`)}</th>
                         <th className="py-4 px-6">Fare (USD)</th>
-                        <th className="py-4 px-6 text-right">Actions</th>
+                        <th className="py-4 px-6 text-end">{translate(`Actions`)}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 text-sm text-slate-700">
@@ -2371,19 +2372,19 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                               {flight.stops === 0 ? 'Direct' : `${flight.stops} Stop(s)`}
                             </td>
                             <td className="py-4 px-6 font-bold text-[#0A2540]">${flight.price}</td>
-                            <td className="py-4 px-6 text-right">
+                            <td className="py-4 px-6 text-end">
                               <div className="flex justify-end gap-2">
                                 <button
                                   onClick={() => openEditFlight(flight)}
                                   className="p-1.5 rounded-lg hover:bg-slate-100 text-[#0091EA] transition-all"
-                                  title="Edit flight registry"
+                                  title={translate(`Edit flight registry`)}
                                 >
                                   <Edit2 className="h-4.5 w-4.5" />
                                 </button>
                                 <button
                                   onClick={() => handleDeleteItem('flight', flight.id)}
                                   className="p-1.5 rounded-lg hover:bg-rose-50 text-rose-600 transition-all"
-                                  title="Remove flight schedule"
+                                  title={translate(`Remove flight schedule`)}
                                 >
                                   <Trash2 className="h-4.5 w-4.5" />
                                 </button>
@@ -2394,7 +2395,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       ) : (
                         <tr>
                           <td colSpan={8} className="py-12 text-center text-slate-400">
-                            No flights mapped. Click Register Flight to populate scheduler.
+                            {translate(`No flights mapped. Click Register Flight to populate scheduler.`)}
                           </td>
                         </tr>
                       )}
@@ -2410,8 +2411,8 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             <div className="space-y-6 animate-fade-in">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">Active Hotel Portfolio</h2>
-                  <p className="text-slate-500 text-sm mt-1">Configure premium lodging listings, amenities, and nightly rates</p>
+                  <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">{translate(`Active Hotel Portfolio`)}</h2>
+                  <p className="text-slate-500 text-sm mt-1">{translate(`Configure premium lodging listings, amenities, and nightly rates`)}</p>
                 </div>
                 {canManageSection('hotels') && (
                   <button
@@ -2419,7 +2420,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     className="flex items-center gap-2 px-4 py-2.5 bg-[#0091EA] text-white hover:bg-sky-500 rounded-lg text-sm font-bold shadow-sm transition-all cursor-pointer"
                   >
                     <Plus className="h-4.5 w-4.5" />
-                    <span>Add Hotel</span>
+                    <span>{translate(`Add Hotel`)}</span>
                   </button>
                 )}
               </div>
@@ -2429,7 +2430,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   <Lock className="h-5 w-5 text-amber-600 shrink-0" />
                   <div>
                     <span className="font-bold">Read-Only Mode: </span>
-                    Operating as <span className="font-bold underline">{ROLE_LABELS[activeAdminRole] || activeAdminRole}</span>. You can inspect hotel listings, but adding, editing, or deleting hotel profiles requires <span className="font-bold">Hotel Manager</span> or <span className="font-bold">Super Admin</span> role.
+                    {translate(`Operating as`)} <span className="font-bold underline">{ROLE_LABELS[activeAdminRole] || activeAdminRole}</span>. You can inspect hotel listings, but adding, editing, or deleting hotel profiles requires <span className="font-bold">{translate(`Hotel Manager`)}</span> or <span className="font-bold">{translate(`Super Admin`)}</span> role.
                   </div>
                 </div>
               ) : (
@@ -2438,22 +2439,22 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     <CheckCircle className="h-4 w-4 text-emerald-600" />
                     <span>Manager Access Granted: Full management rights for Hotel Portfolio as {ROLE_LABELS[activeAdminRole]}</span>
                   </div>
-                  <span className="text-3xs bg-emerald-600 text-white px-2 py-0.5 rounded-full font-bold uppercase">Hotel Manager Active</span>
+                  <span className="text-3xs bg-emerald-600 text-white px-2 py-0.5 rounded-full font-bold uppercase">{translate(`Hotel Manager Active`)}</span>
                 </div>
               )}
 
               {/* Hotel List */}
               <div className="bg-white rounded-xl border border-slate-200 shadow-2xs overflow-hidden">
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse">
+                  <table className="w-full text-start border-collapse">
                     <thead>
                       <tr className="bg-slate-50 border-b border-slate-100 text-2xs font-extrabold text-slate-500 uppercase tracking-wider">
-                        <th className="py-4 px-6">Hotel Info</th>
-                        <th className="py-4 px-6">Location</th>
-                        <th className="py-4 px-6">Star Rating</th>
-                        <th className="py-4 px-6">Amenities</th>
+                        <th className="py-4 px-6">{translate(`Hotel Info`)}</th>
+                        <th className="py-4 px-6">{translate(`Location`)}</th>
+                        <th className="py-4 px-6">{translate(`Star Rating`)}</th>
+                        <th className="py-4 px-6">{translate(`Amenities`)}</th>
                         <th className="py-4 px-6">Nightly Price (USD)</th>
-                        <th className="py-4 px-6 text-right">Actions</th>
+                        <th className="py-4 px-6 text-end">{translate(`Actions`)}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 text-sm text-slate-700">
@@ -2467,7 +2468,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                                   alt=""
                                   className="h-12 w-16 object-cover rounded-lg bg-slate-100 shrink-0"
                                   referrerPolicy="no-referrer"
-                                  onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80'; }}
+                                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.onerror = null; e.currentTarget.src = 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80'; }}
                                 />
                                 <div className="min-w-0">
                                   <span className="font-extrabold text-[#0A2540] block truncate max-w-xs">{hotel.name}</span>
@@ -2496,19 +2497,19 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                               </div>
                             </td>
                             <td className="py-4 px-6 font-bold text-[#0A2540]">${hotel.price}</td>
-                            <td className="py-4 px-6 text-right">
+                            <td className="py-4 px-6 text-end">
                               <div className="flex justify-end gap-2">
                                 <button
                                   onClick={() => openEditHotel(hotel)}
                                   className="p-1.5 rounded-lg hover:bg-slate-100 text-[#0091EA] transition-all cursor-pointer"
-                                  title="Edit hotel details"
+                                  title={translate(`Edit hotel details`)}
                                 >
                                   <Edit2 className="h-4.5 w-4.5" />
                                 </button>
                                 <button
                                   onClick={() => handleDeleteItem('hotel', hotel.id)}
                                   className="p-1.5 rounded-lg hover:bg-rose-50 text-rose-600 transition-all cursor-pointer"
-                                  title="Delete hotel listing"
+                                  title={translate(`Delete hotel listing`)}
                                 >
                                   <Trash2 className="h-4.5 w-4.5" />
                                 </button>
@@ -2519,7 +2520,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       ) : (
                         <tr>
                           <td colSpan={6} className="py-12 text-center text-slate-400">
-                            No hotel listings found. Click Add Hotel to register one.
+                            {translate(`No hotel listings found. Click Add Hotel to register one.`)}
                           </td>
                         </tr>
                       )}
@@ -2535,7 +2536,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             <div className="space-y-6 animate-fade-in">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">Customer Intelligence & RBAC Access</h2>
+                  <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">{translate(`Customer Intelligence & RBAC Access`)}</h2>
                   <p className="text-slate-500 text-sm mt-1">Assign custom management roles (Hotel, Car, Flight, Tour Manager, Admin, or User) and manage customer profiles</p>
                 </div>
                 <button
@@ -2543,7 +2544,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-bold shadow-sm transition-all cursor-pointer"
                 >
                   <Download className="h-4.5 w-4.5" />
-                  <span>Export Profiles</span>
+                  <span>{translate(`Export Profiles`)}</span>
                 </button>
               </div>
 
@@ -2552,53 +2553,53 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                 <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-2xs">
                   <div className="flex items-center gap-2 font-bold text-xs text-purple-700 mb-1">
                     <ShieldCheck className="h-4 w-4 shrink-0" />
-                    <span>Super Admin</span>
+                    <span>{translate(`Super Admin`)}</span>
                   </div>
-                  <p className="text-2xs text-slate-500 leading-relaxed">Full system control across all modules, settings & snapshots.</p>
+                  <p className="text-2xs text-slate-500 leading-relaxed">{translate(`Full system control across all modules, settings & snapshots.`)}</p>
                 </div>
                 <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-2xs">
                   <div className="flex items-center gap-2 font-bold text-xs text-emerald-700 mb-1">
                     <Hotel className="h-4 w-4 shrink-0" />
-                    <span>Hotel Manager</span>
+                    <span>{translate(`Hotel Manager`)}</span>
                   </div>
-                  <p className="text-2xs text-slate-500 leading-relaxed">Exclusive rights to create, edit & delete hotel listings and pricing.</p>
+                  <p className="text-2xs text-slate-500 leading-relaxed">{translate(`Exclusive rights to create, edit & delete hotel listings and pricing.`)}</p>
                 </div>
                 <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-2xs">
                   <div className="flex items-center gap-2 font-bold text-xs text-amber-700 mb-1">
                     <Car className="h-4 w-4 shrink-0" />
-                    <span>Car Rent Manager</span>
+                    <span>{translate(`Car Rent Manager`)}</span>
                   </div>
-                  <p className="text-2xs text-slate-500 leading-relaxed">Exclusive rights to manage rental vehicle fleet & specs.</p>
+                  <p className="text-2xs text-slate-500 leading-relaxed">{translate(`Exclusive rights to manage rental vehicle fleet & specs.`)}</p>
                 </div>
                 <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-2xs">
                   <div className="flex items-center gap-2 font-bold text-xs text-sky-700 mb-1">
                     <Plane className="h-4 w-4 shrink-0" />
-                    <span>Flight Manager</span>
+                    <span>{translate(`Flight Manager`)}</span>
                   </div>
-                  <p className="text-2xs text-slate-500 leading-relaxed">Exclusive rights to configure airline schedules & flight fares.</p>
+                  <p className="text-2xs text-slate-500 leading-relaxed">{translate(`Exclusive rights to configure airline schedules & flight fares.`)}</p>
                 </div>
                 <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-2xs">
                   <div className="flex items-center gap-2 font-bold text-xs text-indigo-700 mb-1">
                     <Compass className="h-4 w-4 shrink-0" />
-                    <span>Tour Manager</span>
+                    <span>{translate(`Tour Manager`)}</span>
                   </div>
-                  <p className="text-2xs text-slate-500 leading-relaxed">Exclusive rights to build tour packages & itineraries.</p>
+                  <p className="text-2xs text-slate-500 leading-relaxed">{translate(`Exclusive rights to build tour packages & itineraries.`)}</p>
                 </div>
               </div>
 
               {/* Profiles Table */}
               <div className="bg-white rounded-xl border border-slate-200 shadow-2xs overflow-hidden">
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse">
+                  <table className="w-full text-start border-collapse">
                     <thead>
                       <tr className="bg-slate-50 border-b border-slate-100 text-2xs font-extrabold text-slate-500 uppercase tracking-wider">
-                        <th className="py-4 px-6">Customer Name</th>
-                        <th className="py-4 px-6">Email Address</th>
-                        <th className="py-4 px-6">Assigned User Role</th>
-                        <th className="py-4 px-6">Mobile Phone</th>
-                        <th className="py-4 px-6">Total Sessions</th>
+                        <th className="py-4 px-6">{translate(`Customer Name`)}</th>
+                        <th className="py-4 px-6">{translate(`Email Address`)}</th>
+                        <th className="py-4 px-6">{translate(`Assigned User Role`)}</th>
+                        <th className="py-4 px-6">{translate(`Mobile Phone`)}</th>
+                        <th className="py-4 px-6">{translate(`Total Sessions`)}</th>
                         <th className="py-4 px-6">Lifetime Value (LTV)</th>
-                        <th className="py-4 px-6 text-right">Action</th>
+                        <th className="py-4 px-6 text-end">{translate(`Action`)}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 text-sm text-slate-700">
@@ -2642,7 +2643,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                                 )}
                               </td>
                               <td className="py-4 px-6 font-black text-emerald-600">${customer.totalSpend?.toLocaleString()}</td>
-                              <td className="py-4 px-6 text-right">
+                              <td className="py-4 px-6 text-end">
                                 <button
                                   onClick={() => {
                                     setSelectedItem(customer);
@@ -2651,7 +2652,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                                   className="flex items-center gap-1.5 px-3 py-1.5 bg-[#0A2540] hover:bg-slate-800 text-white rounded-lg text-xs font-bold inline-flex transition-all cursor-pointer"
                                 >
                                   <Eye className="h-4 w-4" />
-                                  <span>History & Logs</span>
+                                  <span>{translate(`History & Logs`)}</span>
                                 </button>
                               </td>
                             </tr>
@@ -2660,7 +2661,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       ) : (
                         <tr>
                           <td colSpan={7} className="py-12 text-center text-slate-400">
-                            No profiles registered. Once clients book, metadata compiles automatically.
+                            {translate(`No profiles registered. Once clients book, metadata compiles automatically.`)}
                           </td>
                         </tr>
                       )}
@@ -2675,8 +2676,8 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
           {activeTab === 'messages' && (
             <div className="space-y-6 animate-fade-in">
               <div>
-                <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">Contact Inbox</h2>
-                <p className="text-slate-500 text-sm mt-1">Review and action inquiries submitted from Contact form</p>
+                <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">{translate(`Contact Inbox`)}</h2>
+                <p className="text-slate-500 text-sm mt-1">{translate(`Review and action inquiries submitted from Contact form`)}</p>
               </div>
 
               {/* Message List */}
@@ -2712,7 +2713,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                               onClick={() => handleUpdateStatus('message', msg.id, 'Replied')}
                               className="px-3.5 py-1.5 bg-[#0091EA] text-white font-semibold rounded-lg text-xs hover:bg-sky-500 transition-all cursor-pointer"
                             >
-                              Mark as Replied
+                              {translate(`Mark as Replied`)}
                             </button>
                           )}
                           {msg.status === 'Unread' && (
@@ -2720,7 +2721,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                               onClick={() => handleUpdateStatus('message', msg.id, 'Read')}
                               className="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg text-xs transition-all cursor-pointer"
                             >
-                              Mark as Read
+                              {translate(`Mark as Read`)}
                             </button>
                           )}
                           <a
@@ -2728,7 +2729,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                             className="px-3.5 py-1.5 border border-slate-250 text-slate-600 hover:bg-slate-100 rounded-lg text-xs font-semibold flex items-center gap-1 text-center transition-all"
                           >
                             <Mail className="h-3.5 w-3.5" />
-                            <span>Reply</span>
+                            <span>{translate(`Reply`)}</span>
                           </a>
                         </div>
                       </div>
@@ -2736,7 +2737,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   ) : (
                     <div className="py-16 text-center text-slate-400 flex flex-col items-center justify-center gap-2">
                       <Mail className="h-10 w-10 text-slate-350" />
-                      <span className="text-sm">Inbox clear. No inquiries recorded.</span>
+                      <span className="text-sm">{translate(`Inbox clear. No inquiries recorded.`)}</span>
                     </div>
                   )}
                 </div>
@@ -2749,27 +2750,27 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             <div className="space-y-6 animate-fade-in">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">Newsletter Subscribers</h2>
-                  <p className="text-slate-500 text-sm mt-1">Export campaign subscribers linked to your public footer registry</p>
+                  <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">{translate(`Newsletter Subscribers`)}</h2>
+                  <p className="text-slate-500 text-sm mt-1">{translate(`Export campaign subscribers linked to your public footer registry`)}</p>
                 </div>
                 <button
                   onClick={() => handleExportCSV('subscribers')}
                   className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-bold shadow-sm transition-all"
                 >
                   <Download className="h-4.5 w-4.5" />
-                  <span>Export CSV</span>
+                  <span>{translate(`Export CSV`)}</span>
                 </button>
               </div>
 
               {/* Subscribers Table */}
               <div className="bg-white rounded-xl border border-slate-200 shadow-2xs overflow-hidden">
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse">
+                  <table className="w-full text-start border-collapse">
                     <thead>
                       <tr className="bg-slate-50 border-b border-slate-100 text-2xs font-extrabold text-slate-500 uppercase tracking-wider">
-                        <th className="py-4 px-6">Subscriber ID</th>
-                        <th className="py-4 px-6">Email Address</th>
-                        <th className="py-4 px-6">Joined Date</th>
+                        <th className="py-4 px-6">{translate(`Subscriber ID`)}</th>
+                        <th className="py-4 px-6">{translate(`Email Address`)}</th>
+                        <th className="py-4 px-6">{translate(`Joined Date`)}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 text-sm text-slate-700">
@@ -2784,7 +2785,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       ) : (
                         <tr>
                           <td colSpan={3} className="py-12 text-center text-slate-400">
-                            No active newsletter subscribers registered.
+                            {translate(`No active newsletter subscribers registered.`)}
                           </td>
                         </tr>
                       )}
@@ -2803,11 +2804,11 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   <div className="flex items-center gap-2">
                     <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">24-Hour Database Snapshots</h2>
                     <span className="px-2.5 py-0.5 bg-sky-100 text-[#0091EA] text-2xs font-bold rounded-full border border-sky-200 flex items-center gap-1">
-                      <Clock className="w-3 h-3 animate-spin" /> Firebase Trigger Active
+                      <Clock className="w-3 h-3 animate-spin" /> {translate(`Firebase Trigger Active`)}
                     </span>
                   </div>
                   <p className="text-slate-500 text-sm mt-1">
-                    Automated 24-hour scheduled snapshots of tour packages, hotel data, flight listings, and blog posts for redundancy & recovery.
+                    {translate(`Automated 24-hour scheduled snapshots of tour packages, hotel data, flight listings, and blog posts for redundancy & recovery.`)}
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
@@ -2816,7 +2817,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     className="flex items-center gap-2 px-4 py-2.5 bg-[#0091EA] hover:bg-sky-500 text-white rounded-lg text-sm font-bold shadow-sm transition-all"
                   >
                     <Plus className="h-4.5 w-4.5" />
-                    <span>Trigger Snapshot Now</span>
+                    <span>{translate(`Trigger Snapshot Now`)}</span>
                   </button>
                 </div>
               </div>
@@ -2829,16 +2830,16 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   </div>
                   <div>
                     <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                      <span>Firebase Cloud Function Snapshot Engine</span>
-                      <span className="text-2xs bg-emerald-500/20 text-emerald-400 font-extrabold px-2 py-0.5 rounded border border-emerald-500/30">Active</span>
+                      <span>{translate(`Firebase Cloud Function Snapshot Engine`)}</span>
+                      <span className="text-2xs bg-emerald-500/20 text-emerald-400 font-extrabold px-2 py-0.5 rounded border border-emerald-500/30">{translate(`Active`)}</span>
                     </h3>
                     <p className="text-xs text-slate-300 mt-0.5">
-                      Cloud Function <code className="bg-slate-800 px-1.5 py-0.5 rounded font-mono text-sky-300">dailyDatabaseSnapshot</code> runs automatically every 24 hours (<code className="text-amber-300">0 0 * * *</code>) to preserve state redundancy across all catalog models including blog posts.
+                      {translate(`Cloud Function`)} <code className="bg-slate-800 px-1.5 py-0.5 rounded font-mono text-sky-300">dailyDatabaseSnapshot</code> runs automatically every 24 hours (<code className="text-amber-300">0 0 * * *</code>) to preserve state redundancy across all catalog models including blog posts.
                     </p>
                   </div>
                 </div>
-                <div className="text-right shrink-0">
-                  <div className="text-2xs text-slate-400 uppercase font-bold tracking-wider">Total Snapshots</div>
+                <div className="text-end shrink-0">
+                  <div className="text-2xs text-slate-400 uppercase font-bold tracking-wider">{translate(`Total Snapshots`)}</div>
                   <div className="text-2xl font-black text-white">{snapshotsList.length}</div>
                 </div>
               </div>
@@ -2846,14 +2847,14 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
               {/* Snapshots Table */}
               <div className="bg-white rounded-xl border border-slate-200 shadow-2xs overflow-hidden">
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse">
+                  <table className="w-full text-start border-collapse">
                     <thead>
                       <tr className="bg-slate-50 border-b border-slate-100 text-2xs font-extrabold text-slate-500 uppercase tracking-wider">
-                        <th className="py-4 px-6">Snapshot ID</th>
+                        <th className="py-4 px-6">{translate(`Snapshot ID`)}</th>
                         <th className="py-4 px-6">Timestamp / Schedule</th>
-                        <th className="py-4 px-6">Trigger Source</th>
-                        <th className="py-4 px-6">Preserved Data Counts</th>
-                        <th className="py-4 px-6 text-right">Recovery Actions</th>
+                        <th className="py-4 px-6">{translate(`Trigger Source`)}</th>
+                        <th className="py-4 px-6">{translate(`Preserved Data Counts`)}</th>
+                        <th className="py-4 px-6 text-end">{translate(`Recovery Actions`)}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 text-sm text-slate-700">
@@ -2866,7 +2867,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                             </td>
                             <td className="py-4 px-6 text-xs text-slate-600">
                               <div className="font-semibold">{new Date(snap.createdAt).toLocaleString()}</div>
-                              <div className="text-2xs text-slate-400">Every 24h Cycle</div>
+                              <div className="text-2xs text-slate-400">{translate(`Every 24h Cycle`)}</div>
                             </td>
                             <td className="py-4 px-6">
                               <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-2xs font-bold border border-slate-200">
@@ -2896,10 +2897,10 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                                 </span>
                               </div>
                             </td>
-                            <td className="py-4 px-6 text-right space-x-2">
+                            <td className="py-4 px-6 text-end space-x-2">
                               <button
                                 onClick={() => handleRestoreSnapshot(snap.id)}
-                                title="Restore database to this snapshot state"
+                                title={translate(`Restore database to this snapshot state`)}
                                 className={`px-2.5 py-1.5 rounded-lg text-xs font-bold inline-flex items-center gap-1 transition-all ${
                                   confirmRestoreId === snap.id
                                     ? 'bg-rose-600 text-white animate-pulse'
@@ -2918,18 +2919,18 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                                   a.download = `${snap.id}.json`;
                                   a.click();
                                 }}
-                                title="Download JSON Snapshot"
+                                title={translate(`Download JSON Snapshot`)}
                                 className="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold inline-flex items-center gap-1 transition-all border border-slate-200"
                               >
                                 <Download className="w-3.5 h-3.5" />
-                                <span>Export</span>
+                                <span>{translate(`Export`)}</span>
                               </button>
                               <label
-                                title="Upload JSON Snapshot and Restore"
+                                title={translate(`Upload JSON Snapshot and Restore`)}
                                 className="px-2.5 py-1.5 cursor-pointer bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-lg text-xs font-bold inline-flex items-center gap-1 transition-all"
                               >
                                 <Upload className="w-3.5 h-3.5" />
-                                <span>Import File</span>
+                                <span>{translate(`Import File`)}</span>
                                 <input type="file" accept=".json" onChange={handleRestoreSnapshotFromFile} className="hidden" />
                               </label>
                             </td>
@@ -2938,7 +2939,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       ) : (
                         <tr>
                           <td colSpan={5} className="py-12 text-center text-slate-400">
-                            No snapshots recorded yet. Click "Trigger Snapshot Now" to create your first 24-hour recovery point.
+                            {translate(`No snapshots recorded yet. Click "Trigger Snapshot Now" to create your first 24-hour recovery point.`)}
                           </td>
                         </tr>
                       )}
@@ -2953,14 +2954,14 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
           {activeTab === 'settings' && (
             <div className="space-y-6 animate-fade-in max-w-4xl">
               <div>
-                <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">System Configuration</h2>
-                <p className="text-slate-500 text-sm mt-1">Configure global administrative parameters</p>
+                <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">{translate(`System Configuration`)}</h2>
+                <p className="text-slate-500 text-sm mt-1">{translate(`Configure global administrative parameters`)}</p>
               </div>
 
               <div className="bg-white p-8 rounded-xl border border-slate-200 shadow-2xs space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-bold text-[#0A2540] mb-2">Company Business Name</label>
+                    <label className="block text-sm font-bold text-[#0A2540] mb-2">{translate(`Company Business Name`)}</label>
                     <input
                       type="text"
                       value={settingsBusinessName}
@@ -2970,7 +2971,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   </div>
 
                   <div>
-                    <label className="block text-sm font-bold text-[#0A2540] mb-2">Primary Helpline</label>
+                    <label className="block text-sm font-bold text-[#0A2540] mb-2">{translate(`Primary Helpline`)}</label>
                     <input
                       type="text"
                       value={settingsPhone}
@@ -2980,7 +2981,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   </div>
 
                   <div>
-                    <label className="block text-sm font-bold text-[#0A2540] mb-2">Support Email Address</label>
+                    <label className="block text-sm font-bold text-[#0A2540] mb-2">{translate(`Support Email Address`)}</label>
                     <input
                       type="email"
                       value={settingsEmail}
@@ -2990,7 +2991,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   </div>
 
                   <div>
-                    <label className="block text-sm font-bold text-[#0A2540] mb-2">Operational Head Office</label>
+                    <label className="block text-sm font-bold text-[#0A2540] mb-2">{translate(`Operational Head Office`)}</label>
                     <input
                       type="text"
                       value={settingsAddress}
@@ -3015,7 +3016,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     onClick={() => showToast('Global system parameters successfully synchronized', 'success')}
                     className="px-6 py-2.5 bg-[#0091EA] text-white hover:bg-sky-500 rounded-lg text-sm font-bold transition-all cursor-pointer"
                   >
-                    Save Settings
+                    {translate(`Save Settings`)}
                   </button>
                 </div>
               </div>
@@ -3028,10 +3029,10 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-2">
-                    <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">Blog & Performance Panel</h2>
+                    <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">{translate(`Blog & Performance Panel`)}</h2>
                     <span className="px-2.5 py-0.5 bg-emerald-50 text-emerald-700 text-3xs font-extrabold rounded-full border border-emerald-200 flex items-center gap-1">
                       <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                      Real-Time & 24h Snapshot Synced
+                      {translate(`Real-Time & 24h Snapshot Synced`)}
                     </span>
                   </div>
                   <p className="text-slate-500 text-sm mt-1">Real-time stats (view counts, engagement metrics, total blog posts) synced with the 24-hour snapshot database</p>
@@ -3040,17 +3041,17 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   <button
                     onClick={handleSimulateEngagement}
                     className="px-4 py-2.5 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-lg text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-2xs"
-                    title="Simulate incoming reader view or heart like in real time"
+                    title={translate(`Simulate incoming reader view or heart like in real time`)}
                   >
                     <Sparkles className="h-3.5 w-3.5 text-amber-600 animate-spin" />
-                    <span>Simulate Reader Traffic</span>
+                    <span>{translate(`Simulate Reader Traffic`)}</span>
                   </button>
                   <button
                     onClick={() => handleOpenBlogModal('add')}
                     className="px-5 py-2.5 bg-[#0091EA] text-white hover:bg-sky-500 rounded-lg text-sm font-bold flex items-center gap-2 transition-all cursor-pointer shadow-xs"
                   >
                     <Plus className="h-4 w-4" />
-                    <span>New Blog Article</span>
+                    <span>{translate(`New Blog Article`)}</span>
                   </button>
                 </div>
               </div>
@@ -3062,10 +3063,10 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   <div>
                     <div className="flex items-center gap-2 text-sky-400 text-xs font-mono uppercase tracking-widest font-extrabold mb-1">
                       <BarChart3 className="w-4 h-4" />
-                      <span>Blog Performance Analytics</span>
+                      <span>{translate(`Blog Performance Analytics`)}</span>
                     </div>
                     <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-                      Real-Time Reader Telemetry & Audience Metrics
+                      {translate(`Real-Time Reader Telemetry & Audience Metrics`)}
                     </h2>
                     <p className="text-slate-300 text-xs mt-1 max-w-2xl">
                       Tracking live view counts, reader hearts/likes, shares, and engagement rates. Fully synchronized with the 24-hour database snapshot backup engine.
@@ -3087,7 +3088,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
                   <div className="bg-white/10 backdrop-blur-md p-5 rounded-xl border border-white/10 hover:border-sky-400/50 transition-all">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-slate-300 text-xs font-extrabold uppercase tracking-wider">Total Blog Posts</span>
+                      <span className="text-slate-300 text-xs font-extrabold uppercase tracking-wider">{translate(`Total Blog Posts`)}</span>
                       <BookOpen className="w-5 h-5 text-sky-400" />
                     </div>
                     <div className="text-3xl font-black text-white tracking-tight font-mono">
@@ -3101,7 +3102,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
 
                   <div className="bg-white/10 backdrop-blur-md p-5 rounded-xl border border-white/10 hover:border-sky-400/50 transition-all">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-slate-300 text-xs font-extrabold uppercase tracking-wider">Total View Counts</span>
+                      <span className="text-slate-300 text-xs font-extrabold uppercase tracking-wider">{translate(`Total View Counts`)}</span>
                       <Eye className="w-5 h-5 text-emerald-400" />
                     </div>
                     <div className="text-3xl font-black text-white tracking-tight font-mono">
@@ -3109,13 +3110,13 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     </div>
                     <div className="mt-2 text-2xs text-emerald-300 font-semibold flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                      Live reader traffic counter
+                      {translate(`Live reader traffic counter`)}
                     </div>
                   </div>
 
                   <div className="bg-white/10 backdrop-blur-md p-5 rounded-xl border border-white/10 hover:border-sky-400/50 transition-all">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-slate-300 text-xs font-extrabold uppercase tracking-wider">Total Engagements</span>
+                      <span className="text-slate-300 text-xs font-extrabold uppercase tracking-wider">{translate(`Total Engagements`)}</span>
                       <Heart className="w-5 h-5 text-rose-400" />
                     </div>
                     <div className="text-3xl font-black text-white tracking-tight font-mono">
@@ -3129,7 +3130,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
 
                   <div className="bg-white/10 backdrop-blur-md p-5 rounded-xl border border-white/10 hover:border-sky-400/50 transition-all">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-slate-300 text-xs font-extrabold uppercase tracking-wider">Avg Engagement Rate</span>
+                      <span className="text-slate-300 text-xs font-extrabold uppercase tracking-wider">{translate(`Avg Engagement Rate`)}</span>
                       <TrendingUp className="w-5 h-5 text-amber-400" />
                     </div>
                     <div className="text-3xl font-black text-amber-300 tracking-tight font-mono">
@@ -3150,7 +3151,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                         <Sparkles className="w-4 h-4 text-amber-400" />
                         Top Performing Articles (By Views)
                       </h3>
-                      <span className="text-3xs font-extrabold text-sky-300 bg-sky-500/20 px-2 py-0.5 rounded border border-sky-400/30">Leaderboard</span>
+                      <span className="text-3xs font-extrabold text-sky-300 bg-sky-500/20 px-2 py-0.5 rounded border border-sky-400/30">{translate(`Leaderboard`)}</span>
                     </div>
 
                     <div className="space-y-3">
@@ -3169,7 +3170,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                                 </span>
                                 <span className="font-bold text-slate-100 truncate">{art.title}</span>
                               </div>
-                              <div className="text-right text-2xs font-mono font-bold text-sky-300 shrink-0">
+                              <div className="text-end text-2xs font-mono font-bold text-sky-300 shrink-0">
                                 {views.toLocaleString()} views <span className="text-slate-400">({art.likes || 0} ❤️)</span>
                               </div>
                             </div>
@@ -3187,9 +3188,9 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     <div className="flex items-center justify-between">
                       <h3 className="text-sm font-black text-white flex items-center gap-2">
                         <BarChart3 className="w-4 h-4 text-emerald-400" />
-                        Category Audience Reach
+                        {translate(`Category Audience Reach`)}
                       </h3>
-                      <span className="text-3xs font-extrabold text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-400/30">Category Share</span>
+                      <span className="text-3xs font-extrabold text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-400/30">{translate(`Category Share`)}</span>
                     </div>
 
                     <div className="space-y-3">
@@ -3217,8 +3218,8 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
               <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-2xs space-y-6">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                   <div>
-                    <h2 className="text-lg font-black text-[#0A2540]">Curated Experience Category Images</h2>
-                    <p className="text-slate-500 text-xs">Click "Change Image" on any category card to edit its container background photo</p>
+                    <h2 className="text-lg font-black text-[#0A2540]">{translate(`Curated Experience Category Images`)}</h2>
+                    <p className="text-slate-500 text-xs">{translate(`Click "Change Image" on any category card to edit its container background photo`)}</p>
                   </div>
                   <span className="text-xs font-extrabold text-[#0091EA] bg-sky-50 px-3 py-1 rounded-full border border-sky-100">
                     {blogCategoriesList.length} Categories
@@ -3232,7 +3233,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                         <img
                           src={cat.image}
                           alt={cat.name}
-                          onError={(e) => {
+                          onError={(e) => { e.currentTarget.onerror = null;
                             (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=800';
                           }}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
@@ -3249,7 +3250,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                           className="px-3 py-1 bg-sky-50 hover:bg-[#0091EA] text-[#0091EA] hover:text-white rounded-md text-xs font-bold transition-all flex items-center gap-1 cursor-pointer border border-sky-100"
                         >
                           <Edit2 className="w-3 h-3" />
-                          <span>Change Image</span>
+                          <span>{translate(`Change Image`)}</span>
                         </button>
                       </div>
                     </div>
@@ -3261,14 +3262,14 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
               <div className="bg-white rounded-xl border border-slate-200 shadow-2xs overflow-hidden">
                 <div className="p-6 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
                   <div>
-                    <h2 className="text-lg font-black text-[#0A2540]">Journal Articles & Telemetry</h2>
-                    <p className="text-slate-500 text-xs mt-0.5">Manage articles, authors, container cover images, and view engagement metrics</p>
+                    <h2 className="text-lg font-black text-[#0A2540]">{translate(`Journal Articles & Telemetry`)}</h2>
+                    <p className="text-slate-500 text-xs mt-0.5">{translate(`Manage articles, authors, container cover images, and view engagement metrics`)}</p>
                   </div>
                   <div className="relative w-full md:w-72">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                     <input
                       type="text"
-                      placeholder="Search articles or authors..."
+                      placeholder={translate(`Search articles or authors...`)}
                       value={globalSearch}
                       onChange={(e) => setGlobalSearch(e.target.value)}
                       className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold focus:outline-none focus:border-[#0091EA]"
@@ -3277,15 +3278,15 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                 </div>
 
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse">
+                  <table className="w-full text-start border-collapse">
                     <thead>
                       <tr className="bg-slate-50 border-b border-slate-150 text-3xs font-extrabold text-slate-500 uppercase tracking-wider">
-                        <th className="py-3 px-6">Container Image</th>
-                        <th className="py-3 px-6">Article Details</th>
-                        <th className="py-3 px-6">Category</th>
-                        <th className="py-3 px-6">Author & Date</th>
-                        <th className="py-3 px-6">Views & Engagements</th>
-                        <th className="py-3 px-6 text-right">Actions</th>
+                        <th className="py-3 px-6">{translate(`Container Image`)}</th>
+                        <th className="py-3 px-6">{translate(`Article Details`)}</th>
+                        <th className="py-3 px-6">{translate(`Category`)}</th>
+                        <th className="py-3 px-6">{translate(`Author & Date`)}</th>
+                        <th className="py-3 px-6">{translate(`Views & Engagements`)}</th>
+                        <th className="py-3 px-6 text-end">{translate(`Actions`)}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 text-xs font-medium text-slate-700">
@@ -3308,17 +3309,17 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                                   <img 
                                     src={article.image} 
                                     alt={article.title} 
-                                    onError={(e) => {
+                                    onError={(e) => { e.currentTarget.onerror = null;
                                       (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200';
                                     }}
                                     className="w-full h-full object-cover" 
                                   />
                                   <label 
                                     className="absolute inset-0 bg-slate-900/75 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white text-3xs font-black cursor-pointer gap-0.5 p-1 text-center"
-                                    title="Click to Upload New Container Image"
+                                    title={translate(`Click to Upload New Container Image`)}
                                   >
                                     <Upload className="w-3.5 h-3.5 text-sky-400" />
-                                    <span>Change</span>
+                                    <span>{translate(`Change`)}</span>
                                     <input 
                                       type="file" 
                                       accept="image/*" 
@@ -3358,19 +3359,19 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                                   </div>
                                 </div>
                               </td>
-                              <td className="py-4 px-6 text-right">
+                              <td className="py-4 px-6 text-end">
                                 <div className="flex items-center justify-end gap-2">
                                   <button
                                     onClick={() => handleOpenBlogModal('edit', article)}
                                     className="p-1.5 hover:bg-sky-50 text-slate-600 hover:text-[#0091EA] rounded-lg transition-colors cursor-pointer"
-                                    title="Edit Article & Image"
+                                    title={translate(`Edit Article & Image`)}
                                   >
                                     <Edit2 className="h-4 w-4" />
                                   </button>
                                   <button
                                     onClick={() => handleDeleteBlogArticle(article.id)}
                                     className="p-1.5 hover:bg-rose-50 text-slate-600 hover:text-rose-600 rounded-lg transition-colors cursor-pointer"
-                                    title="Delete Article"
+                                    title={translate(`Delete Article`)}
                                   >
                                     <Trash2 className="h-4 w-4" />
                                   </button>
@@ -3382,7 +3383,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       {blogsList.length === 0 && (
                         <tr>
                           <td colSpan={6} className="py-12 text-center text-slate-400 font-medium">
-                            No blog articles found. Click "New Blog Article" to publish one.
+                            {translate(`No blog articles found. Click "New Blog Article" to publish one.`)}
                           </td>
                         </tr>
                       )}
@@ -3411,7 +3412,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             <form onSubmit={handleSaveTour} className="flex-1 overflow-y-auto p-6 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="md:col-span-2">
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Tour Package Title</label>
+                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Tour Package Title`)}</label>
                   <input
                     type="text"
                     required
@@ -3423,19 +3424,19 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Overview Description</label>
+                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Overview Description`)}</label>
                   <textarea
                     required
                     rows={3}
                     value={tourDesc}
                     onChange={(e) => setTourDesc(e.target.value)}
                     className="w-full bg-slate-50 border border-slate-250 p-2.5 rounded-lg text-sm text-slate-800 focus:outline-none focus:ring-1 focus:ring-[#0091EA]"
-                    placeholder="Describe the adventure, activities and highlights..."
+                    placeholder={translate(`Describe the adventure, activities and highlights...`)}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Duration</label>
+                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Duration`)}</label>
                   <input
                     type="text"
                     required
@@ -3459,16 +3460,16 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Category</label>
+                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Category`)}</label>
                   <select
                     value={tourCategory}
                     onChange={(e) => setTourCategory(e.target.value)}
                     className="w-full bg-slate-50 border border-slate-250 p-2.5 rounded-lg text-sm text-slate-800 focus:outline-none focus:ring-1 focus:ring-[#0091EA]"
                   >
-                    <option value="Beach Holidays">Beach Holidays</option>
-                    <option value="City Tours">City Tours</option>
-                    <option value="Adventure Tours">Adventure Tours</option>
-                    <option value="Group Tours">Group Tours</option>
+                    <option value="Beach Holidays">{translate(`Beach Holidays`)}</option>
+                    <option value="City Tours">{translate(`City Tours`)}</option>
+                    <option value="Adventure Tours">{translate(`Adventure Tours`)}</option>
+                    <option value="Group Tours">{translate(`Group Tours`)}</option>
                   </select>
                 </div>
 
@@ -3484,7 +3485,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Visibility Status</label>
+                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Visibility Status`)}</label>
                   <select
                     value={tourStatus}
                     onChange={(e) => setTourStatus(e.target.value)}
@@ -3510,7 +3511,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       type="text"
                       value={tourImage}
                       onChange={(e) => setTourImage(e.target.value)}
-                      placeholder="Paste photo URL..."
+                      placeholder={translate(`Paste photo URL...`)}
                       className="w-full bg-slate-50 border border-slate-250 p-2 rounded-lg text-xs text-slate-800 pr-16"
                     />
                     {tourImage && (
@@ -3519,7 +3520,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                         onClick={() => setTourImage('')}
                         className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-0.5 text-xs font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 rounded transition-colors"
                       >
-                        Clear
+                        {translate(`Clear`)}
                       </button>
                     )}
                   </div>
@@ -3530,21 +3531,21 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       onClick={() => setTourImage('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800')}
                       className="text-[10px] font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-0.5 rounded transition-colors"
                     >
-                      Beach
+                      {translate(`Beach`)}
                     </button>
                     <button
                       type="button"
                       onClick={() => setTourImage('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800')}
                       className="text-[10px] font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-0.5 rounded transition-colors"
                     >
-                      Mountain
+                      {translate(`Mountain`)}
                     </button>
                     <button
                       type="button"
                       onClick={() => setTourImage('https://images.unsplash.com/photo-1548013146-72479768bada?w=800')}
                       className="text-[10px] font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-0.5 rounded transition-colors"
                     >
-                      Culture
+                      {translate(`Culture`)}
                     </button>
                   </div>
                   {tourImage && (
@@ -3554,13 +3555,13 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                           src={tourImage}
                           alt="Tour preview"
                           className="w-full h-full object-cover"
-                          onError={() => {
+                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.onerror = null;
                             setTourImage('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800');
                             showToast('Invalid tour image URL replaced with default preset.', 'error');
                           }}
                         />
                       </div>
-                      <span className="text-[10px] text-emerald-600 font-bold">Cover Image Connected</span>
+                      <span className="text-[10px] text-emerald-600 font-bold">{translate(`Cover Image Connected`)}</span>
                     </div>
                   )}
                 </div>
@@ -3571,19 +3572,19 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     <div>
                       <h3 className="text-sm font-black text-[#0A2540] flex items-center gap-2">
                         <ImageIcon className="h-4 w-4 text-[#0091EA]" />
-                        <span>Tour Package Gallery Collection</span>
+                        <span>{translate(`Tour Package Gallery Collection`)}</span>
                         <span className="bg-sky-50 text-[#0091EA] border border-sky-200 text-xs px-2 py-0.5 rounded-full font-bold">
                           {tourGalleryImages.length} Photos
                         </span>
                       </h3>
                       <p className="text-xs text-slate-500">
-                        Upload or manage the photo gallery displayed on the public tour details page.
+                        {translate(`Upload or manage the photo gallery displayed on the public tour details page.`)}
                       </p>
                     </div>
 
                     <label className="flex items-center gap-1.5 px-3 py-1.5 bg-[#0091EA] hover:bg-sky-500 text-white rounded-lg text-xs font-bold transition-all shadow-2xs cursor-pointer self-start sm:self-auto">
                       <Upload className="h-3.5 w-3.5" />
-                      <span>Upload Photos</span>
+                      <span>{translate(`Upload Photos`)}</span>
                       <input
                         type="file"
                         multiple
@@ -3596,13 +3597,13 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
 
                   {/* Add Image by URL & Presets */}
                   <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-2.5">
-                    <label className="block text-2xs font-extrabold text-slate-400 uppercase">Add Gallery Image via URL</label>
+                    <label className="block text-2xs font-extrabold text-slate-400 uppercase">{translate(`Add Gallery Image via URL`)}</label>
                     <div className="flex items-center gap-2">
                       <input
                         type="text"
                         value={newGalleryUrlInput}
                         onChange={(e) => setNewGalleryUrlInput(e.target.value)}
-                        placeholder="Paste image URL (e.g. https://images.unsplash.com/...)"
+                        placeholder={translate(`Paste image URL (e.g. https://images.unsplash.com/...)`)}
                         className="flex-1 bg-white border border-slate-250 p-2 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-[#0091EA]"
                       />
                       <button
@@ -3610,7 +3611,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                         onClick={handleAddGalleryUrl}
                         className="px-3 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold rounded-lg transition-colors shrink-0"
                       >
-                        Add URL
+                        {translate(`Add URL`)}
                       </button>
                     </div>
 
@@ -3652,8 +3653,8 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   {tourGalleryImages.length === 0 ? (
                     <div className="p-6 text-center border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50">
                       <ImageIcon className="h-8 w-8 text-slate-300 mx-auto mb-2" />
-                      <p className="text-xs font-bold text-slate-600">No Gallery Photos Added Yet</p>
-                      <p className="text-2xs text-slate-400 mt-0.5">Upload photos or click quick add presets above.</p>
+                      <p className="text-xs font-bold text-slate-600">{translate(`No Gallery Photos Added Yet`)}</p>
+                      <p className="text-2xs text-slate-400 mt-0.5">{translate(`Upload photos or click quick add presets above.`)}</p>
                     </div>
                   ) : (
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
@@ -3663,7 +3664,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                             src={imgUrl}
                             alt={`Gallery item ${idx + 1}`}
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                            onError={(e) => {
+                            onError={(e) => { e.currentTarget.onerror = null;
                               (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800';
                             }}
                           />
@@ -3679,15 +3680,15 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                                   showToast('Set as main cover image', 'success');
                                 }}
                                 className="px-2 py-1 bg-white/90 hover:bg-white text-[10px] font-bold text-slate-800 rounded shadow-xs"
-                                title="Set as Cover Image"
+                                title={translate(`Set as Cover Image`)}
                               >
-                                Set Cover
+                                {translate(`Set Cover`)}
                               </button>
                               <button
                                 type="button"
                                 onClick={() => handleRemoveGalleryImage(idx)}
                                 className="p-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded shadow-xs"
-                                title="Delete Photo"
+                                title={translate(`Delete Photo`)}
                               >
                                 <Trash2 className="h-3.5 w-3.5" />
                               </button>
@@ -3703,14 +3704,14 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
               {/* Itinerary step editor */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-bold text-[#0A2540]">Step-By-Step Itinerary Scheduler</h3>
+                  <h3 className="text-sm font-bold text-[#0A2540]">{translate(`Step-By-Step Itinerary Scheduler`)}</h3>
                   <button
                     type="button"
                     onClick={handleAddItineraryDay}
                     className="flex items-center gap-1.5 px-3 py-1 bg-sky-50 hover:bg-sky-100 text-[#0091EA] rounded-md text-xs font-bold transition-all cursor-pointer"
                   >
                     <Plus className="h-4 w-4" />
-                    <span>Add Itinerary Day</span>
+                    <span>{translate(`Add Itinerary Day`)}</span>
                   </button>
                 </div>
 
@@ -3721,18 +3722,18 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                         type="button"
                         onClick={() => handleRemoveItineraryDay(idx)}
                         className="absolute top-4 right-4 p-1 rounded-md text-rose-500 hover:bg-rose-50"
-                        title="Remove Day"
+                        title={translate(`Remove Day`)}
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
 
                       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <div>
-                          <label className="block text-2xs font-extrabold text-slate-450 uppercase mb-1">Timeline</label>
+                          <label className="block text-2xs font-extrabold text-slate-450 uppercase mb-1">{translate(`Timeline`)}</label>
                           <span className="block py-2 text-sm font-bold text-[#0A2540]">Day {day.day}</span>
                         </div>
                         <div className="md:col-span-3">
-                          <label className="block text-2xs font-extrabold text-slate-450 uppercase mb-1">Daily Heading</label>
+                          <label className="block text-2xs font-extrabold text-slate-450 uppercase mb-1">{translate(`Daily Heading`)}</label>
                           <input
                             type="text"
                             required
@@ -3749,7 +3750,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       </div>
 
                       <div>
-                        <label className="block text-2xs font-extrabold text-slate-450 uppercase mb-1">Daily Description</label>
+                        <label className="block text-2xs font-extrabold text-slate-450 uppercase mb-1">{translate(`Daily Description`)}</label>
                         <textarea
                           required
                           rows={2}
@@ -3760,7 +3761,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                             setTourItinerary(list);
                           }}
                           className="w-full bg-white border border-slate-200 p-2 rounded-lg text-xs text-slate-750"
-                          placeholder="Describe today's plans..."
+                          placeholder={translate(`Describe today's plans...`)}
                         />
                       </div>
                     </div>
@@ -3774,13 +3775,13 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   onClick={() => setActiveModal(null)}
                   className="px-4 py-2 border border-slate-250 text-slate-600 rounded-lg text-sm font-semibold hover:bg-slate-50 transition-all"
                 >
-                  Cancel
+                  {translate(`Cancel`)}
                 </button>
                 <button
                   type="submit"
                   className="px-5 py-2 bg-[#0091EA] text-white hover:bg-sky-500 rounded-lg text-sm font-bold shadow-sm transition-all cursor-pointer"
                 >
-                  Save Package
+                  {translate(`Save Package`)}
                 </button>
               </div>
             </form>
@@ -3803,7 +3804,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
 
             <form onSubmit={handleSaveCar} className="p-6 space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Vehicle Model Name</label>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Vehicle Model Name`)}</label>
                 <input
                   type="text"
                   required
@@ -3816,21 +3817,21 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Category</label>
+                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Category`)}</label>
                   <select
                     value={carCategory}
                     onChange={(e) => setCarCategory(e.target.value)}
                     className="w-full bg-slate-50 border border-slate-250 p-2.5 rounded-lg text-sm text-slate-800"
                   >
-                    <option value="Sedan">Sedan</option>
-                    <option value="SUV">SUV</option>
-                    <option value="Luxury">Luxury</option>
-                    <option value="Van">Van</option>
+                    <option value="Sedan">{translate(`Sedan`)}</option>
+                    <option value="SUV">{translate(`SUV`)}</option>
+                    <option value="Luxury">{translate(`Luxury`)}</option>
+                    <option value="Van">{translate(`Van`)}</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Passenger Capacity</label>
+                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Passenger Capacity`)}</label>
                   <input
                     type="number"
                     required
@@ -3843,14 +3844,14 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Transmission</label>
+                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Transmission`)}</label>
                   <select
                     value={carTransmission}
                     onChange={(e) => setCarTransmission(e.target.value)}
                     className="w-full bg-slate-50 border border-slate-250 p-2.5 rounded-lg text-sm text-slate-800"
                   >
-                    <option value="Automatic">Automatic</option>
-                    <option value="Manual">Manual</option>
+                    <option value="Automatic">{translate(`Automatic`)}</option>
+                    <option value="Manual">{translate(`Manual`)}</option>
                   </select>
                 </div>
 
@@ -3869,15 +3870,15 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Vehicle Status</label>
+                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Vehicle Status`)}</label>
                   <select
                     value={carStatus}
                     onChange={(e) => setCarStatus(e.target.value)}
                     className="w-full bg-slate-50 border border-slate-250 p-2.5 rounded-lg text-sm text-slate-800"
                   >
-                    <option value="Available">Available</option>
-                    <option value="Booked">Booked</option>
-                    <option value="Maintenance">Maintenance</option>
+                    <option value="Available">{translate(`Available`)}</option>
+                    <option value="Booked">{translate(`Booked`)}</option>
+                    <option value="Maintenance">{translate(`Maintenance`)}</option>
                   </select>
                 </div>
 
@@ -3896,7 +3897,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       type="text"
                       value={carImage}
                       onChange={(e) => setCarImage(e.target.value)}
-                      placeholder="Paste vehicle image URL..."
+                      placeholder={translate(`Paste vehicle image URL...`)}
                       className="w-full bg-slate-50 border border-slate-250 p-2 rounded-lg text-xs text-slate-800 pr-16"
                     />
                     {carImage && (
@@ -3905,7 +3906,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                         onClick={() => setCarImage('')}
                         className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-0.5 text-xs font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 rounded transition-colors"
                       >
-                        Clear
+                        {translate(`Clear`)}
                       </button>
                     )}
                   </div>
@@ -3916,21 +3917,21 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       onClick={() => setCarImage('https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800')}
                       className="text-[10px] font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-0.5 rounded transition-colors"
                     >
-                      Sedan
+                      {translate(`Sedan`)}
                     </button>
                     <button
                       type="button"
                       onClick={() => setCarImage('https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800')}
                       className="text-[10px] font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-0.5 rounded transition-colors"
                     >
-                      SUV
+                      {translate(`SUV`)}
                     </button>
                     <button
                       type="button"
                       onClick={() => setCarImage('https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800')}
                       className="text-[10px] font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-0.5 rounded transition-colors"
                     >
-                      Convertible
+                      {translate(`Convertible`)}
                     </button>
                   </div>
                   {carImage && (
@@ -3940,13 +3941,13 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                           src={carImage}
                           alt="Car preview"
                           className="w-full h-full object-cover"
-                          onError={() => {
+                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.onerror = null;
                             setCarImage('https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800');
                             showToast('Invalid car image URL replaced with default preset.', 'error');
                           }}
                         />
                       </div>
-                      <span className="text-[10px] text-emerald-600 font-bold">Image Connected</span>
+                      <span className="text-[10px] text-emerald-600 font-bold">{translate(`Image Connected`)}</span>
                     </div>
                   )}
                 </div>
@@ -3958,13 +3959,13 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   onClick={() => setActiveModal(null)}
                   className="px-4 py-2 border border-slate-250 text-slate-600 rounded-lg text-sm font-semibold hover:bg-slate-50 transition-all"
                 >
-                  Cancel
+                  {translate(`Cancel`)}
                 </button>
                 <button
                   type="submit"
                   className="px-5 py-2 bg-[#0091EA] text-white hover:bg-sky-500 rounded-lg text-sm font-bold shadow-sm transition-all cursor-pointer"
                 >
-                  Save Vehicle
+                  {translate(`Save Vehicle`)}
                 </button>
               </div>
             </form>
@@ -3987,7 +3988,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
 
             <form onSubmit={handleSaveFlight} className="p-6 space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Airline Company</label>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Airline Company`)}</label>
                 <input
                   type="text"
                   required
@@ -4026,7 +4027,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Departure Time</label>
+                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Departure Time`)}</label>
                   <input
                     type="text"
                     required
@@ -4038,7 +4039,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Arrival Time</label>
+                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Arrival Time`)}</label>
                   <input
                     type="text"
                     required
@@ -4052,7 +4053,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Stops</label>
+                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Stops`)}</label>
                   <input
                     type="number"
                     required
@@ -4081,13 +4082,13 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   onClick={() => setActiveModal(null)}
                   className="px-4 py-2 border border-slate-250 text-slate-600 rounded-lg text-sm font-semibold hover:bg-slate-50 transition-all"
                 >
-                  Cancel
+                  {translate(`Cancel`)}
                 </button>
                 <button
                   type="submit"
                   className="px-5 py-2 bg-[#0091EA] text-white hover:bg-sky-500 rounded-lg text-sm font-bold shadow-sm transition-all cursor-pointer"
                 >
-                  Save Schedule
+                  {translate(`Save Schedule`)}
                 </button>
               </div>
             </form>
@@ -4109,7 +4110,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
 
             <form onSubmit={handleSaveHotel} className="p-6 space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Hotel Name</label>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Hotel Name`)}</label>
                 <input
                   type="text"
                   required
@@ -4122,7 +4123,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Location</label>
+                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Location`)}</label>
                   <input
                     type="text"
                     required
@@ -4177,7 +4178,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       type="text"
                       value={hotelImageUrl}
                       onChange={(e) => setHotelImageUrl(e.target.value)}
-                      placeholder="Paste photo URL or path..."
+                      placeholder={translate(`Paste photo URL or path...`)}
                       className="w-full bg-slate-50 border border-slate-250 p-2.5 rounded-lg text-sm text-slate-800 pr-16"
                     />
                     {hotelImageUrl && (
@@ -4186,7 +4187,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                         onClick={() => setHotelImageUrl('')}
                         className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-1 text-xs font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 rounded transition-colors"
                       >
-                        Clear
+                        {translate(`Clear`)}
                       </button>
                     )}
                   </div>
@@ -4197,21 +4198,21 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       onClick={() => setHotelImageUrl('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80')}
                       className="text-[10px] font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-0.5 rounded transition-colors"
                     >
-                      Resort & Spa
+                      {translate(`Resort & Spa`)}
                     </button>
                     <button
                       type="button"
                       onClick={() => setHotelImageUrl('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=80')}
                       className="text-[10px] font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-0.5 rounded transition-colors"
                     >
-                      Beach Villa
+                      {translate(`Beach Villa`)}
                     </button>
                     <button
                       type="button"
                       onClick={() => setHotelImageUrl('https://images.unsplash.com/photo-1582719508461-905c67377101?auto=format&fit=crop&w=800&q=80')}
                       className="text-[10px] font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-0.5 rounded transition-colors"
                     >
-                      Boutique
+                      {translate(`Boutique`)}
                     </button>
                   </div>
                   {hotelImageUrl ? (
@@ -4221,7 +4222,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                           src={hotelImageUrl}
                           alt="Hotel preview"
                           className="w-full h-full object-cover"
-                          onError={() => {
+                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.onerror = null;
                             setHotelImageUrl('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80');
                             showToast('Invalid hotel image URL replaced with default preset.', 'error');
                           }}
@@ -4234,19 +4235,19 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     </div>
                   ) : (
                     <div className="mt-2 p-2 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-800">
-                      No photo set. Upload a file or click a preset above.
+                      {translate(`No photo set. Upload a file or click a preset above.`)}
                     </div>
                   )}
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Description</label>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Description`)}</label>
                 <textarea
                   value={hotelDescription}
                   onChange={(e) => setHotelDescription(e.target.value)}
                   className="w-full bg-slate-50 border border-slate-250 p-2.5 rounded-lg text-sm text-slate-800 h-20"
-                  placeholder="Brief description of the luxury and comfort..."
+                  placeholder={translate(`Brief description of the luxury and comfort...`)}
                 />
               </div>
 
@@ -4257,7 +4258,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   value={hotelAmenities}
                   onChange={(e) => setHotelAmenities(e.target.value)}
                   className="w-full bg-slate-50 border border-slate-250 p-2.5 rounded-lg text-sm text-slate-800"
-                  placeholder="Free WiFi, Swimming Pool, Spa, Room Service, etc."
+                  placeholder={translate(`Free WiFi, Swimming Pool, Spa, Room Service, etc.`)}
                 />
               </div>
 
@@ -4267,7 +4268,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   onClick={() => setActiveModal(null)}
                   className="px-4 py-2 border border-slate-250 text-slate-600 rounded-lg text-sm font-semibold hover:bg-slate-50 transition-all"
                 >
-                  Cancel
+                  {translate(`Cancel`)}
                 </button>
                 <button
                   type="submit"
@@ -4296,19 +4297,19 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
 
             <form onSubmit={handleSaveBlogCategory} className="p-6 space-y-6">
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Category Container Image Preview</label>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-2">{translate(`Category Container Image Preview`)}</label>
                 <div className="relative h-44 rounded-xl overflow-hidden border border-slate-200 bg-slate-900 mb-4">
                   {selectedCatImage ? (
                     <img 
                       src={selectedCatImage} 
                       alt={selectedCatName} 
-                      onError={(e) => {
+                      onError={(e) => { e.currentTarget.onerror = null;
                         (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=800';
                       }}
                       className="w-full h-full object-cover" 
                     />
                   ) : (
-                    <div className="flex items-center justify-center h-full text-slate-400 text-xs">No image selected</div>
+                    <div className="flex items-center justify-center h-full text-slate-400 text-xs">{translate(`No image selected`)}</div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none" />
                   <span className="absolute bottom-3 left-3 text-white font-extrabold text-sm">{selectedCatName}</span>
@@ -4316,7 +4317,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
 
                 <div className="space-y-3">
                   <div>
-                    <label className="block text-3xs font-extrabold text-slate-400 uppercase mb-1">Image URL</label>
+                    <label className="block text-3xs font-extrabold text-slate-400 uppercase mb-1">{translate(`Image URL`)}</label>
                     <input
                       type="text"
                       placeholder="https://images.unsplash.com/..."
@@ -4329,7 +4330,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     <span className="text-xs text-slate-400 font-bold uppercase">or</span>
                     <label className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold cursor-pointer transition-colors inline-flex items-center gap-2">
                       <Upload className="w-3.5 h-3.5" />
-                      <span>Upload Local Photo</span>
+                      <span>{translate(`Upload Local Photo`)}</span>
                       <input
                         type="file"
                         accept="image/*"
@@ -4347,13 +4348,13 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   onClick={() => setActiveModal(null)}
                   className="px-5 py-2.5 bg-slate-100 text-slate-600 rounded-lg text-xs font-bold hover:bg-slate-200 transition-colors"
                 >
-                  Cancel
+                  {translate(`Cancel`)}
                 </button>
                 <button
                   type="submit"
                   className="px-5 py-2.5 bg-[#0091EA] text-white hover:bg-sky-500 rounded-lg text-xs font-bold transition-colors"
                 >
-                  Save Container Image
+                  {translate(`Save Container Image`)}
                 </button>
               </div>
             </form>
@@ -4377,7 +4378,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             <form onSubmit={handleSaveBlogArticle} className="flex-1 overflow-y-auto p-6 space-y-6">
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Article Title</label>
+                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Article Title`)}</label>
                   <input
                     type="text"
                     required
@@ -4390,26 +4391,26 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Category</label>
+                    <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Category`)}</label>
                     <select
                       value={blogCategory}
                       onChange={(e) => setBlogCategory(e.target.value)}
                       className="w-full bg-slate-50 border border-slate-250 p-2.5 rounded-lg text-sm font-semibold text-slate-800"
                     >
-                      <option value="Heritage">Heritage</option>
-                      <option value="Hill Country">Hill Country</option>
-                      <option value="Beaches">Beaches</option>
-                      <option value="Wildlife">Wildlife</option>
-                      <option value="Food">Food</option>
-                      <option value="Trains">Scenic Train Journeys</option>
-                      <option value="Eco Tourism">Eco Tourism</option>
-                      <option value="Luxury Escapes">Luxury Escapes</option>
-                      <option value="Travel Tips">Travel Tips</option>
+                      <option value="Heritage">{translate(`Heritage`)}</option>
+                      <option value="Hill Country">{translate(`Hill Country`)}</option>
+                      <option value="Beaches">{translate(`Beaches`)}</option>
+                      <option value="Wildlife">{translate(`Wildlife`)}</option>
+                      <option value="Food">{translate(`Food`)}</option>
+                      <option value="Trains">{translate(`Scenic Train Journeys`)}</option>
+                      <option value="Eco Tourism">{translate(`Eco Tourism`)}</option>
+                      <option value="Luxury Escapes">{translate(`Luxury Escapes`)}</option>
+                      <option value="Travel Tips">{translate(`Travel Tips`)}</option>
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Read Time</label>
+                    <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Read Time`)}</label>
                     <input
                       type="text"
                       placeholder="e.g. 6 min read"
@@ -4420,7 +4421,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Author</label>
+                    <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Author`)}</label>
                     <input
                       type="text"
                       placeholder="e.g. Isabella Rossi"
@@ -4431,7 +4432,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Publish Date</label>
+                    <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Publish Date`)}</label>
                     <input
                       type="text"
                       placeholder="e.g. Oct 15, 2026"
@@ -4446,7 +4447,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Article Excerpt / Summary</label>
                   <textarea
                     rows={3}
-                    placeholder="Brief summary of the travel guide or story..."
+                    placeholder={translate(`Brief summary of the travel guide or story...`)}
                     value={blogExcerpt}
                     onChange={(e) => setBlogExcerpt(e.target.value)}
                     className="w-full bg-slate-50 border border-slate-250 p-2.5 rounded-lg text-sm font-semibold text-slate-800"
@@ -4454,13 +4455,13 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Container Cover Image</label>
+                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">{translate(`Container Cover Image`)}</label>
                   {blogImage && (
                     <div className="relative h-40 rounded-xl overflow-hidden border border-slate-200 mb-3 bg-slate-100">
                       <img 
                         src={blogImage} 
                         alt="Cover Preview" 
-                        onError={(e) => {
+                        onError={(e) => { e.currentTarget.onerror = null;
                           (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200';
                         }}
                         className="w-full h-full object-cover" 
@@ -4470,7 +4471,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   <div className="space-y-2">
                     <input
                       type="text"
-                      placeholder="Image URL (e.g. /uploads/... or https://...)"
+                      placeholder={translate(`Image URL (e.g. /uploads/... or https://...)`)}
                       value={blogImage}
                       onChange={(e) => setBlogImage(e.target.value)}
                       className="w-full bg-slate-50 border border-slate-250 p-2.5 rounded-lg text-xs font-semibold text-slate-800"
@@ -4479,7 +4480,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       <span className="text-xs text-slate-400 font-bold uppercase">or</span>
                       <label className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold cursor-pointer transition-colors inline-flex items-center gap-2">
                         <Upload className="w-3.5 h-3.5" />
-                        <span>Upload Cover Photo</span>
+                        <span>{translate(`Upload Cover Photo`)}</span>
                         <input
                           type="file"
                           accept="image/*"
@@ -4498,7 +4499,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   onClick={() => setActiveModal(null)}
                   className="px-5 py-2.5 bg-slate-100 text-slate-600 rounded-lg text-xs font-bold hover:bg-slate-200 transition-colors"
                 >
-                  Cancel
+                  {translate(`Cancel`)}
                 </button>
                 <button
                   type="submit"
@@ -4534,11 +4535,11 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-slate-50 p-4 rounded-lg border border-slate-150">
-                  <span className="text-3xs font-extrabold text-slate-450 uppercase block">Total bookings count</span>
+                  <span className="text-3xs font-extrabold text-slate-450 uppercase block">{translate(`Total bookings count`)}</span>
                   <span className="text-xl font-black text-[#0A2540]">{selectedItem.bookingsCount} Session(s)</span>
                 </div>
                 <div className="bg-slate-50 p-4 rounded-lg border border-slate-150">
-                  <span className="text-3xs font-extrabold text-slate-450 uppercase block">Lifetime LTV Spend</span>
+                  <span className="text-3xs font-extrabold text-slate-450 uppercase block">{translate(`Lifetime LTV Spend`)}</span>
                   <span className="text-xl font-black text-emerald-600">${selectedItem.totalSpend?.toLocaleString()}</span>
                 </div>
               </div>
@@ -4554,7 +4555,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       : 'border-transparent text-slate-450 hover:text-slate-600'
                   }`}
                 >
-                  Booking History
+                  {translate(`Booking History`)}
                 </button>
                 <button
                   type="button"
@@ -4572,15 +4573,15 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
               {customerModalTab === 'bookings' ? (
                 /* Booking History Table */
                 <div className="space-y-3">
-                  <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">Segmented Session logs</h3>
+                  <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">{translate(`Segmented Session logs`)}</h3>
                   <div className="bg-white rounded-lg border border-slate-200 overflow-hidden">
-                    <table className="w-full text-left border-collapse text-xs">
+                    <table className="w-full text-start border-collapse text-xs">
                       <thead>
                         <tr className="bg-slate-50 border-b border-slate-150 text-2xs font-extrabold text-slate-500 uppercase">
-                          <th className="p-3">Booking Segment</th>
-                          <th className="p-3">Schedule Date</th>
-                          <th className="p-3">Status</th>
-                          <th className="p-3 text-right">Value (USD)</th>
+                          <th className="p-3">{translate(`Booking Segment`)}</th>
+                          <th className="p-3">{translate(`Schedule Date`)}</th>
+                          <th className="p-3">{translate(`Status`)}</th>
+                          <th className="p-3 text-end">Value (USD)</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
@@ -4592,13 +4593,13 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                               </td>
                               <td className="p-3 font-mono text-slate-500">{hist.date}</td>
                               <td className="p-3">{renderStatusBadge(hist.status)}</td>
-                              <td className="p-3 text-right font-bold text-slate-900">${hist.amount}</td>
+                              <td className="p-3 text-end font-bold text-slate-900">${hist.amount}</td>
                             </tr>
                           ))
                         ) : (
                           <tr>
                             <td colSpan={4} className="p-6 text-center text-slate-400 font-normal">
-                              No historic segment bookings associated with this customer.
+                              {translate(`No historic segment bookings associated with this customer.`)}
                             </td>
                           </tr>
                         )}
@@ -4609,14 +4610,14 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
               ) : (
                 /* Login Logs Audit Table */
                 <div className="space-y-3">
-                  <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">Security Login Audits</h3>
+                  <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">{translate(`Security Login Audits`)}</h3>
                   <div className="bg-white rounded-lg border border-slate-200 overflow-hidden">
-                    <table className="w-full text-left border-collapse text-xs">
+                    <table className="w-full text-start border-collapse text-xs">
                       <thead>
                         <tr className="bg-slate-50 border-b border-slate-150 text-2xs font-extrabold text-slate-500 uppercase">
-                          <th className="p-3">Login Date & Time</th>
-                          <th className="p-3">Authorized Role</th>
-                          <th className="p-3">Remote IP Address</th>
+                          <th className="p-3">{translate(`Login Date & Time`)}</th>
+                          <th className="p-3">{translate(`Authorized Role`)}</th>
+                          <th className="p-3">{translate(`Remote IP Address`)}</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
@@ -4639,7 +4640,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                         ) : (
                           <tr>
                             <td colSpan={3} className="p-6 text-center text-slate-400 font-normal">
-                              No authenticated login log sessions recorded for this customer account.
+                              {translate(`No authenticated login log sessions recorded for this customer account.`)}
                             </td>
                           </tr>
                         )}
@@ -4655,7 +4656,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                 onClick={() => { setActiveModal(null); setCustomerModalTab('bookings'); }}
                 className="px-5 py-2 bg-[#0A2540] text-white hover:bg-slate-800 rounded-lg text-sm font-bold transition-all cursor-pointer"
               >
-                Close Profile
+                {translate(`Close Profile`)}
               </button>
             </div>
           </div>

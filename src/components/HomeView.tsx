@@ -74,7 +74,7 @@ export default function HomeView({
   const [childrenCount, setChildrenCount] = useState(0);
   const [roomsCount, setRoomsCount] = useState(1);
   const [cabinClass, setCabinClass] = useState('Economy');
-  const [searchGuests, setSearchGuests] = useState('2 Adults, Economy');
+  // const [searchGuests, setSearchGuests] = useState('2 Adults, Economy');
   const [guestDropdownOpen, setGuestDropdownOpen] = useState(false);
 
   // Hotels Tab specific states
@@ -84,7 +84,7 @@ export default function HomeView({
   const [hotelAdultsCount, setHotelAdultsCount] = useState(2);
   const [hotelChildrenCount, setHotelChildrenCount] = useState(0);
   const [hotelRoomsCount, setHotelRoomsCount] = useState(1);
-  const [hotelGuests, setHotelGuests] = useState('2 Adults, 1 Room');
+  // const [hotelGuests, setHotelGuests] = useState('2 Adults, 1 Room');
   const [hotelGuestsDropdownOpen, setHotelGuestsDropdownOpen] = useState(false);
 
   const updateSearchGuestsText = (a: number, c: number, r: number, cl: string) => {
@@ -92,23 +92,12 @@ export default function HomeView({
     setChildrenCount(c);
     setRoomsCount(r);
     setCabinClass(cl);
-    const parts = [];
-    parts.push(`${a} ${a === 1 ? translate('Adult') : translate('Adults')}`);
-    if (c > 0) parts.push(`${c} ${c === 1 ? translate('Child') : translate('Children')}`);
-    if (r > 1) parts.push(`${r} ${translate('Rooms')}`);
-    parts.push(translate(cl));
-    setSearchGuests(parts.join(', '));
   };
 
   const updateHotelGuestsText = (a: number, c: number, r: number) => {
     setHotelAdultsCount(a);
     setHotelChildrenCount(c);
     setHotelRoomsCount(r);
-    const parts = [];
-    parts.push(`${a} ${a === 1 ? translate('Adult') : translate('Adults')}`);
-    if (c > 0) parts.push(`${c} ${c === 1 ? translate('Child') : translate('Children')}`);
-    parts.push(`${r} ${r === 1 ? translate('Room') : translate('Rooms')}`);
-    setHotelGuests(parts.join(', '));
   };
 
   // Rent a Car Tab specific states
@@ -258,12 +247,14 @@ export default function HomeView({
     e.preventDefault();
     setSearchQuery({ from: searchFlyingFrom, to: searchGoingTo });
     if (activeTab === 'flights') {
-      setCurrentPage('flights');
+      setCurrentPage('flights', { from: searchFlyingFrom, to: searchGoingTo });
     } else if (activeTab === 'cars') {
-      setCurrentPage('rent-a-car');
+      setCurrentPage('rent-a-car', { pickup: searchFlyingFrom, dropoff: searchGoingTo });
+    } else if (activeTab === 'hotels') {
+      setCurrentPage('hotels', { location: searchGoingTo });
     } else {
       // General redirection to Tour or Flights
-      setCurrentPage('tour');
+      setCurrentPage('tour', { from: searchFlyingFrom, to: searchGoingTo });
     }
   };
 
@@ -334,6 +325,14 @@ export default function HomeView({
       setNewsletterSubmitting(false);
     }
   };
+
+  const filteredHomeTours = tours.filter(tour => {
+    if (activeTab !== 'flight-hotel' || !searchGoingTo) return true;
+    const q = searchGoingTo.toLowerCase();
+    return (tour.title && tour.title.toLowerCase().includes(q)) || 
+           (tour.category && tour.category.toLowerCase().includes(q)) ||
+           (tour.location && tour.location.toLowerCase().includes(q));
+  });
 
   return (
     <div id="home-view" className="relative">
@@ -438,7 +437,7 @@ export default function HomeView({
                 <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 items-stretch">
                   
                   {/* Field 1: Going To with Popular Destinations */}
-                  <div className="lg:col-span-4 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-left justify-center relative cursor-pointer shadow-sm">
+                  <div className="lg:col-span-4 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-start justify-center relative cursor-pointer shadow-sm">
                     <label className="text-[10px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-wider block">{translate('Going to')}</label>
                     <div className="relative flex items-center gap-2 mt-1">
                       <MapPin className="w-4 h-4 text-[#0091EA] shrink-0" />
@@ -458,7 +457,7 @@ export default function HomeView({
                     {destinationDropdownOpen && (
                       <>
                         <div className="fixed inset-0 z-30" onClick={() => setDestinationDropdownOpen(false)} />
-                        <div className="absolute top-[105%] ltr:left-0 rtl:right-0 w-[calc(100vw-2rem)] sm:w-full sm:min-w-[280px] max-w-sm bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border-2 border-sky-200/80 dark:border-sky-800/80 z-50 p-5 animate-fade-in text-left">
+                        <div className="absolute top-[105%] start-0 w-[calc(100vw-2rem)] sm:w-full sm:min-w-[280px] max-w-sm bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border-2 border-sky-200/80 dark:border-sky-800/80 z-50 p-5 animate-fade-in text-start">
                           <p className="text-xs font-black text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-4 px-1">{translate('Available Hotels')}</p>
                           <div className="space-y-1">
                             {hotels.map((hotel, idx) => (
@@ -474,8 +473,8 @@ export default function HomeView({
                                   <MapPin className="w-4 h-4" />
                                 </div>
                                 <div>
-                                  <p className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#0091EA] transition-colors">{hotel.name}</p>
-                                  {hotel.location && <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">{hotel.location}</p>}
+                                  <p className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#0091EA] transition-colors">{translate(hotel.name)}</p>
+                                  {hotel.location && <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">{translate(hotel.location)}</p>}
                                 </div>
                               </div>
                             ))}
@@ -486,7 +485,7 @@ export default function HomeView({
                   </div>
 
                   {/* Field 2: Check-in - Check-out Dates */}
-                  <div className="lg:col-span-4 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-3.5 flex flex-col text-left justify-center shadow-sm">
+                  <div className="lg:col-span-4 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-3.5 flex flex-col text-start justify-center shadow-sm">
                     <DateRangePicker
                       startDate={hotelCheckIn}
                       endDate={hotelCheckOut}
@@ -501,21 +500,35 @@ export default function HomeView({
                   </div>
 
                   {/* Field 3: Guests selector */}
-                  <div className="lg:col-span-2 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-left justify-center relative cursor-pointer shadow-sm">
+                  <div className="lg:col-span-2 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-start justify-center relative cursor-pointer shadow-sm">
                     <label className="text-[10px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-wider block">{translate('Guests')}</label>
                     <button
                       type="button"
                       onClick={() => setHotelGuestsDropdownOpen(!hotelGuestsDropdownOpen)}
-                      className="w-full text-left bg-transparent border-none outline-none text-xs md:text-sm font-bold text-slate-900 dark:text-slate-100 mt-1 flex justify-between items-center cursor-pointer"
+                      className="w-full text-start bg-transparent border-none outline-none text-xs md:text-sm font-bold text-slate-900 dark:text-slate-100 mt-1 flex justify-between items-center cursor-pointer"
                     >
-                      <span className="truncate">{hotelGuests}</span>
+                      <span className="truncate">
+                        {language === 'ar' ? (
+                          <>
+                            {hotelAdultsCount === 2 ? 'شخصان بالغان' : `${hotelAdultsCount} ${hotelAdultsCount === 1 ? translate('Adult') : translate('Adults')}`}
+                            {hotelChildrenCount > 0 ? ` ، ${hotelChildrenCount === 2 ? 'طفلان' : `${hotelChildrenCount} ${hotelChildrenCount === 1 ? translate('Child') : translate('Children')}`}` : ''}
+                            {` ، ${hotelRoomsCount === 1 ? translate('Room') : hotelRoomsCount === 2 ? 'غرفتان' : `${hotelRoomsCount} ${translate('Rooms')}`}`}
+                          </>
+                        ) : (
+                          <>
+                            {hotelAdultsCount} {hotelAdultsCount === 1 ? translate('Adult') : translate('Adults')}
+                            {hotelChildrenCount > 0 ? `, ${hotelChildrenCount} ${hotelChildrenCount === 1 ? translate('Child') : translate('Children')}` : ''}
+                            , {hotelRoomsCount} {hotelRoomsCount === 1 ? translate('Room') : translate('Rooms')}
+                          </>
+                        )}
+                      </span>
                       <ChevronDown className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
                     </button>
 
                     {hotelGuestsDropdownOpen && (
                       <>
                         <div className="fixed inset-0 z-30" onClick={() => setHotelGuestsDropdownOpen(false)} />
-                        <div className="absolute top-[105%] ltr:left-0 rtl:right-0 w-[calc(100vw-2rem)] sm:w-80 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border-2 border-sky-200/80 dark:border-sky-800/80 z-50 p-5 space-y-4 text-left">
+                        <div className="absolute top-[105%] start-0 w-[calc(100vw-2rem)] sm:w-80 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border-2 border-sky-200/80 dark:border-sky-800/80 z-50 p-5 space-y-4 text-start">
                           <div className="flex items-center justify-between border-b border-sky-100 dark:border-sky-900/50 pb-2">
                             <span className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">{translate('Guests & Rooms')}</span>
                             <span className="text-[10px] font-bold text-[#0091EA] bg-sky-50 dark:bg-sky-950 px-2 py-0.5 rounded-full">{hotelAdultsCount + hotelChildrenCount} {translate('Guests')}</span>
@@ -623,7 +636,7 @@ export default function HomeView({
                       className="w-full h-14 bg-gradient-to-r from-[#0091EA] via-sky-500 to-cyan-400 text-white rounded-2xl font-black flex items-center justify-center gap-2 shadow-lg shadow-sky-500/25 transition-all hover:scale-[1.02] active:scale-[0.98] animate-light-blue-pulse cursor-pointer uppercase tracking-wider text-xs"
                     >
                       <Search className="w-4 h-4" />
-                      <span>{translate('Search')}</span>
+                      <span>{t.searchBtn}</span>
                     </button>
                   </div>
 
@@ -637,7 +650,7 @@ export default function HomeView({
                 <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 items-stretch">
                   
                   {/* Field 1: Pick-up Location */}
-                  <div className="lg:col-span-3 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-left justify-center relative cursor-pointer shadow-sm">
+                  <div className="lg:col-span-3 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-start justify-center relative cursor-pointer shadow-sm">
                     <label className="text-[10px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-wider block">{translate('Pick-up Location')}</label>
                     <div className="relative flex items-center gap-2 mt-1">
                       <MapPin className="w-4 h-4 text-[#0091EA] shrink-0" />
@@ -653,7 +666,7 @@ export default function HomeView({
                   </div>
 
                   {/* Field 2: Drop-off Location */}
-                  <div className="lg:col-span-3 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-left justify-center relative cursor-pointer shadow-sm">
+                  <div className="lg:col-span-3 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-start justify-center relative cursor-pointer shadow-sm">
                     <label className="text-[10px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-wider block">{translate('Drop-off Location')}</label>
                     <div className="relative flex items-center gap-2 mt-1">
                       <MapPin className="w-4 h-4 text-[#0091EA] shrink-0" />
@@ -668,7 +681,7 @@ export default function HomeView({
                   </div>
 
                   {/* Field 3: Rental Dates & Times */}
-                  <div className="lg:col-span-4 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-3.5 flex flex-col text-left justify-center shadow-sm">
+                  <div className="lg:col-span-4 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-3.5 flex flex-col text-start justify-center shadow-sm">
                     <DateRangePicker
                       startDate={carPickupDate}
                       endDate={carDropoffDate}
@@ -698,19 +711,19 @@ export default function HomeView({
                           placeholder="10:00"
                           value={carDropoffTime}
                           onChange={(e) => setCarDropoffTime(e.target.value)}
-                          className="w-12 bg-transparent text-slate-900 dark:text-slate-100 font-black focus:outline-none text-right"
+                          className="w-12 bg-transparent text-slate-900 dark:text-slate-100 font-black focus:outline-none text-end"
                         />
                       </div>
                     </div>
                   </div>
 
                   {/* Field 4: Car Class / Category */}
-                  <div className="lg:col-span-2 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-left justify-center relative cursor-pointer shadow-sm">
-                    <label className="text-[10px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-wider block">Car Class</label>
+                  <div className="lg:col-span-2 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-4 flex flex-col text-start justify-center relative cursor-pointer shadow-sm">
+                    <label className="text-[10px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-wider block">{translate('Car Class')}</label>
                     <button
                       type="button"
                       onClick={() => setCarCategoryDropdownOpen(!carCategoryDropdownOpen)}
-                      className="w-full text-left bg-transparent border-none outline-none text-xs md:text-sm font-bold text-slate-900 dark:text-slate-100 mt-1 flex justify-between items-center cursor-pointer"
+                      className="w-full text-start bg-transparent border-none outline-none text-xs md:text-sm font-bold text-slate-900 dark:text-slate-100 mt-1 flex justify-between items-center cursor-pointer"
                     >
                       <span className="truncate">{translate(carCategory)}</span>
                       <ChevronDown className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
@@ -719,7 +732,7 @@ export default function HomeView({
                     {carCategoryDropdownOpen && (
                       <>
                         <div className="fixed inset-0 z-30" onClick={() => setCarCategoryDropdownOpen(false)} />
-                        <div className="absolute top-[105%] ltr:left-0 rtl:right-0 w-[calc(100vw-2rem)] sm:w-full sm:min-w-[200px] bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border-2 border-sky-200/80 dark:border-sky-800/80 z-50 p-3 text-left">
+                        <div className="absolute top-[105%] start-0 w-[calc(100vw-2rem)] sm:w-full sm:min-w-[200px] bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border-2 border-sky-200/80 dark:border-sky-800/80 z-50 p-3 text-start">
                           <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase mb-2 px-1">{translate('Select Car Category')}</p>
                           <div className="space-y-1">
                             {[
@@ -737,9 +750,9 @@ export default function HomeView({
                                   setCarCategory(option);
                                   setCarCategoryDropdownOpen(false);
                                 }}
-                                className="w-full text-left px-3 py-2 text-xs hover:bg-[#0091EA]/10 hover:text-[#0091EA] dark:hover:bg-slate-700 font-bold text-slate-700 dark:text-slate-300 rounded-xl transition-colors cursor-pointer"
+                                className="w-full text-start px-3 py-2 text-xs hover:bg-[#0091EA]/10 hover:text-[#0091EA] dark:hover:bg-slate-700 font-bold text-slate-700 dark:text-slate-300 rounded-xl transition-colors cursor-pointer"
                               >
-                                {option}
+                                {translate(option)}
                               </button>
                             ))}
                           </div>
@@ -755,7 +768,7 @@ export default function HomeView({
                       className="flex items-center gap-2 bg-gradient-to-r from-[#0091EA] via-sky-500 to-cyan-400 text-white font-black px-8 py-3.5 rounded-2xl transition-all hover:scale-[1.02] shadow-lg shadow-sky-500/25 animate-light-blue-pulse cursor-pointer uppercase tracking-wider text-xs"
                     >
                       <Search className="w-4 h-4" />
-                      <span>{translate('Search Rental Cars')}</span>
+                      <span>{t.searchRentalBtn}</span>
                     </button>
                   </div>
 
@@ -764,7 +777,7 @@ export default function HomeView({
             )}
 
             {(activeTab !== 'hotels' && activeTab !== 'cars') && (
-              <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 text-left items-stretch">
+              <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 text-start items-stretch">
                 
                 {/* Field 1: Going To */}
                 <div className="bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 hover:border-[#0091EA] transition-all rounded-2xl p-3.5 flex flex-col justify-center relative cursor-pointer shadow-sm">
@@ -773,7 +786,7 @@ export default function HomeView({
                     <MapPin className="w-4 h-4 text-[#0091EA] shrink-0" />
                     <input
                       type="text"
-                      placeholder={translate("e.g. Maldives, Istanbul, Santorini")}
+                      placeholder={translate(`e.g. Maldives, Istanbul, Santorini`)}
                       value={searchGoingTo}
                       onFocus={() => setSearchDropdownOpen(true)}
                       onChange={(e) => {
@@ -786,7 +799,7 @@ export default function HomeView({
                   {(activeTab === 'flight-hotel' || activeTab === 'flights') && searchDropdownOpen && filteredSuggestions.length > 0 && (
                     <>
                       <div className="fixed inset-0 z-30" onClick={() => setSearchDropdownOpen(false)} />
-                      <div className="absolute top-[105%] ltr:left-0 rtl:right-0 w-[calc(100vw-2rem)] sm:w-full sm:min-w-[280px] max-w-sm bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-700 z-50 p-2 max-h-[300px] overflow-y-auto animate-fade-in text-left">
+                      <div className="absolute top-[105%] start-0 w-[calc(100vw-2rem)] sm:w-full sm:min-w-[280px] max-w-sm bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-700 z-50 p-2 max-h-[300px] overflow-y-auto animate-fade-in text-start">
                         {filteredSuggestions.map((item, idx) => (
                           <div 
                             key={`suggest-${activeTab}-${item.id}-${idx}`}
@@ -827,7 +840,7 @@ export default function HomeView({
                     <PlaneTakeoff className="w-4 h-4 text-[#0091EA] shrink-0" />
                     <input
                       type="text"
-                      placeholder={translate("e.g. London LHR, Dubai DXB")}
+                      placeholder={translate(`e.g. London LHR, Dubai DXB`)}
                       value={searchFlyingFrom}
                       onChange={(e) => setSearchFlyingFrom(e.target.value)}
                       className="w-full bg-transparent border-none outline-none focus:ring-0 text-xs md:text-sm font-bold text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
@@ -860,9 +873,25 @@ export default function HomeView({
                     <button
                       type="button"
                       onClick={() => setGuestDropdownOpen(!guestDropdownOpen)}
-                      className="w-full text-left bg-transparent border-none outline-none text-xs md:text-sm font-bold text-slate-900 dark:text-slate-100 flex justify-between items-center cursor-pointer"
+                      className="w-full text-start bg-transparent border-none outline-none text-xs md:text-sm font-bold text-slate-900 dark:text-slate-100 flex justify-between items-center cursor-pointer"
                     >
-                      <span className="truncate">{searchGuests}</span>
+                      <span className="truncate">
+                        {language === 'ar' ? (
+                          <>
+                            {adultsCount === 2 ? 'شخصان بالغان' : `${adultsCount} ${adultsCount === 1 ? translate('Adult') : translate('Adults')}`}
+                            {childrenCount > 0 ? ` ، ${childrenCount === 2 ? 'طفلان' : `${childrenCount} ${childrenCount === 1 ? translate('Child') : translate('Children')}`}` : ''}
+                            {roomsCount > 1 ? ` ، ${roomsCount === 2 ? 'غرفتان' : `${roomsCount} ${translate('Rooms')}`}` : ''}
+                            {' ، '}{translate(cabinClass)}
+                          </>
+                        ) : (
+                          <>
+                            {adultsCount} {adultsCount === 1 ? translate('Adult') : translate('Adults')}
+                            {childrenCount > 0 ? `, ${childrenCount} ${childrenCount === 1 ? translate('Child') : translate('Children')}` : ''}
+                            {roomsCount > 1 ? `, ${roomsCount} ${translate('Rooms')}` : ''}
+                            , {translate(cabinClass)}
+                          </>
+                        )}
+                      </span>
                       <ChevronDown className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0 ml-1" />
                     </button>
                   </div>
@@ -870,7 +899,7 @@ export default function HomeView({
                   {guestDropdownOpen && (
                     <>
                       <div className="fixed inset-0 z-30" onClick={() => setGuestDropdownOpen(false)} />
-                      <div className="absolute top-[105%] ltr:left-0 rtl:right-0 w-[calc(100vw-2rem)] sm:w-80 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border-2 border-sky-200/80 dark:border-sky-800/80 z-50 p-5 space-y-4 text-left">
+                      <div className="absolute top-[105%] start-0 w-[calc(100vw-2rem)] sm:w-80 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border-2 border-sky-200/80 dark:border-sky-800/80 z-50 p-5 space-y-4 text-start">
                         <div className="flex items-center justify-between border-b border-sky-100 dark:border-sky-900/50 pb-2">
                           <span className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">{translate('Passengers & Cabin')}</span>
                           <span className="text-[10px] font-bold text-[#0091EA] bg-sky-50 dark:bg-sky-950 px-2 py-0.5 rounded-full">{adultsCount + childrenCount} {translate('Guests')}</span>
@@ -972,7 +1001,7 @@ export default function HomeView({
                     className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-[#0091EA] via-sky-500 to-cyan-400 text-white font-black px-8 py-3.5 rounded-2xl transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-sky-500/25 animate-light-blue-pulse cursor-pointer uppercase tracking-wider text-xs"
                   >
                     <Search className="w-4 h-4" />
-                    {t.searchStaysTravel}
+                    <span>{t.searchStaysTravel}</span>
                   </button>
                 </div>
 
@@ -1014,16 +1043,16 @@ export default function HomeView({
                   
                   {/* Content overlaid on image */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10 pointer-events-none">
-                    <div className="flex flex-col items-center max-w-lg">
+                    <div className="flex flex-col items-center max-w-lg text-center">
                       <h3 className="text-3xl md:text-5xl font-black tracking-wider text-white mb-2 uppercase drop-shadow-md flex items-center justify-center flex-wrap gap-2">
-                        {hotel.name}
+                        {translate(hotel.name)}
                       </h3>
-                      <h4 className="text-xl md:text-2xl font-black tracking-wider text-sky-300 mb-2 uppercase drop-shadow-md">{hotel.location}</h4>
+                      <h4 className="text-xl md:text-2xl font-black tracking-wider text-sky-300 mb-2 uppercase drop-shadow-md">{translate(hotel.location)}</h4>
                       <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-gray-200 drop-shadow-sm flex items-center justify-center gap-1 font-extrabold">
                         {Array.from({ length: hotel.rating || 5 }).map((_, i) => (
                           <span key={i} className="text-amber-400">★</span>
                         ))} 
-                        <span className="ml-2">LUXURY RESORT</span>
+                        <span className="ml-2 rtl:mr-2 rtl:ml-0">{translate('LUXURY RESORT')}</span>
                       </p>
                     </div>
                   </div>
@@ -1114,7 +1143,7 @@ export default function HomeView({
           {!loadingPackages && !errorPackages && (
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {tours.slice(0, visibleToursCount).map((tour) => (
+                {filteredHomeTours.slice(0, visibleToursCount).map((tour) => (
                   <div 
                     key={tour.id} 
                     onClick={() => setCurrentPage('tour', { id: tour.id.toString() })}
@@ -1155,7 +1184,7 @@ export default function HomeView({
                         <button 
                           onClick={() => setCurrentPage('tour', { id: tour.id.toString() })}
                           className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#0091EA] to-cyan-400 text-white flex items-center justify-center transition-all duration-300 transform group-hover:scale-110 shadow-md shadow-sky-500/30 cursor-pointer"
-                          title="Book Now"
+                          title={translate(`Book Now`)}
                         >
                           <ArrowRight className="w-4 h-4" />
                         </button>
@@ -1165,7 +1194,7 @@ export default function HomeView({
                 ))}
               </div>
 
-              {visibleToursCount < tours.length && (
+              {visibleToursCount < filteredHomeTours.length && (
                 <div className="flex justify-center mt-12 mb-4">
                   <button
                     onClick={() => setVisibleToursCount(prev => prev + 4)}
@@ -1192,7 +1221,7 @@ export default function HomeView({
         <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 rounded-[36px] border-2 border-sky-200/80 dark:border-sky-800/60 shadow-2xl shadow-sky-500/10 animate-blue-glow overflow-hidden flex flex-col lg:flex-row min-h-[300px]">
           
           {/* Left Side: Info Block */}
-          <div className="w-full lg:w-1/2 bg-gradient-to-br from-slate-950 via-sky-950 to-slate-900 text-white flex flex-col justify-center px-8 py-14 md:px-16 md:py-20 text-left relative overflow-hidden group">
+          <div className="w-full lg:w-1/2 bg-gradient-to-br from-slate-950 via-sky-950 to-slate-900 text-white flex flex-col justify-center px-8 py-14 md:px-16 md:py-20 text-start relative overflow-hidden group">
             <div className="absolute top-4 left-4 text-sky-500/20 transition-transform duration-1000 group-hover:rotate-180 group-hover:scale-110">
               <Compass className="w-48 h-48 animate-spin-slow" />
             </div>
@@ -1205,7 +1234,7 @@ export default function HomeView({
           </div>
 
           {/* Right Side: Block */}
-          <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 py-14 md:px-16 md:py-20 text-left">
+          <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 py-14 md:px-16 md:py-20 text-start">
             <p className="text-xs md:text-sm text-slate-700 dark:text-slate-300 font-medium leading-relaxed max-w-md">
               {translate('Sign up to receive early access to premier flight rates, bespoke itineraries, global travel updates, and exclusive members-only discounts.')}
             </p>
@@ -1247,7 +1276,7 @@ export default function HomeView({
           <div className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-800 max-h-[90vh] flex flex-col overflow-hidden my-auto">
             
             <div className="flex items-center justify-between px-6 py-4 bg-gray-50 dark:bg-slate-950 border-b border-gray-100 dark:border-slate-800 shrink-0">
-              <h3 className="font-bold text-gray-900 dark:text-slate-100 text-sm">{translate("Book")}: {translate(selectedPackage.title)}</h3>
+              <h3 className="font-bold text-gray-900 dark:text-slate-100 text-sm">{translate(`Book`)}: {translate(selectedPackage.title)}</h3>
               <button 
                 onClick={() => {
                   setSelectedPackage(null);
@@ -1263,8 +1292,8 @@ export default function HomeView({
               {bookingSuccess ? (
                 <div className="text-center py-6 space-y-4">
                   <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mx-auto text-xl font-bold">✓</div>
-                  <h4 className="text-lg font-bold text-gray-900 dark:text-slate-100 font-sans">{translate("Booking Requested!")}</h4>
-                  <p className="text-xs text-gray-500 dark:text-slate-400">{translate("We have recorded your interest. Our travel booking consultants will call or email you shortly to confirm travel options.")}</p>
+                  <h4 className="text-lg font-bold text-gray-900 dark:text-slate-100 font-sans">{translate(`Booking Requested!`)}</h4>
+                  <p className="text-xs text-gray-500 dark:text-slate-400">{translate(`We have recorded your interest. Our travel booking consultants will call or email you shortly to confirm travel options.`)}</p>
                   <button
                     onClick={() => {
                       setSelectedPackage(null);
@@ -1272,19 +1301,19 @@ export default function HomeView({
                     }}
                     className="w-full py-2.5 bg-gray-900 dark:bg-slate-800 hover:bg-gray-800 dark:hover:bg-slate-700 text-white rounded-xl text-xs font-bold"
                   >
-                    {translate("Done")}
+                    {translate(`Done`)}
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handlePackageBookSubmit} className="space-y-4">
                   <div className="bg-slate-50 dark:bg-slate-950 p-3 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
-                    <p className="font-bold text-slate-800 dark:text-slate-200">{translate("Holiday Package Details")}:</p>
-                    <p className="text-gray-600 dark:text-slate-400 mt-1">{translate("Destination")}: {translate(selectedPackage.location)}</p>
-                    <p className="text-gray-600 dark:text-slate-400">{translate("Price")}: {formatPrice(selectedPackage.price)} / {translate("person")} • {selectedPackage.nights} {translate("nights")}</p>
+                    <p className="font-bold text-slate-800 dark:text-slate-200">{translate(`Holiday Package Details`)}:</p>
+                    <p className="text-gray-600 dark:text-slate-400 mt-1">{translate(`Destination`)}: {translate(selectedPackage.location)}</p>
+                    <p className="text-gray-600 dark:text-slate-400">{translate(`Price`)}: {formatPrice(selectedPackage.price)} / {translate(`person`)} • {selectedPackage.nights} {translate(`nights`)}</p>
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">{translate("Your Name")}</label>
+                    <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">{translate(`Your Name`)}</label>
                     <input
                       type="text"
                       required
@@ -1296,7 +1325,7 @@ export default function HomeView({
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">{translate("Your Email")}</label>
+                    <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">{translate(`Your Email`)}</label>
                     <input
                       type="email"
                       required
@@ -1308,7 +1337,7 @@ export default function HomeView({
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">{translate("Your Phone")}</label>
+                    <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">{translate(`Your Phone`)}</label>
                     <input
                       type="tel"
                       required
@@ -1321,7 +1350,7 @@ export default function HomeView({
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">{translate("Travel Date")}</label>
+                      <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">{translate(`Travel Date`)}</label>
                       <DatePicker
                         value={bookingDate}
                         onChange={setBookingDate}
@@ -1329,7 +1358,7 @@ export default function HomeView({
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">{translate("Guests")}</label>
+                      <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">{translate(`Guests`)}</label>
                       <input
                         type="number"
                         min="1"
@@ -1370,8 +1399,8 @@ export default function HomeView({
             setCurrentPage('account-bookings');
           }}
           bookingType="tour"
-          title={selectedPackage.title}
-          subtitle="Sri Lanka"
+          title={translate(selectedPackage.title)}
+          subtitle={translate(`Sri Lanka`)}
           dates={{ start: bookingDate }}
           travelers={bookingGuestsCount}
           pricePerUnit={selectedPackage.price}

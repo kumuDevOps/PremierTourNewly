@@ -1190,6 +1190,7 @@ export const translations: Record<Language, any> = {
     contactUs: "اتصل بنا",
     aboutUs: "من نحن",
     visa: "التأشيرة",
+    blog: "المدونة",
     signIn: "تسجيل الدخول",
     signOut: "تسجيل الخروج",
     dashboard: "لوحة التحكم",
@@ -2705,6 +2706,49 @@ export const bodyDict: Record<Language, Record<string, string>> = {
     "Our state-of-the-art booking system brings real-time rates directly from verified hotels, airlines, and premium vehicle operators, helping you secure the best prices with fully custom dates, and customizable payment structures.": "हमारी अत्याधुनिक बुकिंग प्रणाली सत्यापित होटलों, एयरलाइनों और प्रीमियम वाहन ऑपरेटरों से सीधे रीयल-टाइम दरें लाती है, जिससे आपको पूरी तरह से कस्टम तिथियों और अनुकूलन योग्य भुगतान संरचनाओं के साथ सर्वोत्तम मूल्य सुरक्षित करने में मदद मिलती है।",
   },
   ar: {
+    "Car Class": "فئة السيارة",
+    "CAR CLASS": "فئة السيارة",
+    "Select Car Category": "اختر فئة السيارة",
+    "Luxury Sports Car": "سيارة رياضية فاخرة",
+    "Prestige SUV": "سيارة دفع رباعي فاخرة",
+    "Luxury Sedan": "سيارة سدان فاخرة",
+    "Convertible Coupe": "سيارة كوبيه مكشوفة",
+    "Premium Electric": "سيارة كهربائية ممتازة",
+    "Spacious Minivan": "سيارة ميني فان واسعة",
+    "Electric": "كهربائية",
+    "SUV": "دفع رباعي",
+    "Convertible": "مكشوفة",
+    "Luxury": "فاخرة",
+    "Sports": "رياضية",
+    "Sedan": "سدان",
+    "Economy": "درجة اقتصادية",
+    "Premium": "درجة ممتازة",
+    "Business": "درجة الأعمال",
+    "First": "الدرجة الأولى",
+    "Cabin Class": "درجة السفر",
+    "Passengers & Class": "الركاب ودرجة السفر",
+    "Passengers & Cabin": "الركاب ودرجة السفر",
+    "Guests & Cabin Class": "الضيوف ودرجة السفر",
+    "Travel Dates": "تواريخ السفر",
+    "TRAVEL DATES": "تواريخ السفر",
+    "Pick-up Date": "تاريخ الاستلام",
+    "PICK-UP DATE": "تاريخ الاستلام",
+    "Return Date": "تاريخ العودة",
+    "RETURN DATE": "تاريخ العودة",
+    "Drop-off Date": "تاريخ التسليم",
+    "DROP-OFF DATE": "تاريخ التسليم",
+    "Pick-up Location": "مكان الاستلام",
+    "Drop-off Location": "مكان التسليم",
+    "Time:": "الوقت:",
+    "TIME:": "الوقت:",
+    "Time": "الوقت",
+    "TIME": "الوقت",
+    "Night": "ليلة",
+    "Nights": "ليالٍ",
+    "N": "ل",
+    "Same as pick-up, or different location": "نفس مكان الاستلام أو موقع مختلف",
+    "City, airport, or hotel": "المدينة أو المطار أو الفندق",
+    "Search Rental Cars": "البحث عن سيارات للإيجار",
     "Curated Experiences": "تجارب ممتازة",
     "Embark on unforgettable journeys with our meticulously crafted travel packages. From pristine beaches to historic cities.": "انطلق في رحلات لا تُنسى مع باقات السفر المصممة بعناية. من الشواطئ الساحرة إلى المدن التاريخية.",
     "Travel Style": "أسلوب السفر",
@@ -3060,7 +3104,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Dynamically load JSON dictionary from /locales/{lang}.json
   React.useEffect(() => {
-    fetch(`/locales/${language}.json`)
+    fetch(`/locales/${language}.json?t=${Date.now()}`)
       .then((res) => {
         if (res.ok) return res.json();
         throw new Error('Locale file not found');
@@ -3080,6 +3124,21 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     } catch (err) {
       console.warn('Could not set language preference in localStorage:', err);
     }
+
+    // Trigger Google Translate
+    setTimeout(() => {
+      const combo = document.querySelector('.goog-te-combo') as HTMLSelectElement;
+      if (combo) {
+        let gtLang = lang;
+        if (lang === 'zh') gtLang = 'zh-CN';
+        
+        // Only trigger if it's different
+        if (combo.value !== gtLang) {
+          combo.value = gtLang;
+          combo.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
+    }, 100);
   }, []);
 
   const translate = React.useCallback((key: string): string => {
@@ -3127,7 +3186,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
 
     // Dynamic pattern matching for duration e.g. "5 Days 4 Nights", "3 Days 2 Nights", "5 Days", "1 Night"
-    const durationMatch = trimmed.match(/^(\d+)\s*Days?\s*(?:(\d+)\s*Nights?)?$/i);
+    const durationMatch = trimmed.match(/^(\d+)\s*Days?(?:\s*\/?\s*(\d+)\s*Nights?)?$/i);
     if (durationMatch) {
       const days = durationMatch[1];
       const nights = durationMatch[2];
@@ -3234,6 +3293,9 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return new Proxy({}, {
       get: (_target, prop: string) => {
         if (typeof prop !== 'string') return '';
+        if (translations[language] && (translations[language] as any)[prop]) {
+          return (translations[language] as any)[prop];
+        }
         const mappedKey = camelMap[prop] || prop;
         return translate(mappedKey);
       }

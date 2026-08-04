@@ -498,7 +498,7 @@ export default function BookingConfirmationModal({
               <button 
                 onClick={handleCopyRef}
                 className="p-1 hover:bg-sky-100 dark:hover:bg-sky-900 rounded transition-colors cursor-pointer"
-                title="Copy Reference ID"
+                title={translate(`Copy Reference ID`)}
               >
                 {copiedRef ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3 text-sky-500" />}
               </button>
@@ -529,7 +529,7 @@ export default function BookingConfirmationModal({
         {/* STEP 1: REVIEW SUMMARY */}
         {step === 'review' && (
           <div className="flex flex-col">
-            <div className="p-6 overflow-y-auto max-h-[60vh] space-y-5 text-left">
+            <div className="p-6 overflow-y-auto max-h-[60vh] space-y-5 text-start">
               
               {/* Card Summary Item */}
               <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-start gap-3.5">
@@ -580,7 +580,7 @@ export default function BookingConfirmationModal({
 
               {/* Pickup & Dropoff Locations for Cars / Transfers */}
               {(bookingData?.pickupLocation || bookingData?.dropoffLocation) && (
-                <div className="bg-sky-50/60 dark:bg-sky-950/30 p-3.5 rounded-2xl border border-sky-100 dark:border-sky-900/50 space-y-2 text-left">
+                <div className="bg-sky-50/60 dark:bg-sky-950/30 p-3.5 rounded-2xl border border-sky-100 dark:border-sky-900/50 space-y-2 text-start">
                   <span className="text-[10px] font-black text-[#0091EA] uppercase tracking-wider block">
                     {translate('Pick-up & Drop-off Route')}
                   </span>
@@ -605,7 +605,7 @@ export default function BookingConfirmationModal({
 
               {/* CAR RENTAL DRIVER VS SELF-DRIVE SELECTOR */}
               {resolvedType === 'car' && (
-                <div className="bg-gradient-to-br from-sky-50/80 to-indigo-50/50 dark:from-slate-800/80 dark:to-slate-900/80 p-4 rounded-2xl border-2 border-sky-200 dark:border-sky-800/80 space-y-3 text-left">
+                <div className="bg-gradient-to-br from-sky-50/80 to-indigo-50/50 dark:from-slate-800/80 dark:to-slate-900/80 p-4 rounded-2xl border-2 border-sky-200 dark:border-sky-800/80 space-y-3 text-start">
                   <span className="text-xs font-black text-[#0091EA] uppercase tracking-wider block flex items-center gap-1.5">
                     <Car className="w-4 h-4 text-[#0091EA]" />
                     {translate('Rental Service Option')}
@@ -617,7 +617,7 @@ export default function BookingConfirmationModal({
                   <div className="grid grid-cols-1 gap-2.5">
                     <button
                       type="button"
-                      className="p-3 rounded-2xl text-xs font-bold border-2 border-[#0091EA] bg-[#0091EA]/10 text-[#0091EA] shadow-md text-left flex items-start gap-2.5"
+                      className="p-3 rounded-2xl text-xs font-bold border-2 border-[#0091EA] bg-[#0091EA]/10 text-[#0091EA] shadow-md text-start flex items-start gap-2.5"
                     >
                       <span className="text-xl">👨‍✈️</span>
                       <div>
@@ -633,7 +633,7 @@ export default function BookingConfirmationModal({
 
               {/* TOUR CUSTOMIZATION ADD-ONS (HOTEL & VEHICLE) */}
               {(resolvedType === 'tour' || resolvedType === 'package' || resolvedType === 'hotel' || resolvedType === 'flight') && (
-                <div className="bg-gradient-to-br from-sky-50/80 to-indigo-50/50 dark:from-slate-800/80 dark:to-slate-900/80 p-4 rounded-2xl border-2 border-sky-200 dark:border-sky-800/80 space-y-4 text-left">
+                <div className="bg-gradient-to-br from-sky-50/80 to-indigo-50/50 dark:from-slate-800/80 dark:to-slate-900/80 p-4 rounded-2xl border-2 border-sky-200 dark:border-sky-800/80 space-y-4 text-start">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-black text-[#0091EA] uppercase tracking-wider flex items-center gap-1.5">
                       <Sparkles className="w-4 h-4 text-amber-500" />
@@ -771,7 +771,7 @@ export default function BookingConfirmationModal({
               )}
 
               {/* Price Breakdown */}
-              <div className="border border-slate-100 dark:border-slate-800 rounded-2xl overflow-hidden text-left">
+              <div className="border border-slate-100 dark:border-slate-800 rounded-2xl overflow-hidden text-start">
                 <div className="px-4 py-2.5 bg-slate-50 dark:bg-slate-800/80 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
                   <span className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
                     <CreditCard className="w-3.5 h-3.5 text-[#0091EA]" />
@@ -867,7 +867,7 @@ export default function BookingConfirmationModal({
 
         {/* STEP 2: PAYMENT FORM */}
         {step === 'payment' && (
-          <form onSubmit={handlePaymentSubmit} className="flex flex-col text-left">
+          <form onSubmit={handlePaymentSubmit} className="flex flex-col text-start">
             <div className="p-6 overflow-y-auto max-h-[60vh] space-y-5">
               
               {/* Payment Gateway Selection */}
@@ -879,52 +879,52 @@ export default function BookingConfirmationModal({
                   <button
                     type="button"
                     onClick={() => setPaymentGateway('stripe')}
-                    className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                    className={`p-3 rounded-xl border text-start transition-all cursor-pointer ${
                       paymentGateway === 'stripe'
                         ? 'border-[#0091EA] bg-sky-50/60 dark:bg-sky-950/40 text-slate-900 dark:text-white ring-2 ring-sky-500/30'
                         : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400'
                     }`}
                   >
-                    <span className="block font-black text-xs">Stripe</span>
+                    <span className="block font-black text-xs">{translate(`Stripe`)}</span>
                     <span className="block text-[9px] text-slate-400">Card / Apple Pay</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setPaymentGateway('payhere')}
-                    className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                    className={`p-3 rounded-xl border text-start transition-all cursor-pointer ${
                       paymentGateway === 'payhere'
                         ? 'border-emerald-500 bg-emerald-50/60 dark:bg-emerald-950/40 text-slate-900 dark:text-white ring-2 ring-emerald-500/30'
                         : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400'
                     }`}
                   >
-                    <span className="block font-black text-xs text-emerald-600">PayHere</span>
-                    <span className="block text-[9px] text-slate-400">LKR Local Bank</span>
+                    <span className="block font-black text-xs text-emerald-600">{translate(`PayHere`)}</span>
+                    <span className="block text-[9px] text-slate-400">{translate(`LKR Local Bank`)}</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setPaymentGateway('paypal')}
-                    className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                    className={`p-3 rounded-xl border text-start transition-all cursor-pointer ${
                       paymentGateway === 'paypal'
                         ? 'border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/40 text-slate-900 dark:text-white ring-2 ring-indigo-500/30'
                         : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400'
                     }`}
                   >
-                    <span className="block font-black text-xs text-indigo-600">PayPal</span>
-                    <span className="block text-[9px] text-slate-400">PayPal Express</span>
+                    <span className="block font-black text-xs text-indigo-600">{translate(`PayPal`)}</span>
+                    <span className="block text-[9px] text-slate-400">{translate(`PayPal Express`)}</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setPaymentGateway('arrival')}
-                    className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                    className={`p-3 rounded-xl border text-start transition-all cursor-pointer ${
                       paymentGateway === 'arrival'
                         ? 'border-amber-500 bg-amber-50/60 dark:bg-amber-950/40 text-slate-900 dark:text-white ring-2 ring-amber-500/30'
                         : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400'
                     }`}
                   >
-                    <span className="block font-black text-xs text-amber-600">Pay on Arrival</span>
+                    <span className="block font-black text-xs text-amber-600">{translate(`Pay on Arrival`)}</span>
                     <span className="block text-[9px] text-slate-400">15% Deposit Now</span>
                   </button>
                 </div>
@@ -936,7 +936,7 @@ export default function BookingConfirmationModal({
                   <ShieldCheck className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
                   <div>
                     <span className="text-[10px] font-black uppercase text-amber-800 dark:text-amber-300 block tracking-wider">
-                      Security Deposit Pre-authorization Hold
+                      {translate(`Security Deposit Pre-authorization Hold`)}
                     </span>
                     <p className="text-[11px] text-amber-700 dark:text-amber-400 font-medium leading-relaxed mt-0.5">
                       An automated security deposit hold of {formatPrice(250)} is pre-authorized on your card. No money is charged; the temporary hold is automatically released 24 hours after vehicle return post-inspection.
@@ -995,7 +995,7 @@ export default function BookingConfirmationModal({
                         required
                         value={cardName}
                         onChange={(e) => setCardName(e.target.value)}
-                        placeholder="As printed on card"
+                        placeholder={translate(`As printed on card`)}
                         className="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-xl text-xs font-semibold outline-none focus:border-[#0091EA]"
                       />
                     </div>
@@ -1021,7 +1021,7 @@ export default function BookingConfirmationModal({
                         <input
                           type="text"
                           required
-                          placeholder="MM/YY"
+                          placeholder={translate(`MM/YY`)}
                           value={cardExpiry}
                           onChange={handleExpiryChange}
                           className="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-xl text-xs font-mono outline-none focus:border-[#0091EA] font-bold"
@@ -1056,21 +1056,21 @@ export default function BookingConfirmationModal({
                   <div className="bg-gradient-to-br from-emerald-900 via-teal-900 to-slate-900 text-white rounded-2xl p-5 shadow-xl border border-emerald-500/30 space-y-3">
                     <div className="flex justify-between items-center border-b border-emerald-500/30 pb-2">
                       <div className="flex items-center gap-2">
-                        <span className="px-2 py-0.5 bg-emerald-500 text-white text-[10px] font-black rounded uppercase">PayHere</span>
-                        <span className="text-xs font-bold text-emerald-200">Sri Lanka Local Gateway</span>
+                        <span className="px-2 py-0.5 bg-emerald-500 text-white text-[10px] font-black rounded uppercase">{translate(`PayHere`)}</span>
+                        <span className="text-xs font-bold text-emerald-200">{translate(`Sri Lanka Local Gateway`)}</span>
                       </div>
                       <span className="text-[10px] text-emerald-300 font-mono font-bold">1 USD = 310 LKR</span>
                     </div>
 
                     <div className="flex justify-between items-center pt-1">
                       <div>
-                        <span className="text-[9px] uppercase tracking-widest text-emerald-300 font-bold block">Equivalent LKR Amount</span>
+                        <span className="text-[9px] uppercase tracking-widest text-emerald-300 font-bold block">{translate(`Equivalent LKR Amount`)}</span>
                         <span className="text-2xl font-black text-white font-mono">
-                          Rs. {(grandTotal * 310).toLocaleString()} <span className="text-xs font-normal text-emerald-300">LKR</span>
+                          Rs. {(grandTotal * 310).toLocaleString()} <span className="text-xs font-normal text-emerald-300">{translate(`LKR`)}</span>
                         </span>
                       </div>
-                      <div className="text-right">
-                        <span className="text-[9px] uppercase tracking-widest text-emerald-300 font-bold block">Base Total</span>
+                      <div className="text-end">
+                        <span className="text-[9px] uppercase tracking-widest text-emerald-300 font-bold block">{translate(`Base Total`)}</span>
                         <span className="text-sm font-bold text-white font-mono">{formatPrice(grandTotal)}</span>
                       </div>
                     </div>
@@ -1079,18 +1079,18 @@ export default function BookingConfirmationModal({
                   {/* Inputs */}
                   <div className="space-y-3.5 text-xs">
                     <div>
-                      <label className="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Select Sri Lankan Bank or Mobile Wallet</label>
+                      <label className="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">{translate(`Select Sri Lankan Bank or Mobile Wallet`)}</label>
                       <select
                         value={payHereBank}
                         onChange={(e) => setPayHereBank(e.target.value)}
                         className="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-xl text-xs font-bold outline-none focus:border-emerald-500"
                       >
                         <option value="Commercial Bank (LKR Card / Online)">Commercial Bank (LKR Visa/MasterCard)</option>
-                        <option value="Sampath Vishwa Internet Banking">Sampath Vishwa Internet Banking</option>
+                        <option value="Sampath Vishwa Internet Banking">{translate(`Sampath Vishwa Internet Banking`)}</option>
                         <option value="HNB SOLO / Mobile Banking">Hatton National Bank (HNB SOLO)</option>
                         <option value="Bank of Ceylon (BOC Online)">Bank of Ceylon (BOC Online)</option>
                         <option value="eZ Cash / mCash Mobile Wallet">eZ Cash / mCash Mobile Wallet</option>
-                        <option value="FriMi Digital Wallet">FriMi Digital Banking</option>
+                        <option value="FriMi Digital Wallet">{translate(`FriMi Digital Banking`)}</option>
                       </select>
                     </div>
 
@@ -1110,7 +1110,7 @@ export default function BookingConfirmationModal({
                   {/* Info Notice */}
                   <div className="bg-emerald-50 dark:bg-emerald-950/50 rounded-xl p-3 border border-emerald-200 dark:border-emerald-800 text-[11px] text-emerald-800 dark:text-emerald-300 font-medium flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                    <span>PayHere is approved by Central Bank of Sri Lanka. Click below to generate your LKR payment token.</span>
+                    <span>{translate(`PayHere is approved by Central Bank of Sri Lanka. Click below to generate your LKR payment token.`)}</span>
                   </div>
                 </div>
               )}
@@ -1122,20 +1122,20 @@ export default function BookingConfirmationModal({
                   <div className="bg-gradient-to-br from-indigo-900 via-blue-900 to-slate-900 text-white rounded-2xl p-5 shadow-xl border border-indigo-500/30 space-y-3">
                     <div className="flex justify-between items-center border-b border-indigo-500/30 pb-2">
                       <div className="flex items-center gap-2">
-                        <span className="px-2.5 py-0.5 bg-[#FFC439] text-indigo-950 text-xs font-black rounded italic">PayPal</span>
-                        <span className="text-xs font-bold text-indigo-200">Express Checkout</span>
+                        <span className="px-2.5 py-0.5 bg-[#FFC439] text-indigo-950 text-xs font-black rounded italic">{translate(`PayPal`)}</span>
+                        <span className="text-xs font-bold text-indigo-200">{translate(`Express Checkout`)}</span>
                       </div>
-                      <span className="text-[10px] text-indigo-300 font-mono font-bold">One-Click Pay</span>
+                      <span className="text-[10px] text-indigo-300 font-mono font-bold">{translate(`One-Click Pay`)}</span>
                     </div>
 
                     <div className="flex justify-between items-center pt-1">
                       <div>
-                        <span className="text-[9px] uppercase tracking-widest text-indigo-300 font-bold block">Authorization Total</span>
+                        <span className="text-[9px] uppercase tracking-widest text-indigo-300 font-bold block">{translate(`Authorization Total`)}</span>
                         <span className="text-2xl font-black text-white font-mono">{formatPrice(grandTotal)}</span>
                       </div>
-                      <div className="text-right">
-                        <span className="text-[9px] uppercase tracking-widest text-indigo-300 font-bold block">Protection</span>
-                        <span className="text-xs font-bold text-emerald-400">Buyer Protection Eligible</span>
+                      <div className="text-end">
+                        <span className="text-[9px] uppercase tracking-widest text-indigo-300 font-bold block">{translate(`Protection`)}</span>
+                        <span className="text-xs font-bold text-emerald-400">{translate(`Buyer Protection Eligible`)}</span>
                       </div>
                     </div>
                   </div>
@@ -1143,7 +1143,7 @@ export default function BookingConfirmationModal({
                   {/* Inputs */}
                   <div className="space-y-3.5 text-xs">
                     <div>
-                      <label className="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Registered PayPal Email Account</label>
+                      <label className="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">{translate(`Registered PayPal Email Account`)}</label>
                       <input
                         type="email"
                         required
@@ -1159,15 +1159,15 @@ export default function BookingConfirmationModal({
                   <div className="p-4 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200 dark:border-slate-700 text-center space-y-2">
                     <p className="text-[11px] font-bold text-slate-500">PayPal Express Checkout Preview:</p>
                     <div className="w-full py-3 bg-[#FFC439] hover:bg-[#f2b82e] text-indigo-950 rounded-xl font-black text-sm shadow-md flex items-center justify-center gap-2 cursor-pointer transition-all">
-                      <span className="italic font-extrabold text-base">Pay<span className="text-blue-700">Pal</span></span>
-                      <span>Checkout</span>
+                      <span className="italic font-extrabold text-base">{translate(`Pay`)}<span className="text-blue-700">{translate(`Pal`)}</span></span>
+                      <span>{translate(`Checkout`)}</span>
                     </div>
                   </div>
 
                   {/* Info Notice */}
                   <div className="bg-indigo-50 dark:bg-indigo-950/50 rounded-xl p-3 border border-indigo-200 dark:border-indigo-800 text-[11px] text-indigo-800 dark:text-indigo-300 font-medium flex items-center gap-2">
                     <Info className="w-4 h-4 text-indigo-600 flex-shrink-0" />
-                    <span>You will be securely authenticated with PayPal Express to confirm your booking.</span>
+                    <span>{translate(`You will be securely authenticated with PayPal Express to confirm your booking.`)}</span>
                   </div>
                 </div>
               )}
@@ -1179,10 +1179,10 @@ export default function BookingConfirmationModal({
                   <div className="bg-gradient-to-br from-amber-900 via-yellow-900 to-slate-900 text-white rounded-2xl p-5 shadow-xl border border-amber-500/30 space-y-3">
                     <div className="flex justify-between items-center border-b border-amber-500/30 pb-2">
                       <div className="flex items-center gap-2">
-                        <span className="px-2.5 py-0.5 bg-amber-400 text-slate-950 text-[10px] font-black rounded uppercase">Pay on Arrival</span>
+                        <span className="px-2.5 py-0.5 bg-amber-400 text-slate-950 text-[10px] font-black rounded uppercase">{translate(`Pay on Arrival`)}</span>
                         <span className="text-xs font-bold text-amber-200">15% Deposit Guarantee</span>
                       </div>
-                      <span className="text-[10px] text-amber-300 font-mono font-bold">Flexible Settlement</span>
+                      <span className="text-[10px] text-amber-300 font-mono font-bold">{translate(`Flexible Settlement`)}</span>
                     </div>
 
                     {/* Deposit Calculation Grid */}
@@ -1201,7 +1201,7 @@ export default function BookingConfirmationModal({
                   {/* Inputs */}
                   <div className="space-y-3.5 text-xs">
                     <div>
-                      <label className="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Contact Phone Number for Arrival Agent Call</label>
+                      <label className="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">{translate(`Contact Phone Number for Arrival Agent Call`)}</label>
                       <input
                         type="tel"
                         required
@@ -1307,7 +1307,7 @@ export default function BookingConfirmationModal({
             </div>
 
             {/* Official Receipt Box */}
-            <div className="w-full bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 rounded-2xl p-4 text-left text-xs space-y-3">
+            <div className="w-full bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 rounded-2xl p-4 text-start text-xs space-y-3">
               <div className="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-2">
                 <span className="text-slate-400 font-bold uppercase text-[9px] tracking-wider">{translate('Official Receipt')}</span>
                 <span className="font-mono text-xs font-black text-[#0091EA]">{bookingRef}</span>

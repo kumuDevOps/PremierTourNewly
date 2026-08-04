@@ -1,3 +1,4 @@
+import { useLanguage } from '../lib/i18n';
 import React, { useState, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -297,8 +298,8 @@ export default function TourRouteMap({ tourTitle, itineraryJson }: TourRouteMapP
     return (
       <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 p-8 shadow-xl text-center">
         <MapPinIcon className="w-10 h-10 text-[#0091EA] mx-auto mb-3 animate-bounce" />
-        <h3 className="text-lg font-black text-gray-900 dark:text-white">Processing Interactive Route Map</h3>
-        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 font-medium">Generating GPS checkpoint coordinates for this tour package...</p>
+        <h3 className="text-lg font-black text-gray-900 dark:text-white">{translate(`Processing Interactive Route Map`)}</h3>
+        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 font-medium">{translate(`Generating GPS checkpoint coordinates for this tour package...`)}</p>
       </div>
     );
   }
@@ -311,17 +312,17 @@ export default function TourRouteMap({ tourTitle, itineraryJson }: TourRouteMapP
         <div>
           <div className="flex items-center gap-2 mb-1.5">
             <span className="px-3 py-1 bg-gradient-to-r from-[#0091EA] via-sky-500 to-cyan-400 text-white text-[10px] uppercase font-black tracking-widest rounded-full shadow-md shadow-sky-500/20 flex items-center gap-1.5">
-              <NavigationIcon className="w-3.5 h-3.5 text-white animate-pulse" /> Live Dynamic Map
+              <NavigationIcon className="w-3.5 h-3.5 text-white animate-pulse" /> {translate(`Live Dynamic Map`)}
             </span>
             <span className="text-xs font-bold text-sky-700 dark:text-sky-300 bg-sky-100 dark:bg-sky-950 px-2.5 py-0.5 rounded-full border border-sky-200 dark:border-sky-800">
-              Auto-Sync Location
+              {translate(`Auto-Sync Location`)}
             </span>
           </div>
           <h3 className="text-xl md:text-3xl font-black text-gray-900 dark:text-white tracking-tight">
-            Tour Route & Interactive Checkpoints
+            {translate(`Tour Route & Interactive Checkpoints`)}
           </h3>
           <p className="text-xs md:text-sm text-slate-600 dark:text-slate-300 font-semibold mt-0.5">
-            Select any stop below to automatically focus and view live Google map details
+            {translate(`Select any stop below to automatically focus and view live Google map details`)}
           </p>
         </div>
 
@@ -338,7 +339,7 @@ export default function TourRouteMap({ tourTitle, itineraryJson }: TourRouteMapP
               }`}
             >
               <Globe className="w-3.5 h-3.5" />
-              <span>Google Map</span>
+              <span>{translate(`Google Map`)}</span>
             </button>
             <button
               onClick={() => setMapEngine('leaflet')}
@@ -349,18 +350,18 @@ export default function TourRouteMap({ tourTitle, itineraryJson }: TourRouteMapP
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
-              <span>Vector Path</span>
+              <span>{translate(`Vector Path`)}</span>
             </button>
           </div>
 
           <div className="bg-white dark:bg-slate-950 px-3.5 py-1.5 rounded-2xl border-2 border-sky-200 dark:border-sky-800 flex items-center gap-3 shadow-sm">
             <div className="text-center">
-              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Stops</span>
+              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{translate(`Stops`)}</span>
               <span className="text-xs font-black text-gray-900 dark:text-white">{checkpoints.length} Checkpoints</span>
             </div>
             <div className="h-6 w-px bg-slate-200 dark:bg-slate-800"></div>
             <div className="text-center">
-              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Distance</span>
+              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{translate(`Distance`)}</span>
               <span className="text-xs font-black text-[#0091EA]">~{estDistanceKm} km</span>
             </div>
           </div>
@@ -424,7 +425,7 @@ export default function TourRouteMap({ tourTitle, itineraryJson }: TourRouteMapP
             <div className="min-w-0">
               <div className="flex items-center gap-1.5 text-[9px] font-black uppercase text-sky-400 tracking-wider">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                GPS Auto Focus
+                {translate(`GPS Auto Focus`)}
               </div>
               <h4 className="text-xs md:text-sm font-black text-white truncate max-w-[200px] sm:max-w-[320px]">
                 {selectedCheckpoint?.locationName || selectedCheckpoint?.title}
@@ -441,27 +442,27 @@ export default function TourRouteMap({ tourTitle, itineraryJson }: TourRouteMapP
                   className={`px-2.5 py-1 rounded-xl text-[10px] font-extrabold transition-all cursor-pointer ${
                     googleMapType === 'm' ? 'bg-[#0091EA] text-white' : 'text-slate-400 hover:text-white'
                   }`}
-                  title="Roadmap View"
+                  title={translate(`Roadmap View`)}
                 >
-                  Map
+                  {translate(`Map`)}
                 </button>
                 <button
                   onClick={() => setGoogleMapType('k')}
                   className={`px-2.5 py-1 rounded-xl text-[10px] font-extrabold transition-all cursor-pointer ${
                     googleMapType === 'k' ? 'bg-[#0091EA] text-white' : 'text-slate-400 hover:text-white'
                   }`}
-                  title="Satellite View"
+                  title={translate(`Satellite View`)}
                 >
-                  Satellite
+                  {translate(`Satellite`)}
                 </button>
                 <button
                   onClick={() => setGoogleMapType('p')}
                   className={`px-2.5 py-1 rounded-xl text-[10px] font-extrabold transition-all cursor-pointer ${
                     googleMapType === 'p' ? 'bg-[#0091EA] text-white' : 'text-slate-400 hover:text-white'
                   }`}
-                  title="Terrain View"
+                  title={translate(`Terrain View`)}
                 >
-                  Terrain
+                  {translate(`Terrain`)}
                 </button>
               </div>
             )}
@@ -472,9 +473,9 @@ export default function TourRouteMap({ tourTitle, itineraryJson }: TourRouteMapP
               target="_blank"
               rel="noopener noreferrer"
               className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-black rounded-xl transition-all flex items-center gap-1 shadow cursor-pointer"
-              title="Get Driving Directions in Google Maps"
+              title={translate(`Get Driving Directions in Google Maps`)}
             >
-              <span>Directions</span>
+              <span>{translate(`Directions`)}</span>
               <ExternalLink className="w-3 h-3" />
             </a>
           </div>
@@ -502,7 +503,7 @@ export default function TourRouteMap({ tourTitle, itineraryJson }: TourRouteMapP
               style={{ width: '100%', height: '100%' }}
             >
               <TileLayer
-                attribution='&copy; <a href="https://carto.com/">CARTO</a>'
+                attribution='&copy; <a href="https://carto.com/">{translate(`CARTO`)}</a>'
                 url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
               />
               <MapController center={activeCenter} zoom={zoomLevel} bounds={mapBounds} />
@@ -557,7 +558,7 @@ export default function TourRouteMap({ tourTitle, itineraryJson }: TourRouteMapP
             }`}
           >
             <ChevronLeft className="w-4 h-4" />
-            <span className="hidden sm:inline">Prev Stop</span>
+            <span className="hidden sm:inline">{translate(`Prev Stop`)}</span>
           </button>
 
           {/* Quick Zoom Buttons */}
@@ -565,7 +566,7 @@ export default function TourRouteMap({ tourTitle, itineraryJson }: TourRouteMapP
             <button
               onClick={() => setZoomLevel(prev => Math.min(prev + 1, 18))}
               className="w-7 h-7 rounded-xl hover:bg-slate-800 flex items-center justify-center font-black text-sm cursor-pointer"
-              title="Zoom In"
+              title={translate(`Zoom In`)}
             >
               +
             </button>
@@ -573,7 +574,7 @@ export default function TourRouteMap({ tourTitle, itineraryJson }: TourRouteMapP
             <button
               onClick={() => setZoomLevel(prev => Math.max(prev - 1, 7))}
               className="w-7 h-7 rounded-xl hover:bg-slate-800 flex items-center justify-center font-black text-sm cursor-pointer"
-              title="Zoom Out"
+              title={translate(`Zoom Out`)}
             >
               -
             </button>
@@ -587,7 +588,7 @@ export default function TourRouteMap({ tourTitle, itineraryJson }: TourRouteMapP
               selectedIndex >= checkpoints.length - 1 ? 'opacity-40 cursor-not-allowed' : 'hover:bg-[#0091EA] hover:border-sky-400'
             }`}
           >
-            <span className="hidden sm:inline">Next Stop</span>
+            <span className="hidden sm:inline">{translate(`Next Stop`)}</span>
             <ChevronRight className="w-4 h-4" />
           </button>
         </div>
@@ -629,7 +630,7 @@ export default function TourRouteMap({ tourTitle, itineraryJson }: TourRouteMapP
             }}
             className="px-5 py-2.5 bg-[#0091EA] hover:bg-[#007cc7] text-white text-xs font-black rounded-xl transition-all shadow-md shadow-sky-500/20 shrink-0 self-start md:self-center flex items-center gap-1.5 cursor-pointer hover:scale-[1.02]"
           >
-            <span>View Full Day Plan</span>
+            <span>{translate(`View Full Day Plan`)}</span>
             <ChevronRight className="w-4 h-4" />
           </button>
         </div>

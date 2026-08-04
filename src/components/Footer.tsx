@@ -105,21 +105,21 @@ export default function Footer({ setCurrentPage }: FooterProps) {
           {/* Payment Method Badges */}
           <div className="flex items-center gap-2 opacity-90 hover:opacity-100 transition-opacity">
             {/* Visa */}
-            <div className="h-7 w-11 bg-white border border-sky-200 dark:border-slate-700 rounded-lg flex items-center justify-center shadow-sm overflow-hidden" title="Visa">
-              <span className="text-[10px] font-black italic text-[#1434CB] tracking-tighter">VISA</span>
+            <div className="h-7 w-11 bg-white border border-sky-200 dark:border-slate-700 rounded-lg flex items-center justify-center shadow-sm overflow-hidden" title={translate(`Visa`)}>
+              <span className="text-[10px] font-black italic text-[#1434CB] tracking-tighter">{translate(`VISA`)}</span>
             </div>
             {/* Mastercard */}
-            <div className="h-7 w-11 bg-white border border-sky-200 dark:border-slate-700 rounded-lg flex items-center justify-center shadow-sm overflow-hidden relative" title="Mastercard">
+            <div className="h-7 w-11 bg-white border border-sky-200 dark:border-slate-700 rounded-lg flex items-center justify-center shadow-sm overflow-hidden relative" title={translate(`Mastercard`)}>
               <div className="w-4 h-4 rounded-full bg-[#EB001B] absolute -ml-2.5"></div>
               <div className="w-4 h-4 rounded-full bg-[#F79E1B] absolute ml-2.5 opacity-90 mix-blend-multiply dark:mix-blend-normal"></div>
             </div>
             {/* Amex */}
-            <div className="h-7 w-11 bg-[#2E77BB] border border-sky-200 dark:border-slate-700 rounded-lg flex items-center justify-center shadow-sm" title="American Express">
-              <span className="text-[8px] font-black tracking-tight text-white leading-none text-center">AMEX</span>
+            <div className="h-7 w-11 bg-[#2E77BB] border border-sky-200 dark:border-slate-700 rounded-lg flex items-center justify-center shadow-sm" title={translate(`American Express`)}>
+              <span className="text-[8px] font-black tracking-tight text-white leading-none text-center">{translate(`AMEX`)}</span>
             </div>
             {/* GPay */}
-            <div className="h-7 w-11 bg-black border border-sky-200 dark:border-slate-700 rounded-lg flex items-center justify-center shadow-sm" title="Google Pay">
-              <span className="text-[9px] font-bold text-white tracking-tighter">GPay</span>
+            <div className="h-7 w-11 bg-black border border-sky-200 dark:border-slate-700 rounded-lg flex items-center justify-center shadow-sm" title={translate(`Google Pay`)}>
+              <span className="text-[9px] font-bold text-white tracking-tighter">{translate(`GPay`)}</span>
             </div>
           </div>
         </div>

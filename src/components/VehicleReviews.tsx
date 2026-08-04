@@ -1,3 +1,4 @@
+import { useLanguage } from '../lib/i18n';
 import React, { useState } from 'react';
 import { Star, ShieldCheck, ThumbsUp, Camera, MessageSquare, Check, Sparkles, UserCheck } from 'lucide-react';
 
@@ -108,17 +109,17 @@ export default function VehicleReviews({ carName }: { carName: string }) {
                 <Star key={i} className="w-3 h-3 fill-amber-300 text-amber-300" />
               ))}
             </div>
-            <span className="text-[10px] font-bold opacity-90 block mt-1">Out of 5</span>
+            <span className="text-[10px] font-bold opacity-90 block mt-1">{translate(`Out of 5`)}</span>
           </div>
 
           <div>
             <div className="flex items-center gap-2">
               <h3 className="text-base font-black text-slate-900 dark:text-white uppercase tracking-wider">
-                Verified Customer Reviews
+                {translate(`Verified Customer Reviews`)}
               </h3>
               <span className="px-2.5 py-0.5 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 text-[10px] font-black rounded-full flex items-center gap-1">
                 <ShieldCheck className="w-3 h-3" />
-                Verified Guest Only
+                {translate(`Verified Guest Only`)}
               </span>
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">
@@ -130,19 +131,19 @@ export default function VehicleReviews({ carName }: { carName: string }) {
         {/* Rating Breakdown Bars */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="bg-slate-50 dark:bg-slate-800/50 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800 text-center">
-            <span className="text-[10px] font-bold text-slate-400 uppercase block">Cleanliness</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase block">{translate(`Cleanliness`)}</span>
             <span className="text-sm font-black text-slate-900 dark:text-white">5.0 / 5</span>
           </div>
           <div className="bg-slate-50 dark:bg-slate-800/50 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800 text-center">
-            <span className="text-[10px] font-bold text-slate-400 uppercase block">Comfort</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase block">{translate(`Comfort`)}</span>
             <span className="text-sm font-black text-slate-900 dark:text-white">4.9 / 5</span>
           </div>
           <div className="bg-slate-50 dark:bg-slate-800/50 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800 text-center">
-            <span className="text-[10px] font-bold text-slate-400 uppercase block">Performance</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase block">{translate(`Performance`)}</span>
             <span className="text-sm font-black text-slate-900 dark:text-white">4.9 / 5</span>
           </div>
           <div className="bg-slate-50 dark:bg-slate-800/50 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800 text-center">
-            <span className="text-[10px] font-bold text-slate-400 uppercase block">Chauffeur</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase block">{translate(`Chauffeur`)}</span>
             <span className="text-sm font-black text-slate-900 dark:text-white">5.0 / 5</span>
           </div>
         </div>
@@ -151,7 +152,7 @@ export default function VehicleReviews({ carName }: { carName: string }) {
       {/* Write Review Toggle Button */}
       <div className="flex items-center justify-between">
         <h4 className="text-xs font-black uppercase tracking-wider text-slate-400">
-          Recent Guest Feedback & Photos
+          {translate(`Recent Guest Feedback & Photos`)}
         </h4>
         <button
           onClick={() => setShowForm(!showForm)}
@@ -166,11 +167,11 @@ export default function VehicleReviews({ carName }: { carName: string }) {
       {showForm && (
         <form onSubmit={handleSubmit} className="bg-slate-50 dark:bg-slate-800/60 p-5 rounded-2xl border border-sky-100 dark:border-sky-900/50 space-y-4 animate-fade-in">
           <h5 className="text-xs font-black uppercase text-[#0091EA] tracking-wider">
-            Submit Your Verified Rental Review
+            {translate(`Submit Your Verified Rental Review`)}
           </h5>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-1">Your Full Name</label>
+              <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-1">{translate(`Your Full Name`)}</label>
               <input
                 type="text"
                 required
@@ -181,7 +182,7 @@ export default function VehicleReviews({ carName }: { carName: string }) {
               />
             </div>
             <div>
-              <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-1">Overall Rating</label>
+              <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-1">{translate(`Overall Rating`)}</label>
               <select
                 value={rating}
                 onChange={(e) => setRating(Number(e.target.value))}
@@ -195,13 +196,13 @@ export default function VehicleReviews({ carName }: { carName: string }) {
           </div>
 
           <div>
-            <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-1">Your Review Comment</label>
+            <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-1">{translate(`Your Review Comment`)}</label>
             <textarea
               rows={3}
               required
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              placeholder="Share details about cleanliness, vehicle performance, and driver service..."
+              placeholder={translate(`Share details about cleanliness, vehicle performance, and driver service...`)}
               className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-medium text-slate-800 dark:text-slate-200"
             />
           </div>
@@ -222,7 +223,7 @@ export default function VehicleReviews({ carName }: { carName: string }) {
                 onClick={handleAddPhoto}
                 className="px-3 py-2 bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold rounded-xl"
               >
-                Add Photo
+                {translate(`Add Photo`)}
               </button>
             </div>
             {uploadedPhotos.length > 0 && (
@@ -238,7 +239,7 @@ export default function VehicleReviews({ carName }: { carName: string }) {
             type="submit"
             className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition-all shadow-md"
           >
-            Submit Verified Review
+            {translate(`Submit Verified Review`)}
           </button>
         </form>
       )}
@@ -260,7 +261,7 @@ export default function VehicleReviews({ carName }: { carName: string }) {
                     {rev.verified && (
                       <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-0.5">
                         <Check className="w-3 h-3" />
-                        Verified
+                        {translate(`Verified`)}
                       </span>
                     )}
                   </div>

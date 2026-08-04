@@ -1,3 +1,4 @@
+import { useLanguage } from '../lib/i18n';
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -96,7 +97,7 @@ export default function OrderTrackingModal({
             <div>
               <div className="flex items-center gap-2">
                 <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-black uppercase rounded-full">
-                  Live Telematics Active
+                  {translate(`Live Telematics Active`)}
                 </span>
                 <span className="text-xs text-slate-400 font-mono font-bold">Ref: #{bookingRef}</span>
               </div>
@@ -115,14 +116,14 @@ export default function OrderTrackingModal({
           {/* Status Progress Timeline */}
           <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-100 dark:border-slate-800">
             <h4 className="text-xs font-black uppercase tracking-wider text-slate-400 mb-4">
-              Real-time Order Progress Status
+              {translate(`Real-time Order Progress Status`)}
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 relative">
               {STATUS_STEPS.map((step) => {
                 const isPassed = step.id <= currentStep;
                 const isCurrent = step.id === currentStep;
                 return (
-                  <div key={step.id} className="flex sm:flex-col items-center gap-3 sm:gap-2 text-left sm:text-center">
+                  <div key={step.id} className="flex sm:flex-col items-center gap-3 sm:gap-2 text-start sm:text-center">
                     <div
                       className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs transition-all flex-shrink-0 ${
                         isCurrent
@@ -164,7 +165,7 @@ export default function OrderTrackingModal({
                 <Marker position={driverPos} icon={carIcon}>
                   <Popup>
                     <div className="p-1 font-sans">
-                      <span className="text-[10px] font-black text-[#0091EA] uppercase">Dispatched Driver</span>
+                      <span className="text-[10px] font-black text-[#0091EA] uppercase">{translate(`Dispatched Driver`)}</span>
                       <p className="font-bold text-xs text-slate-900">Chaminda Silva (WP CAD-8899)</p>
                     </div>
                   </Popup>
@@ -182,13 +183,13 @@ export default function OrderTrackingModal({
             <div className="bg-slate-50 dark:bg-slate-800/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex flex-col justify-between space-y-3">
               <div>
                 <span className="text-[10px] font-black uppercase text-[#0091EA] tracking-wider block mb-2">
-                  Live Telematics Telemetry
+                  {translate(`Live Telematics Telemetry`)}
                 </span>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between p-2.5 bg-white dark:bg-slate-900 rounded-xl border border-slate-200/60 dark:border-slate-800">
                     <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-xs font-bold">
                       <Clock className="w-4 h-4 text-sky-500" />
-                      <span>Estimated Arrival</span>
+                      <span>{translate(`Estimated Arrival`)}</span>
                     </div>
                     <span className="text-xs font-black text-slate-900 dark:text-white">~{etaMins} mins</span>
                   </div>
@@ -196,7 +197,7 @@ export default function OrderTrackingModal({
                   <div className="flex items-center justify-between p-2.5 bg-white dark:bg-slate-900 rounded-xl border border-slate-200/60 dark:border-slate-800">
                     <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-xs font-bold">
                       <Fuel className="w-4 h-4 text-amber-500" />
-                      <span>Fuel Level</span>
+                      <span>{translate(`Fuel Level`)}</span>
                     </div>
                     <span className="text-xs font-black text-emerald-500">92% Full Tank</span>
                   </div>
@@ -204,9 +205,9 @@ export default function OrderTrackingModal({
                   <div className="flex items-center justify-between p-2.5 bg-white dark:bg-slate-900 rounded-xl border border-slate-200/60 dark:border-slate-800">
                     <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-xs font-bold">
                       <ShieldCheck className="w-4 h-4 text-emerald-500" />
-                      <span>Sanitization Check</span>
+                      <span>{translate(`Sanitization Check`)}</span>
                     </div>
-                    <span className="text-[11px] font-extrabold text-emerald-600 dark:text-emerald-400">PASSED</span>
+                    <span className="text-[11px] font-extrabold text-emerald-600 dark:text-emerald-400">{translate(`PASSED`)}</span>
                   </div>
                 </div>
               </div>
@@ -234,13 +235,13 @@ export default function OrderTrackingModal({
               />
               <div>
                 <div className="flex items-center gap-2">
-                  <h4 className="font-black text-sm text-white">Chaminda Silva</h4>
+                  <h4 className="font-black text-sm text-white">{translate(`Chaminda Silva`)}</h4>
                   <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 text-[10px] font-black rounded-md border border-emerald-500/30">
                     4.98 ★ Senior Chauffeur
                   </span>
                 </div>
                 <p className="text-xs text-slate-400 font-mono">
-                  Vehicle: <span className="text-sky-400 font-bold">WP CAD-8899</span> (English/German Speaking)
+                  Vehicle: <span className="text-sky-400 font-bold">{translate(`WP CAD-8899`)}</span> (English/German Speaking)
                 </p>
               </div>
             </div>
@@ -252,7 +253,7 @@ export default function OrderTrackingModal({
                 className="flex-1 sm:flex-initial px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all border border-slate-700"
               >
                 <Phone className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Call Chauffeur</span>
+                <span>{translate(`Call Chauffeur`)}</span>
               </a>
               <a
                 href="https://wa.me/94771231234"
@@ -261,7 +262,7 @@ export default function OrderTrackingModal({
                 className="flex-1 sm:flex-initial px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-lg shadow-emerald-600/30"
               >
                 <MessageCircle className="w-3.5 h-3.5" />
-                <span>WhatsApp</span>
+                <span>{translate(`WhatsApp`)}</span>
               </a>
             </div>
           </div>

@@ -1,3 +1,4 @@
+import { useLanguage } from '../lib/i18n';
 import React, { useState } from 'react';
 import { Calendar, Car, Clock, ShieldAlert, CheckCircle2, Wrench, UserCheck, Plus, AlertCircle } from 'lucide-react';
 
@@ -73,10 +74,10 @@ export default function FleetScheduleCalendar() {
             </div>
             <div>
               <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-wider">
-                Fleet Schedule & Assignment Matrix
+                {translate(`Fleet Schedule & Assignment Matrix`)}
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                Live vehicle assignment, plate tracking & maintenance schedules
+                {translate(`Live vehicle assignment, plate tracking & maintenance schedules`)}
               </p>
             </div>
           </div>
@@ -86,32 +87,32 @@ export default function FleetScheduleCalendar() {
         <div className="flex items-center gap-2 text-xs font-bold">
           <span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-lg flex items-center gap-1">
             <span className="w-2 h-2 rounded-full bg-emerald-500" />
-            Confirmed Booking
+            {translate(`Confirmed Booking`)}
           </span>
           <span className="px-2.5 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded-lg flex items-center gap-1">
             <span className="w-2 h-2 rounded-full bg-amber-500" />
-            Maintenance Hold
+            {translate(`Maintenance Hold`)}
           </span>
           <span className="px-2.5 py-1 bg-slate-50 text-slate-600 border border-slate-200 rounded-lg flex items-center gap-1">
             <span className="w-2 h-2 rounded-full bg-slate-400" />
-            Available Slot
+            {translate(`Available Slot`)}
           </span>
         </div>
       </div>
 
       {/* Grid Calendar Table */}
       <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800">
-        <table className="w-full text-left text-xs">
+        <table className="w-full text-start text-xs">
           <thead>
             <tr className="bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-black uppercase tracking-wider">
-              <th className="p-3.5 min-w-[200px]">Vehicle & Plate</th>
-              <th className="p-3.5">Status</th>
+              <th className="p-3.5 min-w-[200px]">{translate(`Vehicle & Plate`)}</th>
+              <th className="p-3.5">{translate(`Status`)}</th>
               {DAYS.map((d) => (
                 <th key={d} className="p-3.5 text-center min-w-[130px]">
                   {d === '2026-07-30' ? 'Today (Jul 30)' : d.replace('2026-', '')}
                 </th>
               ))}
-              <th className="p-3.5 text-right">Actions</th>
+              <th className="p-3.5 text-end">{translate(`Actions`)}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
@@ -163,7 +164,7 @@ export default function FleetScheduleCalendar() {
                   );
                 })}
 
-                <td className="p-3.5 text-right">
+                <td className="p-3.5 text-end">
                   <button
                     onClick={() => handleToggleMaintenance(veh.carId)}
                     className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-[10px] font-bold flex items-center gap-1 ml-auto cursor-pointer"

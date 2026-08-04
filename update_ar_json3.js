@@ -1,0 +1,63 @@
+const fs = require('fs');
+const path = require('path');
+
+const arPath = path.join(__dirname, 'src/locales/ar.json');
+const arData = JSON.parse(fs.readFileSync(arPath, 'utf8'));
+
+Object.assign(arData, {
+  "Based on 1,480+ verified reviews": "بناءً على 1,480+ تقييم موثق",
+  "Authentic Traveler Ratings": "تقييمات مسافرين حقيقية",
+  "100% Real Guest Experiences": "تجارب ضيوف حقيقية 100%",
+  "Loved by Travelers Worldwide": "محبوب من قبل المسافرين حول العالم",
+  "Share Your Story": "شارك قصتك",
+  "Verified Social Proof": "إثبات اجتماعي موثق",
+  "TRAVELER PHOTOS &": "صور المسافرين و",
+  "REVIEWS": "التقييمات",
+  "Verified Guest": "ضيف موثق",
+  "Photos Taken By Guest": "صور التقطها الضيف",
+  "No reviews found for this filter.": "لم يتم العثور على تقييمات لهذا المرشح.",
+  "Share Your Sri Lanka Experience": "شارك تجربتك في سريلانكا",
+  "Your story and photos inspire fellow luxury travelers!": "قصتك وصورك تلهم المسافرين الفاخرين الآخرين!",
+  "Signed in as": "مسجل الدخول باسم",
+  "Verified Guest badge will be automatically attached!": "سيتم إرفاق شارة الضيف الموثق تلقائيًا!",
+  "Posting as Guest": "النشر كضيف",
+  "Sign In First": "قم بتسجيل الدخول أولاً",
+  "Story Published Successfully!": "تم نشر القصة بنجاح!",
+  "Thank you! Your story and photos are now live on our website for travelers around the world to discover.": "شكرًا لك! قصتك وصورك معروضة الآن على موقعنا ليكتشفها المسافرون حول العالم.",
+  "Your Name": "اسمك",
+  "City & Country": "المدينة والبلد",
+  "Tour / Experience": "الجولة / التجربة",
+  "Trip Category": "فئة الرحلة",
+  "Overall Rating": "التقييم العام",
+  "Story Title / Headline": "عنوان القصة",
+  "Your Story & Experience": "قصتك وتجربتك",
+  "Attach Holiday Photos": "إرفاق صور العطلة",
+  "Photos Attached": "الصور المرفقة",
+  "Uploading...": "جارٍ الرفع...",
+  "Upload From Device": "رفع من الجهاز",
+  "OR": "أو",
+  "Add": "إضافة",
+  "Publishing Story...": "جارٍ نشر القصة...",
+  "Publish Verified Traveler Story": "نشر قصة المسافر الموثق",
+  "Premier Guarantees & Travel Extras": "ضمانات بريمير وإضافات السفر",
+  "Book with absolute confidence & 100% financial protection": "احجز بثقة تامة وحماية مالية 100%",
+  "ESSENTIAL PROTECTION &": "الحماية الأساسية و",
+  "TRAVEL EXTRAS": "إضافات السفر",
+  "ATOL #11840": "ATOL #11840",
+  "ABTA Y6421": "ABTA Y6421",
+  "Essential Extra & Protection": "إضافة وحماية أساسية",
+  "Official Service & Policy standard": "الخدمة الرسمية ومعيار السياسة",
+  "Close & Continue": "إغلاق ومتابعة",
+  "Where to next?": "إلى أين وجهتك القادمة؟",
+  "For exclusive deals, tailored holiday packages, and the best of the Premier Tour Booking portfolio, add your email below.": "للحصول على عروض حصرية، وباقات عطلات مصممة خصيصًا، وأفضل ما في محفظة بريمير تور بوكينج، أضف بريدك الإلكتروني أدناه.",
+  "You're Subscribed!": "أنت مشترك!",
+  "Thank you for subscribing. Exclusive luxury offers and tailored holiday packages will be delivered to your inbox.": "شكرًا لاشتراكك. سيتم تسليم عروض فاخرة حصرية وباقات عطلات مصممة خصيصًا إلى صندوق الوارد الخاص بك.",
+  "Subscribe another email": "الاشتراك ببريد إلكتروني آخر",
+  "Email address": "عنوان البريد الإلكتروني",
+  "SUBSCRIBE": "اشتراك",
+  "Sign up": "تسجيل",
+  "Signing up...": "جارٍ التسجيل..."
+});
+
+fs.writeFileSync(arPath, JSON.stringify(arData, null, 2));
+console.log('ar.json updated successfully.');

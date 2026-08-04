@@ -362,7 +362,9 @@ export default function App() {
         );
       case 'rent-a-car':
         return (
-          <CarsView addToWishlist={addToWishlist} 
+          <CarsView 
+            addToWishlist={addToWishlist} 
+            initialSearchQuery={searchParams}
             currentUser={currentUser}
             userProfile={userProfile}
             onOpenAuth={() => navigateTo('login')}
@@ -371,7 +373,9 @@ export default function App() {
         );
       case 'hotels':
         return (
-          <HotelsView addToWishlist={addToWishlist} 
+          <HotelsView 
+            addToWishlist={addToWishlist} 
+            initialSearchQuery={searchParams}
             currentUser={currentUser}
             userProfile={userProfile}
             onOpenAuth={() => navigateTo('login')}

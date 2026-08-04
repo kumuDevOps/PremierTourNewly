@@ -44,14 +44,14 @@ export default function AboutView() {
             </h1>
             
             <p className="text-sm md:text-base text-sky-100/80 max-w-xl mx-auto font-medium leading-relaxed">
-              {translate("Learn about Premier Tour Booking's global commitment to handcrafting dream journeys.")}
+              {translate(`Learn about Premier Tour Booking's global commitment to handcrafting dream journeys.`)}
             </p>
           </div>
         </div>
       </section>
 
       {/* 2. OUR STORY SECTION */}
-      <section className="py-12 md:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ltr:text-left rtl:text-right">
+      <section className="py-12 md:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-start">
         <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-8 md:p-12 rounded-[36px] border-2 border-sky-200/80 dark:border-sky-800/60 shadow-xl shadow-sky-500/10 animate-blue-glow space-y-6">
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-100 dark:bg-sky-950/60 border border-sky-300 dark:border-sky-800">
@@ -97,7 +97,7 @@ export default function AboutView() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             
             {/* Card 1 */}
-            <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-6 rounded-[28px] border-2 border-sky-200/80 dark:border-sky-800/60 ltr:text-left rtl:text-right space-y-4 hover:shadow-xl hover:shadow-sky-500/20 hover:border-[#0091EA] transition-all duration-300 animate-blue-glow shadow-lg shadow-sky-500/10">
+            <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-6 rounded-[28px] border-2 border-sky-200/80 dark:border-sky-800/60 text-start space-y-4 hover:shadow-xl hover:shadow-sky-500/20 hover:border-[#0091EA] transition-all duration-300 animate-blue-glow shadow-lg shadow-sky-500/10">
               <div className="w-12 h-12 bg-gradient-to-tr from-[#0091EA] via-sky-500 to-cyan-400 text-white rounded-2xl flex items-center justify-center shadow-md shadow-sky-500/30">
                 <Award className="w-6 h-6" />
               </div>
@@ -106,7 +106,7 @@ export default function AboutView() {
             </div>
 
             {/* Card 2 */}
-            <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-6 rounded-[28px] border-2 border-sky-200/80 dark:border-sky-800/60 ltr:text-left rtl:text-right space-y-4 hover:shadow-xl hover:shadow-sky-500/20 hover:border-[#0091EA] transition-all duration-300 animate-blue-glow shadow-lg shadow-sky-500/10">
+            <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-6 rounded-[28px] border-2 border-sky-200/80 dark:border-sky-800/60 text-start space-y-4 hover:shadow-xl hover:shadow-sky-500/20 hover:border-[#0091EA] transition-all duration-300 animate-blue-glow shadow-lg shadow-sky-500/10">
               <div className="w-12 h-12 bg-gradient-to-tr from-emerald-500 to-teal-400 text-white rounded-2xl flex items-center justify-center shadow-md shadow-emerald-500/30">
                 <Coins className="w-6 h-6" />
               </div>
@@ -115,7 +115,7 @@ export default function AboutView() {
             </div>
 
             {/* Card 3 */}
-            <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-6 rounded-[28px] border-2 border-sky-200/80 dark:border-sky-800/60 ltr:text-left rtl:text-right space-y-4 hover:shadow-xl hover:shadow-sky-500/20 hover:border-[#0091EA] transition-all duration-300 animate-blue-glow shadow-lg shadow-sky-500/10">
+            <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-6 rounded-[28px] border-2 border-sky-200/80 dark:border-sky-800/60 text-start space-y-4 hover:shadow-xl hover:shadow-sky-500/20 hover:border-[#0091EA] transition-all duration-300 animate-blue-glow shadow-lg shadow-sky-500/10">
               <div className="w-12 h-12 bg-gradient-to-tr from-[#0091EA] via-sky-500 to-indigo-500 text-white rounded-2xl flex items-center justify-center shadow-md shadow-sky-500/30">
                 <Zap className="w-6 h-6" />
               </div>
@@ -124,7 +124,7 @@ export default function AboutView() {
             </div>
 
             {/* Card 4 */}
-            <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-6 rounded-[28px] border-2 border-sky-200/80 dark:border-sky-800/60 ltr:text-left rtl:text-right space-y-4 hover:shadow-xl hover:shadow-sky-500/20 hover:border-[#0091EA] transition-all duration-300 animate-blue-glow shadow-lg shadow-sky-500/10">
+            <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-6 rounded-[28px] border-2 border-sky-200/80 dark:border-sky-800/60 text-start space-y-4 hover:shadow-xl hover:shadow-sky-500/20 hover:border-[#0091EA] transition-all duration-300 animate-blue-glow shadow-lg shadow-sky-500/10">
               <div className="w-12 h-12 bg-gradient-to-tr from-cyan-500 via-sky-500 to-blue-600 text-white rounded-2xl flex items-center justify-center shadow-md shadow-cyan-500/30">
                 <Globe className="w-6 h-6" />
               </div>

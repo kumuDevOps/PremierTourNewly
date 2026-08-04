@@ -71,7 +71,7 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
               key={lang.code}
               type="button"
               onClick={() => handleSelectLanguage(lang.code)}
-              className={`flex items-center text-left gap-2.5 px-3 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+              className={`flex items-center text-start gap-2.5 px-3 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
                 language === lang.code
                   ? 'bg-[#0091EA]/10 border-[#0091EA] text-[#0091EA] dark:bg-[#0091EA]/20 font-bold'
                   : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700'
@@ -116,7 +116,7 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 hover:border-[#0091EA] dark:hover:border-[#0091EA] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:text-[#0091EA] transition-all cursor-pointer shadow-sm text-xs font-bold"
         aria-expanded={isOpen}
-        aria-label="Select Language"
+        aria-label={translate(`Select Language`)}
       >
         <span className="text-sm leading-none">{currentLang.flag}</span>
         <span className="font-extrabold uppercase text-[11px] text-slate-700 dark:text-slate-200">
@@ -126,7 +126,7 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 py-2 z-[999] animate-in fade-in duration-150 text-left">
+        <div className="absolute end-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 py-2 z-[999] animate-in fade-in duration-150 text-start">
           <div className="px-3 py-1 mb-1 border-b border-slate-100 dark:border-slate-700/60">
             <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
               {translate('Select Language')}
@@ -138,7 +138,7 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
                 key={lang.code}
                 type="button"
                 onClick={() => handleSelectLanguage(lang.code)}
-                className={`w-full text-left px-3 py-2 text-xs rounded-xl transition-colors flex items-center justify-between cursor-pointer ${
+                className={`w-full text-start px-3 py-2 text-xs rounded-xl transition-colors flex items-center justify-between cursor-pointer ${
                   language === lang.code
                     ? 'text-[#0091EA] bg-sky-50 dark:bg-sky-950/40 font-bold'
                     : 'text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/60 font-medium'

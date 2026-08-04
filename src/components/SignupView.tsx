@@ -153,7 +153,7 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
         {/* Header Bar */}
         <div className="bg-gradient-to-r from-[#0A2540] via-[#0091EA] to-sky-600 px-8 py-6 text-white text-center shadow-md">
           <h2 className="text-2xl font-black tracking-tight">{translate('Member Registration')}</h2>
-          <p className="text-xs text-sky-200 font-medium mt-1">Create your secure Premier Tour Booking traveler account</p>
+          <p className="text-xs text-sky-200 font-medium mt-1">{translate(`Create your secure Premier Tour Booking traveler account`)}</p>
         </div>
 
         <div className="p-8">
@@ -164,13 +164,13 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4 text-left">
+          <form onSubmit={handleSubmit} className="space-y-4 text-start">
             
             {/* First Name & Last Name Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="reg-firstname" className="block text-xs font-black text-slate-800 dark:text-slate-200 mb-1.5 uppercase tracking-wider">
-                  First Name <span className="text-rose-500">*</span>
+                  {translate(`First Name`)} <span className="text-rose-500">*</span>
                 </label>
                 <div className="relative">
                   <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -178,7 +178,7 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
                     id="reg-firstname"
                     type="text"
                     required
-                    placeholder="John"
+                    placeholder={translate(`John`)}
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                     className={`w-full pl-10 pr-4 py-2.5 border ${errors.firstName ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-300 dark:border-slate-700 focus:ring-[#0091EA]'} rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
@@ -189,7 +189,7 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
 
               <div>
                 <label htmlFor="reg-lastname" className="block text-xs font-black text-slate-800 dark:text-slate-200 mb-1.5 uppercase tracking-wider">
-                  Last Name <span className="text-rose-500">*</span>
+                  {translate(`Last Name`)} <span className="text-rose-500">*</span>
                 </label>
                 <div className="relative">
                   <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -197,7 +197,7 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
                     id="reg-lastname"
                     type="text"
                     required
-                    placeholder="Doe"
+                    placeholder={translate(`Doe`)}
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     className={`w-full pl-10 pr-4 py-2.5 border ${errors.lastName ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-300 dark:border-slate-700 focus:ring-[#0091EA]'} rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
@@ -210,7 +210,7 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
             {/* Username (Optional) */}
             <div>
               <label htmlFor="reg-username" className="block text-xs font-black text-slate-800 dark:text-slate-200 mb-1.5 uppercase tracking-wider">
-                Username <span className="text-slate-400 font-normal lowercase">(optional)</span>
+                {translate(`Username`)} <span className="text-slate-400 font-normal lowercase">(optional)</span>
               </label>
               <div className="relative">
                 <AtSign className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -229,7 +229,7 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="reg-email" className="block text-xs font-black text-slate-800 dark:text-slate-200 mb-1.5 uppercase tracking-wider">
-                  Email Address <span className="text-rose-500">*</span>
+                  {translate(`Email Address`)} <span className="text-rose-500">*</span>
                 </label>
                 <div className="relative">
                   <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -248,7 +248,7 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
 
               <div>
                 <label htmlFor="reg-phone" className="block text-xs font-black text-slate-800 dark:text-slate-200 mb-1.5 uppercase tracking-wider">
-                  Mobile Number <span className="text-rose-500">*</span>
+                  {translate(`Mobile Number`)} <span className="text-rose-500">*</span>
                 </label>
                 <div className="relative">
                   <PhoneIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -269,7 +269,7 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
             {/* Password Field */}
             <div>
               <label htmlFor="reg-password" className="block text-xs font-black text-slate-800 dark:text-slate-200 mb-1.5 uppercase tracking-wider">
-                Password <span className="text-rose-500">*</span>
+                {translate(`Password`)} <span className="text-rose-500">*</span>
               </label>
               <div className="relative">
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -277,7 +277,7 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
                   id="reg-password"
                   type={showPassword ? 'text' : 'password'}
                   required
-                  placeholder="Create a strong password"
+                  placeholder={translate(`Create a strong password`)}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className={`w-full pl-10 pr-11 py-2.5 border ${errors.password ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-300 dark:border-slate-700 focus:ring-[#0091EA]'} rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
@@ -296,7 +296,7 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
             {/* Confirm Password Field */}
             <div>
               <label htmlFor="reg-confirm" className="block text-xs font-black text-slate-800 dark:text-slate-200 mb-1.5 uppercase tracking-wider">
-                Confirm Password <span className="text-rose-500">*</span>
+                {translate(`Confirm Password`)} <span className="text-rose-500">*</span>
               </label>
               <div className="relative">
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -304,7 +304,7 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
                   id="reg-confirm"
                   type={showConfirmPassword ? 'text' : 'password'}
                   required
-                  placeholder="Repeat your password"
+                  placeholder={translate(`Repeat your password`)}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className={`w-full pl-10 pr-11 py-2.5 border ${errors.confirmPassword ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-300 dark:border-slate-700 focus:ring-[#0091EA]'} rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
@@ -383,7 +383,7 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
                 onClick={() => onNavigate('login')}
                 className="font-bold text-[#0091EA] hover:underline cursor-pointer"
               >
-                Sign In Instead
+                {translate(`Sign In Instead`)}
               </button>
             </p>
           </div>

@@ -153,7 +153,7 @@ export default function AuthModal({ isOpen, onClose, currentUser, setCurrentUser
                   <p className="text-sm text-gray-500">{currentUser.email}</p>
                 </div>
 
-                <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 text-left space-y-2">
+                <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 text-start space-y-2">
                   <p className="text-xs font-semibold text-[#0091EA] uppercase tracking-wider">{translate('Verified Account')}</p>
                   <p className="text-sm text-gray-700">{translate('Welcome to your secure Premier Tour Booking traveler account. You can manage your search preferences and track your holiday itineraries seamlessly.')}</p>
                   <div className="pt-2 flex justify-between items-center text-sm font-medium">
@@ -291,12 +291,12 @@ export default function AuthModal({ isOpen, onClose, currentUser, setCurrentUser
                   className="w-full flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white py-3 rounded-xl font-bold text-sm transition-colors"
                 >
                   <Eye className="w-4 h-4" />
-                  Find My Guest Bookings
+                  {translate(`Find My Guest Bookings`)}
                 </button>
               </form>
 
               {loadingBookings && (
-                <div className="text-center text-sm text-gray-500 py-2">Searching bookings...</div>
+                <div className="text-center text-sm text-gray-500 py-2">{translate('Searching bookings...')}</div>
               )}
 
               {errorBookings && (
@@ -321,7 +321,7 @@ export default function AuthModal({ isOpen, onClose, currentUser, setCurrentUser
               )}
 
               {!loadingBookings && emailForBookings && bookingsList.length === 0 && !errorBookings && (
-                <p className="text-center text-xs text-gray-400 italic">No bookings found for this email.</p>
+                <p className="text-center text-xs text-gray-400 italic">{translate('No bookings found for this email.')}</p>
               )}
             </div>
           )}

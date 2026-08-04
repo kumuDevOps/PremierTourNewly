@@ -148,8 +148,8 @@ export default function Logo({ className = '', showText = true, lightText = fals
       {showText && (
         <div className="flex flex-col leading-none justify-center min-w-0 flex-1">
           <div className={`${selectedSize.text} font-black tracking-tight flex items-center gap-1.5 whitespace-nowrap`}>
-            <span className={lightText ? 'text-white' : 'text-[#0D1B2A] dark:text-white'}>Premier</span>
-            <span className="text-[#0091EA] whitespace-nowrap">Tour Booking</span>
+            <span className={lightText ? 'text-white' : 'text-[#0D1B2A] dark:text-white'}>{translate(`Premier`)}</span>
+            <span className="text-[#0091EA] whitespace-nowrap">{translate(`Tour Booking`)}</span>
           </div>
           <span className={`${selectedSize.sub} font-bold mt-1 uppercase block ${lightText ? 'text-slate-400' : 'text-slate-500 dark:text-slate-400'} whitespace-nowrap`}>
             {translate('Discover the World, Perfected For You')}

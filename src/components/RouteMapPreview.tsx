@@ -1,3 +1,4 @@
+import { useLanguage } from '../lib/i18n';
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -194,7 +195,7 @@ export default function RouteMapPreview({
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200/80 dark:border-slate-800 shadow-xl space-y-4 text-left">
+    <div className="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200/80 dark:border-slate-800 shadow-xl space-y-4 text-start">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
         <div>
@@ -204,10 +205,10 @@ export default function RouteMapPreview({
             </div>
             <div>
               <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-wider">
-                LIVE ROUTE & TRANSFER MAP PREVIEW
+                {translate(`LIVE ROUTE & TRANSFER MAP PREVIEW`)}
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                Real-time route calculation & mileage allowance
+                {translate(`Real-time route calculation & mileage allowance`)}
               </p>
             </div>
           </div>
@@ -231,7 +232,7 @@ export default function RouteMapPreview({
         <div>
           <label className="block text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1 flex items-center gap-1">
             <MapPin className="w-3.5 h-3.5 text-emerald-500" />
-            PICK-UP LOCATION
+            {translate(`PICK-UP LOCATION`)}
           </label>
           <select
             value={pickupName}
@@ -249,7 +250,7 @@ export default function RouteMapPreview({
         <div>
           <label className="block text-[10px] font-black uppercase tracking-wider text-rose-600 dark:text-rose-400 mb-1 flex items-center gap-1">
             <MapPin className="w-3.5 h-3.5 text-rose-500" />
-            DROP-OFF LOCATION
+            {translate(`DROP-OFF LOCATION`)}
           </label>
           <select
             value={dropoffName}
@@ -274,16 +275,16 @@ export default function RouteMapPreview({
           className="w-full h-full"
         >
           <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">{translate(`OpenStreetMap`)}</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
           {/* Green Pick-Up Marker */}
           <Marker position={[pCoord.lat, pCoord.lng]} icon={pickupIcon}>
             <Popup>
-              <div className="p-1 font-sans text-left">
+              <div className="p-1 font-sans text-start">
                 <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">
-                  Pick-Up Location
+                  {translate(`Pick-Up Location`)}
                 </span>
                 <p className="font-bold text-xs text-slate-900 mt-0.5">{pCoord.name}</p>
                 <span className="text-[10px] text-slate-500 font-mono block mt-0.5">
@@ -296,9 +297,9 @@ export default function RouteMapPreview({
           {/* Red Drop-Off Marker */}
           <Marker position={[dCoord.lat, dCoord.lng]} icon={dropoffIcon}>
             <Popup>
-              <div className="p-1 font-sans text-left">
+              <div className="p-1 font-sans text-start">
                 <span className="text-[10px] font-black text-rose-600 uppercase tracking-wider block">
-                  Drop-Off Location
+                  {translate(`Drop-Off Location`)}
                 </span>
                 <p className="font-bold text-xs text-slate-900 mt-0.5">{dCoord.name}</p>
                 <span className="text-[10px] text-slate-500 font-mono block mt-0.5">

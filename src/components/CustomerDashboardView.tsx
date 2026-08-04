@@ -404,7 +404,7 @@ const PRESET_AVATARS = [
                 setTimeout(() => fileInputRef.current?.click(), 100);
               }}
               className="relative w-24 h-24 rounded-3xl mx-auto cursor-pointer group shadow-xl shadow-sky-500/20 overflow-hidden border-2 border-sky-400/80 dark:border-sky-500/80 transition-all hover:scale-105"
-              title="Click to change profile picture"
+              title={translate(`Click to change profile picture`)}
             >
               {avatarUrl ? (
                 <img 
@@ -421,7 +421,7 @@ const PRESET_AVATARS = [
               {/* Hover Camera Overlay */}
               <div className="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center text-white backdrop-blur-xs">
                 <Camera className="w-6 h-6 text-sky-400 mb-0.5 animate-pulse" />
-                <span className="text-[10px] font-black uppercase tracking-wider">Change</span>
+                <span className="text-[10px] font-black uppercase tracking-wider">{translate('Change')}</span>
               </div>
 
               {/* Floating Camera Badge */}
@@ -434,7 +434,7 @@ const PRESET_AVATARS = [
             {userProfile?.role === 'admin' ? (
               <div className="mt-3 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black text-3xs uppercase tracking-widest shadow-md">
                 <Award className="w-3.5 h-3.5" />
-                Admin
+                {translate(`Admin`)}
               </div>
             ) : userProfile?.role ? (
               <div className="mt-3 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-black text-3xs uppercase tracking-widest shadow-md">
@@ -444,7 +444,7 @@ const PRESET_AVATARS = [
             ) : (
               <div className="mt-3 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-black text-3xs uppercase tracking-widest shadow-md">
                 <Award className="w-3.5 h-3.5" />
-                Pending Account
+                {translate(`Pending Account`)}
               </div>
             )}
           </div>
@@ -453,7 +453,7 @@ const PRESET_AVATARS = [
             <nav className="flex flex-col">
               <button
                 onClick={() => onNavigate('account-dashboard')}
-                className={`flex items-center gap-3 px-5 py-4 text-xs font-black uppercase tracking-wider text-left border-l-4 transition-all cursor-pointer ${
+                className={`flex items-center gap-3 px-5 py-4 text-xs font-black uppercase tracking-wider text-start border-l-4 transition-all cursor-pointer ${
                   activeTab === 'dashboard'
                     ? 'border-[#0091EA] bg-sky-500/10 text-[#0091EA]'
                     : 'border-transparent text-slate-600 dark:text-slate-300 hover:bg-sky-500/5'
@@ -465,7 +465,7 @@ const PRESET_AVATARS = [
 
               <button
                 onClick={() => onNavigate('account-bookings')}
-                className={`flex items-center gap-3 px-5 py-4 text-xs font-black uppercase tracking-wider text-left border-l-4 transition-all cursor-pointer ${
+                className={`flex items-center gap-3 px-5 py-4 text-xs font-black uppercase tracking-wider text-start border-l-4 transition-all cursor-pointer ${
                   activeTab === 'bookings'
                     ? 'border-[#0091EA] bg-sky-500/10 text-[#0091EA]'
                     : 'border-transparent text-slate-600 dark:text-slate-300 hover:bg-sky-500/5'
@@ -477,7 +477,7 @@ const PRESET_AVATARS = [
 
               <button
                 onClick={() => onNavigate('account-settings')}
-                className={`flex items-center gap-3 px-5 py-4 text-xs font-black uppercase tracking-wider text-left border-l-4 transition-all cursor-pointer ${
+                className={`flex items-center gap-3 px-5 py-4 text-xs font-black uppercase tracking-wider text-start border-l-4 transition-all cursor-pointer ${
                   activeTab === 'settings'
                     ? 'border-[#0091EA] bg-sky-500/10 text-[#0091EA]'
                     : 'border-transparent text-slate-600 dark:text-slate-300 hover:bg-sky-500/5'
@@ -489,7 +489,7 @@ const PRESET_AVATARS = [
 
               <button
                 onClick={() => onNavigate('wishlist')}
-                className="flex items-center gap-3 px-5 py-4 text-xs font-black uppercase tracking-wider text-left border-l-4 border-transparent text-slate-600 dark:text-slate-300 hover:bg-sky-500/5 transition-all cursor-pointer"
+                className="flex items-center gap-3 px-5 py-4 text-xs font-black uppercase tracking-wider text-start border-l-4 border-transparent text-slate-600 dark:text-slate-300 hover:bg-sky-500/5 transition-all cursor-pointer"
               >
                 <Heart className="w-5 h-5 text-rose-500" />
                 <div className="flex items-center justify-between w-full">
@@ -504,7 +504,7 @@ const PRESET_AVATARS = [
 
               <button
                 onClick={onLogout}
-                className="flex items-center gap-3 px-5 py-4 text-xs font-black uppercase tracking-wider text-left border-l-4 border-transparent text-rose-500 hover:bg-rose-500/10 transition-all cursor-pointer"
+                className="flex items-center gap-3 px-5 py-4 text-xs font-black uppercase tracking-wider text-start border-l-4 border-transparent text-rose-500 hover:bg-rose-500/10 transition-all cursor-pointer"
               >
                 <LogOut className="w-5 h-5" />
                 <span>{translate('Sign Out')}</span>
@@ -514,7 +514,7 @@ const PRESET_AVATARS = [
         </div>
 
         {/* Right main body */}
-        <div className="lg:col-span-3 space-y-8 text-left">
+        <div className="lg:col-span-3 space-y-8 text-start">
           
           {activeTab === 'dashboard' && (
             /* Tab: My Dashboard */
@@ -527,13 +527,13 @@ const PRESET_AVATARS = [
                   <span className="bg-gradient-to-r from-white via-sky-100 to-cyan-300 bg-clip-text text-transparent">{translate('Welcome Back')}, {userProfile?.fullName || translate('Traveler')}!</span>
                 </h2>
                 <p className="text-xs md:text-sm text-sky-100/90 mt-2 font-medium max-w-xl leading-relaxed">
-                  We are delighted to have you on board. Discover your custom rewards, check pending reservations, or plan your next dream getaway with our custom guided tours.
+                  {translate(`We are delighted to have you on board. Discover your custom rewards, check pending reservations, or plan your next dream getaway with our custom guided tours.`)}
                 </p>
                 <button
                   onClick={() => onNavigate('tour')}
                   className="mt-6 px-6 py-3.5 bg-gradient-to-r from-[#0091EA] via-sky-500 to-cyan-400 text-white text-xs font-black uppercase tracking-wider rounded-2xl transition-all shadow-lg shadow-sky-500/30 hover:scale-[1.02] active:scale-[0.98]"
                 >
-                  Explore Guided Tours
+                  {translate(`Explore Guided Tours`)}
                 </button>
               </div>
 
@@ -572,7 +572,7 @@ const PRESET_AVATARS = [
               <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 p-6 shadow-xl shadow-sky-500/10 space-y-4 animate-blue-glow">
                 <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-wider border-b border-sky-100 dark:border-sky-800/50 pb-3 flex items-center gap-2">
                   <Award className="w-5 h-5 text-amber-500" />
-                  Your Gold Explorer Privileges
+                  {translate(`Your Gold Explorer Privileges`)}
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-medium text-slate-600 dark:text-slate-300">
                   <div className="flex gap-3 items-start">
@@ -634,7 +634,7 @@ const PRESET_AVATARS = [
                 <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400" />
                 <input
                   type="text"
-                  placeholder={translate("Search bookings by name, id, status, etc.")}
+                  placeholder={translate(`Search bookings by name, id, status, etc.`)}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-11 pr-4 py-2.5 border border-slate-250 rounded-xl text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#0091EA] focus:border-transparent transition-all"
@@ -664,7 +664,7 @@ const PRESET_AVATARS = [
                       onClick={() => onNavigate('tour')}
                       className="px-5 py-2.5 bg-[#0091EA] hover:bg-[#007cc7] text-white text-xs font-bold rounded-xl transition-all"
                     >
-                      Browse Holiday Packages
+                      {translate(`Browse Holiday Packages`)}
                     </button>
                   )}
                 </div>
@@ -683,13 +683,13 @@ const PRESET_AVATARS = [
                           <div key={b.id} className="p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:shadow-md transition-all flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
                             <div className="flex gap-4 items-center">
                               {b.imageUrl ? (
-                                <img src={b.imageUrl} alt={b.itemName} className="w-14 h-14 rounded-lg object-cover bg-slate-200" referrerPolicy="no-referrer" onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=400'; }} />
+                                <img src={b.imageUrl} alt={b.itemName} className="w-14 h-14 rounded-lg object-cover bg-slate-200" referrerPolicy="no-referrer" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.onerror = null; e.currentTarget.src = 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=400'; }} />
                               ) : (
                                 <div className="w-14 h-14 rounded-lg bg-sky-50 flex items-center justify-center text-[#0091EA]">
                                   <Compass className="w-6 h-6" />
                                 </div>
                               )}
-                              <div className="text-left">
+                              <div className="text-start">
                                 <span className="text-[10px] uppercase font-extrabold tracking-widest text-[#0091EA]">{translate('Booking Ref')}: PTB-{1000 + b.id}</span>
                                 <h5 className="text-sm font-black text-slate-800 mt-0.5">{b.itemName}</h5>
                                 <p className="text-2xs text-slate-500 font-medium mt-1">{translate('Travel Date')}: {b.travelDate} • {b.guests} {translate('Guests')}</p>
@@ -718,14 +718,14 @@ const PRESET_AVATARS = [
                                   className="inline-flex items-center gap-1 text-[10px] uppercase font-black tracking-wider text-[#0091EA] bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1 rounded-lg transition-all cursor-pointer shadow-2xs"
                                 >
                                   <Download className="w-3 h-3" />
-                                  <span>Voucher PDF</span>
+                                  <span>{translate('Voucher PDF')}</span>
                                 </button>
                                 {b.status !== 'Cancelled' && (
                                   <button
                                     onClick={() => handleCancelBookingClick('tour', b.id)}
                                     className="text-[10px] uppercase font-bold tracking-wider text-rose-500 hover:text-rose-600 transition-colors bg-rose-50 hover:bg-rose-100 px-2 py-1 rounded cursor-pointer"
                                   >
-                                    Cancel
+                                    {translate(`Cancel`)}
                                   </button>
                                 )}
                               </div>
@@ -749,13 +749,13 @@ const PRESET_AVATARS = [
                           <div key={b.id} className="p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:shadow-md transition-all flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
                             <div className="flex gap-4 items-center">
                               {b.imageUrl ? (
-                                <img src={b.imageUrl} alt={b.itemName} className="w-14 h-14 rounded-lg object-cover bg-slate-200" referrerPolicy="no-referrer" onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400'; }} />
+                                <img src={b.imageUrl} alt={b.itemName} className="w-14 h-14 rounded-lg object-cover bg-slate-200" referrerPolicy="no-referrer" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.onerror = null; e.currentTarget.src = 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400'; }} />
                               ) : (
                                 <div className="w-14 h-14 rounded-lg bg-sky-50 flex items-center justify-center text-[#0091EA]">
                                   <Plane className="w-6 h-6" />
                                 </div>
                               )}
-                              <div className="text-left">
+                              <div className="text-start">
                                 <span className="text-[10px] uppercase font-extrabold tracking-widest text-[#0091EA]">{translate('FLIGHT REF')}: FLT-{1000 + b.id}</span>
                                 <h5 className="text-sm font-black text-slate-800 mt-0.5">{b.itemName}</h5>
                                 <p className="text-2xs text-slate-500 font-medium mt-1">{translate('Travel Date')}: {b.travelDate} • {b.guests} {translate('Passengers')}</p>
@@ -784,14 +784,14 @@ const PRESET_AVATARS = [
                                   className="inline-flex items-center gap-1 text-[10px] uppercase font-black tracking-wider text-[#0091EA] bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1 rounded-lg transition-all cursor-pointer shadow-2xs"
                                 >
                                   <Download className="w-3 h-3" />
-                                  <span>Voucher PDF</span>
+                                  <span>{translate('Voucher PDF')}</span>
                                 </button>
                                 {b.status !== 'Cancelled' && (
                                   <button
                                     onClick={() => handleCancelBookingClick('flight', b.id)}
                                     className="text-[10px] uppercase font-bold tracking-wider text-rose-500 hover:text-rose-600 transition-colors bg-rose-50 hover:bg-rose-100 px-2 py-1 rounded cursor-pointer"
                                   >
-                                    Cancel
+                                    {translate(`Cancel`)}
                                   </button>
                                 )}
                               </div>
@@ -813,13 +813,13 @@ const PRESET_AVATARS = [
                           <div key={b.id} className="p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:shadow-md transition-all flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
                             <div className="flex gap-4 items-center">
                               {b.imageUrl ? (
-                                <img src={b.imageUrl} alt={b.itemName} className="w-14 h-14 rounded-lg object-cover bg-slate-200" referrerPolicy="no-referrer" onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=400'; }} />
+                                <img src={b.imageUrl} alt={b.itemName} className="w-14 h-14 rounded-lg object-cover bg-slate-200" referrerPolicy="no-referrer" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.onerror = null; e.currentTarget.src = 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=400'; }} />
                               ) : (
                                 <div className="w-14 h-14 rounded-lg bg-sky-50 flex items-center justify-center text-[#0091EA]">
                                   <Car className="w-6 h-6" />
                                 </div>
                               )}
-                              <div className="text-left">
+                              <div className="text-start">
                                 <span className="text-[10px] uppercase font-extrabold tracking-widest text-[#0091EA]">{translate('RENTAL REF')}: CAR-{1000 + b.id}</span>
                                 <h5 className="text-sm font-black text-slate-800 mt-0.5">{b.itemName}</h5>
                                 <p className="text-2xs text-slate-500 font-medium mt-1">{translate('Pickup')}: {b.travelDate}</p>
@@ -848,14 +848,14 @@ const PRESET_AVATARS = [
                                   className="inline-flex items-center gap-1 text-[10px] uppercase font-black tracking-wider text-[#0091EA] bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1 rounded-lg transition-all cursor-pointer shadow-2xs"
                                 >
                                   <Download className="w-3 h-3" />
-                                  <span>Voucher PDF</span>
+                                  <span>{translate('Voucher PDF')}</span>
                                 </button>
                                 {b.status !== 'Cancelled' && (
                                   <button
                                     onClick={() => handleCancelBookingClick('car', b.id)}
                                     className="text-[10px] uppercase font-bold tracking-wider text-rose-500 hover:text-rose-600 transition-colors bg-rose-50 hover:bg-rose-100 px-2 py-1 rounded cursor-pointer"
                                   >
-                                    Cancel
+                                    {translate(`Cancel`)}
                                   </button>
                                 )}
                               </div>
@@ -879,13 +879,13 @@ const PRESET_AVATARS = [
                           <div key={b.id} className="p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:shadow-md transition-all flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
                             <div className="flex gap-4 items-center">
                               {b.imageUrl ? (
-                                <img src={b.imageUrl} alt={b.itemName} className="w-14 h-14 rounded-lg object-cover bg-slate-200" referrerPolicy="no-referrer" onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400'; }} />
+                                <img src={b.imageUrl} alt={b.itemName} className="w-14 h-14 rounded-lg object-cover bg-slate-200" referrerPolicy="no-referrer" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.onerror = null; e.currentTarget.src = 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400'; }} />
                               ) : (
                                 <div className="w-14 h-14 rounded-lg bg-sky-50 flex items-center justify-center text-[#0091EA]">
                                   <Building className="w-6 h-6" />
                                 </div>
                               )}
-                              <div className="text-left">
+                              <div className="text-start">
                                 <span className="text-[10px] uppercase font-extrabold tracking-widest text-[#0091EA]">{translate('STAY REF')}: {String(b.id).toUpperCase()}</span>
                                 <h5 className="text-sm font-black text-slate-800 mt-0.5">{b.itemName}</h5>
                                 <p className="text-2xs text-slate-500 font-medium mt-1">{translate('Check-in')}: {b.checkInDate} • {translate('Check-out')}: {b.checkOutDate} • {b.guests} {translate('Guests')}</p>
@@ -914,14 +914,14 @@ const PRESET_AVATARS = [
                                   className="inline-flex items-center gap-1 text-[10px] uppercase font-black tracking-wider text-[#0091EA] bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1 rounded-lg transition-all cursor-pointer shadow-2xs"
                                 >
                                   <Download className="w-3 h-3" />
-                                  <span>Voucher PDF</span>
+                                  <span>{translate('Voucher PDF')}</span>
                                 </button>
                                 {b.status !== 'Cancelled' && (
                                   <button
                                     onClick={() => handleCancelBookingClick('hotel', b.id)}
                                     className="text-[10px] uppercase font-bold tracking-wider text-rose-500 hover:text-rose-600 transition-colors bg-rose-50 hover:bg-rose-100 px-2 py-1 rounded cursor-pointer"
                                   >
-                                    Cancel
+                                    {translate(`Cancel`)}
                                   </button>
                                 )}
                               </div>
@@ -951,19 +951,19 @@ const PRESET_AVATARS = [
               )}
 
               {/* Profile Picture Management Card */}
-              <div className="p-5 bg-gradient-to-br from-sky-50/80 via-cyan-50/40 to-slate-50 dark:from-slate-800/80 dark:via-sky-950/30 dark:to-slate-800 rounded-2xl border border-sky-100 dark:border-sky-800/60 space-y-4 text-left">
+              <div className="p-5 bg-gradient-to-br from-sky-50/80 via-cyan-50/40 to-slate-50 dark:from-slate-800/80 dark:via-sky-950/30 dark:to-slate-800 rounded-2xl border border-sky-100 dark:border-sky-800/60 space-y-4 text-start">
                 <div className="flex items-center justify-between">
                   <div>
                     <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
                       <Camera className="w-4 h-4 text-[#0091EA]" />
-                      Profile Picture & Avatar
+                      {translate(`Profile Picture & Avatar`)}
                     </h4>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Upload a custom photo or choose a luxury travel avatar preset</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">{translate('Upload a custom photo or choose a luxury travel avatar preset')}</p>
                   </div>
                   {uploadingAvatar && (
                     <span className="text-[11px] font-bold text-[#0091EA] flex items-center gap-1">
                       <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                      Uploading...
+                      {translate(`Uploading...`)}
                     </span>
                   )}
                 </div>
@@ -973,7 +973,7 @@ const PRESET_AVATARS = [
                   <div 
                     onClick={() => fileInputRef.current?.click()}
                     className="relative w-20 h-20 rounded-2xl cursor-pointer group shadow-md overflow-hidden border-2 border-sky-400/80 dark:border-sky-500/80 flex-shrink-0"
-                    title="Click to upload new photo"
+                    title={translate(`Click to upload new photo`)}
                   >
                     {avatarUrl ? (
                       <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
@@ -984,7 +984,7 @@ const PRESET_AVATARS = [
                     )}
                     <div className="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white backdrop-blur-xs">
                       <Camera className="w-5 h-5 text-sky-400" />
-                      <span className="text-[9px] font-bold uppercase mt-0.5">Upload</span>
+                      <span className="text-[9px] font-bold uppercase mt-0.5">{translate('Upload')}</span>
                     </div>
                   </div>
 
@@ -1033,11 +1033,11 @@ const PRESET_AVATARS = [
                 </div>
               </div>
 
-              <form onSubmit={handleUpdateSettings} className="space-y-5 text-left max-w-xl">
+              <form onSubmit={handleUpdateSettings} className="space-y-5 text-start max-w-xl">
                 {/* Full Name */}
                 <div>
                   <label htmlFor="settings-name" className="block text-xs font-bold text-[#0A2540] mb-1.5 uppercase tracking-wider">
-                    Full Name
+                    {translate(`Full Name`)}
                   </label>
                   <div className="relative">
                     <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400" />
@@ -1045,7 +1045,7 @@ const PRESET_AVATARS = [
                       id="settings-name"
                       type="text"
                       required
-                      placeholder="Traveler Name"
+                      placeholder={translate(`Traveler Name`)}
                       value={editName}
                       onChange={(e) => setEditName(e.target.value)}
                       className="w-full pl-11 pr-4 py-2.5 border border-slate-250 rounded-xl text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#0091EA] focus:border-transparent transition-all"
@@ -1056,7 +1056,7 @@ const PRESET_AVATARS = [
                 {/* Email Address (Disabled) */}
                 <div>
                   <label htmlFor="settings-email" className="block text-xs font-bold text-[#0A2540] mb-1.5 uppercase tracking-wider">
-                    Email Address <span className="text-[10px] font-normal text-slate-400">(Immutable member credential)</span>
+                    {translate(`Email Address`)} <span className="text-[10px] font-normal text-slate-400">(Immutable member credential)</span>
                   </label>
                   <div className="relative">
                     <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-350" />
@@ -1073,14 +1073,14 @@ const PRESET_AVATARS = [
                 {/* Phone Number */}
                 <div>
                   <label htmlFor="settings-phone" className="block text-xs font-bold text-[#0A2540] mb-1.5 uppercase tracking-wider">
-                    Phone Number
+                    {translate(`Phone Number`)}
                   </label>
                   <div className="relative">
                     <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400" />
                     <input
                       id="settings-phone"
                       type="tel"
-                      placeholder="Add phone contact"
+                      placeholder={translate(`Add phone contact`)}
                       value={editPhone}
                       onChange={(e) => setEditPhone(e.target.value)}
                       className="w-full pl-11 pr-4 py-2.5 border border-slate-250 rounded-xl text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#0091EA] focus:border-transparent transition-all"

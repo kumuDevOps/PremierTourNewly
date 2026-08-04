@@ -1,3 +1,4 @@
+import { useLanguage } from '../lib/i18n';
 import React, { useState, useRef, useEffect } from 'react';
 import { DollarSign, ChevronDown, Check, Coins } from 'lucide-react';
 import { useCurrency, CurrencyCode, SUPPORTED_CURRENCIES } from '../lib/CurrencyContext.tsx';
@@ -13,6 +14,7 @@ export const CurrencySelector: React.FC<CurrencySelectorProps> = ({
   className = '',
   onSelect
 }) => {
+  const { translate } = useLanguage();
   const { currency, currencyCode, setCurrencyCode } = useCurrency();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -60,7 +62,7 @@ export const CurrencySelector: React.FC<CurrencySelectorProps> = ({
               }`}
             >
               <span className="text-base leading-none">{curr.flag}</span>
-              <div className="text-left truncate">
+              <div className="text-start truncate">
                 <span className="block font-black leading-tight">{curr.code}</span>
                 <span className="text-3xs text-slate-400 dark:text-slate-500 block leading-tight">{curr.symbol}</span>
               </div>
@@ -100,7 +102,7 @@ export const CurrencySelector: React.FC<CurrencySelectorProps> = ({
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all hover:shadow-xs cursor-pointer"
-        title="Change Currency Display"
+        title={translate(`Change Currency Display`)}
       >
         <span className="text-sm leading-none">{currency.flag}</span>
         <span className="font-extrabold text-[#0A2540] dark:text-white">{currency.code}</span>
@@ -111,9 +113,9 @@ export const CurrencySelector: React.FC<CurrencySelectorProps> = ({
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 py-2 z-50 animate-fade-in">
+        <div className="absolute end-0 mt-2 w-56 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 py-2 z-50 animate-fade-in">
           <div className="px-3 py-1.5 border-b border-slate-100 dark:border-slate-800 mb-1">
-            <span className="text-3xs font-black uppercase text-slate-400 dark:text-slate-500 tracking-wider">Select Currency</span>
+            <span className="text-3xs font-black uppercase text-slate-400 dark:text-slate-500 tracking-wider">{translate(`Select Currency`)}</span>
           </div>
           <div className="max-h-64 overflow-y-auto space-y-0.5 px-1 scrollbar-thin">
             {currencyList.map((curr) => (
@@ -129,7 +131,7 @@ export const CurrencySelector: React.FC<CurrencySelectorProps> = ({
               >
                 <div className="flex items-center gap-2.5">
                   <span className="text-base leading-none">{curr.flag}</span>
-                  <div className="text-left">
+                  <div className="text-start">
                     <span className="block font-black text-slate-900 dark:text-white leading-tight">{curr.code} - {curr.name}</span>
                     <span className="text-3xs text-slate-400 dark:text-slate-500 block leading-tight">1 USD = {curr.rate} {curr.code}</span>
                   </div>

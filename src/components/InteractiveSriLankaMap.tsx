@@ -508,7 +508,7 @@ export default function InteractiveSriLankaMap({ setCurrentPage }: InteractiveSr
                 <div className="flex items-center justify-between z-20 mb-2">
                   <div className="bg-white/90 dark:bg-slate-950/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-sky-300 dark:border-sky-500/40 text-[#0091EA] dark:text-[#2FC8FF] flex items-center gap-2 text-[11px] font-mono shadow-md">
                     <Compass className="w-3.5 h-3.5 animate-spin-slow text-[#0091EA]" />
-                    <span className="font-extrabold uppercase tracking-widest">SRI LANKA MAP OVERVIEW</span>
+                    <span className="font-extrabold uppercase tracking-widest">{translate(`SRI LANKA MAP OVERVIEW`)}</span>
                   </div>
                   <span className="text-[10px] font-mono text-sky-700 dark:text-sky-400/60 font-semibold hidden sm:block">
                     LAT: 7.8731° N | LON: 80.7718° E
@@ -656,7 +656,7 @@ export default function InteractiveSriLankaMap({ setCurrentPage }: InteractiveSr
                           <Clock className="w-3.5 h-3.5 text-[#0091EA]" />
                           {selectedSpot.featuredTour.duration}
                         </span>
-                        <div className="text-right">
+                        <div className="text-end">
                           <span className="text-[10px] text-slate-400 block">{translate('From')}</span>
                           <span className="text-lg font-black text-amber-400">{formatPrice(selectedSpot.featuredTour.price)}</span>
                         </div>

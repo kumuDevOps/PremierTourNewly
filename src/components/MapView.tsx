@@ -1,3 +1,4 @@
+import { useLanguage } from '../lib/i18n';
 import React from 'react';
 import { MapPin, ExternalLink } from 'lucide-react';
 
@@ -16,6 +17,7 @@ interface MapViewProps {
 }
 
 export default function MapView({ items, onMarkerClick }: MapViewProps) {
+  const { translate } = useLanguage();
   const activeLocation = items.length > 0 ? items[0].locationName : 'Sri Lanka';
   const query = encodeURIComponent(activeLocation + ' Sri Lanka');
 
@@ -48,7 +50,7 @@ export default function MapView({ items, onMarkerClick }: MapViewProps) {
         className="absolute bottom-4 right-4 bg-slate-950/90 hover:bg-[#0091EA] text-white px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider shadow-xl border border-sky-400/40 transition-all flex items-center gap-2 cursor-pointer z-10"
       >
         <ExternalLink className="w-3.5 h-3.5 text-sky-400 group-hover:text-white" />
-        <span>Open in Google Maps</span>
+        <span>{translate(`Open in Google Maps`)}</span>
       </a>
     </div>
   );

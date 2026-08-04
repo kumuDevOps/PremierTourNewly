@@ -1,3 +1,4 @@
+import { useLanguage } from '../lib/i18n';
 import React, { useState, useMemo } from 'react';
 import { 
   Heart, 
@@ -206,16 +207,16 @@ export default function WishlistView({
               {/* Live Badge */}
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-sky-100 dark:border-sky-900/50 text-sky-600 dark:text-sky-300 text-xs font-black uppercase tracking-widest shadow-sm">
                 <Sparkles className="w-4 h-4 text-sky-500 animate-spin" style={{ animationDuration: '4s' }} />
-                <span>Your Saved Adventures</span>
+                <span>{translate(`Your Saved Adventures`)}</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white leading-tight">
-                Travel <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-blue-600 dark:from-sky-400 dark:to-indigo-400">Wishlist</span>
+                {translate(`Travel`)} <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-blue-600 dark:from-sky-400 dark:to-indigo-400">{translate(`Wishlist`)}</span>
               </h1>
               
               <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 font-medium leading-relaxed max-w-xl">
-                Handpicked itineraries, luxury stays, and memorable journeys saved for your next Sri Lankan getaway.
+                {translate(`Handpicked itineraries, luxury stays, and memorable journeys saved for your next Sri Lankan getaway.`)}
               </p>
             </div>
 
@@ -230,12 +231,12 @@ export default function WishlistView({
                 {copiedShare ? (
                   <>
                     <Check className="w-4 h-4 text-emerald-500" />
-                    <span className="text-emerald-600 dark:text-emerald-400">Link Copied!</span>
+                    <span className="text-emerald-600 dark:text-emerald-400">{translate(`Link Copied!`)}</span>
                   </>
                 ) : (
                   <>
                     <Share2 className="w-4 h-4 text-sky-500 group-hover:text-sky-600 transition-colors" />
-                    <span>Share Wishlist</span>
+                    <span>{translate(`Share Wishlist`)}</span>
                   </>
                 )}
               </motion.button>
@@ -246,10 +247,10 @@ export default function WishlistView({
                   whileTap={{ scale: 0.95 }}
                   onClick={clearWishlist}
                   className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-rose-50 dark:bg-rose-500/10 hover:bg-rose-100 dark:hover:bg-rose-500/20 border border-rose-100 dark:border-rose-500/30 text-sm font-extrabold text-rose-600 dark:text-rose-400 shadow-sm transition-colors cursor-pointer group"
-                  title="Clear all saved items"
+                  title={translate(`Clear all saved items`)}
                 >
                   <Trash2 className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                  <span className="hidden sm:inline">Clear All</span>
+                  <span className="hidden sm:inline">{translate(`Clear All`)}</span>
                 </motion.button>
               )}
             </div>
@@ -272,7 +273,7 @@ export default function WishlistView({
                   <Heart className="w-6 h-6 fill-sky-500 text-sky-500" />
                 </div>
                 <div>
-                  <span className="text-xs font-black text-sky-600/80 dark:text-sky-400 uppercase tracking-wider block mb-1">Total Saved</span>
+                  <span className="text-xs font-black text-sky-600/80 dark:text-sky-400 uppercase tracking-wider block mb-1">{translate(`Total Saved`)}</span>
                   <span className="text-2xl font-black text-slate-800 dark:text-white leading-none">{wishlist.length} {wishlist.length === 1 ? 'Item' : 'Items'}</span>
                 </div>
               </div>
@@ -284,7 +285,7 @@ export default function WishlistView({
                   <ShoppingBag className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                 </div>
                 <div>
-                  <span className="text-xs font-black text-blue-600/80 dark:text-blue-400 uppercase tracking-wider block mb-1">Estimated Value</span>
+                  <span className="text-xs font-black text-blue-600/80 dark:text-blue-400 uppercase tracking-wider block mb-1">{translate(`Estimated Value`)}</span>
                   <span className="text-2xl font-black text-slate-800 dark:text-white leading-none">{formatPrice(totalValueUSD || 250)}</span>
                 </div>
               </div>
@@ -296,8 +297,8 @@ export default function WishlistView({
                   <ShieldCheck className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
                 </div>
                 <div>
-                  <span className="text-xs font-black text-indigo-600/80 dark:text-indigo-400 uppercase tracking-wider block mb-1">Guarantee</span>
-                  <span className="text-sm font-extrabold text-slate-800 dark:text-slate-200 leading-tight">100% Price<br/>Protection</span>
+                  <span className="text-xs font-black text-indigo-600/80 dark:text-indigo-400 uppercase tracking-wider block mb-1">{translate(`Guarantee`)}</span>
+                  <span className="text-sm font-extrabold text-slate-800 dark:text-slate-200 leading-tight">100% Price<br/>{translate(`Protection`)}</span>
                 </div>
               </div>
 
@@ -342,14 +343,14 @@ export default function WishlistView({
                 </div>
 
                 <h3 className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-white mb-4 tracking-tight">
-                  Your Journey Awaits
+                  {translate(`Your Journey Awaits`)}
                 </h3>
                 <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg font-medium mb-10 leading-relaxed">
-                  Discover the beauty of Sri Lanka. Heart your favorite tours, luxury stays, flights, and car rentals to save them here for easy booking later.
+                  {translate(`Discover the beauty of Sri Lanka. Heart your favorite tours, luxury stays, flights, and car rentals to save them here for easy booking later.`)}
                 </p>
 
                 {/* Quick Recommendation Discovery Buttons */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10 text-left">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10 text-start">
                   <motion.button
                     whileHover={{ y: -5, boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)" }}
                     onClick={() => onNavigate('tour')}
@@ -358,8 +359,8 @@ export default function WishlistView({
                     <div className="w-12 h-12 rounded-2xl bg-sky-50 dark:bg-sky-900/30 text-sky-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                       <Compass className="w-6 h-6" />
                     </div>
-                    <h4 className="text-base font-extrabold text-slate-800 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">Explore Tours</h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Cultural & wildlife</p>
+                    <h4 className="text-base font-extrabold text-slate-800 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">{translate(`Explore Tours`)}</h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">{translate(`Cultural & wildlife`)}</p>
                   </motion.button>
 
                   <motion.button
@@ -370,8 +371,8 @@ export default function WishlistView({
                     <div className="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                       <Hotel className="w-6 h-6" />
                     </div>
-                    <h4 className="text-base font-extrabold text-slate-800 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">Luxury Hotels</h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Villas & resorts</p>
+                    <h4 className="text-base font-extrabold text-slate-800 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">{translate(`Luxury Hotels`)}</h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">{translate(`Villas & resorts`)}</p>
                   </motion.button>
 
                   <motion.button
@@ -382,8 +383,8 @@ export default function WishlistView({
                     <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                       <Car className="w-6 h-6" />
                     </div>
-                    <h4 className="text-base font-extrabold text-slate-800 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">Rent A Car</h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Chauffeur & self-drive</p>
+                    <h4 className="text-base font-extrabold text-slate-800 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{translate(`Rent A Car`)}</h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">{translate(`Chauffeur & self-drive`)}</p>
                   </motion.button>
                 </div>
 
@@ -393,7 +394,7 @@ export default function WishlistView({
                   onClick={() => onNavigate('tour')}
                   className="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black text-sm shadow-xl shadow-slate-900/20 dark:shadow-white/20 transition-all cursor-pointer group"
                 >
-                  <span>Start Exploring Now</span>
+                  <span>{translate(`Start Exploring Now`)}</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </motion.button>
               </div>
@@ -451,7 +452,7 @@ export default function WishlistView({
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Search items..."
+                      placeholder={translate(`Search items...`)}
                       className="w-full ltr:pl-10 ltr:pr-4 rtl:pr-10 rtl:pl-4 py-3 rounded-2xl bg-white dark:bg-slate-950 border border-sky-100 dark:border-slate-800 text-sm font-semibold text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all shadow-sm"
                     />
                   </div>
@@ -462,10 +463,10 @@ export default function WishlistView({
                       onChange={(e: any) => setSortBy(e.target.value)}
                       className="w-full sm:w-auto appearance-none px-5 py-3 ltr:pr-10 rtl:pl-10 rounded-2xl bg-white dark:bg-slate-950 border border-sky-100 dark:border-slate-800 text-sm font-bold text-slate-700 dark:text-slate-200 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 cursor-pointer shadow-sm transition-all"
                     >
-                      <option value="newest">Recently Saved</option>
+                      <option value="newest">{translate(`Recently Saved`)}</option>
                       <option value="price-low">Price: Low to High</option>
                       <option value="price-high">Price: High to Low</option>
-                      <option value="rating">Highest Rated</option>
+                      <option value="rating">{translate(`Highest Rated`)}</option>
                     </select>
                     <Filter className="w-4 h-4 text-slate-400 absolute ltr:right-4 rtl:left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
                   </div>
@@ -484,12 +485,12 @@ export default function WishlistView({
                     className="py-20 text-center bg-white/50 dark:bg-slate-900/50 rounded-3xl border border-sky-50 dark:border-slate-800/80 backdrop-blur-sm"
                   >
                     <Search className="w-12 h-12 text-sky-200 mx-auto mb-4" />
-                    <p className="text-slate-600 dark:text-slate-400 text-base font-bold">No saved items match your current filter criteria.</p>
+                    <p className="text-slate-600 dark:text-slate-400 text-base font-bold">{translate(`No saved items match your current filter criteria.`)}</p>
                     <button
                       onClick={() => { setActiveCategory('all'); setSearchQuery(''); }}
                       className="mt-6 px-6 py-3 rounded-2xl bg-white dark:bg-slate-800 border border-sky-100 dark:border-slate-700 hover:bg-sky-50 dark:hover:bg-slate-700 text-sm font-extrabold text-sky-600 dark:text-sky-400 transition-colors shadow-sm cursor-pointer"
                     >
-                      Reset Filters
+                      {translate(`Reset Filters`)}
                     </button>
                   </motion.div>
                 ) : (
@@ -532,7 +533,7 @@ export default function WishlistView({
                             <button
                               onClick={() => removeFromWishlist(item.id)}
                               className="absolute top-4 ltr:right-4 rtl:left-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-rose-500 hover:bg-rose-500 hover:text-white shadow-lg transition-all hover:scale-110 active:scale-95 cursor-pointer z-10"
-                              title="Remove from wishlist"
+                              title={translate(`Remove from wishlist`)}
                             >
                               <Heart className="w-5 h-5 fill-current" />
                             </button>
@@ -575,7 +576,7 @@ export default function WishlistView({
                             {/* Card Footer: Price & Direct Book Action */}
                             <div className="pt-4 flex items-center justify-between gap-3">
                               <div>
-                                <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block mb-0.5">Total Price</span>
+                                <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block mb-0.5">{translate(`Total Price`)}</span>
                                 <span className="text-2xl font-black text-slate-900 dark:text-white leading-none">{formatPrice(price)}</span>
                               </div>
 
@@ -583,7 +584,7 @@ export default function WishlistView({
                                 <button
                                   onClick={() => setSelectedItemForModal(item)}
                                   className="w-11 h-11 flex items-center justify-center rounded-2xl bg-sky-50 hover:bg-sky-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-sky-600 dark:text-sky-400 transition-colors cursor-pointer"
-                                  title="Quick View Details"
+                                  title={translate(`Quick View Details`)}
                                 >
                                   <Eye className="w-5 h-5" />
                                 </button>
@@ -592,7 +593,7 @@ export default function WishlistView({
                                   onClick={() => handleBookNow(item)}
                                   className="h-11 px-5 flex items-center justify-center gap-2 rounded-2xl bg-slate-900 dark:bg-sky-500 hover:bg-sky-600 text-white text-sm font-black shadow-lg shadow-sky-500/20 transition-all hover:scale-105 cursor-pointer"
                                 >
-                                  <span>Book</span>
+                                  <span>{translate(`Book`)}</span>
                                   <ArrowRight className="w-4 h-4" />
                                 </button>
                               </div>
@@ -674,7 +675,7 @@ export default function WishlistView({
 
               <div className="flex items-center justify-between pt-6 border-t border-sky-100 dark:border-slate-800 shrink-0">
                 <div>
-                  <span className="text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider block font-black mb-1">Total Price</span>
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider block font-black mb-1">{translate(`Total Price`)}</span>
                   <span className="text-3xl font-black text-slate-900 dark:text-white leading-none">{formatPrice(selectedItemForModal.priceUSD || selectedItemForModal.price || 150)}</span>
                 </div>
 
@@ -688,7 +689,7 @@ export default function WishlistView({
                   }}
                   className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-sky-500 hover:bg-sky-600 text-white font-black text-sm shadow-xl shadow-sky-500/25 cursor-pointer transition-colors"
                 >
-                  <span>Proceed to Book</span>
+                  <span>{translate(`Proceed to Book`)}</span>
                   <ArrowRight className="w-4 h-4" />
                 </motion.button>
               </div>

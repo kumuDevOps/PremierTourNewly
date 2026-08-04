@@ -748,7 +748,7 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
                     #{booking.bookingRef}
                   </span>
                 </h3>
-                <p className="text-2xs text-sky-200/70 font-medium">Download or share your verified travel document</p>
+                <p className="text-2xs text-sky-200/70 font-medium">{translate(`Download or share your verified travel document`)}</p>
               </div>
             </div>
 
@@ -756,25 +756,25 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
               <button
                 onClick={() => setShowHostingerGuide(true)}
                 className="hidden md:flex items-center gap-1.5 px-3 py-1.5 bg-purple-900/60 hover:bg-purple-800 text-purple-200 border border-purple-500/40 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-sm"
-                title="Hostinger PDF Upload Guide"
+                title={translate(`Hostinger PDF Upload Guide`)}
               >
                 <Upload className="w-3.5 h-3.5 text-purple-300" />
-                <span>Upload to Hostinger</span>
+                <span>{translate(`Upload to Hostinger`)}</span>
               </button>
 
               <button
                 onClick={handlePrint}
                 className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition-all cursor-pointer hover:border hover:border-sky-400/40"
-                title="Print Voucher"
+                title={translate(`Print Voucher`)}
               >
                 <Printer className="w-3.5 h-3.5 text-sky-400" />
-                <span>Print</span>
+                <span>{translate(`Print`)}</span>
               </button>
 
               <button
                 onClick={handleShareVoucher}
                 className="flex items-center gap-1.5 px-3 py-1.5 bg-sky-900/50 hover:bg-sky-800 text-sky-300 border border-sky-600/50 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-sm"
-                title="Share Voucher"
+                title={translate(`Share Voucher`)}
               >
                 {copiedLink || shareSuccess ? <Check className="w-3.5 h-3.5 text-emerald-400 animate-bounce" /> : <Share2 className="w-3.5 h-3.5 text-sky-300" />}
                 <span>{copiedLink ? 'Copied!' : shareSuccess ? 'Shared!' : 'Share'}</span>
@@ -788,12 +788,12 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
                 {isGenerating ? (
                   <span className="animate-pulse flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5 animate-spin text-sky-200" />
-                    Generating...
+                    {translate(`Generating...`)}
                   </span>
                 ) : (
                   <>
                     <Download className="w-3.5 h-3.5" />
-                    <span>Download PDF</span>
+                    <span>{translate(`Download PDF`)}</span>
                   </>
                 )}
               </button>
@@ -820,18 +820,18 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-lg bg-[#0091EA] text-white flex items-center justify-center font-black text-sm">
-                    PTB
+                    {translate(`PTB`)}
                   </div>
                   <h2 className="text-xl sm:text-2xl font-black tracking-tight text-[#0A2540]">
-                    Premier Tour Booking
+                    {translate(`Premier Tour Booking`)}
                   </h2>
                 </div>
                 <p className="text-2xs text-slate-500 font-semibold uppercase tracking-widest pl-10">
-                  Global Luxury Travel & Experiences Ltd.
+                  {translate(`Global Luxury Travel & Experiences Ltd.`)}
                 </p>
               </div>
 
-              <div className="text-left sm:text-right space-y-1 bg-slate-50 sm:bg-transparent p-3 sm:p-0 rounded-xl w-full sm:w-auto">
+              <div className="text-start sm:text-end space-y-1 bg-slate-50 sm:bg-transparent p-3 sm:p-0 rounded-xl w-full sm:w-auto">
                 <span className="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 font-extrabold text-[10px] uppercase tracking-widest rounded-full border border-emerald-200">
                   ✓ Official Voucher & Receipt
                 </span>
@@ -867,7 +867,7 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
               {/* Badges / Key Specs Grid */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-slate-800 text-xs">
                 <div>
-                  <span className="text-[10px] uppercase text-slate-400 font-bold block">Status</span>
+                  <span className="text-[10px] uppercase text-slate-400 font-bold block">{translate(`Status`)}</span>
                   <span className="font-extrabold text-emerald-400 flex items-center gap-1 mt-0.5">
                     <CheckCircle2 className="w-3.5 h-3.5" />
                     {booking.status}
@@ -875,17 +875,17 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
                 </div>
 
                 <div>
-                  <span className="text-[10px] uppercase text-slate-400 font-bold block">Start Date</span>
+                  <span className="text-[10px] uppercase text-slate-400 font-bold block">{translate(`Start Date`)}</span>
                   <span className="font-extrabold text-white mt-0.5 block">{booking.startDate}</span>
                 </div>
 
                 <div>
-                  <span className="text-[10px] uppercase text-slate-400 font-bold block">Start Time</span>
+                  <span className="text-[10px] uppercase text-slate-400 font-bold block">{translate(`Start Time`)}</span>
                   <span className="font-extrabold text-white mt-0.5 block">{resolvedStartTime}</span>
                 </div>
 
                 <div>
-                  <span className="text-[10px] uppercase text-slate-400 font-bold block">Duration</span>
+                  <span className="text-[10px] uppercase text-slate-400 font-bold block">{translate(`Duration`)}</span>
                   <span className="font-extrabold text-sky-300 mt-0.5 block">{resolvedDuration}</span>
                 </div>
               </div>
@@ -898,7 +898,7 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
               <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/70 space-y-2">
                 <h4 className="text-2xs font-black uppercase tracking-widest text-slate-400 flex items-center gap-1.5 border-b border-slate-200 pb-2">
                   <Users className="w-3.5 h-3.5 text-[#0091EA]" />
-                  <span>Lead Guest Details</span>
+                  <span>{translate(`Lead Guest Details`)}</span>
                 </h4>
                 <div className="space-y-1 text-xs">
                   <p className="font-bold text-slate-900 text-sm">{booking.customerName}</p>
@@ -922,7 +922,7 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
               <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/70 space-y-2">
                 <h4 className="text-2xs font-black uppercase tracking-widest text-slate-400 flex items-center gap-1.5 border-b border-slate-200 pb-2">
                   <Building className="w-3.5 h-3.5 text-[#0091EA]" />
-                  <span>Stay & Facility Specifications</span>
+                  <span>{translate(`Stay & Facility Specifications`)}</span>
                 </h4>
 
                 <div className="space-y-1 text-xs">
@@ -944,7 +944,7 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-slate-500 font-medium">Inclusions:</span>
-                        <span className="font-bold text-emerald-600">Free Breakfast & Wi-Fi</span>
+                        <span className="font-bold text-emerald-600">{translate(`Free Breakfast & Wi-Fi`)}</span>
                       </div>
                     </>
                   ) : booking.type === 'car' ? (
@@ -982,7 +982,7 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-slate-500 font-medium">Cabin Class:</span>
-                        <span className="font-bold text-slate-800">Business Class</span>
+                        <span className="font-bold text-slate-800">{translate(`Business Class`)}</span>
                       </div>
                     </>
                   ) : (
@@ -993,11 +993,11 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-slate-500 font-medium">Scheduled Guide:</span>
-                        <span className="font-bold text-slate-800">Licensed English Guide</span>
+                        <span className="font-bold text-slate-800">{translate(`Licensed English Guide`)}</span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-slate-500 font-medium">Transport:</span>
-                        <span className="font-bold text-slate-800">AC Luxury Coach</span>
+                        <span className="font-bold text-slate-800">{translate(`AC Luxury Coach`)}</span>
                       </div>
                     </>
                   )}
@@ -1010,7 +1010,7 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
             {booking.description && (
               <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-1">
                 <span className="font-extrabold text-slate-800 uppercase text-[10px] tracking-widest block">
-                  Arrangement Highlights & Itinerary Note
+                  {translate(`Arrangement Highlights & Itinerary Note`)}
                 </span>
                 <p className="leading-relaxed font-medium">{booking.description}</p>
               </div>
@@ -1021,10 +1021,10 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
               <div className="flex items-center justify-between border-b border-slate-200 pb-2">
                 <h4 className="text-2xs font-black uppercase tracking-widest text-slate-500 flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5 text-[#0091EA]" />
-                  <span>Destination Map & Location Pass</span>
+                  <span>{translate(`Destination Map & Location Pass`)}</span>
                 </h4>
                 <span className="text-[10px] font-bold text-sky-700 bg-sky-100 px-2.5 py-0.5 rounded-full border border-sky-200">
-                  GPS Verified Location
+                  {translate(`GPS Verified Location`)}
                 </span>
               </div>
 
@@ -1055,7 +1055,7 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
                     className="bg-[#0091EA] hover:bg-[#007cc7] text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-lg shadow transition-all pointer-events-auto flex items-center gap-1 cursor-pointer"
                   >
                     <MapPin className="w-3 h-3 fill-white" />
-                    <span>Open in Google Maps</span>
+                    <span>{translate(`Open in Google Maps`)}</span>
                   </a>
                 </div>
               </div>
@@ -1064,7 +1064,7 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
             {/* Payment & Financial Breakdown Table */}
             <div className="border border-slate-200 rounded-xl overflow-hidden text-xs">
               <div className="bg-slate-100 p-3 font-extrabold text-slate-800 border-b border-slate-200 flex justify-between">
-                <span>Payment Summary & Fare Breakdown</span>
+                <span>{translate(`Payment Summary & Fare Breakdown`)}</span>
                 <span className="text-[#0091EA]">Paid via Stripe / Card</span>
               </div>
 
@@ -1077,14 +1077,14 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
                 </div>
 
                 <div className="flex justify-between text-slate-600 font-medium">
-                  <span>Taxes, Tourism Levies & Service Fees</span>
+                  <span>{translate(`Taxes, Tourism Levies & Service Fees`)}</span>
                   <span className="font-bold text-slate-800">
                     {formatPrice(booking.totalPrice * 0.12)}
                   </span>
                 </div>
 
                 <div className="border-t border-dashed border-slate-200 pt-2.5 flex justify-between items-center text-sm">
-                  <span className="font-black text-slate-900">Total Amount Charged</span>
+                  <span className="font-black text-slate-900">{translate(`Total Amount Charged`)}</span>
                   <span className="text-base font-black text-[#0091EA] font-mono">
                     {formatPrice(booking.totalPrice)}
                   </span>
@@ -1100,11 +1100,11 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
                 </div>
                 <div>
                   <h4 className="text-xs font-black text-purple-100 flex items-center gap-1.5">
-                    <span>Hostinger Web Hosting Upload Guide</span>
-                    <span className="text-[9px] bg-purple-500/30 text-purple-200 px-2 py-0.5 rounded-full uppercase tracking-wider font-extrabold border border-purple-400/20">Hostinger hPanel</span>
+                    <span>{translate(`Hostinger Web Hosting Upload Guide`)}</span>
+                    <span className="text-[9px] bg-purple-500/30 text-purple-200 px-2 py-0.5 rounded-full uppercase tracking-wider font-extrabold border border-purple-400/20">{translate(`Hostinger hPanel`)}</span>
                   </h4>
                   <p className="text-[10px] text-purple-200/80 font-medium mt-0.5">
-                    Need to upload this hotel or tour package PDF to Hostinger file manager? Follow our 5-step hostinger guide.
+                    {translate(`Need to upload this hotel or tour package PDF to Hostinger file manager? Follow our 5-step hostinger guide.`)}
                   </p>
                 </div>
               </div>
@@ -1114,14 +1114,14 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
                 className="w-full sm:w-auto px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs font-black transition-all shadow-md shrink-0 flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <Upload className="w-3.5 h-3.5" />
-                <span>How to Upload to Hostinger</span>
+                <span>{translate(`How to Upload to Hostinger`)}</span>
               </button>
             </div>
 
             {/* Footer Verification Barcode & Terms */}
             <div className="pt-4 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4 text-2xs text-slate-400">
               
-              <div className="space-y-1 text-center sm:text-left">
+              <div className="space-y-1 text-center sm:text-start">
                 <p className="font-bold text-slate-600">Important Traveler Instructions:</p>
                 <p>• Please present this physical PDF voucher or digital screen pass upon arrival.</p>
                 <p>• For 24/7 concierge assistance, contact support@premiertourbooking.com or +1 800-555-PREMIER.</p>
@@ -1176,7 +1176,7 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl max-w-lg w-full max-h-[90vh] flex flex-col overflow-hidden border border-slate-200 dark:border-slate-800 relative z-10 text-left my-auto"
+            className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl max-w-lg w-full max-h-[90vh] flex flex-col overflow-hidden border border-slate-200 dark:border-slate-800 relative z-10 text-start my-auto"
           >
             {/* Header */}
             <div className="p-6 bg-gradient-to-r from-purple-900 via-slate-900 to-slate-950 text-white flex justify-between items-center relative">
@@ -1185,8 +1185,8 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
                   <Server className="w-5 h-5 text-purple-300" />
                 </div>
                 <div>
-                  <span className="text-[9px] font-black uppercase tracking-widest text-purple-300 bg-purple-950/80 px-2 py-0.5 rounded border border-purple-500/30">Hostinger hPanel Tutorial</span>
-                  <h3 className="text-base font-black text-white">How to Upload PDF Voucher to Hostinger</h3>
+                  <span className="text-[9px] font-black uppercase tracking-widest text-purple-300 bg-purple-950/80 px-2 py-0.5 rounded border border-purple-500/30">{translate(`Hostinger hPanel Tutorial`)}</span>
+                  <h3 className="text-base font-black text-white">{translate(`How to Upload PDF Voucher to Hostinger`)}</h3>
                 </div>
               </div>
               <button
@@ -1206,9 +1206,9 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
                   1
                 </div>
                 <div>
-                  <h4 className="font-extrabold text-slate-900 dark:text-white text-xs">Download PDF Voucher to Computer</h4>
+                  <h4 className="font-extrabold text-slate-900 dark:text-white text-xs">{translate(`Download PDF Voucher to Computer`)}</h4>
                   <p className="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">
-                    Click the <strong className="text-purple-600 dark:text-purple-400">Download PDF</strong> button on this voucher screen. Save the file (e.g., <code className="bg-slate-200 dark:bg-slate-950 px-1 py-0.5 rounded font-mono text-[10px]">{booking?.bookingRef || 'PB-VOUCHER'}.pdf</code>) to your desktop or downloads folder.
+                    {translate(`Click the`)} <strong className="text-purple-600 dark:text-purple-400">{translate(`Download PDF`)}</strong> button on this voucher screen. Save the file (e.g., <code className="bg-slate-200 dark:bg-slate-950 px-1 py-0.5 rounded font-mono text-[10px]">{booking?.bookingRef || 'PB-VOUCHER'}.pdf</code>) to your desktop or downloads folder.
                   </p>
                 </div>
               </div>
@@ -1219,9 +1219,9 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
                   2
                 </div>
                 <div>
-                  <h4 className="font-extrabold text-slate-900 dark:text-white text-xs">Log into Hostinger hPanel</h4>
+                  <h4 className="font-extrabold text-slate-900 dark:text-white text-xs">{translate(`Log into Hostinger hPanel`)}</h4>
                   <p className="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">
-                    Open <a href="https://hpanel.hostinger.com" target="_blank" rel="noopener noreferrer" className="text-purple-600 dark:text-purple-400 font-bold underline inline-flex items-center gap-0.5">hpanel.hostinger.com <ExternalLink className="w-3 h-3 inline" /></a> and sign in to your Hostinger web hosting account.
+                    {translate(`Open`)} <a href="https://hpanel.hostinger.com" target="_blank" rel="noopener noreferrer" className="text-purple-600 dark:text-purple-400 font-bold underline inline-flex items-center gap-0.5">hpanel.hostinger.com <ExternalLink className="w-3 h-3 inline" /></a> and sign in to your Hostinger web hosting account.
                   </p>
                 </div>
               </div>
@@ -1232,9 +1232,9 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
                   3
                 </div>
                 <div>
-                  <h4 className="font-extrabold text-slate-900 dark:text-white text-xs">Open File Manager in Hostinger</h4>
+                  <h4 className="font-extrabold text-slate-900 dark:text-white text-xs">{translate(`Open File Manager in Hostinger`)}</h4>
                   <p className="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">
-                    Go to <strong className="text-slate-800 dark:text-slate-200">Websites</strong> &rarr; Click <strong className="text-slate-800 dark:text-slate-200">Dashboard</strong> next to your domain name &rarr; Click <strong className="text-purple-600 dark:text-purple-400">File Manager</strong> under Files.
+                    {translate(`Go to`)} <strong className="text-slate-800 dark:text-slate-200">{translate(`Websites`)}</strong> &rarr; Click <strong className="text-slate-800 dark:text-slate-200">{translate(`Dashboard`)}</strong> next to your domain name &rarr; Click <strong className="text-purple-600 dark:text-purple-400">{translate(`File Manager`)}</strong> under Files.
                   </p>
                 </div>
               </div>
@@ -1247,7 +1247,7 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
                 <div>
                   <h4 className="font-extrabold text-slate-900 dark:text-white text-xs">Navigate to public_html & Upload PDF</h4>
                   <p className="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">
-                    Open <code className="bg-slate-200 dark:bg-slate-950 px-1 py-0.5 rounded font-mono text-[10px]">public_html</code> (or create a subfolder named <code className="bg-slate-200 dark:bg-slate-950 px-1 py-0.5 rounded font-mono text-[10px]">vouchers</code>). Click the <strong className="text-emerald-600 dark:text-emerald-400">Upload File</strong> icon at top right and select your downloaded PDF.
+                    {translate(`Open`)} <code className="bg-slate-200 dark:bg-slate-950 px-1 py-0.5 rounded font-mono text-[10px]">public_html</code> (or create a subfolder named <code className="bg-slate-200 dark:bg-slate-950 px-1 py-0.5 rounded font-mono text-[10px]">vouchers</code>). Click the <strong className="text-emerald-600 dark:text-emerald-400">{translate(`Upload File`)}</strong> icon at top right and select your downloaded PDF.
                   </p>
                 </div>
               </div>
@@ -1258,7 +1258,7 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
                   5
                 </div>
                 <div>
-                  <h4 className="font-extrabold text-emerald-900 dark:text-emerald-300 text-xs">Access & Share Hosted PDF Online!</h4>
+                  <h4 className="font-extrabold text-emerald-900 dark:text-emerald-300 text-xs">{translate(`Access & Share Hosted PDF Online!`)}</h4>
                   <p className="text-emerald-700 dark:text-emerald-400 text-[11px] mt-0.5">
                     Your PDF booking pass is now hosted live on your website! You or your travelers can access it at:
                   </p>
@@ -1277,7 +1277,7 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
                 onClick={() => setShowHostingerGuide(false)}
                 className="px-4 py-2 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-bold hover:bg-slate-300 dark:hover:bg-slate-700 transition-all cursor-pointer"
               >
-                Close Guide
+                {translate(`Close Guide`)}
               </button>
               <button
                 type="button"
@@ -1288,7 +1288,7 @@ export default function BookingPDFModal({ isOpen, onClose, booking }: BookingPDF
                 className="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-black transition-all shadow-md flex items-center gap-1.5 cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5" />
-                <span>Download PDF First</span>
+                <span>{translate(`Download PDF First`)}</span>
               </button>
             </div>
 

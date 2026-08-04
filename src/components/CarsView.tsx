@@ -420,7 +420,7 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
 
         {/* DEDICATED CAR BOOKING FORM PAGE VIEW */}
         {isBookingPage && selectedCar ? (
-          <div className="bg-gradient-to-br from-white via-sky-50/30 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-6 md:p-10 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 shadow-2xl shadow-sky-500/10 space-y-8 animate-fade-in ltr:text-left rtl:text-right">
+          <div className="bg-gradient-to-br from-white via-sky-50/30 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-6 md:p-10 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 shadow-2xl shadow-sky-500/10 space-y-8 animate-fade-in text-start">
             
             {/* Top Navigation Control */}
             <div className="flex flex-wrap items-center justify-between gap-4 border-b border-sky-100 dark:border-sky-800/50 pb-6">
@@ -584,10 +584,10 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
                         </div>
                         <div>
                           <span className="text-[10px] font-black text-emerald-400 uppercase tracking-wider block">
-                            Real-time Chauffeur Telematics
+                            {translate(`Real-time Chauffeur Telematics`)}
                           </span>
                           <span className="text-xs font-bold text-slate-200 block">
-                            Live Driver Dispatched & Route Radar
+                            {translate(`Live Driver Dispatched & Route Radar`)}
                           </span>
                         </div>
                       </div>
@@ -596,7 +596,7 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
                         onClick={() => setShowTrackingModal(true)}
                         className="px-3.5 py-2 bg-[#0091EA] hover:bg-sky-500 text-white rounded-xl text-xs font-bold transition-all cursor-pointer shadow-md flex items-center gap-1.5"
                       >
-                        <span>Launch Live Radar</span>
+                        <span>{translate('Launch Live Radar')}</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -689,7 +689,7 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
                             type="text"
                             value={licenseCountry}
                             onChange={(e) => setLicenseCountry(e.target.value)}
-                            placeholder="United Kingdom"
+                            placeholder={translate(`United Kingdom`)}
                             className="w-full pl-10 pr-4 py-3 bg-slate-50/50 dark:bg-slate-900 border-2 border-sky-100 dark:border-sky-800/60 rounded-xl text-xs font-bold text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-[#0091EA]"
                           />
                         </div>
@@ -828,7 +828,7 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
           /* STANDARD FLEET LIST CATALOG VIEW */
           <>
             {/* Search & Location Bar */}
-            <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-6 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 shadow-xl shadow-sky-500/10 flex flex-col lg:flex-row items-end justify-between gap-6 ltr:text-left rtl:text-right animate-blue-glow">
+            <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-6 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 shadow-xl shadow-sky-500/10 flex flex-col lg:flex-row items-end justify-between gap-6 text-start animate-blue-glow">
               
               {/* Pickup location */}
               <div className="flex flex-col gap-1.5 flex-grow">
@@ -909,7 +909,7 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
                       <div 
                         key={car.id} 
                         onClick={() => handleStartBooking(car)}
-                        className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 overflow-hidden shadow-xl shadow-sky-500/10 hover:shadow-2xl hover:shadow-sky-500/20 hover:border-[#0091EA] transition-all duration-300 group flex flex-col ltr:text-left rtl:text-right h-full relative animate-blue-glow cursor-pointer"
+                        className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 overflow-hidden shadow-xl shadow-sky-500/10 hover:shadow-2xl hover:shadow-sky-500/20 hover:border-[#0091EA] transition-all duration-300 group flex flex-col text-start h-full relative animate-blue-glow cursor-pointer"
                       >
                         {/* Photo background */}
                         <div className="relative h-[210px] overflow-hidden bg-gray-100 dark:bg-slate-800">
@@ -918,7 +918,7 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
                             alt={`${car.name} - Luxury Business Travel & Chauffeur Vehicle Rental`} 
                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                             referrerPolicy="no-referrer"
-                            onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80'; }}
+                            onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.onerror = null; e.currentTarget.src = 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80'; }}
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-90" />
 
@@ -932,7 +932,7 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
                               if (addToWishlist) addToWishlist(car);
                             }}
                             className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-slate-950/80 backdrop-blur-md border border-sky-400/30 flex items-center justify-center text-white shadow-lg hover:bg-[#0091EA] hover:text-white transition-all cursor-pointer group/wishlist"
-                            aria-label="Add to wishlist"
+                            aria-label={translate(`Add to wishlist`)}
                           >
                             <Heart className="w-4 h-4 group-hover/wishlist:fill-current" />
                           </button>

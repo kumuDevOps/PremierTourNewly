@@ -215,13 +215,13 @@ export default function Navbar({
               {toursDropdownOpen && (
                 <div 
                   id="tours-dropdown-menu"
-                  className="absolute ltr:left-0 rtl:right-0 mt-0 w-52 bg-white/95 dark:bg-slate-800/95 backdrop-blur-lg rounded-2xl shadow-2xl border border-sky-100 dark:border-sky-900 z-50 py-3 animate-fade-in"
+                  className="absolute start-0 mt-0 w-52 bg-white/95 dark:bg-slate-800/95 backdrop-blur-lg rounded-2xl shadow-2xl border border-sky-100 dark:border-sky-900 z-50 py-3 animate-fade-in"
                 >
                   {tourCategories.map((cat, idx) => (
                     <button
                       key={idx}
                       onClick={() => handleTourCategoryClick(cat.dbValue)}
-                      className="w-full ltr:text-left rtl:text-right px-6 py-3 text-[11px] font-black tracking-wider uppercase text-[#0A2540] dark:text-slate-200 hover:bg-sky-50 dark:hover:bg-slate-700 hover:text-[#0091EA] transition-all duration-300 cursor-pointer"
+                      className="w-full text-start px-6 py-3 text-[11px] font-black tracking-wider uppercase text-[#0A2540] dark:text-slate-200 hover:bg-sky-50 dark:hover:bg-slate-700 hover:text-[#0091EA] transition-all duration-300 cursor-pointer"
                     >
                       {translate(cat.label)}
                     </button>
@@ -348,7 +348,7 @@ export default function Navbar({
                     </div>
                   </div>
 
-                  <div className="text-left hidden md:block max-w-[120px]">
+                  <div className="text-start hidden md:block max-w-[120px]">
                     <p className="text-xs font-black text-[#0A2540] dark:text-slate-100 truncate leading-tight">
                       {translate(userProfile?.fullName || 'Traveler')}
                     </p>
@@ -356,7 +356,7 @@ export default function Navbar({
                 </motion.button>
                 {/* Popover Card Menu */}
                 {userDropdownOpen && (
-                  <div className="absolute ltr:right-0 rtl:left-0 mt-2.5 w-72 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50">
+                  <div className="absolute end-0 mt-2.5 w-72 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50">
                     
                     {/* Account Header Section */}
                     <div className="relative p-4 bg-gradient-to-br from-sky-500/10 via-[#0091EA]/5 to-indigo-500/10 dark:from-sky-950/40 dark:via-slate-900 dark:to-indigo-950/40 border-b border-slate-100 dark:border-slate-800/80">
@@ -371,7 +371,7 @@ export default function Navbar({
                         ) : (
                           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-500/10 border border-slate-500/20 text-slate-600 dark:text-slate-400 text-[9px] font-extrabold uppercase tracking-widest">
                             <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-ping" />
-                            <span>Pending Account</span>
+                            <span>{translate('Pending Account')}</span>
                           </div>
                         )}
                       </div>
@@ -409,7 +409,7 @@ export default function Navbar({
                               type="button"
                               onClick={handleCopyEmail}
                               className="p-1 rounded-md hover:bg-slate-200/60 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors cursor-pointer shrink-0"
-                              title="Copy Email"
+                              title={translate(`Copy Email`)}
                             >
                               {copiedEmail ? (
                                 <Check className="w-3.5 h-3.5 text-emerald-500" />
@@ -430,14 +430,14 @@ export default function Navbar({
                           setUserDropdownOpen(false);
                           setCurrentPage('account-bookings');
                         }}
-                        className="flex items-center gap-2 p-2 rounded-xl bg-white dark:bg-slate-800/80 border border-slate-150 dark:border-slate-700/80 hover:border-[#0091EA]/40 dark:hover:border-sky-500/40 hover:bg-sky-50/50 dark:hover:bg-slate-700/60 transition-all cursor-pointer group text-left"
+                        className="flex items-center gap-2 p-2 rounded-xl bg-white dark:bg-slate-800/80 border border-slate-150 dark:border-slate-700/80 hover:border-[#0091EA]/40 dark:hover:border-sky-500/40 hover:bg-sky-50/50 dark:hover:bg-slate-700/60 transition-all cursor-pointer group text-start"
                       >
                         <div className="w-7 h-7 rounded-lg bg-[#0091EA]/10 text-[#0091EA] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                           <Calendar className="w-3.5 h-3.5" />
                         </div>
                         <div className="min-w-0">
-                          <span className="block text-[10px] font-extrabold text-[#0A2540] dark:text-slate-200 leading-tight">My Bookings</span>
-                          <span className="block text-[9px] text-slate-400 dark:text-slate-400 font-semibold truncate">View Trips</span>
+                          <span className="block text-[10px] font-extrabold text-[#0A2540] dark:text-slate-200 leading-tight">{translate('My Bookings')}</span>
+                          <span className="block text-[9px] text-slate-400 dark:text-slate-400 font-semibold truncate">{translate('View Trips')}</span>
                         </div>
                       </button>
 
@@ -447,21 +447,21 @@ export default function Navbar({
                           if (onOpenWishlist) onOpenWishlist();
                           else setCurrentPage('account-dashboard');
                         }}
-                        className="flex items-center gap-2 p-2 rounded-xl bg-white dark:bg-slate-800/80 border border-slate-150 dark:border-slate-700/80 hover:border-rose-300 dark:hover:border-rose-800/50 hover:bg-rose-50/40 dark:hover:bg-slate-700/60 transition-all cursor-pointer group text-left"
+                        className="flex items-center gap-2 p-2 rounded-xl bg-white dark:bg-slate-800/80 border border-slate-150 dark:border-slate-700/80 hover:border-rose-300 dark:hover:border-rose-800/50 hover:bg-rose-50/40 dark:hover:bg-slate-700/60 transition-all cursor-pointer group text-start"
                       >
                         <div className="w-7 h-7 rounded-lg bg-rose-500/10 text-rose-500 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                           <Heart className="w-3.5 h-3.5 fill-rose-500/20" />
                         </div>
                         <div className="min-w-0">
                           <div className="flex items-center justify-between">
-                            <span className="text-[10px] font-extrabold text-[#0A2540] dark:text-slate-200 leading-tight">Wishlist</span>
+                            <span className="text-[10px] font-extrabold text-[#0A2540] dark:text-slate-200 leading-tight">{translate('Wishlist')}</span>
                             {wishlistCount > 0 && (
                               <span className="px-1.5 py-0.2 rounded-full bg-rose-500 text-white font-black text-[8px]">
                                 {wishlistCount}
                               </span>
                             )}
                           </div>
-                          <span className="block text-[9px] text-slate-400 dark:text-slate-400 font-semibold truncate">Saved Items</span>
+                          <span className="block text-[9px] text-slate-400 dark:text-slate-400 font-semibold truncate">{translate('Saved Items')}</span>
                         </div>
                       </button>
                     </div>
@@ -489,9 +489,9 @@ export default function Navbar({
                           }`}>
                             <Compass className="w-4 h-4" />
                           </div>
-                          <div className="text-left">
-                            <p className="font-extrabold leading-tight">{translate("My Dashboard")}</p>
-                            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium leading-none mt-0.5">Overview & Quick Actions</p>
+                          <div className="text-start">
+                            <p className="font-extrabold leading-tight">{translate(`My Dashboard`)}</p>
+                            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium leading-none mt-0.5">{translate('Overview & Quick Actions')}</p>
                           </div>
                         </div>
                         <ChevronRight className="w-4 h-4 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -517,9 +517,9 @@ export default function Navbar({
                           }`}>
                             <Calendar className="w-4 h-4" />
                           </div>
-                          <div className="text-left">
-                            <p className="font-extrabold leading-tight">{translate("My Bookings")}</p>
-                            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium leading-none mt-0.5">Tours, Hotels & Rentals</p>
+                          <div className="text-start">
+                            <p className="font-extrabold leading-tight">{translate(`My Bookings`)}</p>
+                            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium leading-none mt-0.5">{translate('Tours, Hotels & Rentals')}</p>
                           </div>
                         </div>
                         <ChevronRight className="w-4 h-4 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -545,9 +545,9 @@ export default function Navbar({
                           }`}>
                             <Settings className="w-4 h-4" />
                           </div>
-                          <div className="text-left">
-                            <p className="font-extrabold leading-tight">{translate("Profile Settings")}</p>
-                            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium leading-none mt-0.5">Security & Preferences</p>
+                          <div className="text-start">
+                            <p className="font-extrabold leading-tight">{translate(`Profile Settings`)}</p>
+                            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium leading-none mt-0.5">{translate('Security & Preferences')}</p>
                           </div>
                         </div>
                         <ChevronRight className="w-4 h-4 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -567,9 +567,9 @@ export default function Navbar({
                               <div className="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center shadow-xs">
                                 <ShieldAlert className="w-4 h-4 animate-pulse" />
                               </div>
-                              <div className="text-left">
+                              <div className="text-start">
                                 <p className="font-extrabold leading-tight">{translate('Admin Panel')}</p>
-                                <p className="text-[10px] text-amber-600/80 dark:text-amber-400/80 font-semibold leading-none mt-0.5">Manage Platform & Bookings</p>
+                                <p className="text-[10px] text-amber-600/80 dark:text-amber-400/80 font-semibold leading-none mt-0.5">{translate('Manage Platform & Bookings')}</p>
                               </div>
                             </div>
                             <Sparkles className="w-4 h-4 text-amber-500" />
@@ -586,7 +586,7 @@ export default function Navbar({
                           <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
                              {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
                           </div>
-                          <div className="text-left">
+                          <div className="text-start">
                             <p className="font-extrabold leading-tight">{darkMode ? "Light Mode" : "Dark Mode"}</p>
                           </div>
                         </div>
@@ -613,9 +613,9 @@ export default function Navbar({
                           <div className="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center group-hover:bg-rose-500 group-hover:text-white transition-colors">
                             <LogOut className="w-4 h-4" />
                           </div>
-                          <div className="text-left">
-                            <p className="font-extrabold leading-tight">{translate("Sign Out")}</p>
-                            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium leading-none mt-0.5">End active session</p>
+                          <div className="text-start">
+                            <p className="font-extrabold leading-tight">{translate(`Sign Out`)}</p>
+                            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium leading-none mt-0.5">{translate('End active session')}</p>
                           </div>
                         </div>
                       </button>
@@ -659,7 +659,7 @@ export default function Navbar({
               id="phone-link-mobile-icon"
               href="tel:+94771231234"
               className="w-10 h-10 flex items-center justify-center bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-full text-[#0091EA] dark:text-sky-400 active:bg-[#0091EA]/10 transition-all active:scale-90 shrink-0"
-              title="Call us"
+              title={translate(`Call us`)}
             >
               <Phone className="w-4.5 h-4.5" />
             </a>
@@ -691,7 +691,7 @@ export default function Navbar({
             {/* Account Panel at very top of Mobile Drawer */}
             <div className="border-b border-slate-100 dark:border-slate-800 pb-5">
               {currentUser ? (
-                <div className="flex items-center gap-3.5 text-left bg-gradient-to-r from-sky-500/10 via-[#0091EA]/5 to-indigo-500/10 dark:from-slate-800 dark:to-slate-800/90 p-4 rounded-2xl border border-sky-500/20 dark:border-slate-700">
+                <div className="flex items-center gap-3.5 text-start bg-gradient-to-r from-sky-500/10 via-[#0091EA]/5 to-indigo-500/10 dark:from-slate-800 dark:to-slate-800/90 p-4 rounded-2xl border border-sky-500/20 dark:border-slate-700">
                   <div className="relative shrink-0">
                     <div className="w-11 h-11 bg-gradient-to-tr from-[#0091EA] to-indigo-600 text-white flex items-center justify-center font-black text-base rounded-2xl shadow-sm overflow-hidden">
                       {userProfile?.avatar || userProfile?.photoURL || userProfile?.profile_image ? (
@@ -735,7 +735,7 @@ export default function Navbar({
                   className="w-full flex items-center justify-center gap-2 bg-[#0A2540] dark:bg-slate-800 hover:bg-[#0091EA] dark:hover:bg-[#0091EA] text-white font-extrabold py-3.5 rounded-xl text-xs uppercase tracking-wider cursor-pointer"
                 >
                   <User className="w-4 h-4" />
-                  <span>Sign In / Register</span>
+                  <span>{translate('Sign In / Register')}</span>
                 </button>
               )}
             </div>
@@ -745,7 +745,7 @@ export default function Navbar({
               {/* 1. Home */}
               <button
                 onClick={() => handleNavLinkClick('home')}
-                className={`w-full text-left px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
+                className={`w-full text-start px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
                   isActive('home')
                     ? 'bg-[#0091EA]/10 text-[#0091EA]' 
                     : 'text-[#0A2540] dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50'
@@ -775,15 +775,15 @@ export default function Navbar({
                         setCurrentPage('tour');
                         setMobileMenuOpen(false);
                       }}
-                      className="w-full text-left py-2 text-xs font-bold text-[#0A2540] dark:text-slate-200 hover:text-[#0091EA] dark:hover:text-[#0091EA] border-b border-dashed border-slate-100 dark:border-slate-800"
+                      className="w-full text-start py-2 text-xs font-bold text-[#0A2540] dark:text-slate-200 hover:text-[#0091EA] dark:hover:text-[#0091EA] border-b border-dashed border-slate-100 dark:border-slate-800"
                     >
-                      {translate("View All Tours")}
+                      {translate(`View All Tours`)}
                     </button>
                     {tourCategories.map((cat, idx) => (
                       <button
                         key={idx}
                         onClick={() => handleTourCategoryClick(cat.dbValue)}
-                        className="w-full text-left py-2 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-[#0091EA] dark:hover:text-sky-400"
+                        className="w-full text-start py-2 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-[#0091EA] dark:hover:text-sky-400"
                       >
                         {translate(cat.label)}
                       </button>
@@ -795,7 +795,7 @@ export default function Navbar({
               {/* 3. Rent a Car */}
               <button
                 onClick={() => handleNavLinkClick('rent-a-car')}
-                className={`w-full text-left px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
+                className={`w-full text-start px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
                   isActive('rent-a-car')
                     ? 'bg-[#0091EA]/10 text-[#0091EA]' 
                     : 'text-[#0A2540] dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50'
@@ -807,7 +807,7 @@ export default function Navbar({
               {/* 4. Contact Us */}
               <button
                 onClick={() => handleNavLinkClick('contact-us')}
-                className={`w-full text-left px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
+                className={`w-full text-start px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
                   isActive('contact-us')
                     ? 'bg-[#0091EA]/10 text-[#0091EA]' 
                     : 'text-[#0A2540] dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50'
@@ -819,7 +819,7 @@ export default function Navbar({
               {/* 5. About Us */}
               <button
                 onClick={() => handleNavLinkClick('about-us')}
-                className={`w-full text-left px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
+                className={`w-full text-start px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
                   isActive('about-us')
                     ? 'bg-[#0091EA]/10 text-[#0091EA]' 
                     : 'text-[#0A2540] dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50'
@@ -831,7 +831,7 @@ export default function Navbar({
               {/* 6. Blog */}
               <button
                 onClick={() => handleNavLinkClick('blog')}
-                className={`w-full text-left px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${currentPage === 'blog' ? 'bg-[#0091EA]/10 text-[#0091EA] dark:bg-[#0091EA]/20 dark:text-[#0091EA]' : 'text-[#0A2540] dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}
+                className={`w-full text-start px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${currentPage === 'blog' ? 'bg-[#0091EA]/10 text-[#0091EA] dark:bg-[#0091EA]/20 dark:text-[#0091EA]' : 'text-[#0A2540] dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}
               >
                 {t.blog || 'Blog'}
               </button>
@@ -843,7 +843,7 @@ export default function Navbar({
               >
                 <div className="flex items-center gap-2">
                   <Heart className="w-4 h-4 text-rose-500 fill-rose-500/20" />
-                  <span>Wishlist</span>
+                  <span>{translate('Wishlist')}</span>
                 </div>
                 {wishlistCount > 0 && (
                   <span className="px-2 py-0.5 rounded-full bg-rose-500 text-white text-[10px] font-black">
@@ -855,18 +855,18 @@ export default function Navbar({
               {/* Logged in member navigation accordion */}
               {currentUser && (
                 <div className="border-t border-slate-100 dark:border-slate-800 pt-3 mt-3 space-y-1">
-                  <span className="block text-[10px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-4 mb-2">{translate("Member Dashboard")}</span>
+                  <span className="block text-[10px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-4 mb-2">{translate(`Member Dashboard`)}</span>
                   
                   <button
                     onClick={() => {
                       setMobileMenuOpen(false);
                       setCurrentPage('account-dashboard');
                     }}
-                    className={`w-full text-left px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
+                    className={`w-full text-start px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
                       isActive('account-dashboard') && currentPage === 'account-dashboard' ? 'bg-[#0091EA]/10 text-[#0091EA]' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50'
                     }`}
                   >
-                    {translate("My Dashboard")}
+                    {translate(`My Dashboard`)}
                   </button>
 
                   <button
@@ -874,11 +874,11 @@ export default function Navbar({
                       setMobileMenuOpen(false);
                       setCurrentPage('account-bookings');
                     }}
-                    className={`w-full text-left px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
+                    className={`w-full text-start px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
                       isActive('account-dashboard') && currentPage === 'account-bookings' ? 'bg-[#0091EA]/10 text-[#0091EA]' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50'
                     }`}
                   >
-                    {translate("My Bookings")}
+                    {translate(`My Bookings`)}
                   </button>
 
                   <button
@@ -886,11 +886,11 @@ export default function Navbar({
                       setMobileMenuOpen(false);
                       setCurrentPage('account-settings');
                     }}
-                    className={`w-full text-left px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
+                    className={`w-full text-start px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
                       isActive('account-dashboard') && currentPage === 'account-settings' ? 'bg-[#0091EA]/10 text-[#0091EA]' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50'
                     }`}
                   >
-                    {translate("Profile Settings")}
+                    {translate(`Profile Settings`)}
                   </button>
 
                   {['admin', 'hotel_manager', 'car_manager', 'flight_manager', 'tour_manager'].includes(userProfile?.role) && (
@@ -899,7 +899,7 @@ export default function Navbar({
                         setMobileMenuOpen(false);
                         setCurrentPage('admin');
                       }}
-                      className="w-full text-left px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase text-amber-700 bg-amber-50/40 hover:bg-amber-50 dark:hover:bg-amber-950/40 transition-all cursor-pointer"
+                      className="w-full text-start px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase text-amber-700 bg-amber-50/40 hover:bg-amber-50 dark:hover:bg-amber-950/40 transition-all cursor-pointer"
                     >
                       {translate('Admin Panel')}
                     </button>
@@ -910,9 +910,9 @@ export default function Navbar({
                       setMobileMenuOpen(false);
                       if (onLogout) onLogout();
                     }}
-                    className="w-full text-left px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase text-rose-500 hover:bg-rose-50/50 dark:hover:bg-rose-950/20 transition-all cursor-pointer"
+                    className="w-full text-start px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase text-rose-500 hover:bg-rose-50/50 dark:hover:bg-rose-950/20 transition-all cursor-pointer"
                   >
-                    Sign Out
+                    {translate(`Sign Out`)}
                   </button>
                 </div>
               )}
@@ -928,7 +928,7 @@ export default function Navbar({
                 <div className="w-9 h-9 rounded-full bg-[#0091EA]/10 flex items-center justify-center text-[#0091EA]">
                   <PhoneCall className="w-4 h-4" />
                 </div>
-                <div className="text-left">
+                <div className="text-start">
                   <span className="block text-[8px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">{translate('Hotline')}</span>
                   <a href="tel:+94771231234" className="block text-xs font-extrabold text-[#0A2540] dark:text-slate-200 hover:text-[#0091EA] transition-colors mt-0.5">+94 77 123 1234</a>
                 </div>

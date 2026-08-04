@@ -376,13 +376,13 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
         {/* TOP TRUST SUMMARY BAR */}
         <div className="bg-slate-950 rounded-[32px] border-2 border-sky-400/40 p-6 md:p-8 mb-14 shadow-2xl text-white relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8">
           
-          <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
+          <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-start">
             
             {/* Trustpilot Box */}
             <div className="flex flex-col items-center sm:items-start border-b sm:border-b-0 sm:border-r border-sky-800/60 pb-4 sm:pb-0 sm:pr-6">
               <div className="flex items-center gap-1.5 text-emerald-400 font-extrabold text-xs uppercase tracking-widest mb-1">
                 <Star className="w-4 h-4 fill-emerald-400" />
-                <span>Trustpilot</span>
+                <span>{translate('Trustpilot')}</span>
               </div>
               <div className="flex items-center gap-1 my-1">
                 {[1, 2, 3, 4, 5].map((s) => (
@@ -391,8 +391,8 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
                   </div>
                 ))}
               </div>
-              <p className="text-xs font-bold text-slate-300 mt-1">
-                <strong className="text-white">4.9 / 5.0</strong> • {translate('Based on 1,480+ verified reviews')}
+              <p className="text-xs font-bold text-slate-300 mt-1 flex items-center justify-center sm:justify-start gap-1">
+                <strong className="text-white" dir="ltr">4.9 / 5.0</strong> <span>• {translate('Based on 1,480+ verified reviews')}</span>
               </p>
             </div>
 
@@ -400,7 +400,7 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
             <div className="flex flex-col items-center sm:items-start">
               <div className="flex items-center gap-1.5 text-sky-400 font-extrabold text-xs uppercase tracking-widest mb-1">
                 <Star className="w-4 h-4 fill-sky-400" />
-                <span>Google Reviews</span>
+                <span>{translate('Google Reviews')}</span>
               </div>
               <div className="flex items-center gap-1 text-amber-400 text-lg font-black my-0.5">
                 <span>4.9</span>
@@ -410,8 +410,8 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
                   ))}
                 </div>
               </div>
-              <p className="text-xs font-bold text-slate-300">
-                820+ {translate('Authentic Traveler Ratings')}
+              <p className="text-xs font-bold text-slate-300 flex items-center justify-center sm:justify-start gap-1">
+                <span dir="ltr">820+</span> <span>{translate('Authentic Traveler Ratings')}</span>
               </p>
             </div>
 
@@ -501,16 +501,16 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
                           alt={rev.author}
                           className="w-12 h-12 rounded-full object-cover ring-2 ring-[#0091EA] bg-slate-100 dark:bg-slate-800" 
                           referrerPolicy="no-referrer"
-                          onError={(e) => {
+                          onError={(e) => { e.currentTarget.onerror = null;
                             (e.target as any).src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(rev.author)}`;
                           }}
                         />
                         <div>
                           <div className="flex items-center gap-1.5">
-                            <h4 className="text-base font-black text-slate-900 dark:text-white">{rev.author}</h4>
+                            <h4 className="text-base font-black text-slate-900 dark:text-white">{translate(rev.author)}</h4>
                             <span className="text-sm">{rev.flag}</span>
                           </div>
-                          <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">{rev.location}</p>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">{translate(rev.location)}</p>
                         </div>
                       </div>
 
@@ -530,7 +530,7 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
                         ))}
                       </div>
                       <span className="text-[11px] font-bold text-[#0091EA] line-clamp-1 truncate max-w-[220px]">
-                        {rev.tourName}
+                        {translate(rev.tourName)}
                       </span>
                     </div>
 
@@ -574,7 +574,7 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
 
                   {/* Footer: Date & Helpful Vote */}
                   <div className="pt-4 border-t border-sky-100 dark:border-sky-900/40 flex items-center justify-between text-xs text-slate-400">
-                    <span className="font-semibold">{rev.date}</span>
+                    <span className="font-semibold">{translate(rev.date)}</span>
 
                     <button
                       onClick={() => toggleLike(rev.id)}
@@ -767,10 +767,10 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
                       >
                         <option value="Luxury Sri Lanka Grand Tour • 14 Days">Luxury Sri Lanka Grand Tour • 14 Days</option>
                         <option value="Wild Sri Lanka Leopard Safari • 3 Days">Wild Sri Lanka Leopard Safari • 3 Days</option>
-                        <option value="Elite Sanctuary Ayurveda & Yoga Retreat">Elite Sanctuary Ayurveda Retreat</option>
+                        <option value="Elite Sanctuary Ayurveda & Yoga Retreat">{translate('Elite Sanctuary Ayurveda Retreat')}</option>
                         <option value="Southern Coast & Beach Escape • 10 Days">Southern Coast Beach Escape • 10 Days</option>
-                        <option value="Tea Country & Sigiriya Rock Expedition">Tea Country & Cultural Triangle Expedition</option>
-                        <option value="Custom Bespoke Sri Lanka Tour">Custom Bespoke Sri Lanka Tour</option>
+                        <option value="Tea Country & Sigiriya Rock Expedition">{translate('Tea Country & Cultural Triangle Expedition')}</option>
+                        <option value="Custom Bespoke Sri Lanka Tour">{translate('Custom Bespoke Sri Lanka Tour')}</option>
                       </select>
                     </div>
 
@@ -781,9 +781,9 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
                         onChange={(e) => setNewCategory(e.target.value as any)}
                         className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-950 border border-sky-200 dark:border-sky-800 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#0091EA]"
                       >
-                        <option value="honeymoon">Honeymoon & Couples</option>
-                        <option value="family">Family Trips</option>
-                        <option value="solo">Solo & Wellness</option>
+                        <option value="honeymoon">{translate('Honeymoon & Couples')}</option>
+                        <option value="family">{translate('Family Trips')}</option>
+                        <option value="solo">{translate('Solo & Wellness')}</option>
                       </select>
                     </div>
                   </div>
@@ -825,7 +825,7 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
                     <textarea 
                       rows={3}
                       required
-                      placeholder="Share details about the locations, driver guide, luxury villas, meals and favorite moments..."
+                      placeholder={translate(`Share details about the locations, driver guide, luxury villas, meals and favorite moments...`)}
                       value={newComment}
                       onChange={(e) => setNewComment(e.target.value)}
                       className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-950 border border-sky-200 dark:border-sky-800 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#0091EA]"
@@ -862,7 +862,7 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
                       <div className="flex items-center gap-1 flex-1 min-w-[180px]">
                         <input
                           type="url"
-                          placeholder="Paste image URL..."
+                          placeholder={translate(`Paste image URL...`)}
                           value={photoUrlInput}
                           onChange={(e) => setPhotoUrlInput(e.target.value)}
                           className="w-full px-2.5 py-1.5 bg-white dark:bg-slate-900 border border-sky-200 dark:border-sky-800 rounded-xl text-[11px] font-medium focus:outline-none"

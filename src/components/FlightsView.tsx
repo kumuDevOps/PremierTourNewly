@@ -232,7 +232,7 @@ export default function FlightsView({
             </div>
 
             {/* Simulated Boarding Pass */}
-            <div className="border border-dashed border-gray-200 dark:border-slate-800 rounded-2xl p-4 bg-gray-50/80 dark:bg-slate-950 text-left space-y-4">
+            <div className="border border-dashed border-gray-200 dark:border-slate-800 rounded-2xl p-4 bg-gray-50/80 dark:bg-slate-950 text-start space-y-4">
               <div className="flex justify-between items-center text-xs border-b border-dashed border-gray-200 dark:border-slate-800 pb-3 font-mono">
                 <span>{translate('PREMIER BOARDING PASS')}</span>
                 <span className="font-bold text-[#0091EA]">{bookingConfirmation.bookingId}</span>
@@ -244,7 +244,7 @@ export default function FlightsView({
                   <h4 className="text-sm font-extrabold text-gray-800 dark:text-slate-200 mt-0.5">{bookingConfirmation.flight.fromCity}</h4>
                 </div>
                 <ArrowRight className="w-4 h-4 text-gray-400" />
-                <div className="text-right">
+                <div className="text-end">
                   <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">{translate('Destination')}</span>
                   <h4 className="text-sm font-extrabold text-gray-800 dark:text-slate-200 mt-0.5">{bookingConfirmation.flight.toCity}</h4>
                 </div>
@@ -282,7 +282,7 @@ export default function FlightsView({
             
             {/* Left Col: Search filters Form */}
             <div className="space-y-6">
-              <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-6 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 shadow-xl shadow-sky-500/10 text-left animate-blue-glow">
+              <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-6 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 shadow-xl shadow-sky-500/10 text-start animate-blue-glow">
                 <h3 className="font-black text-slate-900 dark:text-slate-100 text-base mb-4 flex items-center gap-2">
                   <Plane className="w-5 h-5 text-[#0091EA]" />
                   <span className="bg-gradient-to-r from-slate-900 via-sky-900 to-[#0091EA] dark:from-white dark:via-sky-200 dark:to-cyan-300 bg-clip-text text-transparent">
@@ -378,7 +378,7 @@ export default function FlightsView({
               </div>
 
               {/* Luggage assistance info */}
-              <div className="bg-gradient-to-br from-white via-sky-50/30 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-5 rounded-2xl border-2 border-sky-100 dark:border-sky-900/40 text-left space-y-2.5 shadow-sm">
+              <div className="bg-gradient-to-br from-white via-sky-50/30 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-5 rounded-2xl border-2 border-sky-100 dark:border-sky-900/40 text-start space-y-2.5 shadow-sm">
                 <h4 className="text-xs font-black text-slate-900 dark:text-slate-100 uppercase tracking-wider flex items-center gap-1.5">
                   <Luggage className="w-4 h-4 text-[#0091EA]" />
                   {translate('Baggage Allowances')}
@@ -393,7 +393,7 @@ export default function FlightsView({
             <div className="md:col-span-2 space-y-6">
               
              {selectedFlight ? (
-                <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-lg text-left">
+                <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-lg text-start">
                   
                   {/* Cancel / Back to results */}
                   <div className="flex items-center justify-between border-b border-gray-100 dark:border-slate-800 pb-4 mb-6">
@@ -431,7 +431,7 @@ export default function FlightsView({
                       <input
                         type="text"
                         required
-                        placeholder="Sarah Smith"
+                        placeholder={translate(`Sarah Smith`)}
                         value={passengerName}
                         onChange={(e) => setPassengerName(e.target.value)}
                         className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-200 rounded-xl focus:ring-2 focus:ring-[#0091EA] focus:outline-none text-sm mt-1"
@@ -495,7 +495,7 @@ export default function FlightsView({
 
                   {!loading && !error && flights.length > 0 && (
                     <div className="space-y-4">
-                      <div className="text-left">
+                      <div className="text-start">
                         <h4 className="text-sm font-bold text-gray-800 dark:text-white">{translate('Available Flight Schedules')} ({flights.length})</h4>
                       </div>
 
@@ -503,7 +503,7 @@ export default function FlightsView({
                         <div 
                           key={flight.id} 
                           onClick={() => setSelectedFlight(flight)}
-                          className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 rounded-[28px] border-2 border-sky-200/80 dark:border-sky-800/60 hover:border-[#0091EA] p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 transition-all duration-300 shadow-lg shadow-sky-500/10 hover:shadow-xl hover:shadow-sky-500/20 hover:-translate-y-1 text-left animate-blue-glow group cursor-pointer"
+                          className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 rounded-[28px] border-2 border-sky-200/80 dark:border-sky-800/60 hover:border-[#0091EA] p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 transition-all duration-300 shadow-lg shadow-sky-500/10 hover:shadow-xl hover:shadow-sky-500/20 hover:-translate-y-1 text-start animate-blue-glow group cursor-pointer"
                         >
                           <div className="flex items-center gap-3.5">
                             <div className="w-12 h-12 bg-gradient-to-tr from-[#0091EA] via-sky-500 to-cyan-400 text-white rounded-2xl flex items-center justify-center shadow-md shadow-sky-500/30 shrink-0">

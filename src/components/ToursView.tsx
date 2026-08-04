@@ -461,7 +461,8 @@ export default function ToursView({
     const matchesSearch = 
       (tour.title && tour.title.toLowerCase().includes(q)) || 
       (tour.category && tour.category.toLowerCase().includes(q)) ||
-      (tour.description && tour.description.toLowerCase().includes(q));
+      (tour.description && tour.description.toLowerCase().includes(q)) ||
+      (tour.location && tour.location.toLowerCase().includes(q));
     return matchesSearch;
   });
 
@@ -528,7 +529,7 @@ export default function ToursView({
                           alt={translate(activeTour.title)} 
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                           referrerPolicy="no-referrer" 
-                          onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=1200'; }}
+                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.onerror = null; e.currentTarget.src = 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=1200'; }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent" />
                         <div className="absolute bottom-6 left-6 right-6">
@@ -554,13 +555,13 @@ export default function ToursView({
                               src={imgUrl} 
                               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                               alt={`${activeTour.title} - Luxury Holidays & Safari Gallery Photo ${actualIdx}`} 
-                              onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600'; }}
+                              onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.onerror = null; e.currentTarget.src = 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600'; }}
                             />
                             {isLast ? (
                               <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center transition-colors group-hover:bg-slate-950/70">
                                 <span className="flex items-center gap-2 text-white font-black text-xs bg-gradient-to-r from-[#0091EA] to-cyan-500 px-4 py-2.5 rounded-xl border border-sky-300/40 shadow-xl">
                                   <ImageIcon className="w-4 h-4" />
-                                  <span>View all ({tourGallery.length}) photos</span>
+                                  <span>{translate('View all')} ({tourGallery.length}) {translate('photos')}</span>
                                 </span>
                               </div>
                             ) : (
@@ -638,7 +639,7 @@ export default function ToursView({
                         <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium mb-3">
                           {translate(pkg.desc)}
                         </p>
-                        <button onClick={() => onNavigate && onNavigate('hotels')} className="text-[#0091EA] dark:text-sky-400 text-xs font-black text-left hover:underline w-fit flex items-center gap-1">
+                        <button onClick={() => onNavigate && onNavigate('hotels')} className="text-[#0091EA] dark:text-sky-400 text-xs font-black text-start hover:underline w-fit flex items-center gap-1">
                           {translate('Show details')} →
                         </button>
                       </div>
@@ -680,9 +681,9 @@ export default function ToursView({
                     try {
                       const days: ItineraryDay[] = JSON.parse(activeTour.itinerary);
                       return days.map((day, idx) => (
-                        <div key={`itinerary-day-${day.day}-${idx}`} id={`itinerary-day-${day.day}-${idx}`} className="relative pl-12 text-left group">
+                        <div key={`itinerary-day-${day.day}-${idx}`} id={`itinerary-day-${day.day}-${idx}`} className="relative pl-12 text-start group">
                           {/* Circle Timeline indicator */}
-                          <div className="absolute left-0 top-0.5 w-8 h-8 rounded-full bg-gradient-to-tr from-[#0091EA] to-cyan-400 border-2 border-white dark:border-slate-900 flex items-center justify-center text-xs font-black text-white shadow-md shadow-sky-500/30 group-hover:scale-125 transition-all duration-300 z-10">
+                          <div className="absolute start-0 top-0.5 w-8 h-8 rounded-full bg-gradient-to-tr from-[#0091EA] to-cyan-400 border-2 border-white dark:border-slate-900 flex items-center justify-center text-xs font-black text-white shadow-md shadow-sky-500/30 group-hover:scale-125 transition-all duration-300 z-10">
                             {day.day}
                           </div>
                           <div className="p-4 bg-white/80 dark:bg-slate-800/60 rounded-2xl border border-sky-100 dark:border-sky-900/40 shadow-xs group-hover:shadow-md group-hover:border-sky-300 transition-all">
@@ -838,7 +839,7 @@ export default function ToursView({
                         const pct = reviewsList.length > 0 ? (count / reviewsList.length) * 100 : 0;
                         return (
                           <div key={`breakdown-${ratingVal}`} className="flex items-center gap-3 text-xs">
-                            <span className="w-8 text-right font-black text-gray-700 dark:text-slate-300 flex items-center justify-end gap-1">
+                            <span className="w-8 text-end font-black text-gray-700 dark:text-slate-300 flex items-center justify-end gap-1">
                               {ratingVal} <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                             </span>
                             <div className="flex-1 h-2.5 bg-sky-100/80 dark:bg-slate-800 rounded-full overflow-hidden shadow-inner">
@@ -849,7 +850,7 @@ export default function ToursView({
                                 className="h-full bg-gradient-to-r from-[#0091EA] via-sky-400 to-cyan-400 rounded-full shadow-sm"
                               />
                             </div>
-                            <span className="w-8 text-sky-600 dark:text-sky-400 text-left font-black">
+                            <span className="w-8 text-sky-600 dark:text-sky-400 text-start font-black">
                               {count}
                             </span>
                           </div>
@@ -862,7 +863,7 @@ export default function ToursView({
                 {/* Submission Form for Authenticated Users */}
                 <div className="bg-white/90 dark:bg-slate-900/80 backdrop-blur-md p-6 sm:p-8 rounded-[28px] border-2 border-sky-200/80 dark:border-sky-800/60 shadow-lg shadow-sky-500/5 relative z-10">
                   {currentUser ? (
-                    <form onSubmit={handleSubmitReview} className="space-y-6 text-left">
+                    <form onSubmit={handleSubmitReview} className="space-y-6 text-start">
                       <h4 className="text-base sm:text-lg font-black text-gray-900 dark:text-white flex items-center gap-2">
                         <Sparkles className="w-4 h-4 text-sky-500 animate-spin" />
                         {translate('Write a Review')}
@@ -994,7 +995,7 @@ export default function ToursView({
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: idx * 0.08 }}
-                          className="flex gap-4 text-left p-5 bg-white/80 dark:bg-slate-900/70 rounded-2xl border border-sky-100 dark:border-sky-900/40 shadow-sm hover:shadow-md hover:border-sky-300 dark:hover:border-sky-700 transition-all"
+                          className="flex gap-4 text-start p-5 bg-white/80 dark:bg-slate-900/70 rounded-2xl border border-sky-100 dark:border-sky-900/40 shadow-sm hover:shadow-md hover:border-sky-300 dark:hover:border-sky-700 transition-all"
                         >
                           <div className="shrink-0 mt-1">
                             <div className="w-11 h-11 rounded-2xl flex items-center justify-center font-black text-white text-sm shadow-md shadow-sky-500/10 animate-light-blue-pulse" style={{ backgroundColor: review.rating >= 4.5 ? '#0091EA' : review.rating >= 3 ? '#0284c7' : '#0369a1' }}>
@@ -1057,7 +1058,7 @@ export default function ToursView({
                     </motion.button>
                   </div>
                 ) : (
-                  <form onSubmit={handleBookSubmit} className="space-y-4 text-left">
+                  <form onSubmit={handleBookSubmit} className="space-y-4 text-start">
                     <div className="border-b border-sky-200/80 dark:border-sky-800/60 pb-4">
                       <span className="text-[10px] text-sky-700 dark:text-sky-300 font-black uppercase tracking-widest">{translate('Start Planning')}</span>
                       <div className="flex items-baseline gap-1 mt-1">
@@ -1071,7 +1072,7 @@ export default function ToursView({
                       <input
                         type="text"
                         required
-                        placeholder="Sarah Smith"
+                        placeholder={translate(`Sarah Smith`)}
                         value={bookingName}
                         onChange={(e) => setBookingName(e.target.value)}
                         className="w-full px-4 py-2.5 border-2 border-sky-200 dark:border-sky-800/80 bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-[#0091EA] focus:border-[#0091EA] focus:outline-none rounded-xl text-sm mt-1 transition-all shadow-inner"
@@ -1240,42 +1241,9 @@ export default function ToursView({
                       type="text"
                       placeholder={translate('Destination, title...')}
                       value={searchQuery}
-                      onFocus={() => setSearchDropdownOpen(true)}
-                      onChange={(e) => {
-                        setSearchQuery(e.target.value);
-                        setSearchDropdownOpen(true);
-                      }}
+                      onChange={(e) => setSearchQuery(e.target.value)}
                       className="w-full pl-11 pr-4 py-3 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 focus:border-[#0091EA] rounded-2xl text-xs md:text-sm font-bold focus:outline-none transition-all text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 shadow-xs"
                     />
-                    {searchDropdownOpen && searchQuery.length > 0 && filteredTours.length > 0 && (
-                      <>
-                        <div className="fixed inset-0 z-20" onClick={() => setSearchDropdownOpen(false)} />
-                        <div className="absolute top-[105%] right-0 w-full bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border-2 border-sky-200/80 dark:border-sky-800/80 z-30 p-2 max-h-[300px] overflow-y-auto animate-fade-in text-left">
-                          {filteredTours.map((tour) => (
-                            <div 
-                              key={`suggest-tour-${tour.id}`}
-                              onClick={() => {
-                                setSearchQuery(tour.title);
-                                setSearchDropdownOpen(false);
-                              }}
-                              className="flex items-center gap-3 p-2.5 hover:bg-sky-50 dark:hover:bg-slate-800 rounded-xl cursor-pointer transition-colors"
-                            >
-                              <img 
-                                src={tour.imageUrl || 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=100'} 
-                                alt="" 
-                                className="w-10 h-10 rounded-lg object-cover bg-gray-100" 
-                                referrerPolicy="no-referrer"
-                                onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=100'; }}
-                              />
-                              <div>
-                                <p className="text-sm font-bold text-gray-800 dark:text-slate-200 line-clamp-1">{translate(tour.title)}</p>
-                                <p className="text-[10px] font-black text-[#0091EA] uppercase mt-0.5 tracking-widest">{translate(tour.category)}</p>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </>
-                    )}
                   </div>
                 </div>
 
@@ -1382,7 +1350,7 @@ export default function ToursView({
                             alt={translate(tour.title)} 
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             referrerPolicy="no-referrer"
-                            onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800'; }}
+                            onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.onerror = null; e.currentTarget.src = 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800'; }}
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60"></div>
                           
@@ -1393,7 +1361,7 @@ export default function ToursView({
                               addToWishlist(tour);
                             }}
                             className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-slate-950/80 backdrop-blur-md border border-sky-400/30 flex items-center justify-center text-white shadow-lg hover:bg-[#0091EA] hover:text-white transition-all cursor-pointer group/wishlist"
-                            aria-label="Add to wishlist"
+                            aria-label={translate(`Add to wishlist`)}
                           >
                             <Heart className="w-4 h-4 group-hover/wishlist:fill-current" />
                           </button>
@@ -1481,8 +1449,8 @@ export default function ToursView({
             setBookingPhone('');
           }}
           bookingType="tour"
-          title={activeTour.title}
-          subtitle={activeTour.category}
+          title={translate(activeTour.title)}
+          subtitle={translate(activeTour.category)}
           dates={{ start: bookingDate, days: activeTour.days }}
           travelers={bookingGuests}
           pricePerUnit={activeTour.price}
@@ -1544,7 +1512,7 @@ export default function ToursView({
                   type="button"
                   onClick={() => setLightboxOpen(false)}
                   className="p-2 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors cursor-pointer"
-                  title="Close Gallery"
+                  title={translate(`Close Gallery`)}
                 >
                   <X className="w-6 h-6" />
                 </button>
@@ -1557,7 +1525,7 @@ export default function ToursView({
                 type="button"
                 onClick={() => setLightboxIndex((prev) => (prev > 0 ? prev - 1 : gallery.length - 1))}
                 className="absolute left-2 md:left-6 z-20 p-3 bg-black/60 hover:bg-[#0091EA] text-white rounded-full transition-all backdrop-blur-md shadow-2xl cursor-pointer"
-                title="Previous Photo"
+                title={translate(`Previous Photo`)}
               >
                 <ChevronLeft className="w-6 h-6" />
               </button>
@@ -1566,7 +1534,7 @@ export default function ToursView({
                 src={currentImg}
                 alt={`Tour photo ${lightboxIndex + 1}`}
                 className="max-h-[70vh] md:max-h-[78vh] max-w-full object-contain rounded-2xl shadow-2xl transition-all duration-300"
-                onError={(e) => {
+                onError={(e) => { e.currentTarget.onerror = null;
                   (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200';
                 }}
               />
@@ -1575,7 +1543,7 @@ export default function ToursView({
                 type="button"
                 onClick={() => setLightboxIndex((prev) => (prev < gallery.length - 1 ? prev + 1 : 0))}
                 className="absolute right-2 md:right-6 z-20 p-3 bg-black/60 hover:bg-[#0091EA] text-white rounded-full transition-all backdrop-blur-md shadow-2xl cursor-pointer"
-                title="Next Photo"
+                title={translate(`Next Photo`)}
               >
                 <ChevronRight className="w-6 h-6" />
               </button>
@@ -1598,7 +1566,7 @@ export default function ToursView({
                     src={url}
                     alt={`Thumb ${idx + 1}`}
                     className="w-full h-full object-cover"
-                    onError={(e) => {
+                    onError={(e) => { e.currentTarget.onerror = null;
                       (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800';
                     }}
                   />

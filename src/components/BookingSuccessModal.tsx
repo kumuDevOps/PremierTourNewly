@@ -87,7 +87,7 @@ export default function BookingSuccessModal({
           </div>
 
           {/* Receipt Summary Card */}
-          <div className="w-full bg-slate-50 border border-slate-100 rounded-2xl p-5 text-left text-sm space-y-4">
+          <div className="w-full bg-slate-50 border border-slate-100 rounded-2xl p-5 text-start text-sm space-y-4">
             <div className="flex justify-between items-center border-b border-slate-200 pb-3">
               <span className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">{translate('Order Summary')}</span>
               <span className="font-mono text-[11px] text-slate-600 font-bold">#{orderNumber}</span>
@@ -96,7 +96,7 @@ export default function BookingSuccessModal({
             <div className="space-y-3 text-slate-700">
               <div className="flex justify-between items-start gap-4">
                 <span className="font-medium text-slate-500">{translate('Arrangement')}:</span>
-                <span className="font-bold text-slate-900 text-right">{title}</span>
+                <span className="font-bold text-slate-900 text-end">{title}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="font-medium text-slate-500">{translate('Total Amount')}:</span>
@@ -106,7 +106,7 @@ export default function BookingSuccessModal({
               {bookingDetails.map((detail, idx) => (
                 <div key={idx} className="flex justify-between items-start gap-4">
                   <span className="font-medium text-slate-500">{translate(detail.label)}:</span>
-                  <span className="font-bold text-slate-800 text-right">{detail.value}</span>
+                  <span className="font-bold text-slate-800 text-end">{detail.value}</span>
                 </div>
               ))}
             </div>
