@@ -47,7 +47,7 @@ export const CurrencySelector: React.FC<CurrencySelectorProps> = ({
       <div className={`w-full space-y-2 ${className}`}>
         <label className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider px-1 flex items-center gap-1.5">
           <Coins className="w-3.5 h-3.5 text-[#0091EA]" />
-          <span>Currency / Display Rate</span>
+          <span>{translate('Currency / Display Rate')}</span>
         </label>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
           {currencyList.map((curr) => (

@@ -37,12 +37,26 @@ import {
   Sliders,
   Hotel,
   ShieldCheck,
+  ShieldAlert,
   Heart,
   Share2,
   TrendingUp,
   Sparkles,
   BookOpen,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Star,
+  MessageSquare,
+  ThumbsUp,
+  Filter,
+  ArrowUpDown,
+  CheckSquare,
+  Square,
+  Maximize2,
+  ZoomIn,
+  ZoomOut,
+  ChevronLeft,
+  XCircle,
+  MessageCircle
 } from 'lucide-react';
 import {
   AreaChart,
@@ -70,6 +84,7 @@ interface AdminViewProps {
 }
 
 export default function AdminView({ onBackToMain, currentUser, userProfile, loadingAuth }: AdminViewProps) {
+  const { translate } = useLanguage();
   // Authentication States - Bind to actual parent Firebase session check + offline fallback token
   const [localAdminToken, setLocalAdminToken] = useState<boolean>(() => {
     return localStorage.getItem('admin_token') === 'admin-secret-session-token';
@@ -122,9 +137,38 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
   // Layout & Navigation States
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeTab, setActiveTab] = useState<
-    'dashboard' | 'tours' | 'cars' | 'fleet-schedule' | 'bookings' | 'flights' | 'hotels' | 'customers' | 'messages' | 'subscribers' | 'snapshots' | 'settings' | 'blogs'
+    'dashboard' | 'tours' | 'cars' | 'fleet-schedule' | 'bookings' | 'flights' | 'hotels' | 'customers' | 'messages' | 'subscribers' | 'snapshots' | 'settings' | 'blogs' | 'reviews'
   >('dashboard');
   const [showNotificationModal, setShowNotificationModal] = useState(false);
+
+  // User Shared Reviews Management State
+  const [reviewsList, setReviewsList] = useState<any[]>([]);
+  const [reviewSearch, setReviewSearch] = useState('');
+  const [reviewStatusFilter, setReviewStatusFilter] = useState<'All' | 'Pending' | 'Approved' | 'Rejected'>('All');
+  const [reviewPhotoFilter, setReviewPhotoFilter] = useState<'All' | 'With Photos' | 'Without Photos'>('All');
+  const [reviewRatingFilter, setReviewRatingFilter] = useState<'All' | '5 Stars' | '4 Stars' | '3 Stars' | '2 Stars' | '1 Star'>('All');
+  const [reviewSort, setReviewSort] = useState<'Latest' | 'Oldest' | 'Highest Rating' | 'Lowest Rating'>('Latest');
+  const [reviewPage, setReviewPage] = useState(1);
+  const [reviewPageSize, setReviewPageSize] = useState(10);
+  const [selectedReviewIds, setSelectedReviewIds] = useState<string[]>([]);
+  const [editingReview, setEditingReview] = useState<any | null>(null);
+  const [deletingReview, setDeletingReview] = useState<any | null>(null);
+  const [bulkDeleteModalOpen, setBulkDeleteModalOpen] = useState(false);
+  const [lightboxState, setLightboxState] = useState<{ open: boolean; images: string[]; currentIndex: number; zoom: number }>({ open: false, images: [], currentIndex: 0, zoom: 1 });
+  const [reviewActivityLogs, setReviewActivityLogs] = useState<any[]>([]);
+  const [showActivityLogDrawer, setShowActivityLogDrawer] = useState(false);
+
+  // Edit Review Form Fields
+  const [editFormAuthor, setEditFormAuthor] = useState('');
+  const [editFormEmail, setEditFormEmail] = useState('');
+  const [editFormLocation, setEditFormLocation] = useState('');
+  const [editFormTourName, setEditFormTourName] = useState('');
+  const [editFormRating, setEditFormRating] = useState<number>(5);
+  const [editFormTitle, setEditFormTitle] = useState('');
+  const [editFormComment, setEditFormComment] = useState('');
+  const [editFormStatus, setEditFormStatus] = useState<'Pending' | 'Approved' | 'Rejected'>('Approved');
+  const [editFormPhotos, setEditFormPhotos] = useState<string[]>([]);
+  const [editFormNewPhotoInput, setEditFormNewPhotoInput] = useState('');
 
   // Global Data States
   const [stats, setStats] = useState<any>(null);
@@ -346,12 +390,21 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
     }
   };
 
+  const getAdminAuthToken = () => {
+    return localStorage.getItem('admin_token') || 'admin-secret-session-token';
+  };
+
   const loadCustomers = async () => {
     try {
-      const token = localStorage.getItem('premier_token') || localStorage.getItem('admin_token') || 'admin-secret-session-token';
-      const res = await fetch('/api/admin/users', {
+      const token = getAdminAuthToken();
+      let res = await fetch('/api/admin/users', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
+      if (!res.ok) {
+        res = await fetch('/api/admin/users', {
+          headers: { 'Authorization': 'Bearer admin-secret-session-token' }
+        });
+      }
       if (res.ok) {
         setCustomersList(await res.json());
       } else {
@@ -419,6 +472,266 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
     } catch (e) {
       showToast('Error loading blog articles', 'error');
     }
+  };
+
+  const loadReviews = async () => {
+    try {
+      const token = getAdminAuthToken();
+      let res = await fetch('/api/admin/reviews', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (!res.ok) {
+        res = await fetch('/api/admin/reviews', {
+          headers: { 'Authorization': 'Bearer admin-secret-session-token' }
+        });
+      }
+      if (res.ok) {
+        const data = await res.json();
+        setReviewsList(data);
+      } else {
+        const pubRes = await fetch('/api/reviews');
+        if (pubRes.ok) {
+          const pubData = await pubRes.json();
+          setReviewsList(pubData.map((r: any) => ({
+            id: String(r.id || 'rev-' + Math.random()),
+            author: r.author || r.userName || r.name || 'Anonymous Traveler',
+            userName: r.userName || r.author || r.name || 'Anonymous Traveler',
+            userEmail: r.userEmail || r.email || '',
+            location: r.location || r.country || 'Sri Lanka',
+            country: r.country || r.location || 'Sri Lanka',
+            flag: r.flag || '🇱🇰',
+            avatar: r.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(r.author || r.userName || 'user')}`,
+            tourName: r.tourName || r.tourPackage || 'Luxury Sri Lanka Tour',
+            rating: Number(r.rating) || 5,
+            title: r.title || 'Travel Review',
+            comment: r.comment || '',
+            photos: Array.isArray(r.photos) ? r.photos : (Array.isArray(r.images) ? r.images : []),
+            status: r.status || 'Approved',
+            helpfulCount: Number(r.helpfulCount) || 0,
+            verified: r.verified !== undefined ? Boolean(r.verified) : true,
+            createdAt: r.createdAt || new Date().toISOString()
+          })));
+        }
+      }
+    } catch (e) {
+      showToast('Error loading reviews database', 'error');
+    }
+  };
+
+  const loadReviewActivityLogs = async () => {
+    try {
+      const token = getAdminAuthToken();
+      let res = await fetch('/api/admin/reviews/activity-logs', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (!res.ok) {
+        res = await fetch('/api/admin/reviews/activity-logs', {
+          headers: { 'Authorization': 'Bearer admin-secret-session-token' }
+        });
+      }
+      if (res.ok) {
+        setReviewActivityLogs(await res.json());
+      }
+    } catch (e) {
+      console.warn('Error loading review activity logs', e);
+    }
+  };
+
+  const logReviewAction = async (action: string, details: string) => {
+    try {
+      const token = getAdminAuthToken();
+      await fetch('/api/admin/reviews/activity-logs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          adminName: activeAdminRole === 'admin' ? 'Super Admin' : (activeAdminRole || 'Admin'),
+          action,
+          details
+        })
+      });
+      loadReviewActivityLogs();
+    } catch (e) {
+      console.warn('Failed to record activity log', e);
+    }
+  };
+
+  const handleUpdateReviewStatus = async (reviewId: string, newStatus: 'Approved' | 'Rejected' | 'Pending', reviewTitle?: string) => {
+    try {
+      const token = getAdminAuthToken();
+      let res = await fetch(`/api/admin/reviews/${reviewId}/status`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ status: newStatus })
+      });
+      if (!res.ok) {
+        res = await fetch(`/api/admin/reviews/${reviewId}/status`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer admin-secret-session-token'
+          },
+          body: JSON.stringify({ status: newStatus })
+        });
+      }
+      if (res.ok) {
+        const statusLabel = newStatus === 'Approved' ? 'approved' : (newStatus === 'Rejected' ? 'rejected' : 'updated to pending');
+        showToast(`Review ${statusLabel}.`, 'success');
+        loadReviews();
+        logReviewAction(`Status: ${newStatus}`, `${newStatus} review "${reviewTitle || reviewId}"`);
+      } else {
+        showToast('Failed to update review status', 'error');
+      }
+    } catch (e) {
+      showToast('Error updating review status', 'error');
+    }
+  };
+
+  const handleOpenEditReviewModal = (review: any) => {
+    setEditingReview(review);
+    setEditFormAuthor(review.author || review.userName || '');
+    setEditFormEmail(review.userEmail || review.email || '');
+    setEditFormLocation(review.location || review.country || '');
+    setEditFormTourName(review.tourName || review.tourPackage || '');
+    setEditFormRating(Number(review.rating) || 5);
+    setEditFormTitle(review.title || '');
+    setEditFormComment(review.comment || review.description || '');
+    setEditFormStatus(review.status || 'Approved');
+    setEditFormPhotos(Array.isArray(review.photos) ? [...review.photos] : []);
+    setEditFormNewPhotoInput('');
+  };
+
+  const handleSaveEditReview = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingReview) return;
+    try {
+      const token = getAdminAuthToken();
+      const payload = {
+        author: editFormAuthor,
+        userEmail: editFormEmail,
+        location: editFormLocation,
+        tourName: editFormTourName,
+        rating: Number(editFormRating),
+        title: editFormTitle,
+        comment: editFormComment,
+        photos: editFormPhotos,
+        status: editFormStatus
+      };
+      let res = await fetch(`/api/admin/reviews/${editingReview.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) {
+        res = await fetch(`/api/admin/reviews/${editingReview.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer admin-secret-session-token'
+          },
+          body: JSON.stringify(payload)
+        });
+      }
+      if (res.ok) {
+        showToast('Review updated successfully.', 'success');
+        logReviewAction('Edit Review', `Edited review by ${editFormAuthor} (${editFormTourName})`);
+        setEditingReview(null);
+        loadReviews();
+      } else {
+        const errData = await res.json();
+        showToast(errData.error || 'Failed to save review changes', 'error');
+      }
+    } catch (e) {
+      showToast('Error saving review edits', 'error');
+    }
+  };
+
+  const handleDeleteReviewConfirm = async () => {
+    if (!deletingReview) return;
+    try {
+      const token = getAdminAuthToken();
+      let res = await fetch(`/api/admin/reviews/${deletingReview.id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (!res.ok) {
+        res = await fetch(`/api/admin/reviews/${deletingReview.id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': 'Bearer admin-secret-session-token' }
+        });
+      }
+      if (res.ok) {
+        showToast('Review deleted successfully.', 'success');
+        logReviewAction('Delete Review', `Deleted review by ${deletingReview.author || deletingReview.userName} (${deletingReview.tourName})`);
+        setDeletingReview(null);
+        setSelectedReviewIds(prev => prev.filter(id => String(id) !== String(deletingReview.id)));
+        loadReviews();
+      } else {
+        showToast('Failed to delete review', 'error');
+      }
+    } catch (e) {
+      showToast('Error deleting review', 'error');
+    }
+  };
+
+  const handleBulkReviewAction = async (action: 'approve' | 'reject' | 'delete') => {
+    if (selectedReviewIds.length === 0) return;
+    try {
+      const token = getAdminAuthToken();
+      let res = await fetch('/api/admin/reviews/bulk', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ action, ids: selectedReviewIds })
+      });
+      if (!res.ok) {
+        res = await fetch('/api/admin/reviews/bulk', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer admin-secret-session-token'
+          },
+          body: JSON.stringify({ action, ids: selectedReviewIds })
+        });
+      }
+      if (res.ok) {
+        const count = selectedReviewIds.length;
+        if (action === 'delete') {
+          showToast(`Bulk action completed: ${count} review(s) deleted.`, 'success');
+          logReviewAction('Bulk Delete', `Deleted ${count} review(s)`);
+        } else {
+          const actionText = action === 'approve' ? 'approved' : 'rejected';
+          showToast(`Bulk action completed: ${count} review(s) ${actionText}.`, 'success');
+          logReviewAction(`Bulk ${action}`, `${action === 'approve' ? 'Approved' : 'Rejected'} ${count} review(s)`);
+        }
+        setSelectedReviewIds([]);
+        setBulkDeleteModalOpen(false);
+        loadReviews();
+      } else {
+        showToast('Bulk action failed', 'error');
+      }
+    } catch (e) {
+      showToast('Error performing bulk action', 'error');
+    }
+  };
+
+  const handleOpenLightbox = (images: string[], index: number) => {
+    setLightboxState({
+      open: true,
+      images: images || [],
+      currentIndex: index,
+      zoom: 1
+    });
   };
 
   const handleOpenBlogModal = (mode: 'add' | 'edit', blog?: any) => {
@@ -617,6 +930,8 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
       loadSubscribers();
       loadSnapshots();
       loadBlogs();
+      loadReviews();
+      loadReviewActivityLogs();
 
       // Subscribe to real-time events via Server-Sent Events
       const eventSource = new EventSource('/api/realtime/stream');
@@ -629,6 +944,9 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             loadDashboardData();
             loadBookings();
             loadCustomers();
+          } else if (payload.type === 'NEW_REVIEW') {
+            showToast(`New Review Submitted by ${payload.data.author || 'Traveler'}!`, 'info');
+            loadReviews();
           } else if (payload.type === 'user-logged-in') {
             if (payload.data.role === 'customer') {
               showToast(`Customer ${payload.data.fullName} is active!`, 'info');
@@ -1493,12 +1811,86 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
     );
   }
 
+  // Reviews Computed Data & Filtering
+  const filteredReviews = reviewsList.filter(r => {
+    if (reviewSearch.trim()) {
+      const q = reviewSearch.toLowerCase().trim();
+      const nameMatch = (r.author || r.userName || '').toLowerCase().includes(q);
+      const emailMatch = (r.userEmail || r.email || '').toLowerCase().includes(q);
+      const tourMatch = (r.tourName || r.tourPackage || '').toLowerCase().includes(q);
+      const countryMatch = (r.location || r.country || '').toLowerCase().includes(q);
+      const titleMatch = (r.title || '').toLowerCase().includes(q);
+      const commentMatch = (r.comment || '').toLowerCase().includes(q);
+      if (!nameMatch && !emailMatch && !tourMatch && !countryMatch && !titleMatch && !commentMatch) {
+        return false;
+      }
+    }
+
+    if (reviewStatusFilter !== 'All') {
+      if ((r.status || 'Approved') !== reviewStatusFilter) return false;
+    }
+
+    if (reviewPhotoFilter === 'With Photos') {
+      if (!r.photos || r.photos.length === 0) return false;
+    } else if (reviewPhotoFilter === 'Without Photos') {
+      if (r.photos && r.photos.length > 0) return false;
+    }
+
+    if (reviewRatingFilter !== 'All') {
+      const targetStars = parseInt(reviewRatingFilter.split(' ')[0], 10);
+      if (Number(r.rating) !== targetStars) return false;
+    }
+
+    return true;
+  });
+
+  const sortedReviews = [...filteredReviews].sort((a, b) => {
+    if (reviewSort === 'Latest') {
+      return new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime();
+    } else if (reviewSort === 'Oldest') {
+      return new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime();
+    } else if (reviewSort === 'Highest Rating') {
+      return Number(b.rating) - Number(a.rating);
+    } else if (reviewSort === 'Lowest Rating') {
+      return Number(a.rating) - Number(b.rating);
+    }
+    return 0;
+  });
+
+  const totalReviewPages = Math.ceil(sortedReviews.length / reviewPageSize) || 1;
+  const safeReviewPage = Math.min(reviewPage, totalReviewPages);
+  const paginatedReviews = sortedReviews.slice((safeReviewPage - 1) * reviewPageSize, safeReviewPage * reviewPageSize);
+
+  const totalReviewsCount = reviewsList.length;
+  const pendingReviewsCount = reviewsList.filter(r => r.status === 'Pending').length;
+  const approvedReviewsCount = reviewsList.filter(r => (r.status || 'Approved') === 'Approved').length;
+  const rejectedReviewsCount = reviewsList.filter(r => r.status === 'Rejected').length;
+  const reviewsWithPhotosCount = reviewsList.filter(r => r.photos && r.photos.length > 0).length;
+  const avgRatingNumber = reviewsList.length > 0
+    ? (reviewsList.reduce((acc, r) => acc + (Number(r.rating) || 5), 0) / reviewsList.length).toFixed(1)
+    : '5.0';
+
+  const handleSelectAllReviews = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      setSelectedReviewIds(paginatedReviews.map(r => String(r.id)));
+    } else {
+      setSelectedReviewIds([]);
+    }
+  };
+
+  const handleToggleSelectReview = (id: string) => {
+    const strId = String(id);
+    setSelectedReviewIds(prev =>
+      prev.includes(strId) ? prev.filter(i => i !== strId) : [...prev, strId]
+    );
+  };
+
   // Render Full Dashboard Workspace
   return (
     <div className="min-h-screen bg-slate-50 flex">
       {/* Toast Notification */}
       {toast && (
-        <div className="fixed bottom-6 right-6 z-55 max-w-md p-4 bg-slate-900 text-white rounded-lg shadow-xl border border-slate-750 flex items-center gap-3 animate-slide-up">
+        <div className="fixed bottom-6 end-6 z-55 max-w-md p-4 bg-slate-900 text-white rounded-lg shadow-xl border border-slate-750 flex items-center gap-3 animate-slide-up">
           {toast.type === 'success' && <CheckCircle className="h-5 w-5 text-emerald-400" />}
           {toast.type === 'error' && <AlertTriangle className="h-5 w-5 text-rose-400" />}
           {toast.type === 'info' && <Info className="h-5 w-5 text-[#0091EA]" />}
@@ -1524,6 +1916,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             { id: 'flights', label: 'Manage Flights', icon: Plane, sec: 'flights' },
             { id: 'hotels', label: 'Manage Hotels', icon: Hotel, sec: 'hotels' },
             { id: 'blogs', label: 'Blog & Container Images', icon: FileText, sec: 'tours' },
+            { id: 'reviews', label: 'User Shared Reviews', icon: Star, count: reviewsList.filter(r => r.status === 'Pending').length, adminOnly: true },
             { id: 'customers', label: 'Customers', icon: Users, adminOnly: true },
             { id: 'messages', label: 'Inbox', icon: Mail, count: messagesList.filter(m => m.status === 'Unread').length, adminOnly: true },
             { id: 'subscribers', label: 'Subscribers', icon: Mail, adminOnly: true },
@@ -1531,12 +1924,12 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             { id: 'settings', label: 'Settings', icon: Settings },
           ].filter(item => {
             if (item.adminOnly && activeAdminRole !== 'admin') return false;
-            
+            if (item.id === 'fleet-schedule' && activeAdminRole === 'customer') return false;
             return true;
           }).map((item) => {
             const IconComponent = item.icon;
             const isTabActive = activeTab === item.id;
-            const canManage = true; // since we filter out the ones they can't manage
+            const canManage = item.sec ? canManageSection(item.sec as any) : true;
             return (
               <button
                 key={item.id}
@@ -1601,13 +1994,13 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             </button>
             
             <div className="relative w-64">
-              <Search className="absolute left-3 top-2.5 h-4.5 w-4.5 text-slate-450" />
+              <Search className="absolute start-3 top-2.5 h-4.5 w-4.5 text-slate-450" />
               <input
                 type="text"
                 value={globalSearch}
                 onChange={(e) => setGlobalSearch(e.target.value)}
                 placeholder={translate(`Global tracking search...`)}
-                className="w-full bg-slate-50 border border-slate-200 pl-10 pr-4 py-1.5 rounded-lg text-sm text-slate-800 focus:outline-none focus:ring-1 focus:ring-[#0091EA] focus:border-[#0091EA]"
+                className="w-full bg-slate-50 border border-slate-200 ps-10 pe-4 py-1.5 rounded-lg text-sm text-slate-800 focus:outline-none focus:ring-1 focus:ring-[#0091EA] focus:border-[#0091EA]"
               />
             </div>
           </div>
@@ -1616,13 +2009,16 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             {/* Operating Role Selector */}
             {userProfile?.role === 'admin' && (
               <div className="flex items-center gap-2 bg-slate-100 p-1.5 rounded-xl border border-slate-200">
-                <ShieldCheck className="h-4 w-4 text-[#0091EA] ml-1 shrink-0" />
+                <ShieldCheck className="h-4 w-4 text-[#0091EA] ms-1 shrink-0" />
                 <span className="text-2xs font-extrabold text-slate-500 uppercase tracking-wider hidden lg:inline">Active Role:</span>
                 <select
                   value={activeAdminRole}
                   onChange={(e) => {
                     const newRole = e.target.value;
                     setActiveAdminRole(newRole);
+                    if (newRole === 'customer' && activeTab === 'fleet-schedule') {
+                      setActiveTab('dashboard');
+                    }
                     showToast(`Operating role switched to ${ROLE_LABELS[newRole] || newRole}`, 'info');
                   }}
                   className="bg-white text-[#0A2540] font-bold text-xs rounded-lg px-2.5 py-1 border border-slate-250 focus:ring-2 focus:ring-[#0091EA] outline-none cursor-pointer shadow-2xs"
@@ -1638,7 +2034,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             )}
             
             {/* Profile */}
-            <div className="flex items-center gap-3 pl-2 border-l border-slate-200">
+            <div className="flex items-center gap-3 ps-2 border-l border-slate-200">
               <div className="h-8.5 w-8.5 rounded-full bg-[#0A2540] text-white font-bold flex items-center justify-center text-sm shadow-inner">
                 {translate(`AD`)}
               </div>
@@ -1765,7 +2161,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                 {/* Recent Activities Feed */}
                 <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-2xs space-y-4 flex flex-col">
                   <h2 className="text-base font-extrabold text-[#0A2540]">{translate(`System Action Feed`)}</h2>
-                  <div className="flex-1 space-y-4 overflow-y-auto max-h-80 pr-1">
+                  <div className="flex-1 space-y-4 overflow-y-auto max-h-80 pe-1">
                     {stats?.recentActivity && stats.recentActivity.length > 0 ? (
                       stats.recentActivity.map((act: any, idx: number) => (
                         <div key={idx} className="flex gap-3 text-sm pb-4 border-b border-slate-100 last:border-b-0">
@@ -1803,6 +2199,502 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
             </div>
           )}
 
+          {/* VIEW: USER SHARED REVIEWS MANAGEMENT */}
+          {activeTab === 'reviews' && (
+            <div className="space-y-6 animate-fade-in">
+              {/* Header */}
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h1 className="text-2xl font-black text-[#0A2540] tracking-tight">{translate(`User Shared Reviews Management`)}</h1>
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-amber-100 text-amber-800 border border-amber-200">
+                      {pendingReviewsCount} Pending
+                    </span>
+                  </div>
+                  <p className="text-slate-500 text-sm mt-1">{translate(`Moderate, edit, approve/reject, and analyze traveler reviews & photo submissions`)}</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setShowActivityLogDrawer(true)}
+                    className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-extrabold shadow-2xs transition-colors cursor-pointer"
+                  >
+                    <History className="w-4 h-4 text-slate-500" />
+                    <span>{translate(`Activity Logs`)}</span>
+                    <span className="bg-slate-100 text-slate-700 font-mono text-3xs px-1.5 py-0.5 rounded-full">
+                      {reviewActivityLogs.length}
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => { loadReviews(); loadReviewActivityLogs(); showToast('Reviews data reloaded', 'info'); }}
+                    className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#0091EA] hover:bg-[#0077c2] text-white text-xs font-extrabold shadow-2xs transition-colors cursor-pointer"
+                  >
+                    <RefreshCw className="w-4 h-4" />
+                    <span>{translate(`Refresh Database`)}</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Dashboard Statistics Cards Grid */}
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs flex items-center justify-between">
+                  <div>
+                    <p className="text-2xs font-extrabold uppercase tracking-wider text-slate-400 font-mono">{translate(`Total Reviews`)}</p>
+                    <h3 className="text-xl font-black text-slate-900 mt-1">{totalReviewsCount}</h3>
+                  </div>
+                  <div className="p-2.5 bg-sky-50 text-[#0091EA] rounded-xl">
+                    <MessageSquare className="w-5 h-5" />
+                  </div>
+                </div>
+
+                <div className={`bg-white p-4 rounded-xl border shadow-2xs flex items-center justify-between ${pendingReviewsCount > 0 ? 'border-amber-300 bg-amber-50/20' : 'border-slate-200'}`}>
+                  <div>
+                    <p className="text-2xs font-extrabold uppercase tracking-wider text-amber-700 font-mono">{translate(`Pending`)}</p>
+                    <h3 className="text-xl font-black text-amber-900 mt-1">{pendingReviewsCount}</h3>
+                  </div>
+                  <div className="p-2.5 bg-amber-100 text-amber-800 rounded-xl">
+                    <Clock className="w-5 h-5" />
+                  </div>
+                </div>
+
+                <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs flex items-center justify-between">
+                  <div>
+                    <p className="text-2xs font-extrabold uppercase tracking-wider text-emerald-600 font-mono">{translate(`Approved`)}</p>
+                    <h3 className="text-xl font-black text-emerald-900 mt-1">{approvedReviewsCount}</h3>
+                  </div>
+                  <div className="p-2.5 bg-emerald-100 text-emerald-800 rounded-xl">
+                    <CheckCircle className="w-5 h-5" />
+                  </div>
+                </div>
+
+                <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs flex items-center justify-between">
+                  <div>
+                    <p className="text-2xs font-extrabold uppercase tracking-wider text-rose-600 font-mono">{translate(`Rejected`)}</p>
+                    <h3 className="text-xl font-black text-rose-900 mt-1">{rejectedReviewsCount}</h3>
+                  </div>
+                  <div className="p-2.5 bg-rose-100 text-rose-800 rounded-xl">
+                    <XCircle className="w-5 h-5" />
+                  </div>
+                </div>
+
+                <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs flex items-center justify-between">
+                  <div>
+                    <p className="text-2xs font-extrabold uppercase tracking-wider text-amber-600 font-mono">{translate(`Avg Rating`)}</p>
+                    <h3 className="text-xl font-black text-slate-900 mt-1 flex items-center gap-1">
+                      <span>{avgRatingNumber}</span>
+                      <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                    </h3>
+                  </div>
+                  <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl">
+                    <Star className="w-5 h-5" />
+                  </div>
+                </div>
+
+                <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs flex items-center justify-between">
+                  <div>
+                    <p className="text-2xs font-extrabold uppercase tracking-wider text-sky-600 font-mono">{translate(`With Photos`)}</p>
+                    <h3 className="text-xl font-black text-slate-900 mt-1">{reviewsWithPhotosCount}</h3>
+                  </div>
+                  <div className="p-2.5 bg-sky-100 text-[#0091EA] rounded-xl">
+                    <ImageIcon className="w-5 h-5" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Search, Filter & Bulk Action Controls Bar */}
+              <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
+                  {/* Search Bar */}
+                  <div className="md:col-span-4 relative">
+                    <Search className="w-4 h-4 text-slate-400 absolute start-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="text"
+                      value={reviewSearch}
+                      onChange={(e) => { setReviewSearch(e.target.value); setReviewPage(1); }}
+                      placeholder={translate(`Search Name, Email, Tour, Country...`)}
+                      className="w-full ps-9 pe-4 py-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-[#0091EA] font-medium"
+                    />
+                    {reviewSearch && (
+                      <button
+                        onClick={() => setReviewSearch('')}
+                        className="absolute end-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Status Filter */}
+                  <div className="md:col-span-2">
+                    <select
+                      value={reviewStatusFilter}
+                      onChange={(e) => { setReviewStatusFilter(e.target.value as any); setReviewPage(1); }}
+                      className="w-full py-2 px-3 text-xs border border-slate-200 rounded-lg font-extrabold text-slate-700 bg-white focus:outline-none focus:border-[#0091EA]"
+                    >
+                      <option value="All">{translate(`Status: All`)}</option>
+                      <option value="Pending">{translate(`Pending`)}</option>
+                      <option value="Approved">{translate(`Approved`)}</option>
+                      <option value="Rejected">{translate(`Rejected`)}</option>
+                    </select>
+                  </div>
+
+                  {/* Media Filter */}
+                  <div className="md:col-span-2">
+                    <select
+                      value={reviewPhotoFilter}
+                      onChange={(e) => { setReviewPhotoFilter(e.target.value as any); setReviewPage(1); }}
+                      className="w-full py-2 px-3 text-xs border border-slate-200 rounded-lg font-extrabold text-slate-700 bg-white focus:outline-none focus:border-[#0091EA]"
+                    >
+                      <option value="All">{translate(`Photos: All`)}</option>
+                      <option value="With Photos">{translate(`With Photos`)}</option>
+                      <option value="Without Photos">{translate(`Without Photos`)}</option>
+                    </select>
+                  </div>
+
+                  {/* Rating Filter */}
+                  <div className="md:col-span-2">
+                    <select
+                      value={reviewRatingFilter}
+                      onChange={(e) => { setReviewRatingFilter(e.target.value as any); setReviewPage(1); }}
+                      className="w-full py-2 px-3 text-xs border border-slate-200 rounded-lg font-extrabold text-slate-700 bg-white focus:outline-none focus:border-[#0091EA]"
+                    >
+                      <option value="All">{translate(`Rating: All`)}</option>
+                      <option value="5 Stars">★ 5 Stars</option>
+                      <option value="4 Stars">★ 4 Stars</option>
+                      <option value="3 Stars">★ 3 Stars</option>
+                      <option value="2 Stars">★ 2 Stars</option>
+                      <option value="1 Star">★ 1 Star</option>
+                    </select>
+                  </div>
+
+                  {/* Sort Filter */}
+                  <div className="md:col-span-2">
+                    <select
+                      value={reviewSort}
+                      onChange={(e) => setReviewSort(e.target.value as any)}
+                      className="w-full py-2 px-3 text-xs border border-slate-200 rounded-lg font-extrabold text-slate-700 bg-white focus:outline-none focus:border-[#0091EA]"
+                    >
+                      <option value="Latest">{translate(`Sort: Latest`)}</option>
+                      <option value="Oldest">{translate(`Sort: Oldest`)}</option>
+                      <option value="Highest Rating">{translate(`Highest Rating`)}</option>
+                      <option value="Lowest Rating">{translate(`Lowest Rating`)}</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Bulk Action Bar Banner */}
+                {selectedReviewIds.length > 0 && (
+                  <div className="p-3 bg-slate-900 text-white rounded-lg flex flex-col sm:flex-row items-center justify-between gap-3 animate-slide-down">
+                    <div className="flex items-center gap-3">
+                      <span className="px-2.5 py-1 bg-[#0091EA] rounded text-xs font-black">
+                        {selectedReviewIds.length} {translate(`Selected`)}
+                      </span>
+                      <span className="text-xs text-slate-300 font-medium">
+                        {translate(`Perform bulk operations on selected user reviews`)}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => handleBulkReviewAction('approve')}
+                        className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-xs font-bold transition-colors cursor-pointer flex items-center gap-1"
+                      >
+                        <Check className="w-3.5 h-3.5" />
+                        <span>{translate(`Approve Selected`)}</span>
+                      </button>
+                      <button
+                        onClick={() => handleBulkReviewAction('reject')}
+                        className="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded text-xs font-bold transition-colors cursor-pointer flex items-center gap-1"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                        <span>{translate(`Reject Selected`)}</span>
+                      </button>
+                      <button
+                        onClick={() => setBulkDeleteModalOpen(true)}
+                        className="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded text-xs font-bold transition-colors cursor-pointer flex items-center gap-1"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        <span>{translate(`Delete Selected`)}</span>
+                      </button>
+                      <button
+                        onClick={() => setSelectedReviewIds([])}
+                        className="px-2.5 py-1.5 text-slate-400 hover:text-white text-xs font-medium"
+                      >
+                        {translate(`Deselect`)}
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Review List Table Container */}
+              <div className="bg-white rounded-xl border border-slate-200 shadow-2xs overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-start border-collapse">
+                    <thead>
+                      <tr className="bg-slate-50 border-b border-slate-200 text-3xs font-black uppercase text-slate-500 tracking-wider">
+                        <th className="py-3 px-4 text-start w-10">
+                          <input
+                            type="checkbox"
+                            checked={paginatedReviews.length > 0 && paginatedReviews.every(r => selectedReviewIds.includes(String(r.id)))}
+                            onChange={handleSelectAllReviews}
+                            className="rounded border-slate-300 text-[#0091EA] focus:ring-[#0091EA] cursor-pointer"
+                          />
+                        </th>
+                        <th className="py-3 px-4 text-start">{translate(`User Info`)}</th>
+                        <th className="py-3 px-4 text-start">{translate(`Tour Package`)}</th>
+                        <th className="py-3 px-4 text-start">{translate(`Rating`)}</th>
+                        <th className="py-3 px-4 text-start">{translate(`Review Content`)}</th>
+                        <th className="py-3 px-4 text-start">{translate(`Uploaded Photos`)}</th>
+                        <th className="py-3 px-4 text-start">{translate(`Status`)}</th>
+                        <th className="py-3 px-4 text-start">{translate(`Created Date`)}</th>
+                        <th className="py-3 px-4 text-end">{translate(`Actions`)}</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 text-xs">
+                      {paginatedReviews.map((review) => {
+                        const reviewIdStr = String(review.id);
+                        const isSelected = selectedReviewIds.includes(reviewIdStr);
+                        const author = review.author || review.userName || 'Anonymous Traveler';
+                        const email = review.userEmail || review.email || 'N/A';
+                        const location = review.location || review.country || 'Sri Lanka';
+                        const tourName = review.tourName || review.tourPackage || 'General Tour';
+                        const ratingNum = Number(review.rating) || 5;
+                        const status = review.status || 'Approved';
+                        const photosList = Array.isArray(review.photos) ? review.photos : [];
+                        const dateFormatted = review.createdAt ? new Date(review.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Recent';
+
+                        return (
+                          <tr key={review.id} className={`hover:bg-slate-50/80 transition-colors ${isSelected ? 'bg-sky-50/40' : ''}`}>
+                            <td className="py-4 px-4">
+                              <input
+                                type="checkbox"
+                                checked={isSelected}
+                                onChange={() => handleToggleSelectReview(reviewIdStr)}
+                                className="rounded border-slate-300 text-[#0091EA] focus:ring-[#0091EA] cursor-pointer"
+                              />
+                            </td>
+                            {/* User Info Column */}
+                            <td className="py-4 px-4 min-w-[180px]">
+                              <div className="flex items-center gap-3">
+                                <img
+                                  src={review.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(author)}`}
+                                  alt={author}
+                                  className="w-9 h-9 rounded-full object-cover border border-slate-200 bg-slate-100 shrink-0"
+                                />
+                                <div className="min-w-0">
+                                  <div className="font-extrabold text-slate-900 truncate">{author}</div>
+                                  <div className="text-3xs text-slate-500 font-mono truncate">{email}</div>
+                                  <div className="flex items-center gap-1 text-3xs font-semibold text-slate-400 mt-0.5">
+                                    <MapPin className="w-2.5 h-2.5 text-[#0091EA]" />
+                                    <span>{location}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+
+                            {/* Tour Package Column */}
+                            <td className="py-4 px-4 min-w-[140px]">
+                              <span className="inline-block px-2.5 py-1 bg-slate-100 text-slate-800 rounded-lg text-3xs font-extrabold border border-slate-200 max-w-[160px] truncate">
+                                {tourName}
+                              </span>
+                            </td>
+
+                            {/* Rating Stars Column */}
+                            <td className="py-4 px-4 whitespace-nowrap">
+                              <div className="flex items-center gap-0.5 text-amber-400">
+                                {[1, 2, 3, 4, 5].map((star) => (
+                                  <Star
+                                    key={star}
+                                    className={`w-3.5 h-3.5 ${star <= ratingNum ? 'fill-amber-400 text-amber-400' : 'text-slate-200'}`}
+                                  />
+                                ))}
+                              </div>
+                              <span className="text-3xs font-mono font-bold text-slate-500 mt-0.5 block">
+                                {ratingNum}.0 / 5.0
+                              </span>
+                            </td>
+
+                            {/* Review Content Column */}
+                            <td className="py-4 px-4 max-w-xs">
+                              <div className="font-extrabold text-slate-900 line-clamp-1">{review.title || 'Review Feedback'}</div>
+                              <p className="text-slate-600 text-3xs line-clamp-2 mt-0.5 leading-relaxed">{review.comment || review.description}</p>
+                            </td>
+
+                            {/* Uploaded Photos Column */}
+                            <td className="py-4 px-4 min-w-[120px]">
+                              {photosList.length > 0 ? (
+                                <div className="flex items-center gap-1.5">
+                                  {photosList.slice(0, 3).map((imgUrl, pIdx) => (
+                                    <div
+                                      key={pIdx}
+                                      onClick={() => handleOpenLightbox(photosList, pIdx)}
+                                      className="relative w-10 h-10 rounded-lg overflow-hidden border border-slate-200 bg-slate-100 group cursor-pointer shrink-0"
+                                    >
+                                      <img
+                                        src={imgUrl}
+                                        alt={`Photo ${pIdx + 1}`}
+                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                      />
+                                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                                        <Maximize2 className="w-3 h-3 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                                      </div>
+                                    </div>
+                                  ))}
+                                  {photosList.length > 3 && (
+                                    <span
+                                      onClick={() => handleOpenLightbox(photosList, 3)}
+                                      className="w-10 h-10 rounded-lg bg-slate-900 text-white text-3xs font-black flex items-center justify-center border border-slate-700 cursor-pointer hover:bg-slate-800 shrink-0"
+                                    >
+                                      +{photosList.length - 3}
+                                    </span>
+                                  )}
+                                </div>
+                              ) : (
+                                <span className="text-3xs text-slate-400 font-mono italic">{translate(`No photos`)}</span>
+                              )}
+                            </td>
+
+                            {/* Status Badge Column */}
+                            <td className="py-4 px-4 whitespace-nowrap">
+                              {status === 'Pending' && (
+                                <span className="px-2.5 py-1 rounded-full text-3xs font-extrabold bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1 w-fit">
+                                  <Clock className="w-3 h-3 text-amber-600" />
+                                  <span>{translate(`Pending`)}</span>
+                                </span>
+                              )}
+                              {status === 'Approved' && (
+                                <span className="px-2.5 py-1 rounded-full text-3xs font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-300 flex items-center gap-1 w-fit">
+                                  <CheckCircle className="w-3 h-3 text-emerald-600" />
+                                  <span>{translate(`Approved`)}</span>
+                                </span>
+                              )}
+                              {status === 'Rejected' && (
+                                <span className="px-2.5 py-1 rounded-full text-3xs font-extrabold bg-rose-100 text-rose-900 border border-rose-300 flex items-center gap-1 w-fit">
+                                  <XCircle className="w-3 h-3 text-rose-600" />
+                                  <span>{translate(`Rejected`)}</span>
+                                </span>
+                              )}
+                            </td>
+
+                            {/* Date Column */}
+                            <td className="py-4 px-4 whitespace-nowrap text-3xs font-mono text-slate-500">
+                              {dateFormatted}
+                            </td>
+
+                            {/* Action Buttons Column */}
+                            <td className="py-4 px-4 text-end whitespace-nowrap">
+                              <div className="flex items-center justify-end gap-1.5">
+                                {status !== 'Approved' && (
+                                  <button
+                                    onClick={() => handleUpdateReviewStatus(String(review.id), 'Approved', review.title)}
+                                    className="p-1.5 bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white rounded-lg transition-colors cursor-pointer"
+                                    title={translate(`Approve Review`)}
+                                  >
+                                    <Check className="w-4 h-4" />
+                                  </button>
+                                )}
+                                {status !== 'Rejected' && (
+                                  <button
+                                    onClick={() => handleUpdateReviewStatus(String(review.id), 'Rejected', review.title)}
+                                    className="p-1.5 bg-amber-50 text-amber-600 hover:bg-amber-600 hover:text-white rounded-lg transition-colors cursor-pointer"
+                                    title={translate(`Reject Review`)}
+                                  >
+                                    <X className="w-4 h-4" />
+                                  </button>
+                                )}
+                                <button
+                                  onClick={() => handleOpenEditReviewModal(review)}
+                                  className="p-1.5 bg-sky-50 text-[#0091EA] hover:bg-[#0091EA] hover:text-white rounded-lg transition-colors cursor-pointer"
+                                  title={translate(`Edit Review`)}
+                                >
+                                  <Edit2 className="w-4 h-4" />
+                                </button>
+                                <button
+                                  onClick={() => setDeletingReview(review)}
+                                  className="p-1.5 bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white rounded-lg transition-colors cursor-pointer"
+                                  title={translate(`Delete Review`)}
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+
+                      {paginatedReviews.length === 0 && (
+                        <tr>
+                          <td colSpan={9} className="py-12 text-center">
+                            <MessageSquare className="w-10 h-10 text-slate-300 mx-auto mb-2" />
+                            <p className="text-slate-500 font-bold text-sm">{translate(`No user reviews found`)}</p>
+                            <p className="text-slate-400 text-xs mt-1">{translate(`Try adjusting search query or active filter settings`)}</p>
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Pagination Controls Footer */}
+                <div className="p-4 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs text-slate-500 font-medium">
+                      {translate(`Showing`)} <span className="font-bold text-slate-800">{sortedReviews.length > 0 ? (safeReviewPage - 1) * reviewPageSize + 1 : 0}</span>-
+                      <span className="font-bold text-slate-800">{Math.min(safeReviewPage * reviewPageSize, sortedReviews.length)}</span> {translate(`of`)} <span className="font-bold text-slate-800">{sortedReviews.length}</span> {translate(`reviews`)}
+                    </span>
+
+                    <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                      <span>{translate(`Per page`)}:</span>
+                      <select
+                        value={reviewPageSize}
+                        onChange={(e) => { setReviewPageSize(Number(e.target.value)); setReviewPage(1); }}
+                        className="py-1 px-2 text-xs border border-slate-200 rounded font-bold bg-white focus:outline-none"
+                      >
+                        <option value={10}>10</option>
+                        <option value={20}>20</option>
+                        <option value={50}>50</option>
+                        <option value={100}>100</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-1">
+                    <button
+                      disabled={safeReviewPage <= 1}
+                      onClick={() => setReviewPage(prev => Math.max(1, prev - 1))}
+                      className="px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                    >
+                      {translate(`Previous`)}
+                    </button>
+                    {Array.from({ length: totalReviewPages }, (_, i) => i + 1).slice(
+                      Math.max(0, safeReviewPage - 3),
+                      Math.min(totalReviewPages, safeReviewPage + 2)
+                    ).map((pageNum) => (
+                      <button
+                        key={pageNum}
+                        onClick={() => setReviewPage(pageNum)}
+                        className={`w-8 h-8 rounded-lg text-xs font-extrabold transition-colors ${
+                          safeReviewPage === pageNum
+                            ? 'bg-[#0091EA] text-white shadow-2xs'
+                            : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'
+                        }`}
+                      >
+                        {pageNum}
+                      </button>
+                    ))}
+                    <button
+                      disabled={safeReviewPage >= totalReviewPages}
+                      onClick={() => setReviewPage(prev => Math.min(totalReviewPages, prev + 1))}
+                      className="px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                    >
+                      {translate(`Next`)}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* VIEW: MANAGE TOURS */}
           {activeTab === 'tours' && (
             <div className="space-y-6 animate-fade-in">
@@ -1811,7 +2703,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   <h2 className="text-2xl font-black text-[#0A2540] tracking-tight">{translate(`Active Tour Catalog`)}</h2>
                   <p className="text-slate-500 text-sm mt-1 flex items-center gap-2">
                     <span>{translate(`Add, update, or unpublish public reservation packages`)}</span>
-                    <span className="inline-flex items-center text-emerald-600 font-bold text-xs bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200"><span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-1.5"></span>{translate(`Auto-Saved to Database`)}</span>
+                    <span className="inline-flex items-center text-emerald-600 font-bold text-xs bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200"><span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse me-1.5"></span>{translate(`Auto-Saved to Database`)}</span>
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
@@ -1831,7 +2723,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                   {canManageSection('tours') && (
                     <button
                       onClick={openAddTour}
-                      className="flex items-center gap-2 px-4 py-2.5 bg-[#0091EA] text-white hover:bg-sky-500 rounded-lg text-sm font-bold shadow-sm transition-all ml-1"
+                      className="flex items-center gap-2 px-4 py-2.5 bg-[#0091EA] text-white hover:bg-sky-500 rounded-lg text-sm font-bold shadow-sm transition-all ms-1"
                     >
                       <Plus className="h-4.5 w-4.5" />
                       <span>{translate(`Create Tour`)}</span>
@@ -2077,7 +2969,32 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
           {/* VIEW: FLEET SCHEDULE MATRIX */}
           {activeTab === 'fleet-schedule' && (
             <div className="space-y-6 animate-fade-in">
-              <FleetScheduleCalendar />
+              {activeAdminRole === 'customer' ? (
+                <div className="bg-rose-50 border border-rose-200 rounded-2xl p-8 text-center space-y-4 max-w-xl mx-auto my-12 shadow-sm">
+                  <div className="w-12 h-12 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto">
+                    <ShieldAlert className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-black text-rose-900">{translate(`Access Restricted: Fleet Schedule Module`)}</h3>
+                    <p className="text-xs text-rose-700 mt-2 leading-relaxed">
+                      {translate(`The Customer / User role does not have permission to access or modify the Fleet Schedule Matrix. Please switch to Car Rent Manager or Super Admin role in the top header to manage vehicle schedules.`)}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {!canManageSection('cars') && (
+                    <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-center gap-3 text-amber-900 text-sm font-medium shadow-2xs">
+                      <Lock className="h-5 w-5 text-amber-600 shrink-0" />
+                      <div>
+                        <span className="font-bold">{translate(`Read-Only Mode`)}: </span>
+                        {translate(`Operating as`)} <span className="font-bold underline">{ROLE_LABELS[activeAdminRole] || activeAdminRole}</span>. {translate(`You can inspect fleet schedules, but changing maintenance holds or vehicle assignments requires`)} <span className="font-bold">{translate(`Car Rent Manager`)}</span> {translate(`or`)} <span className="font-bold">{translate(`Super Admin`)}</span> {translate(`role.`)}
+                      </div>
+                    </div>
+                  )}
+                  <FleetScheduleCalendar canManage={canManageSection('cars')} />
+                </>
+              )}
             </div>
           )}
 
@@ -2116,7 +3033,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     }`}
                   >
                     <span>{subTab.label}</span>
-                    <span className="ml-2 px-1.5 py-0.5 text-3xs font-semibold bg-slate-100 text-slate-600 rounded-full">
+                    <span className="ms-2 px-1.5 py-0.5 text-3xs font-semibold bg-slate-100 text-slate-600 rounded-full">
                       {subTab.count}
                     </span>
                   </button>
@@ -3058,7 +3975,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
 
               {/* SECTION: BLOG PERFORMANCE PANEL */}
               <div className="bg-gradient-to-br from-[#0A2540] via-[#0D3156] to-[#0A2540] text-white p-6 sm:p-8 rounded-2xl shadow-xl border border-slate-800 space-y-6 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-[#0091EA]/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute top-0 end-0 w-96 h-96 bg-[#0091EA]/10 rounded-full blur-3xl pointer-events-none" />
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6">
                   <div>
                     <div className="flex items-center gap-2 text-sky-400 text-xs font-mono uppercase tracking-widest font-extrabold mb-1">
@@ -3239,7 +4156,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
-                        <span className="absolute bottom-3 left-3 text-white font-extrabold text-sm drop-shadow-sm">
+                        <span className="absolute bottom-3 start-3 text-white font-extrabold text-sm drop-shadow-sm">
                           {cat.name}
                         </span>
                       </div>
@@ -3266,13 +4183,13 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     <p className="text-slate-500 text-xs mt-0.5">{translate(`Manage articles, authors, container cover images, and view engagement metrics`)}</p>
                   </div>
                   <div className="relative w-full md:w-72">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                    <Search className="absolute start-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                     <input
                       type="text"
                       placeholder={translate(`Search articles or authors...`)}
                       value={globalSearch}
                       onChange={(e) => setGlobalSearch(e.target.value)}
-                      className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold focus:outline-none focus:border-[#0091EA]"
+                      className="w-full ps-9 pe-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold focus:outline-none focus:border-[#0091EA]"
                     />
                   </div>
                 </div>
@@ -3503,7 +4420,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       type="file"
                       accept="image/*"
                       onChange={(e) => handleImageUpload(e, 'tour')}
-                      className="block w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-[#0091EA] hover:file:bg-sky-100 cursor-pointer"
+                      className="block w-full text-xs text-slate-500 file:me-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-[#0091EA] hover:file:bg-sky-100 cursor-pointer"
                     />
                   </div>
                   <div className="relative">
@@ -3512,20 +4429,20 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       value={tourImage}
                       onChange={(e) => setTourImage(e.target.value)}
                       placeholder={translate(`Paste photo URL...`)}
-                      className="w-full bg-slate-50 border border-slate-250 p-2 rounded-lg text-xs text-slate-800 pr-16"
+                      className="w-full bg-slate-50 border border-slate-250 p-2 rounded-lg text-xs text-slate-800 pe-16"
                     />
                     {tourImage && (
                       <button
                         type="button"
                         onClick={() => setTourImage('')}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-0.5 text-xs font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 rounded transition-colors"
+                        className="absolute end-2 top-1/2 -translate-y-1/2 px-2 py-0.5 text-xs font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 rounded transition-colors"
                       >
                         {translate(`Clear`)}
                       </button>
                     )}
                   </div>
                   <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase mr-1">Presets:</span>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase me-1">Presets:</span>
                     <button
                       type="button"
                       onClick={() => setTourImage('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800')}
@@ -3617,7 +4534,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
 
                     {/* Quick Preset Gallery Photos */}
                     <div className="flex flex-wrap items-center gap-1.5">
-                      <span className="text-[10px] font-bold text-slate-400 uppercase mr-1">Quick Add Presets:</span>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase me-1">Quick Add Presets:</span>
                       <button
                         type="button"
                         onClick={() => setTourGalleryImages(prev => [...prev, 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?w=800'])}
@@ -3721,7 +4638,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       <button
                         type="button"
                         onClick={() => handleRemoveItineraryDay(idx)}
-                        className="absolute top-4 right-4 p-1 rounded-md text-rose-500 hover:bg-rose-50"
+                        className="absolute top-4 end-4 p-1 rounded-md text-rose-500 hover:bg-rose-50"
                         title={translate(`Remove Day`)}
                       >
                         <Trash2 className="h-4 w-4" />
@@ -3889,7 +4806,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       type="file"
                       accept="image/*"
                       onChange={(e) => handleImageUpload(e, 'car')}
-                      className="block w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-[#0091EA] hover:file:bg-sky-100 cursor-pointer"
+                      className="block w-full text-xs text-slate-500 file:me-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-[#0091EA] hover:file:bg-sky-100 cursor-pointer"
                     />
                   </div>
                   <div className="relative">
@@ -3898,20 +4815,20 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       value={carImage}
                       onChange={(e) => setCarImage(e.target.value)}
                       placeholder={translate(`Paste vehicle image URL...`)}
-                      className="w-full bg-slate-50 border border-slate-250 p-2 rounded-lg text-xs text-slate-800 pr-16"
+                      className="w-full bg-slate-50 border border-slate-250 p-2 rounded-lg text-xs text-slate-800 pe-16"
                     />
                     {carImage && (
                       <button
                         type="button"
                         onClick={() => setCarImage('')}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-0.5 text-xs font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 rounded transition-colors"
+                        className="absolute end-2 top-1/2 -translate-y-1/2 px-2 py-0.5 text-xs font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 rounded transition-colors"
                       >
                         {translate(`Clear`)}
                       </button>
                     )}
                   </div>
                   <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase mr-1">Presets:</span>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase me-1">Presets:</span>
                     <button
                       type="button"
                       onClick={() => setCarImage('https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800')}
@@ -4170,7 +5087,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       type="file"
                       accept="image/*"
                       onChange={(e) => handleImageUpload(e, 'hotel')}
-                      className="block w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-[#0091EA] hover:file:bg-sky-100 cursor-pointer"
+                      className="block w-full text-xs text-slate-500 file:me-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-[#0091EA] hover:file:bg-sky-100 cursor-pointer"
                     />
                   </div>
                   <div className="relative">
@@ -4179,20 +5096,20 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                       value={hotelImageUrl}
                       onChange={(e) => setHotelImageUrl(e.target.value)}
                       placeholder={translate(`Paste photo URL or path...`)}
-                      className="w-full bg-slate-50 border border-slate-250 p-2.5 rounded-lg text-sm text-slate-800 pr-16"
+                      className="w-full bg-slate-50 border border-slate-250 p-2.5 rounded-lg text-sm text-slate-800 pe-16"
                     />
                     {hotelImageUrl && (
                       <button
                         type="button"
                         onClick={() => setHotelImageUrl('')}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-1 text-xs font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 rounded transition-colors"
+                        className="absolute end-2 top-1/2 -translate-y-1/2 px-2 py-1 text-xs font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 rounded transition-colors"
                       >
                         {translate(`Clear`)}
                       </button>
                     )}
                   </div>
                   <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase mr-1">Presets:</span>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase me-1">Presets:</span>
                     <button
                       type="button"
                       onClick={() => setHotelImageUrl('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80')}
@@ -4312,7 +5229,7 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
                     <div className="flex items-center justify-center h-full text-slate-400 text-xs">{translate(`No image selected`)}</div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none" />
-                  <span className="absolute bottom-3 left-3 text-white font-extrabold text-sm">{selectedCatName}</span>
+                  <span className="absolute bottom-3 start-3 text-white font-extrabold text-sm">{selectedCatName}</span>
                 </div>
 
                 <div className="space-y-3">
@@ -4663,7 +5580,414 @@ export default function AdminView({ onBackToMain, currentUser, userProfile, load
         </div>
       )}
 
-      {/* Automated Email & SMS/WhatsApp Notification Simulator Modal */}
+      {/* EDIT REVIEW MODAL */}
+      {editingReview && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
+          <div className="bg-white rounded-2xl max-w-2xl w-full border border-slate-200 shadow-2xl overflow-hidden my-8">
+            <div className="p-5 bg-slate-900 text-white flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 bg-[#0091EA] rounded-lg">
+                  <Edit2 className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-black text-lg text-white">{translate(`Edit Traveler Review`)}</h3>
+                  <p className="text-3xs text-slate-300">{translate(`Modify review details, rating, photos, and public publication status`)}</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setEditingReview(null)}
+                className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveEditReview} className="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-2xs font-extrabold uppercase text-slate-500 mb-1">{translate(`Author / Traveler Name`)} *</label>
+                  <input
+                    type="text"
+                    required
+                    value={editFormAuthor}
+                    onChange={(e) => setEditFormAuthor(e.target.value)}
+                    className="w-full p-2.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-[#0091EA] font-semibold"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-2xs font-extrabold uppercase text-slate-500 mb-1">{translate(`User Email`)}</label>
+                  <input
+                    type="email"
+                    value={editFormEmail}
+                    onChange={(e) => setEditFormEmail(e.target.value)}
+                    className="w-full p-2.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-[#0091EA] font-mono"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-2xs font-extrabold uppercase text-slate-500 mb-1">{translate(`Location / Country`)}</label>
+                  <input
+                    type="text"
+                    value={editFormLocation}
+                    onChange={(e) => setEditFormLocation(e.target.value)}
+                    className="w-full p-2.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-[#0091EA] font-semibold"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-2xs font-extrabold uppercase text-slate-500 mb-1">{translate(`Tour Package`)}</label>
+                  <input
+                    type="text"
+                    value={editFormTourName}
+                    onChange={(e) => setEditFormTourName(e.target.value)}
+                    className="w-full p-2.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-[#0091EA] font-semibold"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-2xs font-extrabold uppercase text-slate-500 mb-1">{translate(`Rating (1 - 5 Stars)`)}</label>
+                  <div className="flex items-center gap-2 p-2 border border-slate-200 rounded-lg bg-slate-50">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        type="button"
+                        key={star}
+                        onClick={() => setEditFormRating(star)}
+                        className="p-1 hover:scale-125 transition-transform cursor-pointer"
+                      >
+                        <Star className={`w-5 h-5 ${star <= editFormRating ? 'fill-amber-400 text-amber-400' : 'text-slate-300'}`} />
+                      </button>
+                    ))}
+                    <span className="ms-2 text-xs font-mono font-bold text-slate-700">{editFormRating}.0 / 5.0</span>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-2xs font-extrabold uppercase text-slate-500 mb-1">{translate(`Moderation Status`)}</label>
+                  <select
+                    value={editFormStatus}
+                    onChange={(e) => setEditFormStatus(e.target.value as any)}
+                    className="w-full p-2.5 text-xs border border-slate-200 rounded-lg font-extrabold text-slate-800 focus:outline-none focus:border-[#0091EA]"
+                  >
+                    <option value="Approved">{translate(`Approved (Publicly Visible)`)}</option>
+                    <option value="Pending">{translate(`Pending (Under Review)`)}</option>
+                    <option value="Rejected">{translate(`Rejected (Hidden from Public)`)}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-2xs font-extrabold uppercase text-slate-500 mb-1">{translate(`Review Title`)}</label>
+                <input
+                  type="text"
+                  value={editFormTitle}
+                  onChange={(e) => setEditFormTitle(e.target.value)}
+                  className="w-full p-2.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-[#0091EA] font-bold"
+                />
+              </div>
+
+              <div>
+                <label className="block text-2xs font-extrabold uppercase text-slate-500 mb-1">{translate(`Review Comment`)} *</label>
+                <textarea
+                  rows={4}
+                  required
+                  value={editFormComment}
+                  onChange={(e) => setEditFormComment(e.target.value)}
+                  className="w-full p-2.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-[#0091EA] leading-relaxed font-medium"
+                />
+              </div>
+
+              {/* Photos Management */}
+              <div>
+                <label className="block text-2xs font-extrabold uppercase text-slate-500 mb-1.5">{translate(`Review Photos`)} ({editFormPhotos.length})</label>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {editFormPhotos.map((photo, index) => (
+                    <div key={index} className="relative w-16 h-16 rounded-lg overflow-hidden border border-slate-200 bg-slate-100 group">
+                      <img src={photo} alt={`Photo ${index}`} className="w-full h-full object-cover" />
+                      <button
+                        type="button"
+                        onClick={() => setEditFormPhotos(prev => prev.filter((_, i) => i !== index))}
+                        className="absolute inset-0 bg-rose-900/80 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex gap-2">
+                  <input
+                    type="url"
+                    value={editFormNewPhotoInput}
+                    onChange={(e) => setEditFormNewPhotoInput(e.target.value)}
+                    placeholder="https://example.com/photo.jpg"
+                    className="flex-1 p-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-[#0091EA] font-mono"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (editFormNewPhotoInput.trim()) {
+                        setEditFormPhotos(prev => [...prev, editFormNewPhotoInput.trim()]);
+                        setEditFormNewPhotoInput('');
+                      }
+                    }}
+                    className="px-3 py-2 bg-slate-800 text-white hover:bg-slate-900 rounded-lg text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    {translate(`Add Photo URL`)}
+                  </button>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setEditingReview(null)}
+                  className="px-4 py-2 border border-slate-200 text-slate-700 hover:bg-slate-100 rounded-lg text-xs font-bold transition-colors cursor-pointer"
+                >
+                  {translate(`Cancel`)}
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2 bg-[#0091EA] hover:bg-[#0077c2] text-white rounded-lg text-xs font-extrabold shadow-sm transition-colors cursor-pointer"
+                >
+                  {translate(`Save Changes`)}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* DELETE SINGLE REVIEW CONFIRMATION MODAL */}
+      {deletingReview && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white rounded-2xl max-w-md w-full border border-slate-200 shadow-2xl p-6 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="p-3 bg-rose-100 text-rose-600 rounded-xl">
+                <AlertTriangle className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="font-black text-slate-900 text-base">{translate(`Delete Review Permanently?`)}</h3>
+                <p className="text-3xs text-slate-500">{translate(`This action cannot be undone. Associated photos will also be purged.`)}</p>
+              </div>
+            </div>
+
+            <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-1">
+              <div className="font-bold text-slate-900">{deletingReview.author || deletingReview.userName}</div>
+              <div className="text-3xs text-slate-500 font-mono">{deletingReview.tourName} • ★ {deletingReview.rating}.0</div>
+              <p className="text-slate-600 italic line-clamp-2 mt-1">"{deletingReview.comment || deletingReview.title}"</p>
+            </div>
+
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <button
+                onClick={() => setDeletingReview(null)}
+                className="px-4 py-2 border border-slate-200 text-slate-700 hover:bg-slate-100 rounded-lg text-xs font-bold transition-colors cursor-pointer"
+              >
+                {translate(`Cancel`)}
+              </button>
+              <button
+                onClick={handleDeleteReviewConfirm}
+                className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-extrabold shadow-sm transition-colors cursor-pointer"
+              >
+                {translate(`Yes, Delete Review`)}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* BULK DELETE CONFIRMATION MODAL */}
+      {bulkDeleteModalOpen && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white rounded-2xl max-w-md w-full border border-slate-200 shadow-2xl p-6 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="p-3 bg-rose-100 text-rose-600 rounded-xl">
+                <Trash2 className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="font-black text-slate-900 text-base">{translate(`Bulk Delete Selected Reviews?`)}</h3>
+                <p className="text-3xs text-slate-500">{translate(`You are about to permanently delete`)} <span className="font-bold text-rose-600">{selectedReviewIds.length}</span> {translate(`reviews.`)}</p>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-600 leading-relaxed">
+              {translate(`All selected traveler feedback submissions, ratings, and uploaded images will be permanently removed from the database.`)}
+            </p>
+
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <button
+                onClick={() => setBulkDeleteModalOpen(false)}
+                className="px-4 py-2 border border-slate-200 text-slate-700 hover:bg-slate-100 rounded-lg text-xs font-bold transition-colors cursor-pointer"
+              >
+                {translate(`Cancel`)}
+              </button>
+              <button
+                onClick={() => handleBulkReviewAction('delete')}
+                className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-extrabold shadow-sm transition-colors cursor-pointer"
+              >
+                {translate(`Confirm Bulk Delete`)}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* FULLSCREEN PHOTO LIGHTBOX VIEWER MODAL */}
+      {lightboxState.open && (
+        <div className="fixed inset-0 bg-black/95 z-50 flex flex-col justify-between p-4 sm:p-6 animate-fade-in select-none">
+          {/* Top Bar Controls */}
+          <div className="flex items-center justify-between text-white z-10">
+            <div className="flex items-center gap-3">
+              <span className="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs font-mono font-bold">
+                {lightboxState.currentIndex + 1} / {lightboxState.images.length}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setLightboxState(prev => ({ ...prev, zoom: Math.min(2.5, prev.zoom + 0.25) }))}
+                className="p-2 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-colors cursor-pointer"
+                title="Zoom In"
+              >
+                <ZoomIn className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => setLightboxState(prev => ({ ...prev, zoom: Math.max(0.75, prev.zoom - 0.25) }))}
+                className="p-2 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-colors cursor-pointer"
+                title="Zoom Out"
+              >
+                <ZoomOut className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => setLightboxState(prev => ({ ...prev, zoom: 1 }))}
+                className="p-2 bg-white/10 hover:bg-white/20 rounded-lg text-white text-xs font-extrabold transition-colors cursor-pointer"
+              >
+                Reset Zoom
+              </button>
+              <button
+                onClick={() => setLightboxState({ open: false, images: [], currentIndex: 0, zoom: 1 })}
+                className="p-2 bg-rose-600/80 hover:bg-rose-600 rounded-lg text-white transition-colors cursor-pointer ms-2"
+                title="Close Lightbox"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Main Image Stage */}
+          <div className="relative flex-1 flex items-center justify-center overflow-hidden my-4">
+            {lightboxState.images.length > 1 && (
+              <button
+                onClick={() => setLightboxState(prev => ({
+                  ...prev,
+                  currentIndex: (prev.currentIndex - 1 + prev.images.length) % prev.images.length
+                }))}
+                className="absolute start-2 sm:start-6 p-3 bg-white/10 hover:bg-white/30 text-white rounded-full backdrop-blur-md transition-all cursor-pointer z-10"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+            )}
+
+            <img
+              src={lightboxState.images[lightboxState.currentIndex]}
+              alt={`Review Image ${lightboxState.currentIndex + 1}`}
+              style={{ transform: `scale(${lightboxState.zoom})` }}
+              className="max-h-[75vh] max-w-full object-contain rounded-lg transition-transform duration-200 shadow-2xl"
+            />
+
+            {lightboxState.images.length > 1 && (
+              <button
+                onClick={() => setLightboxState(prev => ({
+                  ...prev,
+                  currentIndex: (prev.currentIndex + 1) % prev.images.length
+                }))}
+                className="absolute end-2 sm:end-6 p-3 bg-white/10 hover:bg-white/30 text-white rounded-full backdrop-blur-md transition-all cursor-pointer z-10"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            )}
+          </div>
+
+          {/* Bottom Thumbnails Strip */}
+          {lightboxState.images.length > 1 && (
+            <div className="flex items-center justify-center gap-2 overflow-x-auto py-2 z-10">
+              {lightboxState.images.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setLightboxState(prev => ({ ...prev, currentIndex: idx }))}
+                  className={`relative w-12 h-12 rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
+                    lightboxState.currentIndex === idx ? 'border-[#0091EA] scale-110 shadow-lg' : 'border-transparent opacity-50 hover:opacity-100'
+                  }`}
+                >
+                  <img src={img} alt={`Thumb ${idx}`} className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ACTIVITY LOG DRAWER */}
+      {showActivityLogDrawer && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex justify-end animate-fade-in">
+          <div className="bg-white w-full max-w-md h-full shadow-2xl flex flex-col justify-between animate-slide-left">
+            <div className="p-5 bg-slate-900 text-white flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <History className="w-5 h-5 text-[#0091EA]" />
+                <div>
+                  <h3 className="font-black text-base text-white">{translate(`Review Moderation Logs`)}</h3>
+                  <p className="text-3xs text-slate-300">{translate(`Audit log history of all review moderation actions`)}</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowActivityLogDrawer(false)}
+                className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="flex-1 p-5 overflow-y-auto space-y-3 divide-y divide-slate-100">
+              {reviewActivityLogs.map((log) => (
+                <div key={log.id} className="pt-3 first:pt-0">
+                  <div className="flex items-center justify-between">
+                    <span className="font-extrabold text-xs text-slate-900">{log.adminName}</span>
+                    <span className="text-3xs font-mono text-slate-400">{new Date(log.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                  </div>
+                  <div className="mt-1 flex items-center gap-1.5">
+                    <span className="px-2 py-0.5 rounded text-3xs font-black bg-sky-100 text-[#0091EA]">
+                      {log.action}
+                    </span>
+                    <span className="text-xs text-slate-700 font-medium truncate">{log.details}</span>
+                  </div>
+                  <div className="text-3xs font-mono text-slate-400 mt-1">
+                    {new Date(log.timestamp).toLocaleDateString()}
+                  </div>
+                </div>
+              ))}
+
+              {reviewActivityLogs.length === 0 && (
+                <div className="py-12 text-center text-slate-400 text-xs">
+                  {translate(`No activity logs recorded yet.`)}
+                </div>
+              )}
+            </div>
+
+            <div className="p-4 border-t border-slate-200 bg-slate-50 flex justify-end">
+              <button
+                onClick={() => setShowActivityLogDrawer(false)}
+                className="px-4 py-2 bg-slate-900 text-white rounded-lg text-xs font-bold hover:bg-slate-800 transition-colors cursor-pointer"
+              >
+                {translate(`Close Drawer`)}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <NotificationSimulatorModal
         isOpen={showNotificationModal}
         onClose={() => setShowNotificationModal(false)}

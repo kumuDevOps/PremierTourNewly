@@ -36,7 +36,7 @@ export default function MapView({ items, onMarkerClick }: MapViewProps) {
       ></iframe>
       
       {/* Floating Active Location Header */}
-      <div className="absolute top-4 left-4 bg-slate-950/85 backdrop-blur-md text-white px-4 py-2 rounded-2xl border border-sky-400/40 text-xs font-black flex items-center gap-2 shadow-xl z-10">
+      <div className="absolute top-4 start-4 bg-slate-950/85 backdrop-blur-md text-white px-4 py-2 rounded-2xl border border-sky-400/40 text-xs font-black flex items-center gap-2 shadow-xl z-10">
         <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
         <MapPin className="w-3.5 h-3.5 text-sky-400" />
         <span>Google Maps: {activeLocation}</span>
@@ -47,7 +47,7 @@ export default function MapView({ items, onMarkerClick }: MapViewProps) {
         href={`https://www.google.com/maps/search/?api=1&query=${query}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="absolute bottom-4 right-4 bg-slate-950/90 hover:bg-[#0091EA] text-white px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider shadow-xl border border-sky-400/40 transition-all flex items-center gap-2 cursor-pointer z-10"
+        className="absolute bottom-4 end-4 bg-slate-950/90 hover:bg-[#0091EA] text-white px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider shadow-xl border border-sky-400/40 transition-all flex items-center gap-2 cursor-pointer z-10"
       >
         <ExternalLink className="w-3.5 h-3.5 text-sky-400 group-hover:text-white" />
         <span>{translate(`Open in Google Maps`)}</span>

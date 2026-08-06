@@ -17,21 +17,31 @@ export interface TravelPackage {
 
 export interface Tour {
   id: number;
+  tourId?: number;
   title: string;
   description: string;
   imageUrl: string;
   galleryImages?: string; // JSON array or comma separated string of image URLs
   duration: string;
   price: number;
-  itinerary: string; // JSON string representation
+  itinerary?: string; // JSON string representation
   category: string;
+  location?: string;
+  nights?: number;
+  days?: number;
+  rating?: number;
+  reviewsCount?: number;
+  highlights?: string[];
 }
 
 export interface Flight {
   id: number;
   airline: string;
+  flightNumber?: string;
   fromCity: string;
+  fromCode?: string;
   toCity: string;
+  toCode?: string;
   departureTime: string;
   arrivalTime: string;
   price: number;

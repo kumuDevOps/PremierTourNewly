@@ -48,77 +48,94 @@ interface TravelerReviewCarouselProps {
 
 const initialDefaultReviews: ReviewItem[] = [
   {
-    id: 'rev-1',
-    author: 'Eleanor & Marcus Vance',
+    id: 'rev-101',
+    author: 'Sophia & Liam Miller',
     location: 'London, United Kingdom',
     flag: '🇬🇧',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
     tourName: 'Luxury Sri Lanka Grand Tour • 14 Days',
     rating: 5,
-    date: 'July 2026',
+    date: 'August 2026',
     category: 'honeymoon',
-    title: 'An Unforgettable 5-Star Honeymoon Experience!',
-    comment: 'Premier Tour Booking curated the dream luxury holiday for our wedding anniversary. From the helicopter airport transfer to our private chauffeur, Priyantha, every detail was immaculate. Watching sunrise at Sigiriya and staying in a tea estate villa were highlights of a lifetime!',
+    title: 'Unforgettable Honeymoon in Paradise!',
+    comment: 'Our 14-day luxury tour surpassed all expectations! From the breathtaking sunrise at Sigiriya Fortress to private tea tasting in Ella and the thrilling Yala leopard safari, Premier Tours handled every detail flawlessly. Our chauffeur guide was extraordinarily attentive. Truly a 5-star experience!',
     photos: [
-      'https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?w=800&q=80',
-      'https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&q=80&w=1200'
+      'https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1546708973-b339540b5162?w=800&auto=format&fit=crop&q=80'
     ],
-    helpfulCount: 42,
+    helpfulCount: 24,
     verified: true
   },
   {
-    id: 'rev-2',
-    author: 'David & Sarah Miller',
-    location: 'Melbourne, Australia',
+    id: 'rev-102',
+    author: 'Marcus & Elena Vance',
+    location: 'Sydney, Australia',
     flag: '🇦🇺',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
-    tourName: 'Wild Sri Lanka Leopard Safari • 3 Days',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+    tourName: 'Cultural Triangle & Ancient Wonders • 5 Days',
     rating: 5,
-    date: 'June 2026',
+    date: 'August 2026',
     category: 'family',
-    title: 'Spotted 3 Leopards in Yala! Exceptional Private Guide',
-    comment: 'Our family of four was thoroughly impressed. The custom 4x4 jeep safari in Yala was incredibly organized. Our kids were thrilled to spot mother leopard with cubs and wild elephant herds. The luxury glamping tent afterwards was pure bliss.',
+    title: 'Impeccable Cultural Odyssey!',
+    comment: 'Scaling Sigiriya Rock and exploring the ancient Dambulla cave temples with Premier Tours was the highlight of our family trip. The private air-conditioned vehicle was pristine, and the luxury boutique hotels booked for us were heavenly. Highly recommended for family travelers!',
     photos: [
-      'https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=800&q=80'
-    ],
-    helpfulCount: 29,
-    verified: true
-  },
-  {
-    id: 'rev-3',
-    author: 'Dr. Helene Dubois',
-    location: 'Paris, France',
-    flag: '🇫🇷',
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150',
-    tourName: 'Elite Sanctuary Ayurveda & Yoga Retreat',
-    rating: 5,
-    date: 'July 2026',
-    category: 'solo',
-    title: 'Pure Rejuvenation & Unmatched Hospitality',
-    comment: 'As a busy surgeon in Paris, I desperately needed wellness and tranquility. The personalized Ayurveda consultation, oceanfront yoga sessions in Weligama, and organic herbal cuisine restored my energy completely. I will be returning every year!',
-    photos: [
-      'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80',
-      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80'
-    ],
-    helpfulCount: 38,
-    verified: true
-  },
-  {
-    id: 'rev-4',
-    author: 'Oliver & Sophia Schmidt',
-    location: 'Zurich, Switzerland',
-    flag: '🇨🇭',
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150',
-    tourName: 'Southern Coast & Beach Escape • 10 Days',
-    rating: 5,
-    date: 'May 2026',
-    category: 'honeymoon',
-    title: 'Blue Whales in Mirissa & Sunset Fort Walks',
-    comment: 'Booking through Premier Tour Booking gave us 100% peace of mind. The private catamaran whale watching charter was top-notch, and the Dutch Fort in Galle felt straight out of a fairy tale. Outstanding 24/7 concierge support!',
-    photos: [
-      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80'
+      'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=800&auto=format&fit=crop&q=80'
     ],
     helpfulCount: 19,
+    verified: true
+  },
+  {
+    id: 'rev-103',
+    author: 'David & Chloe Dubois',
+    location: 'Paris, France',
+    flag: '🇫🇷',
+    avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80',
+    tourName: 'Hill Country & Tea Plantation Escape • 4 Days',
+    rating: 5,
+    date: 'August 2026',
+    category: 'solo',
+    title: 'Scenic Nine Arch Bridge & Ella Magic',
+    comment: 'The iconic blue train journey from Kandy to Ella was pure magic. Premier Tours arranged reserved First Class seats, seamless luggage transfers, and a private villa overlooking Little Adam\'s Peak. The tea factory tasting was top-notch. Will return soon!',
+    photos: [
+      'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800&auto=format&fit=crop&q=80'
+    ],
+    helpfulCount: 31,
+    verified: true
+  },
+  {
+    id: 'rev-104',
+    author: 'Aarav & Meera Sharma',
+    location: 'Mumbai, India',
+    flag: '🇮🇳',
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
+    tourName: 'Southern Coastal Bliss & Whale Watching • 6 Days',
+    rating: 5,
+    date: 'August 2026',
+    category: 'family',
+    title: 'Blue Whales in Mirissa & Colonial Galle Fort',
+    comment: 'Seeing blue whales in Mirissa up close was awe-inspiring! Walking through the historic Galle Dutch Fort at sunset and relaxing in our private beachfront villa made this vacation unforgettable. 24/7 customer support was always on hand.',
+    photos: [
+      'https://images.unsplash.com/photo-1512100356356-de1b84283e18?w=800&auto=format&fit=crop&q=80'
+    ],
+    helpfulCount: 15,
+    verified: true
+  },
+  {
+    id: 'rev-105',
+    author: 'Hannah & Lukas Weber',
+    location: 'Munich, Germany',
+    flag: '🇩🇪',
+    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
+    tourName: 'Wild Sri Lanka & Elephant Safari Expedition • 7 Days',
+    rating: 5,
+    date: 'August 2026',
+    category: 'solo',
+    title: 'Thrilling Elephant Gathering at Minneriya',
+    comment: 'Witnessing hundreds of wild elephants gather at Minneriya Lake was a bucket-list dream come true! Premier Tours provided an expert naturalist guide and a custom 4x4 open-top jeep safari. Phenomenal organization and warm hospitality throughout!',
+    photos: [
+      'https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=800&auto=format&fit=crop&q=80'
+    ],
+    helpfulCount: 28,
     verified: true
   }
 ];
@@ -126,7 +143,7 @@ const initialDefaultReviews: ReviewItem[] = [
 export default function TravelerReviewCarousel({ currentUser, userProfile, onOpenAuth }: TravelerReviewCarouselProps) {
   const { translate } = useLanguage();
 
-  const [reviewsList, setReviewsList] = useState<ReviewItem[]>(initialDefaultReviews);
+  const [reviewsList, setReviewsList] = useState<ReviewItem[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
@@ -147,14 +164,14 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  // Fetch persisted reviews from backend on load
-  useEffect(() => {
+  // Fetch persisted reviews from backend on load & subscribe to SSE
+  const loadServerReviews = () => {
     fetch('/api/reviews')
-      .then(res => res.ok ? res.json() : [])
+      .then(res => res.ok ? res.json() : null)
       .then((data: any[]) => {
-        if (Array.isArray(data) && data.length > 0) {
+        if (Array.isArray(data)) {
           const formattedApiReviews: ReviewItem[] = data.map((r: any) => ({
-            id: r.id || 'rev-' + Math.random(),
+            id: String(r.id || 'rev-' + Math.random()),
             author: r.author || r.userName || 'Verified Guest',
             location: r.location || 'Sri Lanka Guest',
             flag: r.flag || '🇱🇰',
@@ -170,15 +187,34 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
             verified: r.verified !== undefined ? Boolean(r.verified) : true
           }));
 
-          // Merge without duplicate IDs
-          const existingIds = new Set(initialDefaultReviews.map(dr => dr.id));
-          const uniqueApi = formattedApiReviews.filter(ar => !existingIds.has(ar.id));
-          setReviewsList([...uniqueApi, ...initialDefaultReviews]);
+          setReviewsList(formattedApiReviews);
         }
       })
       .catch((err) => {
         console.warn('Could not fetch server reviews, using initial set:', err);
       });
+  };
+
+  useEffect(() => {
+    loadServerReviews();
+
+    // Setup real-time listener
+    let eventSource: EventSource | null = null;
+    try {
+      eventSource = new EventSource('/api/realtime/stream');
+      eventSource.onmessage = (event) => {
+        try {
+          const payload = JSON.parse(event.data);
+          if (payload.type === 'NEW_REVIEW' || payload.type === 'catalog-updated') {
+            loadServerReviews();
+          }
+        } catch (_) {}
+      };
+    } catch (_) {}
+
+    return () => {
+      if (eventSource) eventSource.close();
+    };
   }, []);
 
   // Pre-fill user details when logged in
@@ -297,33 +333,13 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
     };
 
     try {
-      const res = await fetch('/api/reviews', {
+      await fetch('/api/reviews', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      const data = await res.json();
 
-      const createdReview: ReviewItem = {
-        id: data.review?.id || 'rev-' + Date.now(),
-        author: payload.author,
-        location: payload.location,
-        flag: payload.flag,
-        avatar: payload.avatar,
-        tourName: payload.tourName,
-        rating: payload.rating,
-        date: 'Just Now',
-        category: payload.category,
-        title: payload.title,
-        comment: payload.comment,
-        photos: payload.photos,
-        helpfulCount: 0,
-        verified: payload.verified
-      };
-
-      setReviewsList(prev => [createdReview, ...prev]);
       setSubmitSuccess(true);
-      setCurrentIndex(0); // Jump carousel to top so new review shows immediately
 
       setTimeout(() => {
         setShowAddReviewModal(false);
@@ -331,27 +347,9 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
         setNewTitle('');
         setNewComment('');
         setNewPhotos([]);
-      }, 1600);
+      }, 3000);
     } catch (err) {
       console.error('Error submitting review:', err);
-      // Local fallback insert
-      const fallbackReview: ReviewItem = {
-        id: 'rev-' + Date.now(),
-        author: payload.author,
-        location: payload.location,
-        flag: payload.flag,
-        avatar: payload.avatar,
-        tourName: payload.tourName,
-        rating: payload.rating,
-        date: 'Just Now',
-        category: payload.category,
-        title: payload.title,
-        comment: payload.comment,
-        photos: payload.photos,
-        helpfulCount: 0,
-        verified: payload.verified
-      };
-      setReviewsList(prev => [fallbackReview, ...prev]);
       setSubmitSuccess(true);
       setTimeout(() => {
         setShowAddReviewModal(false);
@@ -359,7 +357,7 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
         setNewTitle('');
         setNewComment('');
         setNewPhotos([]);
-      }, 1600);
+      }, 3000);
     } finally {
       setIsSubmitting(false);
     }
@@ -369,7 +367,7 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
     <section id="traveler-reviews" className="py-20 bg-gradient-to-b from-white via-sky-50/30 to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-900 dark:text-white relative overflow-hidden">
       
       {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#0091EA]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 start-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#0091EA]/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -379,7 +377,7 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
           <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-start">
             
             {/* Trustpilot Box */}
-            <div className="flex flex-col items-center sm:items-start border-b sm:border-b-0 sm:border-r border-sky-800/60 pb-4 sm:pb-0 sm:pr-6">
+            <div className="flex flex-col items-center sm:items-start border-b sm:border-b-0 sm:border-r border-sky-800/60 pb-4 sm:pb-0 sm:pe-6">
               <div className="flex items-center gap-1.5 text-emerald-400 font-extrabold text-xs uppercase tracking-widest mb-1">
                 <Star className="w-4 h-4 fill-emerald-400" />
                 <span>{translate('Trustpilot')}</span>
@@ -634,7 +632,7 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
             >
               <button
                 onClick={() => setSelectedPhoto(null)}
-                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-slate-950/80 text-white hover:bg-rose-600 flex items-center justify-center transition-colors cursor-pointer"
+                className="absolute top-4 end-4 z-20 w-10 h-10 rounded-full bg-slate-950/80 text-white hover:bg-rose-600 flex items-center justify-center transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -661,7 +659,7 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
             >
               <button
                 onClick={() => setShowAddReviewModal(false)}
-                className="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-colors cursor-pointer z-10"
+                className="absolute top-5 end-5 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-colors cursor-pointer z-10"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -717,13 +715,13 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
               )}
 
               {submitSuccess ? (
-                <div className="text-center py-10 space-y-3">
-                  <div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-950 text-emerald-500 rounded-full flex items-center justify-center mx-auto text-3xl font-black">
-                    ✓
+                <div className="text-center py-10 space-y-4">
+                  <div className="w-16 h-16 bg-amber-100 dark:bg-amber-950/60 text-amber-600 rounded-full flex items-center justify-center mx-auto text-3xl font-black">
+                    ⏳
                   </div>
-                  <h4 className="text-xl font-black text-slate-900 dark:text-white">{translate('Story Published Successfully!')}</h4>
-                  <p className="text-xs text-slate-600 dark:text-slate-300">
-                    {translate('Thank you! Your story and photos are now live on our website for travelers around the world to discover.')}
+                  <h4 className="text-xl font-black text-slate-900 dark:text-white">{translate('Story Submitted - Pending Approval')}</h4>
+                  <p className="text-xs text-slate-600 dark:text-slate-300 max-w-sm mx-auto leading-relaxed">
+                    {translate('Thank you for sharing your experience! Your story has been submitted with Pending status and sent to our admin team for review. It will appear on the home page once approved by an administrator.')}
                   </p>
                 </div>
               ) : (
@@ -802,7 +800,7 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
                           <Star className={`w-6 h-6 ${star <= newRating ? 'fill-amber-400 text-amber-400' : 'text-slate-300 dark:text-slate-700'}`} />
                         </button>
                       ))}
-                      <span className="text-xs font-black text-slate-600 dark:text-slate-400 ml-2">{newRating} / 5 Stars</span>
+                      <span className="text-xs font-black text-slate-600 dark:text-slate-400 ms-2">{newRating} / 5 Stars</span>
                     </div>
                   </div>
 
@@ -879,14 +877,14 @@ export default function TravelerReviewCarousel({ currentUser, userProfile, onOpe
 
                     {/* Attached Photo Thumbnails Grid */}
                     {newPhotos.length > 0 && (
-                      <div className="flex items-center gap-2 overflow-x-auto pt-1 pb-1">
+                      <div className="flex items-center gap-2 overflow-x-auto pt-1 pb-1 no-scrollbar">
                         {newPhotos.map((photo, pIdx) => (
                           <div key={pIdx} className="relative w-16 h-14 rounded-lg overflow-hidden border border-sky-400 shrink-0 group">
                             <img src={photo} alt="Upload preview" className="w-full h-full object-cover" />
                             <button
                               type="button"
                               onClick={() => handleRemovePhoto(pIdx)}
-                              className="absolute top-1 right-1 w-4 h-4 bg-rose-600 text-white rounded-full flex items-center justify-center text-[10px] cursor-pointer hover:scale-110"
+                              className="absolute top-1 end-1 w-4 h-4 bg-rose-600 text-white rounded-full flex items-center justify-center text-[10px] cursor-pointer hover:scale-110"
                             >
                               <X className="w-2.5 h-2.5" />
                             </button>

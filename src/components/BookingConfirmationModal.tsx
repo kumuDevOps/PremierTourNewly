@@ -215,8 +215,8 @@ export default function BookingConfirmationModal({
     }
 
     const addonDetails = [];
-    if (includeHotel) addonDetails.push(`Hotel: ${selectedHotel.name} (${hotelNights} nights)`);
-    if (includeVehicle) addonDetails.push(`Vehicle: ${selectedVehicle.name} (${vehicleDays} days - ${driverOption === 'driver' ? 'With Driver' : 'Self-Drive'})`);
+    if (includeHotel) addonDetails.push(`${translate('Hotel')}: ${translate(selectedHotel.name)} (${hotelNights} ${translate('nights')})`);
+    if (includeVehicle) addonDetails.push(`${translate('Vehicle')}: ${translate(selectedVehicle.name)} (${vehicleDays} ${translate('days')} - ${driverOption === 'driver' ? translate('With Driver') : translate('Self-Drive')})`);
 
     const voucher: BookingVoucherData = {
       id: bookingRef,
@@ -224,19 +224,19 @@ export default function BookingConfirmationModal({
       type: resolvedType,
       title: title,
       subtitle: customSubtitle,
-      description: (bookingData?.description || `${title} - Confirmed Booking Voucher for ${custName || 'Guest'}.`) + (addonDetails.length > 0 ? ` [Add-ons: ${addonDetails.join('; ')}]` : ''),
+      description: (bookingData?.description || `${translate(title)} - ${translate('Confirmed Booking Voucher for')} ${custName || translate('Guest')}.`) + (addonDetails.length > 0 ? ` [${translate('Add-ons')}: ${addonDetails.join('; ')}]` : ''),
       category: resolvedType.toUpperCase(),
-      customerName: custName || currentUser?.displayName || 'Traveler',
+      customerName: custName || currentUser?.displayName || translate('Traveler'),
       customerEmail: custEmail || currentUser?.email || 'customer@example.com',
       customerPhone: custPhone || '',
       guestsCount: travelers,
       startDate: formatDate(resolvedDateStart),
       endDate: resolvedDateEnd ? formatDate(resolvedDateEnd) : undefined,
       startTime: '09:00 AM EST',
-      durationText: dates?.days ? `${dates.days} Days / ${dates.nights || dates.days - 1} Nights` : 'Full Experience',
+      durationText: dates?.days ? `${dates.days} ${translate('days')} / ${dates.nights || dates.days - 1} ${translate('nights')}` : translate('Full Experience'),
       roomNumber: (resolvedType === 'hotel' || includeHotel) ? `Suite #${100 + Math.floor(Math.random() * 800)}` : undefined,
-      roomType: includeHotel ? `${selectedHotel.name} (${hotelNights} Nights)` : (resolvedType === 'hotel' ? 'Luxury Executive Ocean Suite' : undefined),
-      carCategory: includeVehicle ? `${selectedVehicle.name} (${driverOption === 'driver' ? 'With Driver' : 'Self-Drive'})` : (bookingData?.carCategory || (resolvedType === 'car' ? `${subtitle || ''} (${driverOption === 'driver' ? 'With Driver' : 'Self-Drive'})` : undefined)),
+      roomType: includeHotel ? `${translate(selectedHotel.name)} (${hotelNights} ${translate('nights')})` : (resolvedType === 'hotel' ? translate('Luxury Executive Ocean Suite') : undefined),
+      carCategory: includeVehicle ? `${translate(selectedVehicle.name)} (${driverOption === 'driver' ? translate('With Driver') : translate('Self-Drive')})` : (bookingData?.carCategory || (resolvedType === 'car' ? `${subtitle || ''} (${driverOption === 'driver' ? translate('With Driver') : translate('Self-Drive')})` : undefined)),
       pickupLocation: bookingData?.pickupLocation || bookingData?.pickupLoc,
       dropoffLocation: bookingData?.dropoffLocation || bookingData?.dropoffLoc,
       totalPrice: grandTotal,
@@ -485,7 +485,7 @@ export default function BookingConfirmationModal({
           <div className="px-6 pt-6 pb-5 bg-gradient-to-b from-sky-50/80 to-white dark:from-sky-950/30 dark:to-slate-900 border-b border-sky-100 dark:border-sky-900/50 relative">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 transition-colors z-20 cursor-pointer"
+            className="absolute top-4 end-4 p-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 transition-colors z-20 cursor-pointer"
             title={translate('Close')}
           >
             <X className="w-5 h-5" />
@@ -545,8 +545,8 @@ export default function BookingConfirmationModal({
                       Ref: {bookingRef}
                     </span>
                   </div>
-                  <h4 className="font-black text-slate-900 dark:text-white text-base leading-tight truncate">{title}</h4>
-                  {subtitle && <p className="text-xs text-slate-500 dark:text-slate-400 font-medium truncate">{subtitle}</p>}
+                  <h4 className="font-black text-slate-900 dark:text-white text-base leading-tight truncate">{translate(title)}</h4>
+                  {subtitle && <p className="text-xs text-slate-500 dark:text-slate-400 font-medium truncate">{translate(subtitle)}</p>}
                 </div>
               </div>
 
@@ -684,7 +684,7 @@ export default function BookingConfirmationModal({
                               >
                                 {AVAILABLE_ADDON_HOTELS.map((h) => (
                                   <option key={h.id} value={h.id}>
-                                    {h.name} ({h.location}) - {formatPrice(h.pricePerNight)}/night
+                                    {translate(h.name)} ({translate(h.location)}) - {formatPrice(h.pricePerNight)}/{translate('night')}
                                   </option>
                                 ))}
                               </select>
@@ -697,7 +697,7 @@ export default function BookingConfirmationModal({
                                 className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold outline-none focus:border-[#0091EA] text-slate-800 dark:text-slate-200"
                               >
                                 {[1, 2, 3, 4, 5, 7, 10].map((n) => (
-                                  <option key={n} value={n}>{n} {n === 1 ? 'Night' : 'Nights'}</option>
+                                  <option key={n} value={n}>{n} {n === 1 ? translate('Night') : translate('Nights')}</option>
                                 ))}
                               </select>
                             </div>
@@ -746,7 +746,7 @@ export default function BookingConfirmationModal({
                             >
                               {AVAILABLE_ADDON_VEHICLES.map((v) => (
                                 <option key={v.id} value={v.id}>
-                                  {v.name} ({v.category}) - {formatPrice(v.pricePerDay)}/day
+                                  {translate(v.name)} ({translate(v.category)}) - {formatPrice(v.pricePerDay)}/{translate('day')}
                                 </option>
                               ))}
                             </select>
@@ -759,7 +759,7 @@ export default function BookingConfirmationModal({
                               className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold outline-none focus:border-[#0091EA] text-slate-800 dark:text-slate-200"
                             >
                               {[1, 2, 3, 4, 5, 7, 10].map((d) => (
-                                <option key={d} value={d}>{d} {d === 1 ? 'Day' : 'Days'}</option>
+                                <option key={d} value={d}>{d} {d === 1 ? translate('Day') : translate('Days')}</option>
                               ))}
                             </select>
                           </div>
@@ -791,7 +791,7 @@ export default function BookingConfirmationModal({
                   {/* Hotel Addon Line Item */}
                   {includeHotel && (hotelAddonCost > 0) && (
                     <div className="flex justify-between text-sky-700 dark:text-sky-300 font-medium bg-sky-50/50 dark:bg-sky-950/30 px-2 py-1 rounded-lg">
-                      <span>🏨 {selectedHotel.name} ({hotelNights} {hotelNights === 1 ? 'Night' : 'Nights'})</span>
+                      <span>🏨 {translate(selectedHotel.name)} ({hotelNights} {hotelNights === 1 ? translate('Night') : translate('Nights')})</span>
                       <span className="font-bold">+{formatPrice(hotelAddonCost)}</span>
                     </div>
                   )}
@@ -799,7 +799,7 @@ export default function BookingConfirmationModal({
                   {/* Vehicle Addon Line Item */}
                   {includeVehicle && (vehicleAddonCost > 0) && (
                     <div className="flex justify-between text-sky-700 dark:text-sky-300 font-medium bg-sky-50/50 dark:bg-sky-950/30 px-2 py-1 rounded-lg">
-                      <span>🚗 {selectedVehicle.name} ({vehicleDays} {vehicleDays === 1 ? 'Day' : 'Days'}) {driverOption === 'driver' ? '(With Driver)' : '(Self-Drive)'}</span>
+                      <span>🚗 {translate(selectedVehicle.name)} ({vehicleDays} {vehicleDays === 1 ? translate('Day') : translate('Days')}) {driverOption === 'driver' ? `(${translate('With Driver')})` : `(${translate('Self-Drive')})`}</span>
                       <span className="font-bold">+{formatPrice(vehicleAddonCost)}</span>
                     </div>
                   )}
@@ -807,7 +807,7 @@ export default function BookingConfirmationModal({
                   {/* Car Rental Direct Driver Fee Line Item */}
                   {resolvedType === 'car' && driverOption === 'driver' && (
                     <div className="flex justify-between text-sky-700 dark:text-sky-300 font-medium bg-sky-50/50 dark:bg-sky-950/30 px-2 py-1 rounded-lg">
-                      <span>👨‍✈️ {translate('Professional Driver Service')} ({carRentalDays} {carRentalDays === 1 ? 'Day' : 'Days'})</span>
+                      <span>👨‍✈️ {translate('Professional Driver Service')} ({carRentalDays} {carRentalDays === 1 ? translate('Day') : translate('Days')})</span>
                       <span className="font-bold">+{formatPrice(carDirectDriverCost)}</span>
                     </div>
                   )}
@@ -925,7 +925,7 @@ export default function BookingConfirmationModal({
                     }`}
                   >
                     <span className="block font-black text-xs text-amber-600">{translate(`Pay on Arrival`)}</span>
-                    <span className="block text-[9px] text-slate-400">15% Deposit Now</span>
+                    <span className="block text-[9px] text-slate-400">{translate(`15% Deposit Now`)}</span>
                   </button>
                 </div>
               </div>
@@ -939,7 +939,7 @@ export default function BookingConfirmationModal({
                       {translate(`Security Deposit Pre-authorization Hold`)}
                     </span>
                     <p className="text-[11px] text-amber-700 dark:text-amber-400 font-medium leading-relaxed mt-0.5">
-                      An automated security deposit hold of {formatPrice(250)} is pre-authorized on your card. No money is charged; the temporary hold is automatically released 24 hours after vehicle return post-inspection.
+                      {translate('An automated security deposit hold of')} {formatPrice(250)} {translate('is pre-authorized on your card. No money is charged; the temporary hold is automatically released 24 hours after vehicle return post-inspection.')}
                     </p>
                   </div>
                 </div>
@@ -1009,9 +1009,9 @@ export default function BookingConfirmationModal({
                           value={cardNumber}
                           onChange={handleCardNumberChange}
                           placeholder="4242 4242 4242 4242"
-                          className="w-full pl-10 pr-4 py-2.5 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-xl text-xs font-mono outline-none focus:border-[#0091EA] font-bold"
+                          className="w-full ps-10 pe-4 py-2.5 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-xl text-xs font-mono outline-none focus:border-[#0091EA] font-bold"
                         />
-                        <CreditCard className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                        <CreditCard className="w-4 h-4 text-slate-400 absolute start-3.5 top-3" />
                       </div>
                     </div>
 
@@ -1095,7 +1095,7 @@ export default function BookingConfirmationModal({
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Mobile Phone Number (SMS OTP Verification)</label>
+                      <label className="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">{translate(`Mobile Phone Number (SMS OTP Verification)`)}</label>
                       <input
                         type="tel"
                         required
@@ -1157,7 +1157,7 @@ export default function BookingConfirmationModal({
 
                   {/* Interactive PayPal Yellow Button Mockup */}
                   <div className="p-4 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200 dark:border-slate-700 text-center space-y-2">
-                    <p className="text-[11px] font-bold text-slate-500">PayPal Express Checkout Preview:</p>
+                    <p className="text-[11px] font-bold text-slate-500">{translate(`PayPal Express Checkout Preview:`)}</p>
                     <div className="w-full py-3 bg-[#FFC439] hover:bg-[#f2b82e] text-indigo-950 rounded-xl font-black text-sm shadow-md flex items-center justify-center gap-2 cursor-pointer transition-all">
                       <span className="italic font-extrabold text-base">{translate(`Pay`)}<span className="text-blue-700">{translate(`Pal`)}</span></span>
                       <span>{translate(`Checkout`)}</span>
@@ -1180,7 +1180,7 @@ export default function BookingConfirmationModal({
                     <div className="flex justify-between items-center border-b border-amber-500/30 pb-2">
                       <div className="flex items-center gap-2">
                         <span className="px-2.5 py-0.5 bg-amber-400 text-slate-950 text-[10px] font-black rounded uppercase">{translate(`Pay on Arrival`)}</span>
-                        <span className="text-xs font-bold text-amber-200">15% Deposit Guarantee</span>
+                        <span className="text-xs font-bold text-amber-200">{translate(`15% Deposit Guarantee`)}</span>
                       </div>
                       <span className="text-[10px] text-amber-300 font-mono font-bold">{translate(`Flexible Settlement`)}</span>
                     </div>
@@ -1188,11 +1188,11 @@ export default function BookingConfirmationModal({
                     {/* Deposit Calculation Grid */}
                     <div className="grid grid-cols-2 gap-3 pt-1">
                       <div className="bg-black/30 p-2.5 rounded-xl border border-amber-400/20">
-                        <span className="text-[9px] uppercase tracking-widest text-amber-300 font-black block">Deposit Due Today (15%)</span>
+                        <span className="text-[9px] uppercase tracking-widest text-amber-300 font-black block">{translate(`Deposit Due Today (15%)`)}</span>
                         <span className="text-xl font-black text-emerald-400 font-mono">{formatPrice(Math.round(grandTotal * 0.15))}</span>
                       </div>
                       <div className="bg-black/30 p-2.5 rounded-xl border border-amber-400/20">
-                        <span className="text-[9px] uppercase tracking-widest text-amber-300 font-black block">Balance Upon Arrival (85%)</span>
+                        <span className="text-[9px] uppercase tracking-widest text-amber-300 font-black block">{translate(`Balance Upon Arrival (85%)`)}</span>
                         <span className="text-xl font-black text-white font-mono">{formatPrice(grandTotal - Math.round(grandTotal * 0.15))}</span>
                       </div>
                     </div>
@@ -1213,7 +1213,7 @@ export default function BookingConfirmationModal({
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Flight Number or Arrival Notes (Optional)</label>
+                      <label className="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">{translate(`Flight Number or Arrival Notes (Optional)`)}</label>
                       <input
                         type="text"
                         value={arrivalNotes}
@@ -1227,7 +1227,7 @@ export default function BookingConfirmationModal({
                   {/* Info Notice */}
                   <div className="bg-amber-50 dark:bg-amber-950/50 rounded-xl p-3 border border-amber-200 dark:border-amber-800 text-[11px] text-amber-800 dark:text-amber-300 font-medium flex items-center gap-2">
                     <Info className="w-4 h-4 text-amber-600 flex-shrink-0" />
-                    <span>Pay only {formatPrice(Math.round(grandTotal * 0.15))} today to lock in your reservation. The remaining balance can be paid in cash or card upon arrival.</span>
+                    <span>{translate('Pay only')} {formatPrice(Math.round(grandTotal * 0.15))} {translate('today to lock in your reservation. The remaining balance can be paid in cash or card upon arrival.')}</span>
                   </div>
                 </div>
               )}
@@ -1274,11 +1274,11 @@ export default function BookingConfirmationModal({
                     <Lock className="w-4 h-4" />
                     <span>
                       {paymentGateway === 'payhere'
-                        ? `Proceed with PayHere (Rs. ${(grandTotal * 310).toLocaleString()} LKR)`
+                        ? `${translate('Proceed with PayHere')} (Rs. ${(grandTotal * 310).toLocaleString()} LKR)`
                         : paymentGateway === 'paypal'
-                        ? `Pay with PayPal (${formatPrice(grandTotal)})`
+                        ? `${translate('Pay with PayPal')} (${formatPrice(grandTotal)})`
                         : paymentGateway === 'arrival'
-                        ? `Pay 15% Deposit (${formatPrice(Math.round(grandTotal * 0.15))}) & Confirm`
+                        ? `${translate('Pay 15% Deposit')} (${formatPrice(Math.round(grandTotal * 0.15))}) & ${translate('Confirm')}`
                         : `${translate('Confirm & Pay')} ${formatPrice(grandTotal)}`}
                     </span>
                   </>

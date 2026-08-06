@@ -17,6 +17,7 @@ export default function DatePicker({
   minDate,
   className = '',
 }: DatePickerProps) {
+  const { translate } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -167,7 +168,7 @@ export default function DatePicker({
       >
         <span className="flex items-center gap-2">
           <CalendarIcon className="w-4 h-4 text-slate-400 dark:text-slate-500" />
-          {getDisplayDate()}
+          <bdi><bdi>{getDisplayDate()}</bdi></bdi>
         </span>
       </button>
 

@@ -12,8 +12,8 @@ export default function Footer({ setCurrentPage }: FooterProps) {
   return (
     <footer className="relative bg-gradient-to-br from-white via-sky-50/50 to-slate-100 dark:from-slate-950 dark:via-sky-950/40 dark:to-slate-900 text-slate-700 dark:text-slate-300 pt-16 pb-10 border-t-2 border-sky-300/80 dark:border-sky-800/60 shadow-2xl shadow-sky-500/10 animate-blue-glow transition-colors duration-500 overflow-hidden">
       {/* Background ambient light effects */}
-      <div className="absolute top-0 right-1/3 w-96 h-96 bg-sky-400/10 dark:bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-cyan-400/10 dark:bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 end-1/3 w-96 h-96 bg-sky-400/10 dark:bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 start-1/3 w-96 h-96 bg-cyan-400/10 dark:bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-0">
         
@@ -110,8 +110,8 @@ export default function Footer({ setCurrentPage }: FooterProps) {
             </div>
             {/* Mastercard */}
             <div className="h-7 w-11 bg-white border border-sky-200 dark:border-slate-700 rounded-lg flex items-center justify-center shadow-sm overflow-hidden relative" title={translate(`Mastercard`)}>
-              <div className="w-4 h-4 rounded-full bg-[#EB001B] absolute -ml-2.5"></div>
-              <div className="w-4 h-4 rounded-full bg-[#F79E1B] absolute ml-2.5 opacity-90 mix-blend-multiply dark:mix-blend-normal"></div>
+              <div className="w-4 h-4 rounded-full bg-[#EB001B] absolute -ms-2.5"></div>
+              <div className="w-4 h-4 rounded-full bg-[#F79E1B] absolute ms-2.5 opacity-90 mix-blend-multiply dark:mix-blend-normal"></div>
             </div>
             {/* Amex */}
             <div className="h-7 w-11 bg-[#2E77BB] border border-sky-200 dark:border-slate-700 rounded-lg flex items-center justify-center shadow-sm" title={translate(`American Express`)}>

@@ -173,7 +173,7 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
                   {translate(`First Name`)} <span className="text-rose-500">*</span>
                 </label>
                 <div className="relative">
-                  <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <User className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <input
                     id="reg-firstname"
                     type="text"
@@ -181,10 +181,10 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
                     placeholder={translate(`John`)}
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    className={`w-full pl-10 pr-4 py-2.5 border ${errors.firstName ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-300 dark:border-slate-700 focus:ring-[#0091EA]'} rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
+                    className={`w-full ps-10 pe-4 py-2.5 border ${errors.firstName ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-300 dark:border-slate-700 focus:ring-[#0091EA]'} rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
                   />
                 </div>
-                {errors.firstName && <p className="text-[11px] font-bold text-rose-500 mt-1 pl-1">{errors.firstName}</p>}
+                {errors.firstName && <p className="text-[11px] font-bold text-rose-500 mt-1 ps-1">{errors.firstName}</p>}
               </div>
 
               <div>
@@ -192,7 +192,7 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
                   {translate(`Last Name`)} <span className="text-rose-500">*</span>
                 </label>
                 <div className="relative">
-                  <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <User className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <input
                     id="reg-lastname"
                     type="text"
@@ -200,10 +200,10 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
                     placeholder={translate(`Doe`)}
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    className={`w-full pl-10 pr-4 py-2.5 border ${errors.lastName ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-300 dark:border-slate-700 focus:ring-[#0091EA]'} rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
+                    className={`w-full ps-10 pe-4 py-2.5 border ${errors.lastName ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-300 dark:border-slate-700 focus:ring-[#0091EA]'} rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
                   />
                 </div>
-                {errors.lastName && <p className="text-[11px] font-bold text-rose-500 mt-1 pl-1">{errors.lastName}</p>}
+                {errors.lastName && <p className="text-[11px] font-bold text-rose-500 mt-1 ps-1">{errors.lastName}</p>}
               </div>
             </div>
 
@@ -213,14 +213,14 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
                 {translate(`Username`)} <span className="text-slate-400 font-normal lowercase">(optional)</span>
               </label>
               <div className="relative">
-                <AtSign className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <AtSign className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <input
                   id="reg-username"
                   type="text"
                   placeholder="johndoe99"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 border border-slate-300 dark:border-slate-700 rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0091EA] focus:border-transparent transition-all"
+                  className="w-full ps-10 pe-4 py-2.5 border border-slate-300 dark:border-slate-700 rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0091EA] focus:border-transparent transition-all"
                 />
               </div>
             </div>
@@ -232,7 +232,7 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
                   {translate(`Email Address`)} <span className="text-rose-500">*</span>
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <Mail className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <input
                     id="reg-email"
                     type="email"
@@ -240,10 +240,10 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
                     placeholder="john@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`w-full pl-10 pr-4 py-2.5 border ${errors.email ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-300 dark:border-slate-700 focus:ring-[#0091EA]'} rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
+                    className={`w-full ps-10 pe-4 py-2.5 border ${errors.email ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-300 dark:border-slate-700 focus:ring-[#0091EA]'} rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
                   />
                 </div>
-                {errors.email && <p className="text-[11px] font-bold text-rose-500 mt-1 pl-1">{errors.email}</p>}
+                {errors.email && <p className="text-[11px] font-bold text-rose-500 mt-1 ps-1">{errors.email}</p>}
               </div>
 
               <div>
@@ -251,7 +251,7 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
                   {translate(`Mobile Number`)} <span className="text-rose-500">*</span>
                 </label>
                 <div className="relative">
-                  <PhoneIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <PhoneIcon className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <input
                     id="reg-phone"
                     type="tel"
@@ -259,10 +259,10 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
                     placeholder="+94 77 123 4567"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className={`w-full pl-10 pr-4 py-2.5 border ${errors.phone ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-300 dark:border-slate-700 focus:ring-[#0091EA]'} rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
+                    className={`w-full ps-10 pe-4 py-2.5 border ${errors.phone ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-300 dark:border-slate-700 focus:ring-[#0091EA]'} rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
                   />
                 </div>
-                {errors.phone && <p className="text-[11px] font-bold text-rose-500 mt-1 pl-1">{errors.phone}</p>}
+                {errors.phone && <p className="text-[11px] font-bold text-rose-500 mt-1 ps-1">{errors.phone}</p>}
               </div>
             </div>
 
@@ -272,7 +272,7 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
                 {translate(`Password`)} <span className="text-rose-500">*</span>
               </label>
               <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <Lock className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <input
                   id="reg-password"
                   type={showPassword ? 'text' : 'password'}
@@ -280,17 +280,17 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
                   placeholder={translate(`Create a strong password`)}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className={`w-full pl-10 pr-11 py-2.5 border ${errors.password ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-300 dark:border-slate-700 focus:ring-[#0091EA]'} rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
+                  className={`w-full ps-10 pe-11 py-2.5 border ${errors.password ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-300 dark:border-slate-700 focus:ring-[#0091EA]'} rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                  className="absolute end-3.5 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
-              {errors.password && <p className="text-[11px] font-bold text-rose-500 mt-1 pl-1">{errors.password}</p>}
+              {errors.password && <p className="text-[11px] font-bold text-rose-500 mt-1 ps-1">{errors.password}</p>}
             </div>
 
             {/* Confirm Password Field */}
@@ -299,7 +299,7 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
                 {translate(`Confirm Password`)} <span className="text-rose-500">*</span>
               </label>
               <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <Lock className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <input
                   id="reg-confirm"
                   type={showConfirmPassword ? 'text' : 'password'}
@@ -307,46 +307,46 @@ export default function SignupView({ onNavigate, onSignupSuccess }: SignupViewPr
                   placeholder={translate(`Repeat your password`)}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className={`w-full pl-10 pr-11 py-2.5 border ${errors.confirmPassword ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-300 dark:border-slate-700 focus:ring-[#0091EA]'} rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
+                  className={`w-full ps-10 pe-11 py-2.5 border ${errors.confirmPassword ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-300 dark:border-slate-700 focus:ring-[#0091EA]'} rounded-xl text-sm font-medium dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                  className="absolute end-3.5 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
                 >
                   {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
-              {errors.confirmPassword && <p className="text-[11px] font-bold text-rose-500 mt-1 pl-1">{errors.confirmPassword}</p>}
+              {errors.confirmPassword && <p className="text-[11px] font-bold text-rose-500 mt-1 ps-1">{errors.confirmPassword}</p>}
             </div>
 
             {/* Password Validation Checklist */}
             <div className="p-3.5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700 text-xs space-y-1.5">
-              <p className="font-bold text-slate-700 dark:text-slate-300 mb-1">Password Requirements:</p>
+              <p className="font-bold text-slate-700 dark:text-slate-300 mb-1">{translate('Password Requirements:')}</p>
               <div className="grid grid-cols-2 gap-1.5 text-[11px]">
                 <span className={`flex items-center gap-1.5 font-medium ${hasMinLength ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`}>
                   {hasMinLength ? <CheckCircle2 className="w-3.5 h-3.5" /> : <XCircle className="w-3.5 h-3.5" />}
-                  At least 8 characters
+                  {translate('At least 8 characters')}
                 </span>
                 <span className={`flex items-center gap-1.5 font-medium ${hasUpper ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`}>
                   {hasUpper ? <CheckCircle2 className="w-3.5 h-3.5" /> : <XCircle className="w-3.5 h-3.5" />}
-                  Uppercase letter (A-Z)
+                  {translate('Uppercase letter (A-Z)')}
                 </span>
                 <span className={`flex items-center gap-1.5 font-medium ${hasLower ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`}>
                   {hasLower ? <CheckCircle2 className="w-3.5 h-3.5" /> : <XCircle className="w-3.5 h-3.5" />}
-                  Lowercase letter (a-z)
+                  {translate('Lowercase letter (a-z)')}
                 </span>
                 <span className={`flex items-center gap-1.5 font-medium ${hasNumber ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`}>
                   {hasNumber ? <CheckCircle2 className="w-3.5 h-3.5" /> : <XCircle className="w-3.5 h-3.5" />}
-                  Number (0-9)
+                  {translate('Number (0-9)')}
                 </span>
                 <span className={`flex items-center gap-1.5 font-medium ${hasSpecial ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`}>
                   {hasSpecial ? <CheckCircle2 className="w-3.5 h-3.5" /> : <XCircle className="w-3.5 h-3.5" />}
-                  Special char (!@#$)
+                  {translate('Special char (!@#$)')}
                 </span>
                 <span className={`flex items-center gap-1.5 font-medium ${hasMatchingConfirm ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`}>
                   {hasMatchingConfirm ? <CheckCircle2 className="w-3.5 h-3.5" /> : <XCircle className="w-3.5 h-3.5" />}
-                  Passwords match
+                  {translate('Passwords match')}
                 </span>
               </div>
             </div>

@@ -420,8 +420,8 @@ export default function InteractiveSriLankaMap({ setCurrentPage }: InteractiveSr
     <section id="interactive-sri-lanka-map" className="py-20 bg-gradient-to-b from-sky-50/70 via-white to-sky-50/90 dark:bg-slate-950 border-t border-b border-sky-200/80 dark:border-sky-900/40 relative overflow-hidden">
       
       {/* Soft Ambient Background Glows */}
-      <div className="absolute top-1/4 left-10 w-[550px] h-[550px] bg-sky-300/20 dark:bg-[#0091EA]/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-[550px] h-[550px] bg-teal-300/20 dark:bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/4 start-10 w-[550px] h-[550px] bg-sky-300/20 dark:bg-[#0091EA]/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-10 end-10 w-[550px] h-[550px] bg-teal-300/20 dark:bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -553,7 +553,7 @@ export default function InteractiveSriLankaMap({ setCurrentPage }: InteractiveSr
                         </div>
 
                         {/* Floating Label */}
-                        <div className={`absolute top-full left-1/2 -translate-x-1/2 mt-1.5 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider whitespace-nowrap transition-all duration-300 pointer-events-none shadow-lg border ${
+                        <div className={`absolute top-full start-1/2 -translate-x-1/2 mt-1.5 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider whitespace-nowrap transition-all duration-300 pointer-events-none shadow-lg border ${
                           isSelected
                             ? 'bg-slate-900 text-white border-amber-400 opacity-100 scale-100 font-extrabold'
                             : 'bg-white/95 text-slate-900 border-sky-200 dark:border-sky-700 opacity-0 group-hover:opacity-100 group-hover:scale-100'
@@ -569,7 +569,7 @@ export default function InteractiveSriLankaMap({ setCurrentPage }: InteractiveSr
                 <div className="flex items-center justify-between pt-3 border-t border-sky-200 dark:border-sky-800 text-xs text-slate-700 dark:text-sky-200 font-semibold z-20">
                   <span className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_10px_#fbbf24] animate-pulse" />
-                    {translate('Selected Location')}: <strong className="text-slate-900 dark:text-white font-bold ml-1">{selectedSpot.name}</strong>
+                    {translate('Selected Location')}: <strong className="text-slate-900 dark:text-white font-bold ms-1">{selectedSpot.name}</strong>
                   </span>
                   <span className="text-[#0091EA] font-mono font-bold">{filteredSpots.length} {translate('Destination Spots')}</span>
                 </div>
@@ -598,12 +598,12 @@ export default function InteractiveSriLankaMap({ setCurrentPage }: InteractiveSr
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
                       
-                      <div className="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-full text-white text-[10px] font-black uppercase tracking-widest border border-sky-400/30 flex items-center gap-1.5">
+                      <div className="absolute top-3 start-3 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-full text-white text-[10px] font-black uppercase tracking-widest border border-sky-400/30 flex items-center gap-1.5">
                         <MapPin className="w-3 h-3 text-[#0091EA]" />
                         <span>{translate(selectedSpot.region)}</span>
                       </div>
 
-                      <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white">
+                      <div className="absolute bottom-3 start-3 end-3 flex items-center justify-between text-white">
                         <div className="flex items-center gap-1 bg-amber-500/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-black shadow-md">
                           <Star className="w-3.5 h-3.5 fill-white" />
                           <span>{selectedSpot.rating}</span>
@@ -695,7 +695,7 @@ export default function InteractiveSriLankaMap({ setCurrentPage }: InteractiveSr
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       referrerPolicy="no-referrer"
                     />
-                    <div className="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md px-2.5 py-1 rounded-full text-white text-[9px] font-black uppercase tracking-wider flex items-center gap-1 border border-sky-400/30">
+                    <div className="absolute top-3 start-3 bg-slate-950/80 backdrop-blur-md px-2.5 py-1 rounded-full text-white text-[9px] font-black uppercase tracking-wider flex items-center gap-1 border border-sky-400/30">
                       <MapPin className="w-3 h-3 text-[#0091EA]" />
                       <span>{translate(spot.region)}</span>
                     </div>

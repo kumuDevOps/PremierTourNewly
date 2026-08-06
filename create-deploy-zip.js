@@ -13,12 +13,16 @@ function createZipWithArchiver() {
 
   if (typeof archiverModule === 'function') {
     archive = archiverModule('zip', { zlib: { level: 9 } });
-  } else if (archiverModule && typeof archiverModule.default === 'function') {
-    archive = archiverModule.default('zip', { zlib: { level: 9 } });
   } else if (archiverModule && typeof archiverModule.create === 'function') {
     archive = archiverModule.create('zip', { zlib: { level: 9 } });
+  } else if (archiverModule && archiverModule.ZipArchive) {
+    archive = new archiverModule.ZipArchive({ zlib: { level: 9 } });
+  } else if (archiverModule && archiverModule.default) {
+    archive = typeof archiverModule.default === 'function' 
+      ? archiverModule.default('zip', { zlib: { level: 9 } })
+      : new archiverModule.default.ZipArchive({ zlib: { level: 9 } });
   } else {
-    throw new TypeError('archiver module is not a callable function or object');
+    throw new Error('Unsupported archiver module format');
   }
 
   const output = fs.createWriteStream(zipPath);

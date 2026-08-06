@@ -1,0 +1,17 @@
+const fs = require('fs');
+const zhPath = 'src/locales/zh.json';
+const zh = JSON.parse(fs.readFileSync(zhPath, 'utf8'));
+zh["Experience luxury in the heart of Colombo with world-class dining and amenities."] = "在科伦坡市中心体验奢华入住，享受世界级的餐饮与设施。";
+zh["An eco-hotel designed by Geoffrey Bawa, blending seamlessly into the lush jungle."] = "由建筑大师杰弗里·巴瓦设计的生态酒店，完美融入生机勃勃的丛林。";
+zh["A sprawling luxury resort on the southern coast offering endless activities and relaxation."] = "坐落于南部海岸的宏伟奢华度假村，提供无尽的休闲活动与放松享受。";
+zh["Breathtaking views of the Indian Ocean with world-class hospitality."] = "壮丽的印度洋景观配合世界顶尖的热情服务。";
+zh["Elegant mountain retreat in Sri Lanka's hill country with cool weather and scenic landscapes."] = "位于斯里兰卡山区高原的高雅山景度假避暑胜地，气候宜人，风光旖旎。";
+zh["Boutique luxury hotel with breathtaking views of Sigiriya Rock Fortress and tranquil surroundings."] = "精品奢华酒店，拥有锡吉里耶狮子岩石堡垒的壮丽景色与宁静祥和的环境。";
+zh["Nature Views"] = "自然景观";
+zh["Golf Course"] = "高尔夫球场";
+zh["Free WiFi"] = "免费无线网络";
+zh["Restaurant"] = "餐厅";
+zh["Air Conditioning"] = "空调";
+zh["Room Service"] = "客房服务";
+fs.writeFileSync(zhPath, JSON.stringify(zh, null, 2), 'utf8');
+console.log('Fixed zh.json!');

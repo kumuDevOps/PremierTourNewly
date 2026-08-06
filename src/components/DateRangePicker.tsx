@@ -238,7 +238,7 @@ export default function DateRangePicker({
               <div className="flex items-center gap-2">
                 <CalendarIcon className="w-4 h-4 text-[#0091EA] shrink-0" />
                 <span className="text-xs md:text-sm font-bold text-slate-800 dark:text-slate-100 truncate">
-                  {formatDisplayDate(startDate)}
+                  <bdi>{formatDisplayDate(startDate)}</bdi>
                 </span>
               </div>
             </div>
@@ -261,7 +261,7 @@ export default function DateRangePicker({
               </span>
               <div className="flex items-center justify-end gap-2">
                 <span className="text-xs md:text-sm font-bold text-slate-800 dark:text-slate-100 truncate">
-                  {formatDisplayDate(endDate)}
+                  <bdi>{formatDisplayDate(endDate)}</bdi>
                 </span>
                 <CalendarIcon className="w-4 h-4 text-[#0091EA] shrink-0" />
               </div>
@@ -272,7 +272,7 @@ export default function DateRangePicker({
             <div className="flex items-center gap-2 overflow-hidden">
               <CalendarIcon className="w-4 h-4 text-[#0091EA] shrink-0" />
               <span className="text-xs md:text-sm font-bold text-slate-900 dark:text-slate-100 truncate">
-                {formatDisplayDate(startDate)} – {formatDisplayDate(endDate)}
+                <bdi>{formatDisplayDate(startDate)}</bdi> – <bdi>{formatDisplayDate(endDate)}</bdi>
               </span>
             </div>
             {daysCount && (
@@ -289,7 +289,7 @@ export default function DateRangePicker({
         <>
           <div className="fixed inset-0 z-40 lg:hidden bg-black/20 dark:bg-black/40 backdrop-blur-sm animate-fade-in" onClick={() => setIsOpen(false)} />
           <div 
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 lg:absolute lg:top-[105%] lg:left-1/2 lg:-translate-x-1/2 lg:translate-y-0 z-50 w-[92vw] sm:w-[400px] lg:w-[350px] lg:min-w-[350px] bg-white dark:bg-slate-900 rounded-3xl shadow-2xl shadow-sky-500/20 border-2 border-sky-200 dark:border-sky-800 p-5 animate-fade-in text-start"
+            className="fixed top-1/2 start-1/2 -translate-x-1/2 -translate-y-1/2 lg:absolute lg:top-[105%] lg:start-1/2 lg:-translate-x-1/2 lg:translate-y-0 z-50 w-[92vw] sm:w-[400px] lg:w-[350px] lg:min-w-[350px] bg-white dark:bg-slate-900 rounded-3xl shadow-2xl shadow-sky-500/20 border-2 border-sky-200 dark:border-sky-800 p-5 animate-fade-in text-start"
           >
           {/* Top Status & Presets */}
           <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3 mb-4">
@@ -298,7 +298,7 @@ export default function DateRangePicker({
                 {selectingStep === 'start' || !startDate ? translate('Select Start Date') : translate('Select End Date')}
               </p>
               <p className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-0.5">
-                {startDate ? formatDisplayDate(startDate) : translate('Check In')} {endDate ? `→ ${formatDisplayDate(endDate)}` : ''}
+                {startDate ? formatDisplayDate(startDate) : translate('Check In')} {endDate ? `→ $<bdi>{formatDisplayDate(endDate)}</bdi>` : ''}
               </p>
             </div>
             {daysCount && (

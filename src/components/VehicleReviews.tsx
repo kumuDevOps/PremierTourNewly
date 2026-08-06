@@ -56,6 +56,7 @@ const INITIAL_REVIEWS: ReviewItem[] = [
 ];
 
 export default function VehicleReviews({ carName }: { carName: string }) {
+  const { translate } = useLanguage();
   const [reviews, setReviews] = useState<ReviewItem[]>(INITIAL_REVIEWS);
   const [showForm, setShowForm] = useState(false);
   

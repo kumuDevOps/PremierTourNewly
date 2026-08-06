@@ -183,7 +183,7 @@ export default function Navbar({
               }`}
             >
               {t.home}
-              <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#0091EA] transition-transform duration-300 ${isActive('home') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
+              <span className={`absolute bottom-0 start-0 w-full h-0.5 bg-[#0091EA] transition-transform duration-300 ${isActive('home') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
             </button>
 
             {/* 2. Tours Dropdown */}
@@ -209,7 +209,7 @@ export default function Navbar({
                 <span>{t.tours}</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${toursDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
-              <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#0091EA] transition-transform duration-300 ${isActive('tour') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
+              <span className={`absolute bottom-0 start-0 w-full h-0.5 bg-[#0091EA] transition-transform duration-300 ${isActive('tour') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
 
               {/* Dropdown Menu */}
               {toursDropdownOpen && (
@@ -242,7 +242,7 @@ export default function Navbar({
               }`}
             >
               {t.flights || 'Flights'}
-              <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#0091EA] transition-transform duration-300 ${isActive('flights') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
+              <span className={`absolute bottom-0 start-0 w-full h-0.5 bg-[#0091EA] transition-transform duration-300 ${isActive('flights') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
             </button>
 
             {/* Hotels Link */}
@@ -256,7 +256,7 @@ export default function Navbar({
               }`}
             >
               {t.hotels}
-              <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#0091EA] transition-transform duration-300 ${isActive('hotels') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
+              <span className={`absolute bottom-0 start-0 w-full h-0.5 bg-[#0091EA] transition-transform duration-300 ${isActive('hotels') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
             </button>
 
             {/* 3. Rent a Car */}
@@ -270,7 +270,7 @@ export default function Navbar({
               }`}
             >
               {t.rentACar}
-              <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#0091EA] transition-transform duration-300 ${isActive('rent-a-car') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
+              <span className={`absolute bottom-0 start-0 w-full h-0.5 bg-[#0091EA] transition-transform duration-300 ${isActive('rent-a-car') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
             </button>
 
             {/* 4. Contact Us */}
@@ -284,7 +284,7 @@ export default function Navbar({
               }`}
             >
               {t.contactUs}
-              <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#0091EA] transition-transform duration-300 ${isActive('contact-us') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
+              <span className={`absolute bottom-0 start-0 w-full h-0.5 bg-[#0091EA] transition-transform duration-300 ${isActive('contact-us') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
             </button>
 
             {/* 5. About Us */}
@@ -298,7 +298,7 @@ export default function Navbar({
               }`}
             >
               {t.aboutUs}
-              <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#0091EA] transition-transform duration-300 ${isActive('about-us') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
+              <span className={`absolute bottom-0 start-0 w-full h-0.5 bg-[#0091EA] transition-transform duration-300 ${isActive('about-us') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
             </button>
 
             {/* 6. Visa Link */}
@@ -311,8 +311,8 @@ export default function Navbar({
                   : 'text-[#0A2540] dark:text-slate-300 hover:text-[#0091EA] dark:hover:text-[#0091EA]'
               }`}
             >
-              {t.blog || 'Blog'}
-              <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#0091EA] transition-transform duration-300 ${currentPage === 'blog' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
+              {translate('Blog')}
+              <span className={`absolute bottom-0 start-0 w-full h-0.5 bg-[#0091EA] transition-transform duration-300 ${currentPage === 'blog' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
             </button>
           </nav>
 
@@ -326,7 +326,7 @@ export default function Navbar({
                   whileTap={{ scale: 0.95 }}
                   id="user-profile-menu-trigger"
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className={`flex items-center gap-3 pl-2 pr-4 py-2 rounded-full transition-all duration-200 cursor-pointer border ${
+                  className={`flex items-center gap-3 ps-2 pe-4 py-2 rounded-full transition-all duration-200 cursor-pointer border ${
                     userDropdownOpen 
                       ? 'border-[#0091EA] bg-sky-50/80 dark:bg-slate-800 ring-4 ring-[#0091EA]/15 shadow-md' 
                       : 'border-slate-200 dark:border-slate-700/80 hover:border-[#0091EA]/60 bg-white/90 dark:bg-slate-800/90 hover:bg-slate-50 dark:hover:bg-slate-800 shadow-xs hover:shadow-md'
@@ -366,7 +366,7 @@ export default function Navbar({
                         {userProfile?.role ? (
                           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-500/10 border border-slate-500/20 text-slate-600 dark:text-slate-400 text-[9px] font-extrabold uppercase tracking-widest">
                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
-                             <span className="capitalize">{userProfile.role.replace('_', ' ')}</span>
+                             <span className="capitalize">{translate(userProfile.role)}</span>
                           </div>
                         ) : (
                           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-500/10 border border-slate-500/20 text-slate-600 dark:text-slate-400 text-[9px] font-extrabold uppercase tracking-widest">
@@ -392,7 +392,7 @@ export default function Navbar({
                               )}
                             </div>
                           </div>
-                          <span className="absolute -bottom-1 -right-1 p-0.5 bg-emerald-500 text-white rounded-full ring-2 ring-white dark:ring-slate-900">
+                          <span className="absolute -bottom-1 -end-1 p-0.5 bg-emerald-500 text-white rounded-full ring-2 ring-white dark:ring-slate-900">
                             <CheckCircle2 className="w-3 h-3" />
                           </span>
                         </div>
@@ -587,7 +587,7 @@ export default function Navbar({
                              {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
                           </div>
                           <div className="text-start">
-                            <p className="font-extrabold leading-tight">{darkMode ? "Light Mode" : "Dark Mode"}</p>
+                            <p className="font-extrabold leading-tight">{darkMode ? translate('Light Mode') : translate('Dark Mode')}</p>
                           </div>
                         </div>
                       </button>
@@ -681,7 +681,7 @@ export default function Navbar({
       {mobileMenuOpen && (
         <div 
           id="navbar-mobile-drawer"
-          className="lg:hidden fixed top-[84px] left-0 right-0 bottom-0 bg-[#0A2540]/40 dark:bg-black/50 backdrop-blur-xs z-45 transition-all"
+          className="lg:hidden fixed top-[84px] start-0 end-0 bottom-0 bg-[#0A2540]/40 dark:bg-black/50 backdrop-blur-xs z-45 transition-all"
           onClick={() => setMobileMenuOpen(false)}
         >
           <div 
@@ -704,7 +704,7 @@ export default function Navbar({
                         (userProfile?.fullName || currentUser.email || 'T').charAt(0).toUpperCase()
                       )}
                     </div>
-                    <span className="absolute -bottom-1 -right-1 w-3 h-3 bg-emerald-500 ring-2 ring-white dark:ring-slate-900 rounded-full" />
+                    <span className="absolute -bottom-1 -end-1 w-3 h-3 bg-emerald-500 ring-2 ring-white dark:ring-slate-900 rounded-full" />
                   </div>
                   <div className="flex-grow min-w-0">
                     <div className="flex items-center gap-2">
@@ -769,7 +769,7 @@ export default function Navbar({
                 </button>
 
                 {mobileToursOpen && (
-                  <div className="bg-slate-50/50 dark:bg-slate-800/40 pl-6 pr-4 py-1.5 space-y-1">
+                  <div className="bg-slate-50/50 dark:bg-slate-800/40 ps-6 pe-4 py-1.5 space-y-1">
                     <button
                       onClick={() => {
                         setCurrentPage('tour');
@@ -833,7 +833,7 @@ export default function Navbar({
                 onClick={() => handleNavLinkClick('blog')}
                 className={`w-full text-start px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${currentPage === 'blog' ? 'bg-[#0091EA]/10 text-[#0091EA] dark:bg-[#0091EA]/20 dark:text-[#0091EA]' : 'text-[#0A2540] dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}
               >
-                {t.blog || 'Blog'}
+                {translate('Blog')}
               </button>
 
               {/* 7. Wishlist */}
@@ -855,7 +855,7 @@ export default function Navbar({
               {/* Logged in member navigation accordion */}
               {currentUser && (
                 <div className="border-t border-slate-100 dark:border-slate-800 pt-3 mt-3 space-y-1">
-                  <span className="block text-[10px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-4 mb-2">{translate(`Member Dashboard`)}</span>
+                  <span className="block text-[10px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest ps-4 mb-2">{translate(`Member Dashboard`)}</span>
                   
                   <button
                     onClick={() => {

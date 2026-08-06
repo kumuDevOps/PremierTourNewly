@@ -14,7 +14,7 @@ import {
 import { useLanguage } from '../lib/i18n.tsx';
 
 export default function ContactView() {
-  const { translate } = useLanguage();
+  const { translate, language } = useLanguage();
   // Form state
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -135,7 +135,7 @@ export default function ContactView() {
                   </div>
                   <div>
                     <p className="text-sky-800 dark:text-sky-300 text-[10px] uppercase font-black tracking-wider">{translate('Email Inquiry')}</p>
-                    <a href="mailto:support@premiertourbooking.com" className="text-sm font-black text-gray-900 dark:text-white hover:text-[#0091EA] transition-colors mt-0.5 block">support@premiertour.com</a>
+                    <a href="mailto:support@premiertourbooking.com" className="text-sm font-black text-gray-900 dark:text-white hover:text-[#0091EA] transition-colors mt-0.5 block">support@premiertourbooking.com</a>
                   </div>
                 </div>
               </div>
@@ -170,7 +170,7 @@ export default function ContactView() {
 
             {/* Google Map View */}
             <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-6 rounded-[28px] border-2 border-sky-200/80 dark:border-sky-800/60 shadow-xl shadow-sky-500/10 space-y-4 animate-blue-glow">
-              <div className="flex justify-between items-center text-xs text-gray-500 dark:text-slate-400 font-bold uppercase tracking-wider">
+              <div className="flex justify-between items-center text-xs text-gray-500 dark:text-slate-400 font-bold tracking-wider">
                 <span className="bg-gradient-to-r from-slate-900 via-sky-900 to-[#0091EA] dark:from-white dark:via-sky-200 dark:to-cyan-300 bg-clip-text text-transparent font-black">{translate('Premier Digital - Colombo Location')}</span>
                 <span className="text-emerald-500 flex items-center gap-1.5 font-black text-[10px] bg-emerald-50 dark:bg-emerald-950/50 px-2.5 py-1 rounded-full border border-emerald-200 dark:border-emerald-800">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> {translate('Active Office')}
@@ -185,7 +185,7 @@ export default function ContactView() {
                   loading="lazy"
                   allowFullScreen
                   referrerPolicy="no-referrer-when-downgrade"
-                  src="https://maps.google.com/maps?q=Premier+Digital,+Colombo,+Sri+Lanka&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  src={`https://maps.google.com/maps?q=Premier+Digital,+Colombo,+Sri+Lanka&hl=${language === 'zh' ? 'zh-CN' : language}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
                   className="w-full h-full rounded-2xl filter contrast-[1.02]"
                 />
                 
@@ -193,7 +193,7 @@ export default function ContactView() {
                   href="https://www.google.com/maps/search/?api=1&query=Premier+Digital+Colombo+Sri+Lanka" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="absolute bottom-3 right-3 bg-slate-950/90 hover:bg-[#0091EA] text-white px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider shadow-lg border border-sky-400/40 transition-all flex items-center gap-1.5 cursor-pointer z-10"
+                  className="absolute bottom-3 end-3 bg-slate-950/90 hover:bg-[#0091EA] text-white px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider shadow-lg border border-sky-400/40 transition-all flex items-center gap-1.5 cursor-pointer z-10"
                 >
                   <MapPin className="w-3 h-3 text-sky-400 group-hover:text-white" />
                   <span>{translate('Open in Google Maps')}</span>
@@ -323,7 +323,7 @@ export default function ContactView() {
                       onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
                       className="w-full px-5 py-4 flex items-center justify-between text-start font-semibold text-xs text-slate-800 dark:text-slate-200 hover:bg-sky-50/50 dark:hover:bg-slate-800/50 transition-colors"
                     >
-                      <span className="pr-4 leading-relaxed font-extrabold text-slate-800 dark:text-slate-100">{translate(faq.q)}</span>
+                      <span className="pe-4 leading-relaxed font-extrabold text-slate-800 dark:text-slate-100">{translate(faq.q)}</span>
                       <ChevronDown className={`w-4 h-4 shrink-0 text-sky-500 transition-transform duration-300 ${activeFaq === idx ? 'rotate-180 text-[#0091EA]' : ''}`} />
                     </button>
 

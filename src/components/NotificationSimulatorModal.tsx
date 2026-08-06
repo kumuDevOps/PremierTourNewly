@@ -19,6 +19,7 @@ export default function NotificationSimulatorModal({
   customerEmail = 'alexander.wright@gmail.com',
   customerPhone = '+1 555 019 2831'
 }: NotificationSimulatorModalProps) {
+  const { translate } = useLanguage();
   const [activeTab, setActiveTab] = useState<'email' | 'whatsapp'>('email');
   const [sent, setSent] = useState(false);
 
@@ -74,7 +75,7 @@ export default function NotificationSimulatorModal({
               }`}
             >
               <MessageCircle className="w-3.5 h-3.5" />
-              <span>WhatsApp / SMS Alert</span>
+              <span>{translate('WhatsApp / SMS Alert')}</span>
             </button>
           </div>
 
@@ -83,7 +84,7 @@ export default function NotificationSimulatorModal({
             className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 cursor-pointer shadow"
           >
             <Send className="w-3.5 h-3.5 text-sky-400" />
-            <span>{sent ? 'Dispatched!' : 'Simulate Re-send'}</span>
+            <span>{sent ? translate('Dispatched!') : translate('Simulate Re-send')}</span>
           </button>
         </div>
 
@@ -92,8 +93,8 @@ export default function NotificationSimulatorModal({
           {activeTab === 'email' ? (
             <div className="bg-white dark:bg-slate-950 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm text-start">
               <div className="border-b border-slate-100 dark:border-slate-800 pb-3 flex justify-between text-xs text-slate-500 font-mono">
-                <div>From: <span className="text-slate-900 dark:text-white font-bold">The Luxury Experience &lt;reservations@theluxuryesp.com&gt;</span></div>
-                <div>To: <span className="text-slate-900 dark:text-white font-bold">{customerEmail}</span></div>
+                <div>{translate('From:')} <span className="text-slate-900 dark:text-white font-bold">The Luxury Experience &lt;reservations@theluxuryesp.com&gt;</span></div>
+                <div>{translate('To:')} <span className="text-slate-900 dark:text-white font-bold">{customerEmail}</span></div>
               </div>
 
               <div className="space-y-3">

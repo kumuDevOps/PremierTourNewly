@@ -39,7 +39,7 @@ export function generateAccessToken(
       role: user.role,
     },
     JWT_SECRET,
-    { expiresIn }
+    { expiresIn: expiresIn as any }
   );
 }
 
@@ -57,7 +57,7 @@ export function generateRefreshToken(
       type: 'refresh'
     },
     JWT_REFRESH_SECRET,
-    { expiresIn }
+    { expiresIn: expiresIn as any }
   );
 }
 

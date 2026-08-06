@@ -176,6 +176,7 @@ function createCheckpointIcon(number: number, isStart: boolean, isEnd: boolean, 
 }
 
 export default function TourRouteMap({ tourTitle, itineraryJson }: TourRouteMapProps) {
+  const { translate } = useLanguage();
   const [checkpoints, setCheckpoints] = useState<Checkpoint[]>([]);
   const [selectedCheckpoint, setSelectedCheckpoint] = useState<Checkpoint | null>(null);
   const [activeCenter, setActiveCenter] = useState<[number, number]>([7.8731, 80.7718]);
@@ -416,7 +417,7 @@ export default function TourRouteMap({ tourTitle, itineraryJson }: TourRouteMapP
       <div className="relative w-full h-[420px] md:h-[520px] rounded-3xl overflow-hidden border-2 border-sky-200 dark:border-sky-900/60 shadow-2xl group bg-slate-950">
         
         {/* Floating Top Control Overlay Header */}
-        <div className="absolute top-3 left-3 right-3 z-20 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
+        <div className="absolute top-3 start-3 end-3 z-20 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
           {/* Active Location Info Pill */}
           <div className="pointer-events-auto bg-slate-950/85 backdrop-blur-md text-white px-3.5 py-2 rounded-2xl border border-slate-700/80 shadow-2xl flex items-center gap-2.5 max-w-full">
             <div className="w-7 h-7 rounded-xl bg-[#0091EA] text-white font-black text-xs flex items-center justify-center shrink-0 border border-sky-400/30 shadow">
@@ -436,7 +437,7 @@ export default function TourRouteMap({ tourTitle, itineraryJson }: TourRouteMapP
           {/* Map Controls & Mode Switcher */}
           <div className="pointer-events-auto flex items-center gap-1.5 bg-slate-950/85 backdrop-blur-md p-1 rounded-2xl border border-slate-700/80 shadow-xl">
             {mapEngine === 'google' && (
-              <div className="flex items-center gap-1 px-1 border-r border-slate-800 pr-1.5">
+              <div className="flex items-center gap-1 px-1 border-r border-slate-800 pe-1.5">
                 <button
                   onClick={() => setGoogleMapType('m')}
                   className={`px-2.5 py-1 rounded-xl text-[10px] font-extrabold transition-all cursor-pointer ${
@@ -548,7 +549,7 @@ export default function TourRouteMap({ tourTitle, itineraryJson }: TourRouteMapP
         )}
 
         {/* Floating Bottom Quick Navigation Bar */}
-        <div className="absolute bottom-3 left-3 right-3 z-20 flex items-center justify-between pointer-events-none">
+        <div className="absolute bottom-3 start-3 end-3 z-20 flex items-center justify-between pointer-events-none">
           {/* Previous Stop Button */}
           <button
             onClick={handlePrevStop}

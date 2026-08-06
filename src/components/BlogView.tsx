@@ -1,3 +1,4 @@
+import { useLanguage } from '../lib/i18n.tsx';
 import React, { useState } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent } from 'motion/react';
 import { ChevronRight, Clock, User, ArrowRight, Search, MapPin, Compass, Play, Mail, Share2, Heart, MessageSquare, Cloud, ChevronLeft, Map, Camera, X, ArrowUp, Sparkles, CheckCircle2, Loader2 } from "lucide-react";
@@ -170,7 +171,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
   if (selectedArticle) {
     return (
       <div className="bg-slate-50 dark:bg-slate-950 min-h-screen font-sans text-slate-800 dark:text-slate-100 transition-colors pb-16">
-        <motion.div className="fixed top-0 left-0 right-0 h-1.5 bg-[#0091EA] origin-left z-[100]" style={{ scaleX: scrollYProgress }} />
+        <motion.div className="fixed top-0 start-0 end-0 h-1.5 bg-[#0091EA] origin-left z-[100]" style={{ scaleX: scrollYProgress }} />
         
         {/* HERO BANNER WITH BLUE GLOW CARD STYLE */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
@@ -203,8 +204,8 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                 {selectedArticle.title}
               </h1>
               <div className="flex flex-wrap items-center gap-6 text-xs md:text-sm text-sky-100/90 font-semibold pt-2">
-                <div className="flex items-center gap-2 px-3 py-1 bg-slate-900/60 rounded-full border border-sky-400/30 backdrop-blur-sm"><User className="w-4 h-4 text-sky-400" /> {selectedArticle.author}</div>
-                <div className="flex items-center gap-2 px-3 py-1 bg-slate-900/60 rounded-full border border-sky-400/30 backdrop-blur-sm"><Clock className="w-4 h-4 text-sky-400" /> {selectedArticle.date}</div>
+                <div className="flex items-center gap-2 px-3 py-1 bg-slate-900/60 rounded-full border border-sky-400/30 backdrop-blur-sm"><User className="w-4 h-4 text-sky-400" /> {translate(selectedArticle.author)}</div>
+                <div className="flex items-center gap-2 px-3 py-1 bg-slate-900/60 rounded-full border border-sky-400/30 backdrop-blur-sm"><Clock className="w-4 h-4 text-sky-400" /> {translate(selectedArticle.date)}</div>
                 <div className="flex items-center gap-2 px-3 py-1 bg-slate-900/60 rounded-full border border-sky-400/30 backdrop-blur-sm"><MapPin className="w-4 h-4 text-sky-400" /> {translate(`Sri Lanka`)}</div>
               </div>
             </div>
@@ -256,7 +257,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
           </div>
           
           <div className="lg:w-2/3 space-y-8 text-base md:text-lg text-slate-700 dark:text-slate-300 font-normal leading-relaxed">
-            <p className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white leading-snug mb-8 border-l-4 border-[#0091EA] pl-4">
+            <p className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white leading-snug mb-8 border-l-4 border-[#0091EA] ps-4">
               {selectedArticle.excerpt}
             </p>
             <p>
@@ -281,7 +282,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
             </div>
 
             <p>
-              From the architecture that echoes colonial elegance to the ultra-modern eco-lodges perched on cliff edges, every accommodation tells a story. This isn't just about five-star service; it's about authentic, localized luxury that connects you deeply to the land.
+              {translate(`From the architecture that echoes colonial elegance to the ultra-modern eco-lodges perched on cliff edges, every accommodation tells a story. This isn't just about five-star service; it's about authentic, localized luxury that connects you deeply to the land.`)}
             </p>
 
             {/* Live Interactive Google Map with Blue Glow */}
@@ -297,7 +298,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                 referrerPolicy="no-referrer-when-downgrade"
                 className="w-full h-full rounded-3xl"
               />
-              <div className="absolute top-3 left-3 bg-slate-950/85 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full border border-sky-400/30 text-xs font-bold flex items-center gap-2 shadow-lg">
+              <div className="absolute top-3 start-3 bg-slate-950/85 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full border border-sky-400/30 text-xs font-bold flex items-center gap-2 shadow-lg">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 <span>{selectedArticle?.title || 'Interactive Route Map'}</span>
               </div>
@@ -305,7 +306,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((selectedArticle?.title || 'Sigiriya') + ' Sri Lanka')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute bottom-3 right-3 bg-slate-950/90 hover:bg-[#0091EA] text-white px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider shadow-lg border border-sky-400/40 transition-all flex items-center gap-1.5 cursor-pointer z-10"
+                className="absolute bottom-3 end-3 bg-slate-950/90 hover:bg-[#0091EA] text-white px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider shadow-lg border border-sky-400/40 transition-all flex items-center gap-1.5 cursor-pointer z-10"
               >
                 <MapPin className="w-3 h-3 text-sky-400 group-hover:text-white" />
                 <span>{translate(`Open in Google Maps`)}</span>
@@ -319,7 +320,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
 
   return (
     <div className="bg-[#F8FAFC] min-h-screen font-sans selection:bg-[#0091EA] selection:text-white">
-      <motion.div className="fixed top-0 left-0 right-0 h-1.5 bg-[#0091EA] origin-left z-[100]" style={{ scaleX: scrollYProgress }} />
+      <motion.div className="fixed top-0 start-0 end-0 h-1.5 bg-[#0091EA] origin-left z-[100]" style={{ scaleX: scrollYProgress }} />
       {/* Hero Section */}
       <section className="relative h-[90vh] min-h-[700px] flex items-center justify-center overflow-hidden">
         <motion.div 
@@ -347,7 +348,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
         <motion.div 
           animate={{ x: [0, 1000] }} 
           transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
-          className="absolute top-60 -left-64 opacity-10 pointer-events-none"
+          className="absolute top-60 -start-64 opacity-10 pointer-events-none"
         >
           <Cloud className="w-64 h-64 text-white" />
         </motion.div>
@@ -438,8 +439,8 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent transition-opacity duration-300 group-hover:opacity-90" />
-                <h3 className="absolute bottom-5 left-5 text-white font-extrabold text-lg md:text-xl tracking-wide group-hover:text-sky-300 transition-colors flex items-center gap-1.5">
-                  <span>{cat.name}</span>
+                <h3 className="absolute bottom-5 start-5 text-white font-extrabold text-lg md:text-xl tracking-wide group-hover:text-sky-300 transition-colors flex items-center gap-1.5">
+                  <span>{translate(cat.name)}</span>
                   <ChevronRight className="w-4 h-4 text-sky-400 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                 </h3>
               </motion.div>
@@ -478,17 +479,17 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                 </div>
                 <div className="lg:w-1/2 p-10 lg:p-12 flex flex-col justify-center z-10 relative">
                   <span className="inline-flex px-3.5 py-1.5 bg-gradient-to-r from-[#0091EA] via-sky-500 to-cyan-400 text-white text-xs font-black uppercase tracking-widest rounded-full mb-6 w-fit shadow-md shadow-sky-500/20">
-                    {articles[0].category}
+                    {translate(articles[0].category)}
                   </span>
                   <h3 className="text-3xl font-black text-slate-900 dark:text-white leading-tight mb-4 group-hover:text-[#0091EA] transition-colors">
-                    {articles[0].title}
+                    {translate(articles[0].title)}
                   </h3>
                   <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed mb-8 text-sm">
-                    {articles[0].excerpt}
+                    {translate(articles[0].excerpt)}
                   </p>
                   <div className="flex flex-wrap items-center gap-4 text-xs text-sky-800 dark:text-sky-300 font-bold">
-                    <div className="flex items-center gap-1.5"><User className="w-3.5 h-3.5 text-[#0091EA]" /> {articles[0].author}</div>
-                    <div className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-[#0091EA]" /> {articles[0].readTime}</div>
+                    <div className="flex items-center gap-1.5"><User className="w-3.5 h-3.5 text-[#0091EA]" /> {translate(articles[0].author)}</div>
+                    <div className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-[#0091EA]" /> {translate(articles[0].readTime)}</div>
                   </div>
                 </div>
               </motion.div>
@@ -521,8 +522,8 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                     />
                   </div>
                   <div>
-                    <span className="text-[10px] text-[#0091EA] font-black uppercase tracking-widest block mb-1">{article.category}</span>
-                    <h4 className="font-bold text-sm text-slate-900 dark:text-white leading-snug group-hover:text-[#0091EA] transition-colors">{article.title}</h4>
+                    <span className="text-[10px] text-[#0091EA] font-black uppercase tracking-widest block mb-1">{translate(article.category)}</span>
+                    <h4 className="font-bold text-sm text-slate-900 dark:text-white leading-snug group-hover:text-[#0091EA] transition-colors">{translate(article.title)}</h4>
                   </div>
                 </div>
               ))}
@@ -563,9 +564,9 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-90" />
-                  <div className="absolute top-4 left-4">
+                  <div className="absolute top-4 start-4">
                     <span className="px-3.5 py-1.5 bg-slate-950/80 backdrop-blur-md text-white text-xs font-black uppercase tracking-widest rounded-full shadow-md border border-sky-400/30">
-                      {article.category}
+                      {translate(article.category)}
                     </span>
                   </div>
                 </div>
@@ -574,15 +575,15 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                   <div className="flex items-center gap-4 text-[11px] font-black text-sky-800 dark:text-sky-300 mb-3 uppercase tracking-wider">
                     <span>{article.date}</span>
                     <span className="w-1.5 h-1.5 rounded-full bg-[#0091EA]" />
-                    <span>{article.readTime}</span>
+                    <span>{translate(article.readTime)}</span>
                   </div>
                   
                   <h3 className="text-xl font-black text-slate-900 dark:text-white mb-3 group-hover:text-[#0091EA] transition-colors leading-snug">
-                    {article.title}
+                    {translate(article.title)}
                   </h3>
                   
                   <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed mb-6 flex-grow text-xs">
-                    {article.excerpt}
+                    {translate(article.excerpt)}
                   </p>
 
                   <div className="mt-auto pt-4 border-t border-sky-200/60 dark:border-sky-800/50 flex items-center justify-between">
@@ -620,7 +621,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                         : 'border-slate-700 text-slate-300 hover:bg-slate-800 hover:border-sky-400'
                     }`}
                   >
-                    {loc}
+                    {translate(loc)}
                   </button>
                 );
               })}
@@ -639,7 +640,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
               referrerPolicy="no-referrer-when-downgrade"
               className="w-full h-full rounded-3xl"
             ></iframe>
-            <div className="absolute top-4 left-4 bg-slate-950/85 backdrop-blur-md text-white px-4 py-2 rounded-2xl border border-sky-400/40 text-xs font-black flex items-center gap-2 shadow-xl z-10">
+            <div className="absolute top-4 start-4 bg-slate-950/85 backdrop-blur-md text-white px-4 py-2 rounded-2xl border border-sky-400/40 text-xs font-black flex items-center gap-2 shadow-xl z-10">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
               <span>Google Maps: {activeExploreLocation}</span>
             </div>
@@ -647,7 +648,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
               href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(activeExploreLocation + ' Sri Lanka')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="absolute bottom-4 right-4 bg-slate-950/90 hover:bg-[#0091EA] text-white px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider shadow-xl border border-sky-400/40 transition-all flex items-center gap-2 cursor-pointer z-10"
+              className="absolute bottom-4 end-4 bg-slate-950/90 hover:bg-[#0091EA] text-white px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider shadow-xl border border-sky-400/40 transition-all flex items-center gap-2 cursor-pointer z-10"
             >
               <MapPin className="w-3.5 h-3.5 text-sky-400 group-hover:text-white" />
               <span>{translate(`Open in Google Maps`)}</span>
@@ -735,7 +736,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
 
         <div className="relative w-full flex overflow-x-hidden group z-10 pb-12">
           {/* Fading Edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-[#0A2540] to-transparent z-20 pointer-events-none" />
+          <div className="absolute start-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-[#0A2540] to-transparent z-20 pointer-events-none" />
           <div className="absolute end-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-[#0A2540] to-transparent z-20 pointer-events-none" />
           
           <motion.div 
@@ -751,15 +752,15 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                 <div className="h-52 overflow-hidden relative">
                   <div className="absolute inset-0 bg-[#0A2540]/30 group-hover/card:bg-transparent transition-colors duration-500 z-10" />
                   <img src={tip.image} alt={tip.title} referrerPolicy="no-referrer" className="w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-110" />
-                  <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-lg z-20 group-hover/card:scale-110 transition-transform duration-500">
+                  <div className="absolute top-4 end-4 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-lg z-20 group-hover/card:scale-110 transition-transform duration-500">
                     <tip.icon className="w-5 h-5" />
                   </div>
                 </div>
                 <div className="p-8 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover/card:text-[#0091EA] transition-colors">{tip.title}</h3>
-                  <p className="text-white/60 text-sm leading-relaxed mb-8 flex-grow font-light">{tip.desc}</p>
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover/card:text-[#0091EA] transition-colors">{translate(tip.title)}</h3>
+                  <p className="text-white/60 text-sm leading-relaxed mb-8 flex-grow font-light">{translate(tip.desc)}</p>
                   <button className="w-full py-3.5 bg-transparent border border-white/20 hover:border-[#0091EA] hover:bg-[#0091EA] text-white rounded-full text-xs font-bold transition-all tracking-widest uppercase">
-                    {tip.btnText}
+                    {translate(tip.btnText)}
                   </button>
                 </div>
               </div>
@@ -771,9 +772,9 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
       {/* Newsletter */}
       <section className="py-24 bg-white dark:bg-slate-950 relative overflow-hidden flex justify-center px-6">
         {/* Animated Light Blue background blobs */}
-        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-100/50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse"></div>
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-sky-100/50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute -bottom-32 left-20 w-[500px] h-[500px] bg-indigo-100/50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute top-0 start-0 w-[500px] h-[500px] bg-blue-100/50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse"></div>
+        <div className="absolute top-0 end-0 w-[500px] h-[500px] bg-sky-100/50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute -bottom-32 start-20 w-[500px] h-[500px] bg-indigo-100/50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse" style={{ animationDelay: '4s' }}></div>
 
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -789,12 +790,12 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
                <motion.div 
                  animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                 className="absolute -right-20 -top-20 w-64 h-64 bg-white rounded-full mix-blend-overlay filter blur-3xl"
+                 className="absolute -end-20 -top-20 w-64 h-64 bg-white rounded-full mix-blend-overlay filter blur-3xl"
                />
                <motion.div 
                  animate={{ scale: [1, 1.5, 1], rotate: [0, -90, 0] }}
                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                 className="absolute -left-20 -bottom-20 w-48 h-48 bg-white rounded-full mix-blend-overlay filter blur-2xl"
+                 className="absolute -start-20 -bottom-20 w-48 h-48 bg-white rounded-full mix-blend-overlay filter blur-2xl"
                />
             </div>
                        <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight relative z-10 text-center md:text-start">
@@ -888,7 +889,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
             >
               <button 
                 onClick={() => setShowPrivacyModal(false)}
-                className="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                className="absolute top-5 end-5 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-colors cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -942,7 +943,7 @@ export default function BlogView({ onNavigate }: BlogViewProps = {}) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="fixed bottom-8 right-8 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center text-slate-600 hover:text-[#0091EA] border border-slate-200 z-50 hover:-translate-y-1 transition-all duration-300"
+            className="fixed bottom-8 end-8 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center text-slate-600 hover:text-[#0091EA] border border-slate-200 z-50 hover:-translate-y-1 transition-all duration-300"
           >
             <ArrowUp className="w-5 h-5" />
           </motion.button>

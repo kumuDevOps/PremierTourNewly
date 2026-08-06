@@ -52,6 +52,7 @@ export default function OrderTrackingModal({
   pickupLocation = 'CMB Bandaranaike International Airport',
   dropoffLocation = 'Kurunegala Town'
 }: OrderTrackingModalProps) {
+  const { translate } = useLanguage();
   const [currentStep, setCurrentStep] = useState<number>(3); // 3 = Driver En Route
   const [driverPos, setDriverPos] = useState<[number, number]>([7.155, 79.870]);
   const [speed, setSpeed] = useState<number>(48);
@@ -173,7 +174,7 @@ export default function OrderTrackingModal({
               </MapContainer>
 
               {/* Floating Live Speedometer */}
-              <div className="absolute top-3 right-3 z-[400] bg-slate-900/90 backdrop-blur-md p-2.5 rounded-xl border border-slate-700 text-white flex items-center gap-2">
+              <div className="absolute top-3 end-3 z-[400] bg-slate-900/90 backdrop-blur-md p-2.5 rounded-xl border border-slate-700 text-white flex items-center gap-2">
                 <Gauge className="w-4 h-4 text-emerald-400" />
                 <span className="text-xs font-black">{speed} km/h</span>
               </div>
@@ -214,11 +215,11 @@ export default function OrderTrackingModal({
 
               <div className="p-2.5 bg-sky-50 dark:bg-sky-950/40 rounded-xl border border-sky-100 dark:border-sky-900/50 text-[11px] text-slate-600 dark:text-slate-300 font-medium space-y-1">
                 <div>
-                  <span className="font-bold text-[#0091EA] block">Pick-Up Location:</span>
+                  <span className="font-bold text-[#0091EA] block">{translate('Pick-Up Location:')}</span>
                   {pickupLocation}
                 </div>
                 <div>
-                  <span className="font-bold text-rose-500 block">Drop-Off Destination:</span>
+                  <span className="font-bold text-rose-500 block">{translate('Drop-Off Destination:')}</span>
                   {dropoffLocation}
                 </div>
               </div>

@@ -1,0 +1,10 @@
+const fs = require('fs');
+let file = 'src/lib/i18n.tsx';
+let content = fs.readFileSync(file, 'utf8');
+content = content.replace(/, searchStaysTravel:/g, 'searchStaysTravel:');
+content = content.replace(/searchStaysTravel:/g, ', searchStaysTravel:');
+content = content.replace(/\{(\s*), searchStaysTravel:/g, '{\n  searchStaysTravel:');
+content = content.replace(/;(\s*), searchStaysTravel:/g, ';\n  searchStaysTravel:');
+content = content.replace(/\n(\s*), searchStaysTravel: string;/g, '\n$1searchStaysTravel: string;');
+content = content.replace(/, searchStaysTravel: 'Search Stays & Travel'/g, "searchStaysTravel: 'Search Stays & Travel'");
+fs.writeFileSync(file, content);

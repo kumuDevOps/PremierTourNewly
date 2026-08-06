@@ -1,6 +1,6 @@
 import { useLanguage } from '../lib/i18n';
 import React, { useState } from 'react';
-import { Calendar, Car, Clock, ShieldAlert, CheckCircle2, Wrench, UserCheck, Plus, AlertCircle } from 'lucide-react';
+import { Calendar, Car, Clock, ShieldAlert, CheckCircle2, Wrench, UserCheck, Plus, AlertCircle, Lock } from 'lucide-react';
 
 interface VehicleAssignment {
   carId: number;
@@ -9,6 +9,10 @@ interface VehicleAssignment {
   category: string;
   status: 'Available' | 'Assigned' | 'Maintenance';
   schedule: Record<string, { bookingRef: string; customer: string; status: 'Confirmed' | 'Pending' | 'Maintenance' }>;
+}
+
+interface FleetScheduleCalendarProps {
+  canManage?: boolean;
 }
 
 const INITIAL_FLEET: VehicleAssignment[] = [
@@ -47,13 +51,15 @@ const INITIAL_FLEET: VehicleAssignment[] = [
   }
 ];
 
-export default function FleetScheduleCalendar() {
+export default function FleetScheduleCalendar({ canManage = true }: FleetScheduleCalendarProps) {
+  const { translate } = useLanguage();
   const [fleet, setFleet] = useState<VehicleAssignment[]>(INITIAL_FLEET);
   const [selectedDate, setSelectedDate] = useState('2026-07-30');
 
   const DAYS = ['2026-07-30', '2026-07-31', '2026-08-01', '2026-08-02', '2026-08-03', '2026-08-04'];
 
   const handleToggleMaintenance = (carId: number) => {
+    if (!canManage) return;
     setFleet(fleet.map(v => {
       if (v.carId === carId) {
         const nextStatus = v.status === 'Maintenance' ? 'Available' : 'Maintenance';
@@ -165,13 +171,20 @@ export default function FleetScheduleCalendar() {
                 })}
 
                 <td className="p-3.5 text-end">
-                  <button
-                    onClick={() => handleToggleMaintenance(veh.carId)}
-                    className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-[10px] font-bold flex items-center gap-1 ml-auto cursor-pointer"
-                  >
-                    <Wrench className="w-3 h-3 text-amber-500" />
-                    <span>{veh.status === 'Maintenance' ? 'Clear Hold' : 'Set Maint'}</span>
-                  </button>
+                  {canManage ? (
+                    <button
+                      onClick={() => handleToggleMaintenance(veh.carId)}
+                      className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-[10px] font-bold flex items-center gap-1 ml-auto cursor-pointer"
+                    >
+                      <Wrench className="w-3 h-3 text-amber-500" />
+                      <span>{veh.status === 'Maintenance' ? 'Clear Hold' : 'Set Maint'}</span>
+                    </button>
+                  ) : (
+                    <span className="px-2.5 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-400 rounded-lg text-[10px] font-medium flex items-center gap-1 ml-auto w-max cursor-not-allowed border border-slate-200 dark:border-slate-700" title={translate("Read-Only: Car Manager or Admin role required")}>
+                      <Lock className="w-3 h-3 text-slate-400" />
+                      <span>{translate("Read Only")}</span>
+                    </span>
+                  )}
                 </td>
               </tr>
             ))}

@@ -45,6 +45,7 @@ export default function WishlistView({
   userProfile,
   clearWishlist
 }: WishlistViewProps) {
+  const { translate } = useLanguage();
   const { formatPrice } = useCurrency();
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -151,7 +152,7 @@ export default function WishlistView({
     visible: {
       y: 0,
       opacity: 1,
-      transition: { type: "spring", stiffness: 100, damping: 15 }
+      transition: { type: "spring" as const, stiffness: 100, damping: 15 }
     }
   };
 
@@ -268,7 +269,7 @@ export default function WishlistView({
               
               {/* Total Items */}
               <div className="relative overflow-hidden p-6 rounded-3xl bg-white/70 dark:bg-slate-900/60 backdrop-blur-xl border border-sky-50 dark:border-sky-900/30 shadow-lg shadow-sky-100/50 dark:shadow-none flex items-center gap-5 hover:-translate-y-1 transition-transform">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-sky-200/50 dark:bg-sky-900/20 rounded-bl-full blur-xl -z-10" />
+                <div className="absolute top-0 end-0 w-24 h-24 bg-sky-200/50 dark:bg-sky-900/20 rounded-bl-full blur-xl -z-10" />
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-100 to-sky-50 dark:from-sky-900/40 dark:to-slate-800 border border-sky-200 dark:border-sky-700 flex items-center justify-center shrink-0 shadow-sm">
                   <Heart className="w-6 h-6 fill-sky-500 text-sky-500" />
                 </div>
@@ -280,7 +281,7 @@ export default function WishlistView({
 
               {/* Estimated Total Value */}
               <div className="relative overflow-hidden p-6 rounded-3xl bg-white/70 dark:bg-slate-900/60 backdrop-blur-xl border border-blue-50 dark:border-blue-900/30 shadow-lg shadow-blue-100/50 dark:shadow-none flex items-center gap-5 hover:-translate-y-1 transition-transform">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-blue-200/50 dark:bg-blue-900/20 rounded-bl-full blur-xl -z-10" />
+                <div className="absolute top-0 end-0 w-24 h-24 bg-blue-200/50 dark:bg-blue-900/20 rounded-bl-full blur-xl -z-10" />
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-slate-800 border border-blue-200 dark:border-blue-700 flex items-center justify-center shrink-0 shadow-sm">
                   <ShoppingBag className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                 </div>
@@ -292,7 +293,7 @@ export default function WishlistView({
 
               {/* Protection Guarantee Badge */}
               <div className="relative overflow-hidden p-6 rounded-3xl bg-white/70 dark:bg-slate-900/60 backdrop-blur-xl border border-indigo-50 dark:border-indigo-900/30 shadow-lg shadow-indigo-100/50 dark:shadow-none flex items-center gap-5 hover:-translate-y-1 transition-transform">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-200/50 dark:bg-indigo-900/20 rounded-bl-full blur-xl -z-10" />
+                <div className="absolute top-0 end-0 w-24 h-24 bg-indigo-200/50 dark:bg-indigo-900/20 rounded-bl-full blur-xl -z-10" />
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-100 to-indigo-50 dark:from-indigo-900/40 dark:to-slate-800 border border-indigo-200 dark:border-indigo-700 flex items-center justify-center shrink-0 shadow-sm">
                   <ShieldCheck className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
                 </div>
@@ -323,12 +324,12 @@ export default function WishlistView({
               <motion.div 
                 animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }} 
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-10 right-10 w-32 h-32 bg-sky-200/40 dark:bg-sky-800/30 rounded-full blur-3xl pointer-events-none"
+                className="absolute top-10 end-10 w-32 h-32 bg-sky-200/40 dark:bg-sky-800/30 rounded-full blur-3xl pointer-events-none"
               />
               <motion.div 
                 animate={{ y: [0, 20, 0], rotate: [0, -5, 0] }} 
                 transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute bottom-10 left-10 w-40 h-40 bg-blue-200/40 dark:bg-blue-800/30 rounded-full blur-3xl pointer-events-none"
+                className="absolute bottom-10 start-10 w-40 h-40 bg-blue-200/40 dark:bg-blue-800/30 rounded-full blur-3xl pointer-events-none"
               />
 
               <div className="relative z-10 max-w-2xl mx-auto">
@@ -447,13 +448,13 @@ export default function WishlistView({
                 {/* Search input & Sort Selector */}
                 <div className="flex flex-col sm:flex-row items-center gap-3 w-full xl:w-auto">
                   <div className="relative flex-1 w-full sm:w-64">
-                    <Search className="w-4 h-4 text-slate-400 absolute ltr:left-4 rtl:right-4 top-1/2 -translate-y-1/2" />
+                    <Search className="w-4 h-4 text-slate-400 absolute ltr:start-4 rtl:end-4 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder={translate(`Search items...`)}
-                      className="w-full ltr:pl-10 ltr:pr-4 rtl:pr-10 rtl:pl-4 py-3 rounded-2xl bg-white dark:bg-slate-950 border border-sky-100 dark:border-slate-800 text-sm font-semibold text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all shadow-sm"
+                      className="w-full ltr:ps-10 ltr:pe-4 rtl:pe-10 rtl:ps-4 py-3 rounded-2xl bg-white dark:bg-slate-950 border border-sky-100 dark:border-slate-800 text-sm font-semibold text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all shadow-sm"
                     />
                   </div>
 
@@ -461,14 +462,14 @@ export default function WishlistView({
                     <select
                       value={sortBy}
                       onChange={(e: any) => setSortBy(e.target.value)}
-                      className="w-full sm:w-auto appearance-none px-5 py-3 ltr:pr-10 rtl:pl-10 rounded-2xl bg-white dark:bg-slate-950 border border-sky-100 dark:border-slate-800 text-sm font-bold text-slate-700 dark:text-slate-200 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 cursor-pointer shadow-sm transition-all"
+                      className="w-full sm:w-auto appearance-none px-5 py-3 ltr:pe-10 rtl:ps-10 rounded-2xl bg-white dark:bg-slate-950 border border-sky-100 dark:border-slate-800 text-sm font-bold text-slate-700 dark:text-slate-200 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 cursor-pointer shadow-sm transition-all"
                     >
                       <option value="newest">{translate(`Recently Saved`)}</option>
-                      <option value="price-low">Price: Low to High</option>
-                      <option value="price-high">Price: High to Low</option>
+                      <option value="price-low">{translate(`Price: Low to High`)}</option>
+                      <option value="price-high">{translate(`Price: High to Low`)}</option>
                       <option value="rating">{translate(`Highest Rated`)}</option>
                     </select>
-                    <Filter className="w-4 h-4 text-slate-400 absolute ltr:right-4 rtl:left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <Filter className="w-4 h-4 text-slate-400 absolute ltr:end-4 rtl:start-4 top-1/2 -translate-y-1/2 pointer-events-none" />
                   </div>
                 </div>
 
@@ -524,7 +525,7 @@ export default function WishlistView({
                             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-90" />
 
                             {/* Category Badge */}
-                            <div className="absolute top-4 ltr:left-4 rtl:right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-white/20 dark:border-slate-700 shadow-lg">
+                            <div className="absolute top-4 ltr:start-4 rtl:end-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-white/20 dark:border-slate-700 shadow-lg">
                               {getItemCategoryIcon(item)}
                               <span className="text-[10px] font-black text-slate-800 dark:text-white uppercase tracking-wider">{getItemCategoryLabel(item)}</span>
                             </div>
@@ -532,14 +533,14 @@ export default function WishlistView({
                             {/* Heart Remove Action Button */}
                             <button
                               onClick={() => removeFromWishlist(item.id)}
-                              className="absolute top-4 ltr:right-4 rtl:left-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-rose-500 hover:bg-rose-500 hover:text-white shadow-lg transition-all hover:scale-110 active:scale-95 cursor-pointer z-10"
+                              className="absolute top-4 ltr:end-4 rtl:start-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-rose-500 hover:bg-rose-500 hover:text-white shadow-lg transition-all hover:scale-110 active:scale-95 cursor-pointer z-10"
                               title={translate(`Remove from wishlist`)}
                             >
                               <Heart className="w-5 h-5 fill-current" />
                             </button>
 
                             {/* Location Tag */}
-                            <div className="absolute bottom-4 ltr:left-4 rtl:right-4 flex items-center gap-1.5 text-xs font-black text-white">
+                            <div className="absolute bottom-4 ltr:start-4 rtl:end-4 flex items-center gap-1.5 text-xs font-black text-white">
                               <MapPin className="w-4 h-4 text-sky-400" />
                               <span className="drop-shadow-md">{location}</span>
                             </div>
@@ -639,7 +640,7 @@ export default function WishlistView({
                 
                 <button
                   onClick={() => setSelectedItemForModal(null)}
-                  className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/50 dark:bg-slate-900/50 backdrop-blur-md text-slate-800 dark:text-white hover:bg-white dark:hover:bg-slate-800 cursor-pointer transition-colors shadow-sm"
+                  className="absolute top-4 end-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/50 dark:bg-slate-900/50 backdrop-blur-md text-slate-800 dark:text-white hover:bg-white dark:hover:bg-slate-800 cursor-pointer transition-colors shadow-sm"
                 >
                   ✕
                 </button>

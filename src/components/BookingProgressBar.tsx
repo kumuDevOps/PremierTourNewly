@@ -104,7 +104,7 @@ export default function BookingProgressBar({
       className={`w-full bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 border-2 border-sky-200/80 dark:border-sky-800/60 rounded-[32px] p-5 md:p-6 shadow-xl shadow-sky-500/10 animate-blue-glow relative overflow-hidden ${className}`}
     >
       {/* Background Light Blue Ambient Gradient Glow */}
-      <div className="absolute -top-12 -right-12 w-32 h-32 bg-sky-400/10 rounded-full blur-2xl pointer-events-none"></div>
+      <div className="absolute -top-12 -end-12 w-32 h-32 bg-sky-400/10 rounded-full blur-2xl pointer-events-none"></div>
 
       {/* Category header badge */}
       <div className="flex items-center justify-between mb-4 pb-3 border-b border-sky-100/70 dark:border-sky-900/40">
@@ -118,7 +118,7 @@ export default function BookingProgressBar({
               {translate(`${type.toUpperCase()} BOOKING PROCESS`)}
             </span>
             <p className="text-xs font-black text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
-              <span>{translate('Step')} {currentStep} {translate('of')} {activeSteps.length}:</span>
+              <span dir="auto">{translate('Step')} <bdi>{currentStep}</bdi> {translate('of')} <bdi>{activeSteps.length}</bdi>:</span>
               <span className="text-[#0091EA] underline decoration-sky-300 decoration-2 underline-offset-2">
                 {activeSteps[currentStep - 1]?.label}
               </span>
@@ -128,21 +128,21 @@ export default function BookingProgressBar({
 
         <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50/80 dark:bg-sky-950/60 border border-sky-200/60 dark:border-sky-800 text-[11px] font-extrabold text-sky-700 dark:text-sky-300 shadow-2xs">
           <span className="w-2 h-2 rounded-full bg-[#0091EA] animate-ping"></span>
-          <span>{Math.round((currentStep / activeSteps.length) * 100)}% {translate('Completed')}</span>
+          <span dir="auto"><bdi>{Math.round((currentStep / activeSteps.length) * 100)}%</bdi> {translate('Completed')}</span>
         </div>
       </div>
 
       {/* Progress Bar & Indicators */}
       <div className="relative">
         {/* Background track line */}
-        <div className="absolute top-4 left-6 right-6 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full -z-0"></div>
+        <div className="absolute top-4 start-6 end-6 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full -z-0"></div>
 
         {/* Animated active progress track line with light blue glow */}
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${progressPercent}%` }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="absolute top-4 left-6 h-1.5 bg-gradient-to-r from-[#0091EA] via-sky-400 to-cyan-400 rounded-full z-0 shadow-md shadow-sky-500/40"
+          className="absolute top-4 start-6 h-1.5 bg-gradient-to-r from-[#0091EA] via-sky-400 to-cyan-400 rounded-full z-0 shadow-md shadow-sky-500/40"
         ></motion.div>
 
         {/* Step Nodes */}
@@ -181,7 +181,7 @@ export default function BookingProgressBar({
 
                 {/* Step Labels */}
                 {!compact && (
-                  <div className="mt-2 space-y-0.5 max-w-[100px] sm:max-w-[130px]">
+                  <div className="mt-2 space-y-0.5 min-w-0 max-w-full px-1 sm:max-w-[120px]">
                     <span
                       className={`block text-[11px] font-black leading-tight tracking-tight ${
                         isCurrent

@@ -208,7 +208,7 @@ async function startServer() {
     try {
       const localeFiles = fs.readdirSync(publicLocalesDir);
       for (const file of localeFiles) {
-        fs.copyFileSync(path.join(publicLocalesDir, file), path.join(srcLocalesDir, file));
+        // fs.copyFileSync(path.join(publicLocalesDir, file), path.join(srcLocalesDir, file));
       }
     } catch (_) {}
   }
@@ -216,6 +216,8 @@ async function startServer() {
   // Serve uploads statically
   app.use('/uploads', express.static(publicUploadsDir));
   app.use('/uploads', express.static(distUploadsDir));
+  app.use(express.static(path.join(process.cwd(), 'public')));
+  app.use(express.static(path.join(process.cwd(), 'dist')));
 
   // Body parser middleware
   app.use(express.json({ limit: '50mb' }));
@@ -718,7 +720,7 @@ async function startServer() {
         return res.status(404).json({ error: 'User not found.' });
       }
 
-      const updates: Partial<UserRecord> = {};
+      const updates: Record<string, any> = {};
 
       if (first_name) updates.first_name = first_name.trim();
       if (last_name) updates.last_name = last_name.trim();
@@ -1072,6 +1074,7 @@ async function startServer() {
         userEmail,
         rating: numRating,
         comment: comment.trim(),
+        status: 'Pending',
         createdAt: new Date()
       }).returning();
 
@@ -1085,8 +1088,9 @@ async function startServer() {
   app.get('/api/reviews', async (req, res) => {
     try {
       const data = await db.select().from(reviews);
-      // Filter or return all reviews, newest first
-      const sortedData = [...data].sort((a: any, b: any) => {
+      // Filter strictly for Approved reviews only
+      const approvedOnly = (data || []).filter((r: any) => r.status === 'Approved');
+      const sortedData = [...approvedOnly].sort((a: any, b: any) => {
         const timeA = a.createdAt ? new Date(a.createdAt).getTime() : (typeof a.id === 'string' ? 0 : Number(a.id) || 0);
         const timeB = b.createdAt ? new Date(b.createdAt).getTime() : (typeof b.id === 'string' ? 0 : Number(b.id) || 0);
         return timeB - timeA;
@@ -1135,6 +1139,7 @@ async function startServer() {
         helpfulCount: 0,
         verified: verified !== undefined ? Boolean(verified) : true,
         userEmail: userEmail || '',
+        status: 'Pending',
         createdAt: new Date()
       };
 
@@ -1160,6 +1165,242 @@ async function startServer() {
         return res.json({ success: true, helpfulCount: newCount });
       }
       res.status(404).json({ error: 'Review not found' });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // 4f2. Admin Reviews Management API Routes
+  
+  // GET /api/admin/reviews - Fetch all reviews for admin management
+  app.get('/api/admin/reviews', requireAuth, async (req, res) => {
+    try {
+      const data = await db.select().from(reviews);
+      const normalized = (data || []).map((r: any) => ({
+        id: r.id,
+        author: r.author || r.userName || r.name || 'Anonymous Traveler',
+        userName: r.userName || r.author || r.name || 'Anonymous Traveler',
+        userEmail: r.userEmail || r.email || '',
+        location: r.location || r.country || 'Sri Lanka',
+        country: r.country || r.location || 'Sri Lanka',
+        flag: r.flag || '🇱🇰',
+        avatar: r.avatar || r.userAvatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(r.author || r.userName || 'user')}`,
+        tourName: r.tourName || r.tourPackage || r.packageName || 'Luxury Sri Lanka Tour',
+        rating: Number(r.rating) || 5,
+        title: r.title || (r.comment ? (r.comment.length > 35 ? r.comment.substring(0, 35) + '...' : r.comment) : 'Travel Review'),
+        comment: r.comment || r.description || '',
+        photos: Array.isArray(r.photos) ? r.photos : (Array.isArray(r.images) ? r.images : []),
+        status: r.status || 'Approved',
+        helpfulCount: Number(r.helpfulCount) || 0,
+        verified: r.verified !== undefined ? Boolean(r.verified) : true,
+        createdAt: r.createdAt || r.date || new Date().toISOString()
+      }));
+
+      normalized.sort((a: any, b: any) => {
+        const timeA = new Date(a.createdAt).getTime() || 0;
+        const timeB = new Date(b.createdAt).getTime() || 0;
+        return timeB - timeA;
+      });
+
+      res.json(normalized);
+    } catch (error: any) {
+      console.error('Fetch admin reviews error:', error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // PUT /api/admin/reviews/:id - Edit review
+  app.put('/api/admin/reviews/:id', requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { author, userEmail, location, tourName, rating, title, comment, photos, status } = req.body;
+
+      if (rating !== undefined && (Number(rating) < 1 || Number(rating) > 5)) {
+        return res.status(400).json({ error: 'Rating must be between 1 and 5 stars' });
+      }
+      if (status && !['Pending', 'Approved', 'Rejected'].includes(status)) {
+        return res.status(400).json({ error: 'Invalid status value. Must be Pending, Approved, or Rejected' });
+      }
+
+      const allReviews = await db.select().from(reviews);
+      const existing = allReviews.find((r: any) => String(r.id) === String(id));
+      if (!existing) {
+        return res.status(404).json({ error: 'Review not found' });
+      }
+
+      const updatedPayload: any = {
+        author: author !== undefined ? String(author).trim() : (existing.author || existing.userName || 'Traveler'),
+        userName: author !== undefined ? String(author).trim() : (existing.userName || existing.author || 'Traveler'),
+        userEmail: userEmail !== undefined ? String(userEmail).trim() : (existing.userEmail || existing.email || ''),
+        location: location !== undefined ? String(location).trim() : (existing.location || 'Sri Lanka'),
+        tourName: tourName !== undefined ? String(tourName).trim() : (existing.tourName || 'Luxury Sri Lanka Tour'),
+        rating: rating !== undefined ? Number(rating) : (existing.rating || 5),
+        title: title !== undefined ? String(title).trim() : (existing.title || 'Travel Review'),
+        comment: comment !== undefined ? String(comment).trim() : (existing.comment || ''),
+        photos: Array.isArray(photos) ? photos : (existing.photos || existing.images || []),
+        status: status || existing.status || 'Approved'
+      };
+
+      await db.update(reviews).set(updatedPayload).where(eq(reviews.id as any, id as any));
+      const updatedReview = { ...existing, ...updatedPayload, id };
+      broadcastSse('catalog-updated', { type: 'review-updated', id });
+      res.json({ success: true, review: updatedReview });
+    } catch (error: any) {
+      console.error('Update review error:', error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // PATCH /api/admin/reviews/:id/status - Update review status
+  app.patch('/api/admin/reviews/:id/status', requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { status } = req.body;
+
+      if (!['Pending', 'Approved', 'Rejected'].includes(status)) {
+        return res.status(400).json({ error: 'Invalid status value. Must be Pending, Approved, or Rejected' });
+      }
+
+      const allReviews = await db.select().from(reviews);
+      const target = allReviews.find((r: any) => String(r.id) === String(id));
+      if (!target) {
+        return res.status(404).json({ error: 'Review not found' });
+      }
+
+      await db.update(reviews).set({ status }).where(eq(reviews.id as any, id as any));
+      broadcastSse('catalog-updated', { type: 'review-status-updated', id, status });
+      res.json({ success: true, id, status });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // DELETE /api/admin/reviews/:id - Delete review & cleanup photos
+  app.delete('/api/admin/reviews/:id', requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const allReviews = await db.select().from(reviews);
+      const target = allReviews.find((r: any) => String(r.id) === String(id));
+
+      if (!target) {
+        return res.status(404).json({ error: 'Review not found' });
+      }
+
+      // Delete associated image files if stored locally in /uploads
+      const photosToDelete = target.photos || target.images || [];
+      if (Array.isArray(photosToDelete)) {
+        for (const photoUrl of photosToDelete) {
+          if (typeof photoUrl === 'string' && photoUrl.includes('/uploads/')) {
+            const filename = photoUrl.split('/uploads/').pop();
+            if (filename) {
+              const pubPath = path.join(process.cwd(), 'public', 'uploads', filename);
+              const distPath = path.join(process.cwd(), 'dist', 'uploads', filename);
+              try { if (fs.existsSync(pubPath)) fs.unlinkSync(pubPath); } catch (_) {}
+              try { if (fs.existsSync(distPath)) fs.unlinkSync(distPath); } catch (_) {}
+            }
+          }
+        }
+      }
+
+      await db.delete(reviews).where(eq(reviews.id as any, id as any));
+      broadcastSse('catalog-updated', { type: 'review-deleted', id });
+      res.json({ success: true, message: 'Review deleted successfully.' });
+    } catch (error: any) {
+      console.error('Delete review error:', error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // POST /api/admin/reviews/bulk - Bulk approve, reject, or delete
+  app.post('/api/admin/reviews/bulk', requireAuth, async (req, res) => {
+    try {
+      const { action, ids } = req.body;
+      if (!Array.isArray(ids) || ids.length === 0) {
+        return res.status(400).json({ error: 'No review IDs provided' });
+      }
+
+      if (action === 'approve' || action === 'reject') {
+        const newStatus = action === 'approve' ? 'Approved' : 'Rejected';
+        for (const id of ids) {
+          await db.update(reviews).set({ status: newStatus }).where(eq(reviews.id as any, id as any));
+        }
+        broadcastSse('catalog-updated', { type: 'review-bulk-updated', action, ids });
+        return res.json({ success: true, updatedCount: ids.length, status: newStatus });
+      }
+
+      if (action === 'delete') {
+        const allReviews = await db.select().from(reviews);
+        for (const id of ids) {
+          const target = allReviews.find((r: any) => String(r.id) === String(id));
+          if (target) {
+            const photosToDelete = target.photos || target.images || [];
+            if (Array.isArray(photosToDelete)) {
+              for (const photoUrl of photosToDelete) {
+                if (typeof photoUrl === 'string' && photoUrl.includes('/uploads/')) {
+                  const filename = photoUrl.split('/uploads/').pop();
+                  if (filename) {
+                    const pubPath = path.join(process.cwd(), 'public', 'uploads', filename);
+                    const distPath = path.join(process.cwd(), 'dist', 'uploads', filename);
+                    try { if (fs.existsSync(pubPath)) fs.unlinkSync(pubPath); } catch (_) {}
+                    try { if (fs.existsSync(distPath)) fs.unlinkSync(distPath); } catch (_) {}
+                  }
+                }
+              }
+            }
+            await db.delete(reviews).where(eq(reviews.id as any, id as any));
+          }
+        }
+        broadcastSse('catalog-updated', { type: 'review-bulk-deleted', ids });
+        return res.json({ success: true, deletedCount: ids.length });
+      }
+
+      return res.status(400).json({ error: 'Invalid bulk action type' });
+    } catch (error: any) {
+      console.error('Bulk review action error:', error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // GET & POST /api/admin/reviews/activity-logs
+  const reviewActivityLogsPath = path.join(process.cwd(), 'public', 'admin_review_activity_logs.json');
+
+  app.get('/api/admin/reviews/activity-logs', requireAuth, async (req, res) => {
+    try {
+      if (fs.existsSync(reviewActivityLogsPath)) {
+        const logsData = JSON.parse(fs.readFileSync(reviewActivityLogsPath, 'utf-8'));
+        return res.json(logsData);
+      }
+      res.json([]);
+    } catch (error: any) {
+      res.json([]);
+    }
+  });
+
+  app.post('/api/admin/reviews/activity-logs', requireAuth, async (req, res) => {
+    try {
+      const { adminName, action, details } = req.body;
+      const newLog = {
+        id: 'log-' + Date.now() + '-' + Math.round(Math.random() * 1000),
+        adminName: adminName || (req as any).user?.name || 'Admin',
+        action: action || 'Updated review',
+        details: details || '',
+        timestamp: new Date().toISOString()
+      };
+
+      let currentLogs: any[] = [];
+      if (fs.existsSync(reviewActivityLogsPath)) {
+        try {
+          currentLogs = JSON.parse(fs.readFileSync(reviewActivityLogsPath, 'utf-8'));
+        } catch (_) {}
+      }
+      currentLogs.unshift(newLog);
+      currentLogs = currentLogs.slice(0, 100);
+
+      fs.writeFileSync(reviewActivityLogsPath, JSON.stringify(currentLogs, null, 2));
+      const distLogsPath = path.join(process.cwd(), 'dist', 'admin_review_activity_logs.json');
+      try { fs.writeFileSync(distLogsPath, JSON.stringify(currentLogs, null, 2)); } catch (_) {}
+
+      res.json({ success: true, log: newLog });
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }
@@ -1759,7 +2000,7 @@ async function startServer() {
             userId = payload.uid || 'demo-user-123';
             email = payload.email || 'demo@example.com';
           } else {
-            const decodedToken = verifyToken(token);
+            const decodedToken = verifyAccessToken(token);
             if (decodedToken) {
               userId = decodedToken.uid;
               email = decodedToken.email;
@@ -3055,7 +3296,7 @@ async function startServer() {
       }
       res.json({
         success: true,
-        useMongo: useMongo(),
+        useMongo: Boolean(process.env.MONGODB_URI),
         collectionsCount: Object.keys(summary).length,
         summary,
         data
@@ -3068,6 +3309,7 @@ async function startServer() {
   // Endpoint to create Hostinger Deployment ZIP package
   app.get('/api/make-hostinger-zip', async (req, res) => {
     try {
+      // @ts-ignore
       const archiverModule = await import('archiver');
       const archiver = archiverModule.default || archiverModule;
       const zipPath = path.join(process.cwd(), 'Premier-Tour-Booking-Hostinger-Deployment.zip');

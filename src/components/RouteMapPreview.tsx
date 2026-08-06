@@ -150,6 +150,7 @@ export default function RouteMapPreview({
   dropoffName = 'Galle Fort (South Coast)',
   onSelectRoute
 }: RouteMapPreviewProps) {
+  const { translate } = useLanguage();
   const pCoord = resolveLocation(pickupName, true);
   const dCoord = resolveLocation(dropoffName, false);
 
@@ -319,7 +320,7 @@ export default function RouteMapPreview({
         </MapContainer>
 
         {/* Map Floating Route Summary Badge */}
-        <div className="absolute bottom-3 left-3 right-3 z-[400] bg-slate-900/90 backdrop-blur-md border border-slate-700 p-3 rounded-xl text-white flex items-center justify-between shadow-2xl">
+        <div className="absolute bottom-3 start-3 end-3 z-[400] bg-slate-900/90 backdrop-blur-md border border-slate-700 p-3 rounded-xl text-white flex items-center justify-between shadow-2xl">
           <div className="flex items-center gap-2 overflow-hidden max-w-[70%]">
             <span className="font-bold text-xs text-emerald-400 truncate" title={pCoord.name}>
               {pCoord.name}

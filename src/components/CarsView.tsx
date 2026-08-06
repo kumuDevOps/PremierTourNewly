@@ -45,6 +45,7 @@ interface CarsViewProps {
   onOpenAuth?: () => void;
   onNavigate?: (page: string) => void;
   addToWishlist?: (item: any) => void;
+  initialSearchQuery?: any;
 }
 
 export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavigate, addToWishlist }: CarsViewProps = {}) {
@@ -504,20 +505,20 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
                         {translate('Pick-Up Location')} *
                       </label>
                       <div className="relative">
-                        <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0091EA]" />
+                        <MapPin className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0091EA]" />
                         <input
                           type="text"
                           required
                           value={pickupLoc}
                           onChange={(e) => setPickupLoc(e.target.value)}
                           placeholder={translate('e.g. Colombo Bandaranaike Airport (CMB)')}
-                          className="w-full pl-10 pr-4 py-3 bg-slate-50/50 dark:bg-slate-900 border-2 border-sky-100 dark:border-sky-800/60 rounded-xl text-xs font-bold text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-[#0091EA]"
+                          className="w-full ps-10 pe-4 py-3 bg-slate-50/50 dark:bg-slate-900 border-2 border-sky-100 dark:border-sky-800/60 rounded-xl text-xs font-bold text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-[#0091EA]"
                         />
                       </div>
                       
                       {/* Popular Pick-Up Presets */}
                       <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                        <span className="text-[9px] font-bold text-slate-400 uppercase mr-1">{translate('Quick Suggestions')}:</span>
+                        <span className="text-[9px] font-bold text-slate-400 uppercase me-1">{translate('Quick Suggestions')}:</span>
                         {POPULAR_PICKUPS.map((loc) => (
                           <button
                             key={loc}
@@ -525,7 +526,7 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
                             onClick={() => setPickupLoc(loc)}
                             className="px-2.5 py-1 bg-sky-50 dark:bg-sky-950/60 hover:bg-[#0091EA] hover:text-white text-sky-800 dark:text-sky-300 text-[10px] font-bold rounded-lg border border-sky-200 dark:border-sky-800 transition-all cursor-pointer"
                           >
-                            + {loc}
+                            + {translate(loc)}
                           </button>
                         ))}
                       </div>
@@ -537,20 +538,20 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
                         {translate('Drop-Off Location')} *
                       </label>
                       <div className="relative">
-                        <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-500" />
+                        <MapPin className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-500" />
                         <input
                           type="text"
                           required
                           value={dropoffLoc}
                           onChange={(e) => setDropoffLoc(e.target.value)}
                           placeholder={translate('e.g. Kandy City Hotel, Galle Fort')}
-                          className="w-full pl-10 pr-4 py-3 bg-slate-50/50 dark:bg-slate-900 border-2 border-sky-100 dark:border-sky-800/60 rounded-xl text-xs font-bold text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-[#0091EA]"
+                          className="w-full ps-10 pe-4 py-3 bg-slate-50/50 dark:bg-slate-900 border-2 border-sky-100 dark:border-sky-800/60 rounded-xl text-xs font-bold text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-[#0091EA]"
                         />
                       </div>
 
                       {/* Popular Drop-Off Presets */}
                       <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                        <span className="text-[9px] font-bold text-slate-400 uppercase mr-1">{translate('Quick Suggestions')}:</span>
+                        <span className="text-[9px] font-bold text-slate-400 uppercase me-1">{translate('Quick Suggestions')}:</span>
                         {POPULAR_DROPOFFS.map((loc) => (
                           <button
                             key={loc}
@@ -558,7 +559,7 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
                             onClick={() => setDropoffLoc(loc)}
                             className="px-2.5 py-1 bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-600 hover:text-white text-emerald-800 dark:text-emerald-300 text-[10px] font-bold rounded-lg border border-emerald-200 dark:border-emerald-800 transition-all cursor-pointer"
                           >
-                            + {loc}
+                            + {translate(loc)}
                           </button>
                         ))}
                       </div>
@@ -667,13 +668,13 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
                           {translate('Contact Phone Number')}
                         </label>
                         <div className="relative">
-                          <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                          <Phone className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                           <input
                             type="tel"
                             value={contactPhone}
                             onChange={(e) => setContactPhone(e.target.value)}
                             placeholder="+44 7911 123456"
-                            className="w-full pl-10 pr-4 py-3 bg-slate-50/50 dark:bg-slate-900 border-2 border-sky-100 dark:border-sky-800/60 rounded-xl text-xs font-bold text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-[#0091EA]"
+                            className="w-full ps-10 pe-4 py-3 bg-slate-50/50 dark:bg-slate-900 border-2 border-sky-100 dark:border-sky-800/60 rounded-xl text-xs font-bold text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-[#0091EA]"
                           />
                         </div>
                       </div>
@@ -684,13 +685,13 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
                           {translate('License Issuing Country')}
                         </label>
                         <div className="relative">
-                          <Globe className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                          <Globe className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                           <input
                             type="text"
                             value={licenseCountry}
                             onChange={(e) => setLicenseCountry(e.target.value)}
                             placeholder={translate(`United Kingdom`)}
-                            className="w-full pl-10 pr-4 py-3 bg-slate-50/50 dark:bg-slate-900 border-2 border-sky-100 dark:border-sky-800/60 rounded-xl text-xs font-bold text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-[#0091EA]"
+                            className="w-full ps-10 pe-4 py-3 bg-slate-50/50 dark:bg-slate-900 border-2 border-sky-100 dark:border-sky-800/60 rounded-xl text-xs font-bold text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-[#0091EA]"
                           />
                         </div>
                       </div>
@@ -746,14 +747,14 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
                         referrerPolicy="no-referrer"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
-                      <span className="absolute bottom-3 left-3 px-3 py-1 bg-[#0091EA] text-white text-[10px] font-black uppercase tracking-wider rounded-lg shadow">
-                        {selectedCar.category}
+                      <span className="absolute bottom-3 start-3 px-3 py-1 bg-[#0091EA] text-white text-[10px] font-black uppercase tracking-wider rounded-lg shadow">
+                        {translate(selectedCar.category)}
                       </span>
                     </div>
 
                     <div className="space-y-2 border-b border-slate-100 dark:border-slate-800 pb-4">
-                      <h4 className="font-black text-slate-900 dark:text-white text-base">{selectedCar.name}</h4>
-                      <p className="text-xs text-slate-500 font-medium">{selectedCar.description}</p>
+                      <h4 className="font-black text-slate-900 dark:text-white text-base">{translate(selectedCar.name)}</h4>
+                      <p className="text-xs text-slate-500 font-medium">{translate(selectedCar.description)}</p>
                     </div>
 
                     {/* Included Services List */}
@@ -834,12 +835,12 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
               <div className="flex flex-col gap-1.5 flex-grow">
                 <label className="text-[10px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-wider">{translate('Pickup Location')}</label>
                 <div className="relative">
-                  <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0091EA]" />
+                  <MapPin className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0091EA]" />
                   <input
                     type="text"
                     value={pickupLoc}
                     onChange={(e) => setPickupLoc(e.target.value)}
-                    className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-slate-950 border-2 border-sky-200 dark:border-sky-800/80 rounded-xl focus:ring-2 focus:ring-[#0091EA] focus:outline-none text-xs font-bold text-slate-800 dark:text-slate-200"
+                    className="w-full ps-9 pe-4 py-2.5 bg-white dark:bg-slate-950 border-2 border-sky-200 dark:border-sky-800/80 rounded-xl focus:ring-2 focus:ring-[#0091EA] focus:outline-none text-xs font-bold text-slate-800 dark:text-slate-200"
                   />
                 </div>
               </div>
@@ -922,7 +923,7 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-90" />
 
-                          <span className="absolute top-4 left-4 px-3.5 py-1.5 bg-slate-950/80 backdrop-blur-md text-white text-[9px] font-black uppercase tracking-widest rounded-full border border-sky-400/30 shadow-md">
+                          <span className="absolute top-4 start-4 px-3.5 py-1.5 bg-slate-950/80 backdrop-blur-md text-white text-[9px] font-black uppercase tracking-widest rounded-full border border-sky-400/30 shadow-md">
                             {translate(car.category)}
                           </span>
 
@@ -931,12 +932,12 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
                               e.stopPropagation();
                               if (addToWishlist) addToWishlist(car);
                             }}
-                            className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-slate-950/80 backdrop-blur-md border border-sky-400/30 flex items-center justify-center text-white shadow-lg hover:bg-[#0091EA] hover:text-white transition-all cursor-pointer group/wishlist"
+                            className="absolute top-4 end-4 z-10 w-9 h-9 rounded-full bg-slate-950/80 backdrop-blur-md border border-sky-400/30 flex items-center justify-center text-white shadow-lg hover:bg-[#0091EA] hover:text-white transition-all cursor-pointer group/wishlist"
                             aria-label={translate(`Add to wishlist`)}
                           >
                             <Heart className="w-4 h-4 group-hover/wishlist:fill-current" />
                           </button>
-                          <div className="absolute top-15 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md border border-sky-400/30 text-white shadow-lg">
+                          <div className="absolute top-15 end-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md border border-sky-400/30 text-white shadow-lg">
                             <span className={`w-2 h-2 rounded-full ${
                               isSoldOut ? 'bg-rose-500' : isLimited ? 'bg-amber-400 animate-ping' : 'bg-emerald-400 animate-pulse'
                             }`} />
@@ -947,7 +948,7 @@ export default function CarsView({ currentUser, userProfile, onOpenAuth, onNavig
                             </span>
                           </div>
 
-                          <span className="absolute bottom-4 right-4 px-3 py-1.5 bg-gradient-to-r from-[#0091EA] via-sky-500 to-cyan-400 text-white text-[10px] font-black rounded-xl shadow-lg shadow-sky-500/30">
+                          <span className="absolute bottom-4 end-4 px-3 py-1.5 bg-gradient-to-r from-[#0091EA] via-sky-500 to-cyan-400 text-white text-[10px] font-black rounded-xl shadow-lg shadow-sky-500/30">
                             {formatPrice(car.pricePerDay)} / {translate('day')}
                           </span>
                         </div>

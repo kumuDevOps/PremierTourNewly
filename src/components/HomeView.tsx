@@ -121,62 +121,141 @@ export default function HomeView({
 
   // Autocomplete state
   const [searchDropdownOpen, setSearchDropdownOpen] = useState(false);
-  const [filteredSuggestions, setFilteredSuggestions] = useState<Tour[]>([]);
+  const [filteredSuggestions, setFilteredSuggestions] = useState<any[]>([]);
 
   useEffect(() => {
-    if (searchGoingTo.length > 0) {
-      const query = searchGoingTo.toLowerCase();
+    if (searchGoingTo.trim().length > 0) {
+      const query = searchGoingTo.toLowerCase().trim();
       let suggestions: any[] = [];
       if (activeTab === 'flight-hotel') {
-          suggestions = tours.filter(tour => 
-            (tour.title && tour.title.toLowerCase().includes(query)) || 
-            (tour.category && tour.category.toLowerCase().includes(query))
-          );
+          suggestions = tours.filter(tour => {
+            const rawTitle = tour.title?.toLowerCase() || '';
+            const transTitle = translate(tour.title).toLowerCase();
+            const rawCat = tour.category?.toLowerCase() || '';
+            const transCat = translate(tour.category).toLowerCase();
+            const rawLoc = tour.location?.toLowerCase() || '';
+            const transLoc = translate(tour.location).toLowerCase();
+            return rawTitle.includes(query) || transTitle.includes(query) ||
+                   rawCat.includes(query) || transCat.includes(query) ||
+                   rawLoc.includes(query) || transLoc.includes(query);
+          }).map(tour => ({
+            id: tour.id,
+            name: tour.title,
+            title: tour.title,
+            rawName: tour.title,
+            location: tour.location,
+            category: tour.category,
+            imageUrl: tour.imageUrl,
+            isPackage: false
+          }));
       } else if (activeTab === 'hotels') {
-          suggestions = HOTEL_PACKAGES.filter(pkg => 
-            pkg.title.toLowerCase().includes(query) || 
-            pkg.desc.toLowerCase().includes(query)
-          ).map(pkg => ({
+          const hotelMatches = hotels.filter(h => {
+            const rawName = h.name?.toLowerCase() || '';
+            const transName = translate(h.name).toLowerCase();
+            const rawLoc = h.location?.toLowerCase() || '';
+            const transLoc = translate(h.location).toLowerCase();
+            return rawName.includes(query) || transName.includes(query) ||
+                   rawLoc.includes(query) || transLoc.includes(query);
+          }).map(h => ({
+            id: h.id,
+            name: h.name,
+            title: h.name,
+            rawName: h.name,
+            location: h.location,
+            imageUrl: h.imageUrl,
+            isPackage: false
+          }));
+
+          const pkgMatches = HOTEL_PACKAGES.filter(pkg => {
+            const rawTitle = pkg.title.toLowerCase();
+            const transTitle = translate(pkg.title).toLowerCase();
+            const rawDesc = pkg.desc.toLowerCase();
+            const transDesc = translate(pkg.desc).toLowerCase();
+            return rawTitle.includes(query) || transTitle.includes(query) ||
+                   rawDesc.includes(query) || transDesc.includes(query);
+          }).map(pkg => ({
             id: pkg.title,
             name: pkg.title,
+            title: pkg.title,
+            rawName: pkg.title,
             location: 'Hotel Package',
             imageUrl: pkg.img,
             isPackage: true
           }));
+
+          suggestions = [...hotelMatches, ...pkgMatches];
       } else if (activeTab === 'flights') {
-          suggestions = flights.filter(flight => 
-            flight.airline.toLowerCase().includes(query) ||
-            flight.fromCity.toLowerCase().includes(query) ||
-            flight.toCity.toLowerCase().includes(query)
-          ).map(flight => ({
+          suggestions = flights.filter(flight => {
+            const rawAirline = flight.airline?.toLowerCase() || '';
+            const transAirline = translate(flight.airline).toLowerCase();
+            const rawFrom = flight.fromCity?.toLowerCase() || '';
+            const transFrom = translate(flight.fromCity).toLowerCase();
+            const rawTo = flight.toCity?.toLowerCase() || '';
+            const transTo = translate(flight.toCity).toLowerCase();
+            return rawAirline.includes(query) || transAirline.includes(query) ||
+                   rawFrom.includes(query) || transFrom.includes(query) ||
+                   rawTo.includes(query) || transTo.includes(query);
+          }).map(flight => ({
             id: flight.id,
             name: flight.airline,
-            location: `${flight.fromCity} - ${flight.toCity}`,
+            title: flight.airline,
+            rawName: flight.airline,
+            fromCity: flight.fromCity,
+            toCity: flight.toCity,
+            location: `${translate(flight.fromCity)} - ${translate(flight.toCity)}`,
             imageUrl: 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=100',
             isPackage: false
           }));
       }
       setFilteredSuggestions(suggestions);
+    } else if (activeTab === 'flight-hotel') {
+        setFilteredSuggestions(tours.slice(0, 5).map(tour => ({
+            id: tour.id,
+            name: tour.title,
+            title: tour.title,
+            rawName: tour.title,
+            location: tour.location,
+            category: tour.category,
+            imageUrl: tour.imageUrl,
+            isPackage: false
+        })));
     } else if (activeTab === 'hotels') {
-        setFilteredSuggestions(HOTEL_PACKAGES.map(pkg => ({
+        const defaultHotelList = hotels.slice(0, 4).map(h => ({
+            id: h.id,
+            name: h.name,
+            title: h.name,
+            rawName: h.name,
+            location: h.location,
+            imageUrl: h.imageUrl,
+            isPackage: false
+        }));
+        const defaultPkgList = HOTEL_PACKAGES.map(pkg => ({
             id: pkg.title,
             name: pkg.title,
+            title: pkg.title,
+            rawName: pkg.title,
             location: 'Hotel Package',
             imageUrl: pkg.img,
             isPackage: true
-        })));
+        }));
+        setFilteredSuggestions([...defaultHotelList, ...defaultPkgList]);
     } else if (activeTab === 'flights') {
         setFilteredSuggestions(flights.map(flight => ({
             id: flight.id,
             name: flight.airline,
-            location: `${flight.fromCity} - ${flight.toCity}`,
+            title: flight.airline,
+            rawName: flight.airline,
+            fromCity: flight.fromCity,
+            toCity: flight.toCity,
+            toCityTranslated: translate(flight.toCity),
+            location: `${translate(flight.fromCity)} - ${translate(flight.toCity)}`,
             imageUrl: 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=100',
             isPackage: false
         })));
     } else {
         setFilteredSuggestions([]);
     }
-  }, [searchGoingTo, tours, hotels, flights, activeTab]);
+  }, [searchGoingTo, tours, hotels, flights, activeTab, translate, language]);
 
   // Booking modal for tours
   const [selectedPackage, setSelectedPackage] = useState<Tour | null>(null);
@@ -339,27 +418,25 @@ export default function HomeView({
       
       {/* 1. HERO SECTION */}
       <section id="hero" className="relative min-h-[580px] lg:min-h-[660px] flex items-center justify-center bg-gray-900 overflow-hidden">
-        {/* Video Beach background with reliable fallback */}
+        {/* Tropical Beach Hero Background Image */}
         <div className="absolute inset-0 z-0">
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
-            poster="https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1600&q=82"
-            className="w-full h-full object-cover object-center scale-105 filter brightness-[0.85]"
-          >
-            {/* User uploaded video */}
-            <source src="/hero-video.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A2540]/80 via-transparent to-[#0A2540]/30" />
+          <img 
+            src="/hero-beach.jpg?v=3" 
+            alt="Sri Lanka Tropical Beach with Leaning Palm Tree"
+            referrerPolicy="no-referrer"
+            className="w-full h-full object-cover object-center filter brightness-[0.98] contrast-[1.02] transition-all duration-700"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = "/uploads/avatar_1786011422409_io5y5m.jpeg";
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A2540]/80 via-black/15 to-[#0A2540]/35" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-full flex flex-col justify-between py-12 lg:py-20">
           
           {/* Dynamic Top-Right Background Heading */}
-          <div className="flex justify-end pr-4 lg:pr-12 md:mt-4">
-            <span className="text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-white/90 drop-shadow-xl select-none animate-pulse-slow uppercase block">
+          <div className="flex justify-end pe-4 lg:pe-12 md:mt-4">
+            <span className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-white/90 drop-shadow-xl select-none animate-pulse-slow uppercase block">
               {activeTab === 'flight-hotel' && translate('Holidays')}
               {activeTab === 'hotels' && translate('Hotels')}
               {activeTab === 'flights' && translate('Flights')}
@@ -408,7 +485,7 @@ export default function HomeView({
         >
           
           {/* Tabs */}
-          <div className="flex overflow-x-auto scrollbar-hide bg-sky-50/60 dark:bg-slate-950 border-b-2 border-sky-100 dark:border-sky-800/50 rounded-t-[30px] overflow-hidden">
+          <div className="flex overflow-x-auto scrollbar-hide bg-sky-50/60 dark:bg-slate-950 border-b-2 border-sky-100 dark:border-sky-800/50 rounded-t-[30px]">
             {[
               { id: 'flight-hotel', label: t.tours || translate('Tours') },
               { id: 'hotels', label: t.hotels },
@@ -796,7 +873,7 @@ export default function HomeView({
                       className="w-full bg-transparent border-none outline-none focus:ring-0 text-xs md:text-sm font-bold text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
                     />
                   </div>
-                  {(activeTab === 'flight-hotel' || activeTab === 'flights') && searchDropdownOpen && filteredSuggestions.length > 0 && (
+                  {searchDropdownOpen && filteredSuggestions.length > 0 && (
                     <>
                       <div className="fixed inset-0 z-30" onClick={() => setSearchDropdownOpen(false)} />
                       <div className="absolute top-[105%] start-0 w-[calc(100vw-2rem)] sm:w-full sm:min-w-[280px] max-w-sm bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-700 z-50 p-2 max-h-[300px] overflow-y-auto animate-fade-in text-start">
@@ -804,7 +881,16 @@ export default function HomeView({
                           <div 
                             key={`suggest-${activeTab}-${item.id}-${idx}`}
                             onClick={() => {
-                              setSearchGoingTo((activeTab === 'flight-hotel') ? item.title : item.name);
+                              const tab = activeTab as string;
+                              if (tab === 'flight-hotel') {
+                                setSearchGoingTo(translate(item.title));
+                              } else if (tab === 'hotels') {
+                                setSearchGoingTo(translate(item.name || item.location));
+                              } else if (tab === 'flights') {
+                                setSearchGoingTo(translate(item.toCity || item.name));
+                              } else {
+                                setSearchGoingTo(translate(item.name || item.title));
+                              }
                               setSearchDropdownOpen(false);
                             }}
                             className="flex items-center gap-3 p-2 hover:bg-slate-50 dark:hover:bg-slate-700/50 rounded-xl cursor-pointer transition-colors"
@@ -823,8 +909,8 @@ export default function HomeView({
                               />
                             )}
                             <div>
-                              <p className="text-sm font-bold text-slate-800 dark:text-slate-200 line-clamp-1">{translate((activeTab === 'flight-hotel') ? item.title : item.name)}</p>
-                              <p className="text-[10px] font-extrabold text-[#0091EA] uppercase mt-0.5">{translate((activeTab === 'flight-hotel') ? item.category : item.location)}</p>
+                              <p className="text-sm font-bold text-slate-800 dark:text-slate-200 line-clamp-1">{translate(item.title || item.name)}</p>
+                              <p className="text-[10px] font-extrabold text-[#0091EA] uppercase mt-0.5">{item.location && item.location.includes(' - ') ? item.location : translate(item.location || item.category)}</p>
                             </div>
                           </div>
                         ))}
@@ -892,7 +978,7 @@ export default function HomeView({
                           </>
                         )}
                       </span>
-                      <ChevronDown className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0 ml-1" />
+                      <ChevronDown className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0 ms-1" />
                     </button>
                   </div>
 
@@ -1017,8 +1103,8 @@ export default function HomeView({
       {/* 4. STRATEGIC PARTNERSHIPS SECTION */}
       <section id="intro-text" className="py-16 relative overflow-hidden transition-colors duration-500 border-t border-b border-sky-100 dark:border-sky-900/40">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-sky-50 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950/20 backdrop-blur-3xl z-0"></div>
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-sky-300/20 dark:bg-sky-600/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-70 animate-pulse-slow z-0"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-fuchsia-300/20 dark:bg-fuchsia-600/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-70 animate-pulse-slow z-0" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-0 start-1/4 w-96 h-96 bg-sky-300/20 dark:bg-sky-600/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-70 animate-pulse-slow z-0"></div>
+        <div className="absolute bottom-0 end-1/4 w-96 h-96 bg-fuchsia-300/20 dark:bg-fuchsia-600/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-70 animate-pulse-slow z-0" style={{ animationDelay: '2s' }}></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="text-3xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white uppercase mb-2">
@@ -1052,7 +1138,7 @@ export default function HomeView({
                         {Array.from({ length: hotel.rating || 5 }).map((_, i) => (
                           <span key={i} className="text-amber-400">★</span>
                         ))} 
-                        <span className="ml-2 rtl:mr-2 rtl:ml-0">{translate('LUXURY RESORT')}</span>
+                        <span className="ms-2 rtl:me-2 rtl:ms-0">{translate('LUXURY RESORT')}</span>
                       </p>
                     </div>
                   </div>
@@ -1069,13 +1155,13 @@ export default function HomeView({
               <>
                 <button 
                   onClick={(e) => { e.stopPropagation(); setCurrentHotelIndex((prev) => (prev - 1 + hotels.length) % hotels.length); }} 
-                  className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-slate-950/80 hover:bg-[#0091EA] border border-sky-400/30 text-white rounded-full flex items-center justify-center z-20 backdrop-blur-md transition-all group/arrow shadow-lg"
+                  className="absolute start-4 md:start-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-slate-950/80 hover:bg-[#0091EA] border border-sky-400/30 text-white rounded-full flex items-center justify-center z-20 backdrop-blur-md transition-all group/arrow shadow-lg"
                 >
                   <ChevronLeft className="w-6 h-6 transition-transform group-hover/arrow:-translate-x-0.5" />
                 </button>
                 <button 
                   onClick={(e) => { e.stopPropagation(); setCurrentHotelIndex((prev) => (prev + 1) % hotels.length); }} 
-                  className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-slate-950/80 hover:bg-[#0091EA] border border-sky-400/30 text-white rounded-full flex items-center justify-center z-20 backdrop-blur-md transition-all group/arrow shadow-lg"
+                  className="absolute end-4 md:end-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-slate-950/80 hover:bg-[#0091EA] border border-sky-400/30 text-white rounded-full flex items-center justify-center z-20 backdrop-blur-md transition-all group/arrow shadow-lg"
                 >
                   <ChevronRight className="w-6 h-6 transition-transform group-hover/arrow:translate-x-0.5" />
                 </button>
@@ -1083,7 +1169,7 @@ export default function HomeView({
             )}
 
             {/* Bottom button and pagination */}
-            <div className="absolute bottom-6 md:bottom-10 left-0 right-0 flex flex-col items-center gap-6 z-20">
+            <div className="absolute bottom-6 md:bottom-10 start-0 end-0 flex flex-col items-center gap-6 z-20">
               <button 
                 onClick={() => {
                   if (hotels.length > 0) {
@@ -1116,8 +1202,8 @@ export default function HomeView({
       <section id="holiday-packages" className="py-20 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white relative overflow-hidden transition-colors duration-500">
         
         {/* Background ambient lighting */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#0091EA]/10 rounded-full blur-3xl pointer-events-none animate-pulse-slow" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#0091EA]/5 dark:bg-slate-800/20 rounded-full blur-3xl pointer-events-none animate-pulse-slow" />
+        <div className="absolute top-0 end-0 w-96 h-96 bg-[#0091EA]/10 rounded-full blur-3xl pointer-events-none animate-pulse-slow" />
+        <div className="absolute bottom-0 start-0 w-96 h-96 bg-[#0091EA]/5 dark:bg-slate-800/20 rounded-full blur-3xl pointer-events-none animate-pulse-slow" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
@@ -1158,7 +1244,7 @@ export default function HomeView({
                         onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800'; }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
-                      <div className="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-sky-400/30 flex items-center gap-1.5 shadow-md">
+                      <div className="absolute top-3 start-3 bg-slate-950/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-sky-400/30 flex items-center gap-1.5 shadow-md">
                         <MapPin className="w-3 h-3 text-[#0091EA]" />
                         <span className="text-[9px] font-black uppercase tracking-widest text-white">{translate('Sri Lanka')}</span>
                       </div>
@@ -1222,7 +1308,7 @@ export default function HomeView({
           
           {/* Left Side: Info Block */}
           <div className="w-full lg:w-1/2 bg-gradient-to-br from-slate-950 via-sky-950 to-slate-900 text-white flex flex-col justify-center px-8 py-14 md:px-16 md:py-20 text-start relative overflow-hidden group">
-            <div className="absolute top-4 left-4 text-sky-500/20 transition-transform duration-1000 group-hover:rotate-180 group-hover:scale-110">
+            <div className="absolute top-4 start-4 text-sky-500/20 transition-transform duration-1000 group-hover:rotate-180 group-hover:scale-110">
               <Compass className="w-48 h-48 animate-spin-slow" />
             </div>
             <div className="relative z-10">

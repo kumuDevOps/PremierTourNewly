@@ -457,13 +457,21 @@ export default function ToursView({
   }, [searchQuery, selectedCategory, maxPrice]);
 
   const filteredTours = tours.filter((tour) => {
-    const q = searchQuery.toLowerCase();
-    const matchesSearch = 
-      (tour.title && tour.title.toLowerCase().includes(q)) || 
-      (tour.category && tour.category.toLowerCase().includes(q)) ||
-      (tour.description && tour.description.toLowerCase().includes(q)) ||
-      (tour.location && tour.location.toLowerCase().includes(q));
-    return matchesSearch;
+    const q = searchQuery.toLowerCase().trim();
+    if (!q) return true;
+    const rawTitle = tour.title?.toLowerCase() || '';
+    const transTitle = translate(tour.title).toLowerCase();
+    const rawCat = tour.category?.toLowerCase() || '';
+    const transCat = translate(tour.category).toLowerCase();
+    const rawDesc = tour.description?.toLowerCase() || '';
+    const transDesc = translate(tour.description).toLowerCase();
+    const rawLoc = tour.location?.toLowerCase() || '';
+    const transLoc = translate(tour.location).toLowerCase();
+
+    return rawTitle.includes(q) || transTitle.includes(q) ||
+           rawCat.includes(q) || transCat.includes(q) ||
+           rawDesc.includes(q) || transDesc.includes(q) ||
+           rawLoc.includes(q) || transLoc.includes(q);
   });
 
   const visibleTours = filteredTours.slice(0, visibleCount);
@@ -474,19 +482,6 @@ export default function ToursView({
       {activeTour ? (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-6">
           
-          {/* Visual Progress Bar Component */}
-          <BookingProgressBar
-            currentStep={bookingSuccess ? 4 : showConfirmModal ? 3 : 2}
-            type="tour"
-            onStepClick={(stepNum) => {
-              if (stepNum === 1) {
-                setActiveTour(null);
-                setShowConfirmModal(false);
-                setBookingSuccess(false);
-              }
-            }}
-          />
-
           {/* Back button */}
           <button
             onClick={() => {
@@ -532,7 +527,7 @@ export default function ToursView({
                           onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.onerror = null; e.currentTarget.src = 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=1200'; }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent" />
-                        <div className="absolute bottom-6 left-6 right-6">
+                        <div className="absolute bottom-6 start-6 end-6">
                           <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-gradient-to-r from-[#0091EA] via-sky-500 to-cyan-400 text-white text-[10px] uppercase font-black tracking-widest rounded-full mb-3 shadow-lg shadow-sky-500/30 animate-light-blue-pulse">
                             <Compass className="w-3.5 h-3.5" />
                             {translate(activeTour.category)}
@@ -676,12 +671,12 @@ export default function ToursView({
                   </span>
                 </h3>
                 
-                <div className="space-y-8 relative before:absolute before:left-4 before:top-2 before:bottom-2 before:w-1 before:bg-gradient-to-b before:from-[#0091EA] before:via-sky-400 before:to-cyan-400 before:rounded-full">
+                <div className="space-y-8 relative before:absolute before:start-4 before:top-2 before:bottom-2 before:w-1 before:bg-gradient-to-b before:from-[#0091EA] before:via-sky-400 before:to-cyan-400 before:rounded-full">
                   {(() => {
                     try {
                       const days: ItineraryDay[] = JSON.parse(activeTour.itinerary);
                       return days.map((day, idx) => (
-                        <div key={`itinerary-day-${day.day}-${idx}`} id={`itinerary-day-${day.day}-${idx}`} className="relative pl-12 text-start group">
+                        <div key={`itinerary-day-${day.day}-${idx}`} id={`itinerary-day-${day.day}-${idx}`} className="relative ps-12 text-start group">
                           {/* Circle Timeline indicator */}
                           <div className="absolute start-0 top-0.5 w-8 h-8 rounded-full bg-gradient-to-tr from-[#0091EA] to-cyan-400 border-2 border-white dark:border-slate-900 flex items-center justify-center text-xs font-black text-white shadow-md shadow-sky-500/30 group-hover:scale-125 transition-all duration-300 z-10">
                             {day.day}
@@ -757,8 +752,8 @@ export default function ToursView({
                 className="relative bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 p-6 sm:p-10 shadow-xl shadow-sky-500/10 space-y-8 overflow-hidden animate-blue-glow"
               >
                 {/* Decorative background ambient glows */}
-                <div className="absolute -top-16 -right-16 w-48 h-48 bg-sky-400/15 dark:bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-cyan-400/15 dark:bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div className="absolute -top-16 -end-16 w-48 h-48 bg-sky-400/15 dark:bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div className="absolute -bottom-16 -start-16 w-48 h-48 bg-cyan-400/15 dark:bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-sky-100 dark:border-sky-900/50 pb-6 relative z-10">
                   <div>
@@ -895,7 +890,7 @@ export default function ToursView({
                               />
                             </motion.button>
                           ))}
-                          <span className="text-xs font-black text-sky-700 dark:text-sky-300 uppercase tracking-widest ml-2 bg-gradient-to-r from-sky-100 to-cyan-100 dark:from-sky-950 dark:to-cyan-950 px-3 py-1 rounded-xl border border-sky-200/60 dark:border-sky-800">
+                          <span className="text-xs font-black text-sky-700 dark:text-sky-300 uppercase tracking-widest ms-2 bg-gradient-to-r from-sky-100 to-cyan-100 dark:from-sky-950 dark:to-cyan-950 px-3 py-1 rounded-xl border border-sky-200/60 dark:border-sky-800">
                             {newRating === 5 ? translate('Excellent') :
                              newRating === 4 ? translate('Very Good') :
                              newRating === 3 ? translate('Average') :
@@ -1148,7 +1143,7 @@ export default function ToursView({
 
               {/* Assistance Card */}
               <div className="relative bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 text-white p-8 rounded-[32px] border-2 border-sky-500/30 shadow-xl shadow-sky-950/50 overflow-hidden">
-                <div className="absolute -top-10 -right-10 w-32 h-32 bg-sky-400/20 rounded-full blur-2xl pointer-events-none"></div>
+                <div className="absolute -top-10 -end-10 w-32 h-32 bg-sky-400/20 rounded-full blur-2xl pointer-events-none"></div>
                 <h4 className="font-black text-lg mb-2 text-white flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-sky-400" />
                   {translate('Need Group Booking?')}
@@ -1174,8 +1169,8 @@ export default function ToursView({
               </div>
               
               {/* Ambient Glows */}
-              <div className="absolute top-0 right-1/4 w-96 h-96 bg-sky-400/20 rounded-full blur-3xl pointer-events-none z-0" />
-              <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none z-0" />
+              <div className="absolute top-0 end-1/4 w-96 h-96 bg-sky-400/20 rounded-full blur-3xl pointer-events-none z-0" />
+              <div className="absolute bottom-0 start-1/4 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none z-0" />
 
               <div className="relative z-10 text-center px-4 max-w-3xl mx-auto space-y-3">
                 <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#0091EA] via-sky-500 to-cyan-400 text-white text-[10px] font-black uppercase tracking-widest shadow-lg shadow-sky-500/30 animate-light-blue-pulse">
@@ -1236,13 +1231,13 @@ export default function ToursView({
                 <div className="w-full md:w-72">
                   <span className="text-[10px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-widest block mb-3">{translate('Search Tours')}</span>
                   <div className="relative">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0091EA]" />
+                    <Search className="absolute start-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0091EA]" />
                     <input
                       type="text"
                       placeholder={translate('Destination, title...')}
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pl-11 pr-4 py-3 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 focus:border-[#0091EA] rounded-2xl text-xs md:text-sm font-bold focus:outline-none transition-all text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 shadow-xs"
+                      className="w-full ps-11 pe-4 py-3 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 focus:border-[#0091EA] rounded-2xl text-xs md:text-sm font-bold focus:outline-none transition-all text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 shadow-xs"
                     />
                   </div>
                 </div>
@@ -1360,14 +1355,14 @@ export default function ToursView({
                               e.stopPropagation();
                               addToWishlist(tour);
                             }}
-                            className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-slate-950/80 backdrop-blur-md border border-sky-400/30 flex items-center justify-center text-white shadow-lg hover:bg-[#0091EA] hover:text-white transition-all cursor-pointer group/wishlist"
+                            className="absolute top-4 end-4 z-10 w-9 h-9 rounded-full bg-slate-950/80 backdrop-blur-md border border-sky-400/30 flex items-center justify-center text-white shadow-lg hover:bg-[#0091EA] hover:text-white transition-all cursor-pointer group/wishlist"
                             aria-label={translate(`Add to wishlist`)}
                           >
                             <Heart className="w-4 h-4 group-hover/wishlist:fill-current" />
                           </button>
 
                           {/* Realtime Availability Badge Top Right - shifted down to avoid wishlist button */}
-                          <div className="absolute top-15 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md border border-sky-400/30 text-white shadow-lg">
+                          <div className="absolute top-15 end-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md border border-sky-400/30 text-white shadow-lg">
                             <span className={`w-2 h-2 rounded-full ${
                               isSoldOut ? 'bg-rose-500' : isLimited ? 'bg-amber-400 animate-ping' : 'bg-emerald-400 animate-pulse'
                             }`} />
@@ -1379,15 +1374,15 @@ export default function ToursView({
                           </div>
 
                           {tour.description.includes('Locations:') && (
-                            <div className="absolute top-4 left-4 bg-slate-950/80 backdrop-blur-md border border-sky-400/30 px-3 py-1.5 rounded-full flex items-center gap-1.5 max-w-[50%] shadow-sm">
+                            <div className="absolute top-4 start-4 bg-slate-950/80 backdrop-blur-md border border-sky-400/30 px-3 py-1.5 rounded-full flex items-center gap-1.5 max-w-[50%] shadow-sm">
                               <MapPin className="w-3.5 h-3.5 text-[#0091EA] flex-shrink-0" />
                               <span className="text-[10px] font-black uppercase tracking-widest text-white truncate">
-                                {translate(tour.description)}
+                                {translate(tour.description.split('Locations:')[1].trim())}
                               </span>
                             </div>
                           )}
                           
-                          <div className="absolute bottom-4 left-4 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-xl border border-sky-400/30">
+                          <div className="absolute bottom-4 start-4 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-xl border border-sky-400/30">
                             <span className="text-[10px] uppercase tracking-widest font-black text-white">{translate(tour.category)}</span>
                           </div>
                         </div>
@@ -1524,7 +1519,7 @@ export default function ToursView({
               <button
                 type="button"
                 onClick={() => setLightboxIndex((prev) => (prev > 0 ? prev - 1 : gallery.length - 1))}
-                className="absolute left-2 md:left-6 z-20 p-3 bg-black/60 hover:bg-[#0091EA] text-white rounded-full transition-all backdrop-blur-md shadow-2xl cursor-pointer"
+                className="absolute start-2 md:start-6 z-20 p-3 bg-black/60 hover:bg-[#0091EA] text-white rounded-full transition-all backdrop-blur-md shadow-2xl cursor-pointer"
                 title={translate(`Previous Photo`)}
               >
                 <ChevronLeft className="w-6 h-6" />
@@ -1542,7 +1537,7 @@ export default function ToursView({
               <button
                 type="button"
                 onClick={() => setLightboxIndex((prev) => (prev < gallery.length - 1 ? prev + 1 : 0))}
-                className="absolute right-2 md:right-6 z-20 p-3 bg-black/60 hover:bg-[#0091EA] text-white rounded-full transition-all backdrop-blur-md shadow-2xl cursor-pointer"
+                className="absolute end-2 md:end-6 z-20 p-3 bg-black/60 hover:bg-[#0091EA] text-white rounded-full transition-all backdrop-blur-md shadow-2xl cursor-pointer"
                 title={translate(`Next Photo`)}
               >
                 <ChevronRight className="w-6 h-6" />

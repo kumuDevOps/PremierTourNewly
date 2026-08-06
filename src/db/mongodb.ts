@@ -132,7 +132,7 @@ export async function registerMongoUser(data: {
   const cleanName = data.fullName.trim();
   const cleanPhone = (data.phone || '').trim();
   // Strictly enforce that only admin@gmail.com gets admin role
-  const role: string = cleanEmail === 'admin@gmail.com' ? 'admin' : (data.role || 'customer');
+  const role: 'customer' | 'admin' = cleanEmail === 'admin@gmail.com' ? 'admin' : (data.role || 'customer');
   const uid = `usr_${Math.random().toString(36).substring(2, 11)}_${Date.now()}`;
 
   const connected = await connectMongoDB();

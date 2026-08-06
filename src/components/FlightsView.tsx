@@ -190,8 +190,8 @@ export default function FlightsView({
         </div>
 
         {/* Ambient Glows */}
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-sky-400/20 rounded-full blur-3xl pointer-events-none z-0" />
-        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none z-0" />
+        <div className="absolute top-0 end-1/4 w-96 h-96 bg-sky-400/20 rounded-full blur-3xl pointer-events-none z-0" />
+        <div className="absolute bottom-0 start-1/4 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none z-0" />
         
         <div className="relative z-10 space-y-3 max-w-2xl mx-auto">
           <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#0091EA] via-sky-500 to-cyan-400 text-white text-[10px] font-black uppercase tracking-widest shadow-lg shadow-sky-500/30 animate-light-blue-pulse">
@@ -209,18 +209,6 @@ export default function FlightsView({
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-6">
         
-        {/* Visual Progress Bar Component */}
-        <BookingProgressBar
-          currentStep={bookingConfirmation ? 4 : selectedFlight ? 2 : 1}
-          type="flight"
-          onStepClick={(stepNum) => {
-            if (stepNum === 1) {
-              setSelectedFlight(null);
-              setBookingConfirmation(null);
-            }
-          }}
-        />
-
         {/* Dynamic Booking confirmation view */}
         {bookingConfirmation ? (
           <div className="max-w-xl mx-auto bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-800 shadow-xl overflow-hidden p-6 text-center space-y-6">
@@ -296,13 +284,13 @@ export default function FlightsView({
                   <div>
                     <label className="text-[10px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-wider">{translate('From City/Airport')}</label>
                     <div className="relative mt-1">
-                      <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0091EA]" />
+                      <MapPin className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0091EA]" />
                       <input
                         type="text"
                         placeholder={translate('e.g. London (LHR)')}
                         value={fromCity}
                         onChange={(e) => setFromCity(e.target.value)}
-                        className="w-full pl-9 pr-4 py-2.5 border-2 border-sky-200 dark:border-sky-800/80 bg-white dark:bg-slate-950 rounded-xl focus:ring-2 focus:ring-[#0091EA] focus:outline-none text-xs text-slate-800 dark:text-slate-200 font-medium"
+                        className="w-full ps-9 pe-4 py-2.5 border-2 border-sky-200 dark:border-sky-800/80 bg-white dark:bg-slate-950 rounded-xl focus:ring-2 focus:ring-[#0091EA] focus:outline-none text-xs text-slate-800 dark:text-slate-200 font-medium"
                       />
                     </div>
                   </div>
@@ -311,13 +299,13 @@ export default function FlightsView({
                   <div>
                     <label className="text-[10px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-wider">{translate('To City/Airport')}</label>
                     <div className="relative mt-1">
-                      <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0091EA]" />
+                      <MapPin className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0091EA]" />
                       <input
                         type="text"
                         placeholder={translate('e.g. Maldives (MLE)')}
                         value={toCity}
                         onChange={(e) => setToCity(e.target.value)}
-                        className="w-full pl-9 pr-4 py-2.5 border-2 border-sky-200 dark:border-sky-800/80 bg-white dark:bg-slate-950 rounded-xl focus:ring-2 focus:ring-[#0091EA] focus:outline-none text-xs text-slate-800 dark:text-slate-200 font-medium"
+                        className="w-full ps-9 pe-4 py-2.5 border-2 border-sky-200 dark:border-sky-800/80 bg-white dark:bg-slate-950 rounded-xl focus:ring-2 focus:ring-[#0091EA] focus:outline-none text-xs text-slate-800 dark:text-slate-200 font-medium"
                       />
                     </div>
                   </div>
@@ -412,13 +400,13 @@ export default function FlightsView({
                   {/* Selected Flight Details Summary */}
                   <div className="p-4 bg-slate-50 dark:bg-slate-950 border border-slate-150 dark:border-slate-800 rounded-xl space-y-3 mb-6">
                     <div className="flex justify-between items-center">
-                      <span className="px-2 py-0.5 bg-[#0091EA] text-white text-[9px] font-bold rounded">{selectedFlight.airline}</span>
+                      <span className="px-2 py-0.5 bg-[#0091EA] text-white text-[9px] font-bold rounded">{translate(selectedFlight.airline)}</span>
                       <span className="text-xs font-bold text-slate-800 dark:text-white">{formatPrice(selectedFlight.price * passengersCount)} {translate('Total')}</span>
                     </div>
                     <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-semibold pt-1">
-                      <span>{selectedFlight.fromCity}</span>
+                      <span>{translate(selectedFlight.fromCity)}</span>
                       <ArrowRight className="w-3.5 h-3.5" />
-                      <span>{selectedFlight.toCity}</span>
+                      <span>{translate(selectedFlight.toCity)}</span>
                     </div>
                     <p className="text-[10px] text-slate-400 font-medium">{translate('Schedule:')} {selectedFlight.departureTime} → {selectedFlight.arrivalTime} • {selectedFlight.stops} {translate('Stops')}</p>
                   </div>
@@ -510,8 +498,8 @@ export default function FlightsView({
                               <Plane className="w-6 h-6" />
                             </div>
                             <div>
-                              <h4 className="text-base font-black text-slate-900 dark:text-white group-hover:text-[#0091EA] transition-colors">{flight.airline}</h4>
-                              <p className="text-[10px] text-sky-700 dark:text-sky-300 font-extrabold mt-0.5 uppercase tracking-wider">{flight.fromCity} - {flight.toCity}</p>
+                              <h4 className="text-base font-black text-slate-900 dark:text-white group-hover:text-[#0091EA] transition-colors">{translate(flight.airline)}</h4>
+                              <p className="text-[10px] text-sky-700 dark:text-sky-300 font-extrabold mt-0.5 uppercase tracking-wider">{translate(flight.fromCity)} - {translate(flight.toCity)}</p>
                             </div>
                           </div>
                           <button 

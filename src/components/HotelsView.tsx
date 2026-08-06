@@ -420,7 +420,7 @@ export default function HotelsView({
     }
   };
 
-  const cardVariants = {
+  const cardVariants: any = {
     hidden: { opacity: 0, y: 25, scale: 0.98 },
     show: { 
       opacity: 1, 
@@ -443,24 +443,11 @@ export default function HotelsView({
       className="min-h-screen bg-slate-50/50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 pb-20 relative overflow-hidden transition-colors"
     >
       {/* Decorative Blur Backgrounds */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-sky-200/20 rounded-full blur-3xl -translate-y-12 pointer-events-none" />
-      <div className="absolute top-[40vh] right-10 w-80 h-80 bg-[#0091EA]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 start-1/4 w-96 h-96 bg-sky-200/20 rounded-full blur-3xl -translate-y-12 pointer-events-none" />
+      <div className="absolute top-[40vh] end-10 w-80 h-80 bg-[#0091EA]/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 relative z-10">
         
-        {/* Visual Progress Bar Component */}
-        <div className="mb-8">
-          <BookingProgressBar
-            currentStep={bookingSuccess ? 4 : showConfirmModal ? 3 : selectedHotel ? 2 : 1}
-            type="hotel"
-            onStepClick={(stepNum) => {
-              if (stepNum === 1) {
-                handleSelectHotel(null);
-              }
-            }}
-          />
-        </div>
-
         {selectedHotel ? (
           /* ========================================================= */
           /* FULL PAGE HOTEL DETAIL & BOOKING VIEW (Matching 2nd image) */
@@ -511,8 +498,8 @@ export default function HotelsView({
               </div>
 
               {/* Ambient Glowing Orbs */}
-              <div className="absolute top-0 right-0 w-80 h-80 bg-sky-400/25 rounded-full blur-3xl pointer-events-none z-0" />
-              <div className="absolute bottom-0 left-0 w-80 h-80 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none z-0" />
+              <div className="absolute top-0 end-0 w-80 h-80 bg-sky-400/25 rounded-full blur-3xl pointer-events-none z-0" />
+              <div className="absolute bottom-0 start-0 w-80 h-80 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none z-0" />
 
               <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
@@ -525,7 +512,7 @@ export default function HotelsView({
                       {Array.from({ length: selectedHotel.starRating || 5 }).map((_, i) => (
                         <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                       ))}
-                      <span className="text-[10px] font-black text-sky-200 ml-1">({selectedHotel.starRating || 5}.0)</span>
+                      <span className="text-[10px] font-black text-sky-200 ms-1">({selectedHotel.starRating || 5}.0)</span>
                     </div>
                   </div>
 
@@ -551,6 +538,18 @@ export default function HotelsView({
               </div>
             </div>
 
+            <div className="mb-8">
+          <BookingProgressBar
+            currentStep={bookingSuccess ? 4 : showConfirmModal ? 3 : selectedHotel ? 2 : 1}
+            type="hotel"
+            onStepClick={(stepNum) => {
+              if (stepNum === 1) {
+                handleSelectHotel(null);
+              }
+            }}
+          />
+        </div>
+
             {/* Main 2-Column Content Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
               
@@ -574,7 +573,7 @@ export default function HotelsView({
                             referrerPolicy="no-referrer"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
-                          <button className="absolute bottom-4 right-4 px-3.5 py-2 rounded-xl bg-black/60 backdrop-blur-md text-white text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-md hover:bg-black/80 transition-all">
+                          <button className="absolute bottom-4 end-4 px-3.5 py-2 rounded-xl bg-black/60 backdrop-blur-md text-white text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-md hover:bg-black/80 transition-all">
                             <Maximize2 className="w-3.5 h-3.5" />
                             <span>{translate('View Full Gallery')} ({gallery.length})</span>
                           </button>
@@ -603,7 +602,7 @@ export default function HotelsView({
                     <span className="text-[10px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-widest block mb-1">{translate('Star Rating')}</span>
                     <p className="text-sm md:text-base font-black text-slate-900 dark:text-white flex items-center justify-center gap-1">
                       <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                      <span>{selectedHotel.starRating || 5}-Star Luxury</span>
+                      <span>{selectedHotel.starRating || 5} {translate('Star Luxury')}</span>
                     </p>
                   </div>
                   <div>
@@ -675,7 +674,7 @@ export default function HotelsView({
                         >
                           <div className="w-full sm:w-48 h-32 shrink-0 rounded-xl overflow-hidden relative shadow-sm">
                             <img src={pkg.img} alt={pkg.title} className="w-full h-full object-cover" />
-                            <div className="absolute top-2 left-2 px-2.5 py-1 rounded-full bg-slate-950/80 backdrop-blur-md text-white text-[9px] font-black uppercase tracking-wider">
+                            <div className="absolute top-2 start-2 px-2.5 py-1 rounded-full bg-slate-950/80 backdrop-blur-md text-white text-[9px] font-black uppercase tracking-wider">
                               {isSelected ? translate('Selected Option') : translate('Room Option')}
                             </div>
                           </div>
@@ -742,8 +741,8 @@ export default function HotelsView({
                   className="relative bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 p-6 sm:p-10 shadow-xl shadow-sky-500/10 space-y-8 overflow-hidden animate-blue-glow mt-8"
                 >
                   {/* Decorative background ambient glows */}
-                  <div className="absolute -top-16 -right-16 w-48 h-48 bg-sky-400/15 dark:bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                  <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-cyan-400/15 dark:bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                  <div className="absolute -top-16 -end-16 w-48 h-48 bg-sky-400/15 dark:bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                  <div className="absolute -bottom-16 -start-16 w-48 h-48 bg-cyan-400/15 dark:bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-sky-100 dark:border-sky-900/50 pb-6 relative z-10">
                     <div>
@@ -880,7 +879,7 @@ export default function HotelsView({
                                 />
                               </motion.button>
                             ))}
-                            <span className="text-xs font-black text-sky-700 dark:text-sky-300 uppercase tracking-widest ml-2 bg-gradient-to-r from-sky-100 to-cyan-100 dark:from-sky-950 dark:to-cyan-950 px-3 py-1 rounded-xl border border-sky-200/60 dark:border-sky-800">
+                            <span className="text-xs font-black text-sky-700 dark:text-sky-300 uppercase tracking-widest ms-2 bg-gradient-to-r from-sky-100 to-cyan-100 dark:from-sky-950 dark:to-cyan-950 px-3 py-1 rounded-xl border border-sky-200/60 dark:border-sky-800">
                               {newRating === 5 ? translate('EXCELLENT') :
                                newRating === 4 ? translate('VERY GOOD') :
                                newRating === 3 ? translate('AVERAGE') :
@@ -1181,7 +1180,7 @@ export default function HotelsView({
                 <div className="fixed inset-0 z-[99999] bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
                   <button 
                     onClick={() => setLightboxOpen(false)}
-                    className="absolute top-6 right-6 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all cursor-pointer z-10"
+                    className="absolute top-6 end-6 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all cursor-pointer z-10"
                   >
                     <X className="w-6 h-6" />
                   </button>
@@ -1220,8 +1219,8 @@ export default function HotelsView({
               </div>
 
               {/* Ambient Glows */}
-              <div className="absolute top-0 right-0 w-96 h-96 bg-sky-400/20 rounded-full blur-3xl pointer-events-none z-0" />
-              <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none z-0" />
+              <div className="absolute top-0 end-0 w-96 h-96 bg-sky-400/20 rounded-full blur-3xl pointer-events-none z-0" />
+              <div className="absolute bottom-0 start-0 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none z-0" />
 
               <div className="relative z-10 max-w-3xl">
                 <motion.span 
@@ -1253,6 +1252,18 @@ export default function HotelsView({
               </div>
             </motion.div>
 
+            <div className="mb-8">
+          <BookingProgressBar
+            currentStep={bookingSuccess ? 4 : showConfirmModal ? 3 : selectedHotel ? 2 : 1}
+            type="hotel"
+            onStepClick={(stepNum) => {
+              if (stepNum === 1) {
+                handleSelectHotel(null);
+              }
+            }}
+          />
+        </div>
+
             {/* Controls, Quick Filters and Admin actions */}
             <div className="bg-gradient-to-br from-white via-sky-50/40 to-slate-50 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-5 md:p-6 rounded-[32px] border-2 border-sky-200/80 dark:border-sky-800/60 shadow-xl shadow-sky-500/10 animate-blue-glow mb-10">
               
@@ -1260,18 +1271,18 @@ export default function HotelsView({
                 
                 {/* Search Input Box */}
                 <div className="relative w-full lg:max-w-md shrink-0">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-[#0091EA]" />
+                  <Search className="absolute start-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-[#0091EA]" />
                   <input 
                     type="text"
                     placeholder={translate('Search hotels by location, country or property...')}
                     value={searchLocation}
                     onChange={(e) => setSearchLocation(e.target.value)}
-                    className="w-full pl-11 pr-10 py-3.5 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 focus:border-[#0091EA] rounded-2xl text-xs font-bold text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none transition-all shadow-xs"
+                    className="w-full ps-11 pe-10 py-3.5 bg-white dark:bg-slate-950 border-2 border-sky-200/80 dark:border-sky-800/80 focus:border-[#0091EA] rounded-2xl text-xs font-bold text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none transition-all shadow-xs"
                   />
                   {searchLocation && (
                     <button 
                       onClick={() => setSearchLocation('')}
-                      className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-all cursor-pointer"
+                      className="absolute end-3.5 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-all cursor-pointer"
                     >
                       <X className="w-3.5 h-3.5" />
                     </button>
@@ -1328,7 +1339,7 @@ export default function HotelsView({
               <div className="flex flex-col items-center justify-center py-28 bg-white/40 dark:bg-slate-900/40 rounded-3xl border border-slate-100/60 dark:border-slate-800/60 backdrop-blur-md">
                 <div className="relative">
                   <div className="w-12 h-12 border-4 border-slate-200/60 border-t-[#0091EA] rounded-full animate-spin" />
-                  <Building className="w-5 h-5 text-[#0091EA] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
+                  <Building className="w-5 h-5 text-[#0091EA] absolute top-1/2 start-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
                 </div>
                 <p className="text-xs text-slate-400 font-extrabold mt-5 uppercase tracking-widest">{translate('Loading Premium Collection...')}</p>
               </div>
@@ -1387,16 +1398,18 @@ export default function HotelsView({
                 animate="show"
                 className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
               >
-                { (searchLocation ? HOTEL_PACKAGES.map((pkg, idx) => ({
-                    id: pkg.title,
-                    name: pkg.title,
-                    location: 'Package Special',
-                    price: 0,
-                    starRating: 5,
-                    description: pkg.desc,
-                    amenities: '[]',
-                    imageUrl: pkg.img
-                  })) : hotels).map((hotel) => {
+                { (searchLocation ? hotels.filter((hotel) => {
+                    const q = searchLocation.toLowerCase().trim();
+                    const rawName = hotel.name?.toLowerCase() || '';
+                    const transName = translate(hotel.name).toLowerCase();
+                    const rawLoc = hotel.location?.toLowerCase() || '';
+                    const transLoc = translate(hotel.location).toLowerCase();
+                    const rawDesc = hotel.description?.toLowerCase() || '';
+                    const transDesc = translate(hotel.description).toLowerCase();
+                    return rawName.includes(q) || transName.includes(q) ||
+                           rawLoc.includes(q) || transLoc.includes(q) ||
+                           rawDesc.includes(q) || transDesc.includes(q);
+                  }) : hotels).map((hotel) => {
                   let amenitiesList: string[] = [];
                   if (hotel.amenities) {
                     if (Array.isArray(hotel.amenities)) {
@@ -1437,7 +1450,7 @@ export default function HotelsView({
                     >
                       {/* Premium Tag for High Ratings */}
                       {(hotel.starRating || 5) >= 5 && (
-                        <div className="absolute top-4 right-4 z-20 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-400 text-white text-[9px] font-black uppercase tracking-wider shadow-lg shadow-amber-500/30 flex items-center gap-1 select-none animate-pulse">
+                        <div className="absolute top-4 end-4 z-20 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-400 text-white text-[9px] font-black uppercase tracking-wider shadow-lg shadow-amber-500/30 flex items-center gap-1 select-none animate-pulse">
                           <Sparkles className="w-3 h-3 fill-white text-white" />
                           <span>{translate('Elite Tier')}</span>
                         </div>
@@ -1454,7 +1467,7 @@ export default function HotelsView({
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-90" />
                         
-                        <div className="absolute top-4 left-4 px-3 py-1.5 rounded-full bg-slate-950/70 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-md border border-sky-400/30">
+                        <div className="absolute top-4 start-4 px-3 py-1.5 rounded-full bg-slate-950/70 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-md border border-sky-400/30">
                           <MapPin className="w-3.5 h-3.5 text-[#0091EA]" />
                           <span>{translate(hotel.location)}</span>
                         </div>
@@ -1462,7 +1475,7 @@ export default function HotelsView({
                         {/* Wishlist Heart Button */}
                         <button
                           onClick={(e) => toggleFavorite(hotel, e)}
-                          className="absolute bottom-4 right-4 p-2.5 rounded-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-md text-slate-400 hover:text-rose-500 active:scale-90 transition-all cursor-pointer z-10"
+                          className="absolute bottom-4 end-4 p-2.5 rounded-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-md text-slate-400 hover:text-rose-500 active:scale-90 transition-all cursor-pointer z-10"
                           title={translate('Add to wishlist')}
                         >
                           <Heart className={`w-4 h-4 transition-colors ${isFav ? 'fill-rose-500 text-rose-500' : ''}`} />
@@ -1477,7 +1490,7 @@ export default function HotelsView({
                             {Array.from({ length: hotel.starRating || 5 }).map((_, i) => (
                               <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400 filter drop-shadow-[0_1px_1px_rgba(245,158,11,0.2)]" />
                             ))}
-                            <span className="text-[10px] text-sky-800 dark:text-sky-300 font-black ml-1">({hotel.starRating || 5}.0)</span>
+                            <span className="text-[10px] text-sky-800 dark:text-sky-300 font-black ms-1">({hotel.starRating || 5}.0)</span>
                           </div>
 
                           <h3 
@@ -1564,7 +1577,7 @@ export default function HotelsView({
               >
                 <button 
                   onClick={() => setShowAddForm(false)}
-                  className="absolute right-5 top-5 p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-350 transition-colors cursor-pointer"
+                  className="absolute end-5 top-5 p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-350 transition-colors cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -1663,7 +1676,7 @@ export default function HotelsView({
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-2">{t.amenities} offered</label>
+                    <label className="block text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-2">{t.amenities}</label>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                       {['Wi-Fi', 'Breakfast Included', 'Swimming Pool', 'Luxury Spa', 'Fitness Center', 'Beachfront'].map((amenity) => {
                         const selected = newHotelAmenities.includes(amenity);

@@ -213,8 +213,8 @@ export default function GuaranteesProtectionBar() {
     <section className="relative z-20 py-14 bg-gradient-to-b from-sky-50/90 via-blue-50/70 to-sky-100/90 dark:from-slate-950 dark:via-sky-950/40 dark:to-slate-900 border-t-2 border-b-2 border-sky-200/80 dark:border-sky-800/60 transition-colors duration-500 overflow-hidden">
       
       {/* Light Animated Blue Glow Orbs */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#0091EA]/15 rounded-full blur-3xl pointer-events-none animate-pulse" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none animate-pulse" />
+      <div className="absolute top-0 start-1/4 w-96 h-96 bg-[#0091EA]/15 rounded-full blur-3xl pointer-events-none animate-pulse" />
+      <div className="absolute bottom-0 end-1/4 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none animate-pulse" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-8">
         
@@ -275,12 +275,12 @@ export default function GuaranteesProtectionBar() {
                   <div className="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent dark:from-slate-900 dark:via-slate-900/40" />
 
                   {/* Icon Badge Top Left */}
-                  <div className={`absolute top-3 left-3 w-10 h-10 rounded-xl bg-gradient-to-br ${item.gradient} text-white flex items-center justify-center shadow-lg`}>
+                  <div className={`absolute top-3 start-3 w-10 h-10 rounded-xl bg-gradient-to-br ${item.gradient} text-white flex items-center justify-center shadow-lg`}>
                     <Icon className="w-5 h-5" />
                   </div>
 
                   {/* Badge Top Right */}
-                  <div className="absolute top-3 right-3 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider text-sky-900 dark:text-sky-200 border border-sky-300 dark:border-sky-400/30 shadow-sm">
+                  <div className="absolute top-3 end-3 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider text-sky-900 dark:text-sky-200 border border-sky-300 dark:border-sky-400/30 shadow-sm">
                     {translate(item.badge)}
                   </div>
                 </div>
@@ -322,7 +322,7 @@ export default function GuaranteesProtectionBar() {
             >
               <button
                 onClick={() => setActiveModal(null)}
-                className="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                className="absolute top-5 end-5 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-colors cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>

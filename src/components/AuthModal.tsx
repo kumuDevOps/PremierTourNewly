@@ -275,14 +275,14 @@ export default function AuthModal({ isOpen, onClose, currentUser, setCurrentUser
                 <div>
                   <label className="block text-xs font-bold text-gray-700 mb-1 uppercase tracking-wider">{translate('Your Email Address')}</label>
                   <div className="relative">
-                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Mail className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                     <input
                       type="email"
                       required
                       placeholder={translate('Enter the email you booked with')}
                       value={emailForBookings}
                       onChange={(e) => setEmailForBookings(e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0091EA] focus:border-transparent text-sm transition-all"
+                      className="w-full ps-10 pe-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0091EA] focus:border-transparent text-sm transition-all"
                     />
                   </div>
                 </div>
